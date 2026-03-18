@@ -222,10 +222,104 @@ const PLANS: Record<string, (action: NextAction) => ExecutionPlan> = {
       },
       {
         id: 'try-analysis',
-        label: 'Prova un\'analisi',
+        label: "Prova un'analisi",
         instruction: 'Tocca una raccomandazione per approfondire e capire come si applica.',
         icon: 'analytics',
         targetElementHint: '[data-type="recommendation"], .recommendation-card',
+      },
+    ],
+  }),
+
+  'da-view-analytics': (action) => ({
+    actionId: action.id,
+    actionLabel: action.label,
+    steps: [
+      {
+        id: 'navigate-copilot',
+        label: 'Apri il Copilot Docente',
+        instruction: 'Vai nella sezione Copilot Docente dove trovi la Dashboard AI.',
+        icon: 'auto_awesome',
+        targetView: 'copilot',
+        targetElementHint: '[data-view="copilot"], [aria-label*="Copilot"]',
+      },
+      {
+        id: 'open-dashboard',
+        label: 'Apri la Dashboard AI',
+        instruction: 'Seleziona il tab "Dashboard" per visualizzare trend e performance della classe.',
+        icon: 'dashboard',
+        targetElementHint: '[aria-label*="Dashboard"], [data-tab="dashboard"]',
+      },
+      {
+        id: 'read-insights',
+        label: 'Leggi gli insight',
+        instruction: 'Scorri i grafici di progressione e identifica eventuali studenti a rischio.',
+        icon: 'analytics',
+        targetElementHint: '[aria-label*="Insight"], .insight-card',
+      },
+    ],
+  }),
+
+  'da-link-book': (action) => ({
+    actionId: action.id,
+    actionLabel: action.label,
+    steps: [
+      {
+        id: 'navigate-settings',
+        label: 'Apri le Impostazioni',
+        instruction: 'Vai nelle Impostazioni per collegare il tuo libro di testo adottato.',
+        icon: 'settings',
+        targetView: 'settings',
+        targetElementHint: '[data-view="settings"], [aria-label*="Impostazioni"]',
+      },
+      {
+        id: 'find-book-section',
+        label: 'Cerca "Integrazioni libro"',
+        instruction: 'Trova la sezione "Libro di testo" o "Integrazioni didattiche" nella lista.',
+        icon: 'menu_book',
+        targetElementHint: '[aria-label*="Libro"], [data-section="book"]',
+      },
+      {
+        id: 'link-book-service',
+        label: 'Collega il servizio',
+        instruction: 'Inserisci il codice ISBN o il nome del libro adottato e salva.',
+        icon: 'link',
+        targetElementHint: 'input[name*="isbn"], button[aria-label*="Collega libro"]',
+      },
+    ],
+  }),
+
+  'da-enable-automation': (action) => ({
+    actionId: action.id,
+    actionLabel: action.label,
+    steps: [
+      {
+        id: 'navigate-copilot',
+        label: 'Apri il Copilot Docente',
+        instruction: 'Vai nella sezione Copilot Docente per configurare le automazioni AI.',
+        icon: 'auto_awesome',
+        targetView: 'copilot',
+        targetElementHint: '[data-view="copilot"], [aria-label*="Copilot"]',
+      },
+      {
+        id: 'open-spiegabilita',
+        label: 'Apri "Spiegabilità & Automazioni"',
+        instruction: 'Seleziona il tab "Spiegabilità" che contiene i controlli delle automazioni.',
+        icon: 'bolt',
+        targetElementHint: '[aria-label*="Spiegabilità"], [data-tab="spiegabilita"]',
+      },
+      {
+        id: 'enable-automation-toggle',
+        label: 'Attiva le automazioni',
+        instruction: "Attiva l'interruttore \"Suggerimenti automatici\" per ricevere insights proattivi.",
+        icon: 'toggle_on',
+        targetElementHint: '[aria-label*="Automazioni"], input[type="checkbox"][data-id="automation"]',
+      },
+      {
+        id: 'save-preferences',
+        label: 'Salva le preferenze',
+        instruction: 'Tocca "Salva" per applicare la configurazione.',
+        icon: 'check_circle',
+        targetElementHint: 'button[aria-label*="Salva"], button[type="submit"]',
       },
     ],
   }),

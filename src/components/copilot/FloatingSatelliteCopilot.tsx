@@ -33,6 +33,9 @@ import { useJourneyProgress } from '../../hooks/useJourneyProgress';
 import { useGuidedExecutionStore } from '../../stores/useGuidedExecutionStore';
 import { useIntegrationStore } from '../../stores/useIntegrationStore';
 import { buildExecutionPlan } from '../../cognition/guidedExecution';
+import { useAgentSuggestions } from '../../hooks/useAgentSuggestions';
+import type { AgentSuggestion } from '../../cognition/agents';
+import type { NextAction } from '../../cognition/decisionEngine/types';
 import GuidedStepOverlay from './GuidedStepOverlay';
 import MolecularActionTree from './MolecularActionTree';
 
@@ -113,6 +116,9 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
   // ── Decision Engine (read-only) ────────────────────────────────────────────
   const action       = useNextAction();
   const { level, progress, capabilityLevel, confidenceScore } = useJourneyProgress();
+
+  // ── Agent System (contextual suggestions) ────────────────────────────
+  const agentSuggestions = useAgentSuggestions();
 
   // ── Integration events (cross-surface: WhatsApp / Telegram) ───────────────
   const hasPendingEvents  = useIntegrationStore((s) => s.hasPendingEvents);
@@ -231,6 +237,24 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
     }
     setOpen(false);
   }, [action, onNavigate, startGuided]);
+
+  const handleAgentCta = useCallback((sug: AgentSuggestion) => {
+    const syntheticAction: NextAction = {
+      id:          sug.actionKey,
+      label:       sug.label,
+      description: sug.description,
+      targetView:  sug.targetView,
+      cta:         sug.label,
+      reason:      sug.reason,
+      icon:        sug.icon,
+    };
+    const plan = buildExecutionPlan(syntheticAction);
+    startGuided(plan);
+    if (plan.steps[0]?.targetView && onNavigate) {
+      onNavigate(plan.steps[0].targetView);
+    }
+    setOpen(false);
+  }, [onNavigate, startGuided]);
 
   // ── Derived display values ─────────────────────────────────────────────────
   const nextLevel   = NEXT_LEVEL_LABELS[level];
@@ -507,6 +531,43 @@ const FloatingSatelliteCopilot: React.FC<Props> = ({ onNavigate }) => {
                   )}
                 </Stack>
               </Box>
+
+              {/* ── Agent Suggestions (contextual, multi-domain) ──────────────── */}
+              {agentSuggestions.length > 0 && (
+                <>
+                  <Divider sx={{ borderColor: 'var(--md-sys-color-outline-variant)' }} />
+                  <Box>
+                    <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-2)', display: 'block' }}>
+                      Cosa puoi fare ora
+                    </Typography>
+                    <Stack gap="var(--md-sys-spacing-2)">
+                      {agentSuggestions.map((sug) => (
+                        <Button
+                          key={sug.id}
+                          size="small"
+                          variant="outlined"
+                          fullWidth
+                          startIcon={
+                            <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{ fontSize: 'var(--md-sys-icon-size-sm)' }}>
+                              {sug.icon}
+                            </Box>
+                          }
+                          onClick={() => handleAgentCta(sug)}
+                          aria-label={`${sug.label}: ${sug.description}`}
+                          sx={{
+                            borderRadius: 'var(--md-sys-shape-corner-full)',
+                            justifyContent: 'flex-start',
+                            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                            textAlign: 'left',
+                          }}
+                        >
+                          {sug.label}
+                        </Button>
+                      ))}
+                    </Stack>
+                  </Box>
+                </>
+              )}
 
               {/* ── Integration events (WhatsApp / Telegram actions) ──────── */}
               {pendingEvents.length > 0 && (
