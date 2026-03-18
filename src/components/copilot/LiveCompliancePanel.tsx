@@ -20,9 +20,10 @@ import Collapse       from '@mui/material/Collapse';
 import Tooltip        from '@mui/material/Tooltip';
 import Tabs           from '@mui/material/Tabs';
 import Tab            from '@mui/material/Tab';
-import M3Surface      from '../ui/M3Surface';
+import M3Surface       from '../ui/M3Surface';
 import { useComplianceRuntime } from '../../hooks/useComplianceRuntime';
-import AuditPAPanel   from './AuditPAPanel';
+import AuditPAPanel    from './AuditPAPanel';
+import GovernancePanel from './GovernancePanel';
 import type { ComplianceViolation, FrameworkScore, RemediationAction } from '../../self-compliance/runtime/types';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
@@ -263,7 +264,7 @@ const ViolationCard: React.FC<ViolationCardProps> = ({ violation, onRemediate })
 const LiveCompliancePanel: React.FC = () => {
   const { result, violations, liveScore, remediate } = useComplianceRuntime();
   const [violationsOpen, setViolationsOpen] = useState(true);
-  const [tab, setTab] = useState<0 | 1>(0);
+  const [tab, setTab] = useState<0 | 1 | 2>(0);
 
   const color          = scoreColor(liveScore, result.compliant);
   const statusLabel    = result.compliant ? 'Conforme' : violations.some(v => v.severity === 'critical') ? 'Critico' : 'Attenzione';
@@ -286,7 +287,7 @@ const LiveCompliancePanel: React.FC = () => {
         {/* ── Tab header ── */}
         <Tabs
           value={tab}
-          onChange={(_, v: 0 | 1) => setTab(v)}
+          onChange={(_, v: 0 | 1 | 2) => setTab(v)}
           sx={{
             minHeight: 36,
             borderBottom: '1px solid var(--md-sys-color-outline-variant)',
@@ -302,7 +303,8 @@ const LiveCompliancePanel: React.FC = () => {
           aria-label="Modalità pannello compliance"
         >
           <Tab label="Live Runtime" id="compliance-tab-0" aria-controls="compliance-tabpanel-0" />
-          <Tab label="Audit PA" id="compliance-tab-1" aria-controls="compliance-tabpanel-1" />
+          <Tab label="Audit PA"     id="compliance-tab-1" aria-controls="compliance-tabpanel-1" />
+          <Tab label="Governance"   id="compliance-tab-2" aria-controls="compliance-tabpanel-2" />
         </Tabs>
 
         {/* ── Tab 0: Live Runtime ── */}
@@ -426,6 +428,13 @@ const LiveCompliancePanel: React.FC = () => {
         {tab === 1 && (
           <Box role="tabpanel" id="compliance-tabpanel-1" aria-labelledby="compliance-tab-1">
             <AuditPAPanel />
+          </Box>
+        )}
+
+        {/* ── Tab 2: Governance ── */}
+        {tab === 2 && (
+          <Box role="tabpanel" id="compliance-tabpanel-2" aria-labelledby="compliance-tab-2">
+            <GovernancePanel />
           </Box>
         )}
 

@@ -22,10 +22,13 @@ import Button         from '@mui/material/Button';
 import Divider        from '@mui/material/Divider';
 import Collapse       from '@mui/material/Collapse';
 import Tooltip        from '@mui/material/Tooltip';
+import CircularProgress from '@mui/material/CircularProgress';
 import M3Surface      from '../ui/M3Surface';
-import { useAuditSimulator }    from '../../hooks/useAuditSimulator';
-import { useComplianceRuntime } from '../../hooks/useComplianceRuntime';
-import { useAuditHistory }       from '../../hooks/useAuditHistory';
+import { useAuditSimulator }          from '../../hooks/useAuditSimulator';
+import { useComplianceRuntime }       from '../../hooks/useComplianceRuntime';
+import { useAuditHistory }            from '../../hooks/useAuditHistory';
+import { useGovernanceStore }         from '../../self-compliance/governance';
+import { generateAuditVerbalePDF }    from '../../utils/generateAuditVerbalePDF';
 import type { AuditFinding, PALiveAuditReport } from '../../self-compliance/runtime/audit';
 import type { RemediationAction } from '../../self-compliance/runtime/types';
 
@@ -399,8 +402,19 @@ const AuditPAPanel: React.FC = () => {
   const { report, activeScenarioId, scenarios, setScenario, downloadJSON, runAudit } = useAuditSimulator();
   const { remediate } = useComplianceRuntime();
   const { drift, runs: historyRuns } = useAuditHistory();
+  const { config: governanceConfig } = useGovernanceStore();
   const [findingsOpen, setFindingsOpen] = useState(true);
   const [recsOpen,     setRecsOpen]     = useState(true);
+  const [pdfLoading,   setPdfLoading]   = useState(false);
+
+  const handleExportPDF = async () => {
+    setPdfLoading(true);
+    try {
+      await generateAuditVerbalePDF(report, governanceConfig);
+    } finally {
+      setPdfLoading(false);
+    }
+  };
 
   const sColor    = statusColor(report.complianceStatus);
   const rColor    = readinessColor(report.certificationReadiness);
@@ -747,12 +761,14 @@ const AuditPAPanel: React.FC = () => {
                 add_task
               </Box>
             }
-            sx={{
-              textTransform: 'none',
-              borderColor: 'var(--md-sys-color-tertiary)',
-              color: 'var(--md-sys-color-tertiary)',
-              '&:hover': { borderColor: 'var(--md-sys-color-tertiary)', bgcolor: 'transparent' },
-            }}
+            sx={
+              {
+                textTransform: 'none',
+                borderColor: 'var(--md-sys-color-tertiary)',
+                color: 'var(--md-sys-color-tertiary)',
+                '&:hover': { borderColor: 'var(--md-sys-color-tertiary)', bgcolor: 'transparent' },
+              }
+            }
             aria-label="Registra questo audit nella storia"
           >
             Registra Audit
@@ -774,6 +790,36 @@ const AuditPAPanel: React.FC = () => {
           >
             Esporta Verbale JSON
           </Button>
+        </Tooltip>
+        <Tooltip title="Genera verbale PA in PDF — include governance, findings, evidenze e blocco firme">
+          <Box component="span">
+            <Button
+              variant="contained"
+              size="small"
+              onClick={handleExportPDF}
+              disabled={pdfLoading}
+              startIcon={
+                pdfLoading
+                  ? <CircularProgress size={14} sx={{ color: 'white' }} aria-label="Generazione PDF in corso" />
+                  : <Box component="span" className="material-symbols-outlined" aria-hidden="true"
+                      sx={{ fontSize: 'var(--md-sys-icon-size-sm)' }}>
+                      picture_as_pdf
+                    </Box>
+              }
+              sx={
+                {
+                  textTransform: 'none',
+                  bgcolor: 'var(--md-sys-color-primary)',
+                  color: 'white',
+                  '&:hover': { bgcolor: 'var(--md-sys-color-primary)' },
+                  '&.Mui-disabled': { bgcolor: 'var(--md-sys-color-surface-variant)', color: 'var(--md-sys-color-on-surface-variant)' },
+                }
+              }
+              aria-label="Genera e scarica verbale PA in formato PDF"
+            >
+              {pdfLoading ? 'Generazione…' : 'Esporta PDF'}
+            </Button>
+          </Box>
         </Tooltip>
       </Stack>
 
