@@ -72,3 +72,9 @@ export type { DecisionMemoryState, ComplianceSlot } from './decisionMemory';
 export type { SystemSignal, SystemSignalType, SystemSignalSeverity } from './signals';
 export { canExecute }      from './policyEngine';
 export type { PolicyContext, PolicySubject } from './policyEngine';
+
+// ── v7: Copilot Brain API — public surface ────────────────────────────────────
+
+export { getCopilotPrimaryAction, getTopSecondaryActions, getCopilotSnapshot } from './copilotBrain';
+export type { SuggestedAction } from './copilotBrain';
+export { getNextActions } from './decisionEngine/getNextAction';

@@ -27,6 +27,7 @@
 import type { ParsedIntent, ChatResponse } from '../../types/integration.types';
 import type { ActionResult } from './actionRouter';
 import type { NextAction } from '../../cognition/decisionEngine/types';
+import type { SuggestedAction } from '../../cognition/copilotBrain';
 
 // ─── CTA catalogue ────────────────────────────────────────────────────────────
 
@@ -260,5 +261,41 @@ export function buildSchoolInsightResponse(
     return {
         text: header + body + cta,
         suggestions: [nextAction.cta, 'Panoramica rischi', 'Esporta report'].slice(0, 3),
+    };
+}
+
+// ─── Copilot Brain response ───────────────────────────────────────────────────
+
+/**
+ * Build a chat response directly from a CopilotBrain SuggestedAction.
+ *
+ * Use this when the caller already has a SuggestedAction from
+ * getCopilotPrimaryAction() / getCopilotSnapshot() — avoids re-building context.
+ *
+ * Contract: exactly 1 primary CTA, up to 2 alternates.
+ *
+ * @param resultText   - What just happened ("Aggiunti 3 studenti ✓")
+ * @param primary      - Primary SuggestedAction from getCopilotPrimaryAction()
+ * @param secondaries  - Secondary suggestions from getTopSecondaryActions() (max 2)
+ */
+export function buildBrainResponse(
+    resultText: string,
+    primary: SuggestedAction,
+    secondaries: SuggestedAction[] = [],
+): ChatResponse {
+    const urgencyEmoji = primary.priority === 'high' ? '🔴' : primary.priority === 'medium' ? '🟡' : '🟢';
+    const approvalNote = primary.requiresApproval ? '\n_⚠️ Richiede approvazione prima di procedere._' : '';
+
+    const nextText =
+        `\n\n${urgencyEmoji} *Prossimo passo*: ${primary.title}\n` +
+        `${primary.description}${approvalNote}`;
+
+    const altSuggestions = secondaries
+        .slice(0, 2)
+        .map((s) => s.title);
+
+    return {
+        text:        resultText + nextText,
+        suggestions: [primary.title, ...altSuggestions].slice(0, 3),
     };
 }

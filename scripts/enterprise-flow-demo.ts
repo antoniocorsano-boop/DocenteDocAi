@@ -34,8 +34,11 @@ import {
   approvalGate,
   enterpriseAuditLog,
 } from '../src/services/enterprise/index';
-import { decisionMemory }  from '../src/cognition/decisionMemory';
-import { getNextAction }   from '../src/cognition/decisionEngine/getNextAction';
+import { decisionMemory }           from '../src/cognition/decisionMemory';
+import {
+  getCopilotPrimaryAction,
+  getTopSecondaryActions,
+} from '../src/cognition/copilotBrain';
 import type {
   RegulatoryDocument,
   EnterpriseWorkflowSession,
@@ -308,47 +311,46 @@ async function runEnterpriseFlowDemo(): Promise<void> {
   });
 
   // ──────────────────────────────────────────────────────────────────────────
-  section('STEP 8 — NEXT ACTION ENGINE: cosa fare adesso?');
+  section('STEP 8 — COPILOT BRAIN: l\'azione giusta al momento giusto');
   // ──────────────────────────────────────────────────────────────────────────
 
-  info('Interrogo DecisionMemory + getNextAction() per calcolare la prossima azione...');
+  info('CopilotBrain legge DecisionMemory + ApprovalGate + store → calcola la prossima azione...');
 
-  const dmState = decisionMemory.getState();
-  const nextCtx = {
-    eventNames:       new Set<string>(['lesson.created', 'uda.created']),
-    capabilityLevel:  2 as const,
-    usage: {
-      lessonsCreated:      5,
-      udaCreated:          1,
-      copilotRequests:     3,
-      driveConnected:      false,
-      bookServicesLinked:  0,
-      analyticsViews:      0,
-      workspaceConfigured: true,
-    },
-    hasStudents:      true,
-    pendingApprovals: approvalGate.getPendingCount(),
-    signals:          dmState.signals.map(s => ({ type: s.type, severity: s.severity })),
-    complianceStatus: dmState.complianceStatus,
-  };
+  // The brain automatically reads decisionMemory (signals emitted in steps 1-7),
+  // approvalGate (pending count), and teacher/student stores (default in Node demo).
+  const primary     = getCopilotPrimaryAction();
+  const secondaries = getTopSecondaryActions();
 
-  const nextAction = getNextAction(nextCtx);
-  sub('NEXT ACTION ENGINE output', {
-    id:              nextAction.id,
-    label:           nextAction.label,
-    priority:        nextAction.priority ?? 'standard',
-    requiresApproval: nextAction.requiresApproval ?? false,
-    cta:             nextAction.cta,
+  sub('AZIONE PRIMARIA', {
+    id:               primary.id,
+    title:            primary.title,
+    description:      primary.description,
+    priority:         primary.priority,
+    type:             primary.type,
+    requiresApproval: primary.requiresApproval ?? false,
   });
 
+  if (secondaries.length > 0) {
+    sub('AZIONI SECONDARIE', secondaries.map((s, i) =>
+      `${i + 1}. [${s.priority.toUpperCase()}] ${s.title} (${s.type})`
+    ).join('\n'));
+  } else {
+    info('Nessuna azione secondaria — priorità gestita interamente dalla primaria.');
+  }
+
+  // Show what DecisionMemory collected during the pipeline run
+  const dmState    = decisionMemory.getState();
   const allSignals = decisionMemory.getSignals();
-  sub('DecisionMemory signals', allSignals.length > 0
+  sub('DecisionMemory — segnali accumulati', allSignals.length > 0
     ? allSignals.map(s => `[${s.severity.toUpperCase()}] ${s.type}: ${s.message}`).join('\n')
     : '(nessun segnale attivo)');
 
-  sub('Active flows', dmState.activeFlows.length > 0
+  sub('DecisionMemory — flussi attivi', dmState.activeFlows.length > 0
     ? dmState.activeFlows.join(', ')
     : '(nessun flusso attivo)');
+
+  const urgencyIcon = primary.priority === 'high' ? '🔴' : primary.priority === 'medium' ? '🟡' : '🟢';
+  ok(`Brain → ${urgencyIcon} "${primary.title}"${primary.requiresApproval ? ' — richiede approvazione' : ''}`);
 
   // ──────────────────────────────────────────────────────────────────────────
   section('RIEPILOGO FLUSSO COMPLETATO');

@@ -290,3 +290,22 @@ export function getNextAction(ctx: NextActionContext): NextAction {
   }
   return DISCOVERY_ACTION;
 }
+
+/**
+ * Returns the top-N highest-priority actions for the current context.
+ * The first item is equivalent to `getNextAction()`.
+ * Used by copilotBrain to derive secondary suggestions without duplicating rules.
+ *
+ * @param ctx   - Same context as getNextAction()
+ * @param limit - Maximum actions to return (default 3)
+ */
+export function getNextActions(ctx: NextActionContext, limit = 3): NextAction[] {
+  const results: NextAction[] = [];
+  for (const rule of RULES) {
+    if (results.length >= limit) break;
+    const action = rule(ctx);
+    if (action !== null) results.push(action);
+  }
+  if (results.length === 0) results.push(DISCOVERY_ACTION);
+  return results;
+}
