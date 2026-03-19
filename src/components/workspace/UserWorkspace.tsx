@@ -48,6 +48,7 @@ import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
 import type { CognitiveEntry } from '../../modules/cognitiveLayer/types';
 import { tenantRegistry }     from '../../services/tenant/tenantRegistry';
+import { useJarvisKeyboard }  from '../../hooks/useJarvisKeyboard';
 import { useThumbMenu }       from '../../hooks/useThumbMenu';
 import { seedDemoContent }    from '../../utils/seedDemoContent';
 
@@ -116,7 +117,9 @@ export default function UserWorkspace(): React.JSX.Element {
   // ── Input state ───────────────────────────────────────────────────────────
   const [text,      setText]     = useState('');
   const [ingesting, setIngesting] = useState(false);
-  const fileRef = useRef<HTMLInputElement>(null);
+  const fileRef              = useRef<HTMLInputElement>(null);
+  /** Anchor element of the latest (first) entry — used by Ctrl+J */
+  const latestEntryAnchorRef  = useRef<HTMLElement | null>(null);
 
   const handleIngest = useCallback(async (content: string, label?: string) => {
     if (!content.trim()) return;
@@ -197,6 +200,15 @@ export default function UserWorkspace(): React.JSX.Element {
     },
     [openMenu],
   );
+
+  // ── Jarvis global keyboard shortcuts (Ctrl+J, Ctrl+U, Ctrl+Shift+D) ────────
+  useJarvisKeyboard({
+    open,
+    latestEntryId:     entries[0]?.id ?? null,
+    latestEntryAnchor: latestEntryAnchorRef.current,
+    openMenu,
+    handleClose,
+  });
 
   // ── Demo seed — once, if workspace starts empty ───────────────────────────
   useEffect(() => {
@@ -393,6 +405,7 @@ export default function UserWorkspace(): React.JSX.Element {
                 <React.Fragment key={entry.id}>
                   {idx > 0 && <Divider component="li" />}
                   <ListItemButton
+                    ref={idx === 0 ? (el) => { latestEntryAnchorRef.current = el; } : undefined}
                     onClick={e => handleEntryClick(entry, e.currentTarget)}
                     aria-label={[
                       entry.label,

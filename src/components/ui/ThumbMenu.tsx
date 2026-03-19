@@ -17,7 +17,7 @@
  *   - aria-label su ogni azione, aria-expanded su Fab, role="menu"
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Backdrop  from '@mui/material/Backdrop';
 import Box       from '@mui/material/Box';
 import Chip      from '@mui/material/Chip';
@@ -99,13 +99,14 @@ function getAnchorCenter(el: HTMLElement | null | undefined): AnchorPosition {
 // ─── Action chip ──────────────────────────────────────────────────────────────
 
 interface ActionChipProps {
-  action:   OrchestrationAction;
-  index:    number;
-  total:    number;
-  center:   AnchorPosition;
-  visible:  boolean;
-  tenantId: string;
-  onSelect: (action: OrchestrationAction) => void;
+  action:        OrchestrationAction;
+  index:         number;
+  total:         number;
+  center:        AnchorPosition;
+  visible:       boolean;
+  tenantId:      string;
+  selected:      boolean;
+  onSelect:      (action: OrchestrationAction) => void;
 }
 
 const ACTION_CHIP_COLORS: Record<number, string> = {
@@ -116,7 +117,7 @@ const ACTION_CHIP_COLORS: Record<number, string> = {
 };
 
 function ActionChip({
-  action, index, total, center, visible, tenantId, onSelect,
+  action, index, total, center, visible, tenantId, selected, onSelect,
 }: ActionChipProps): React.JSX.Element {
   const angle  = ((360 / total) * index - 90) * (Math.PI / 180);
   const chipX  = center.left + Math.cos(angle) * ORBIT_RADIUS;
@@ -150,6 +151,8 @@ function ActionChip({
         boxShadow: enabled ? '0 1px 3px rgba(0,0,0,.12)' : 'none',
         opacity:   enabled ? 1 : 0.4,
         transition: 'opacity 120ms ease, box-shadow 120ms ease',
+        outline:   selected && enabled ? '2px solid var(--md-sys-color-on-primary)' : 'none',
+        outlineOffset: 2,
         '&:hover': enabled ? {
           filter:    'brightness(1.06)',
           boxShadow: '0 2px 8px rgba(0,0,0,.16)',
@@ -201,6 +204,50 @@ export default function ThumbMenu({
     [context],
   );
 
+  // ── Keyboard navigation ──────────────────────────────────────────────────
+  const [selectedIndex, setSelectedIndex] = useState<number>(-1);
+
+  // Reset selection when menu opens/closes or actions change
+  useEffect(() => {
+    setSelectedIndex(open && actions.length > 0 ? 0 : -1);
+  }, [open, actions.length]);
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if (!open || actions.length === 0) return;
+    switch (e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        e.preventDefault();
+        setSelectedIndex(i => (i + 1) % actions.length);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        setSelectedIndex(i => (i - 1 + actions.length) % actions.length);
+        break;
+      case 'Enter': {
+        e.preventDefault();
+        const action = actions[selectedIndex];
+        if (action && (!action.capabilityId || isCapabilityEnabled(tenantId, action.capabilityId))) {
+          onSelect(action);
+          onClose();
+        }
+        break;
+      }
+      case 'Escape':
+        e.preventDefault();
+        onClose();
+        break;
+      default:
+        break;
+    }
+  }, [open, actions, selectedIndex, tenantId, onSelect, onClose]);
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [handleKeyDown]);
+
   if (!open && !frozenCenter) return null;
 
   return (
@@ -222,6 +269,7 @@ export default function ThumbMenu({
           center={center}
           visible={open}
           tenantId={tenantId}
+          selected={selectedIndex === index}
           onSelect={(a) => { onSelect(a); onClose(); }}
         />
       ))}
