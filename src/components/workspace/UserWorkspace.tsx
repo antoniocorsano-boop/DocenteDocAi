@@ -22,7 +22,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Box              from '@mui/material/Box';
 import Button           from '@mui/material/Button';
-import Chip             from '@mui/material/Chip';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider          from '@mui/material/Divider';
 import IconButton       from '@mui/material/IconButton';
@@ -35,7 +34,6 @@ import TextField        from '@mui/material/TextField';
 import Tooltip          from '@mui/material/Tooltip';
 import Typography       from '@mui/material/Typography';
 import AttachFileOutlinedIcon  from '@mui/icons-material/AttachFileOutlined';
-import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
 import AddOutlinedIcon         from '@mui/icons-material/AddOutlined';
 import SendOutlinedIcon        from '@mui/icons-material/SendOutlined';
 
@@ -180,43 +178,32 @@ export default function UserWorkspace(): React.JSX.Element {
         minHeight: '100%',
         display:   'flex',
         flexDirection: 'column',
-        gap:       3,
-        p:         { xs: 2, sm: 3, md: 4 },
+        gap:       2,
+        p:         { xs: 1.5, sm: 2, md: 3 },
       }}
     >
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <Stack direction="row" alignItems="center" spacing={1.5}>
-        <AutoAwesomeOutlinedIcon
-          sx={{
-            fontSize: 'var(--md-sys-icon-size-lg, 24px)',
-            color:    'var(--md-sys-color-primary)',
-          }}
-          aria-hidden
-        />
-        <Typography
-          variant="h6"
-          sx={{
-            color:      'var(--md-sys-color-on-surface)',
-            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
-          }}
-        >
-          Spazio di lavoro
-        </Typography>
-      </Stack>
+      <Typography
+        variant="titleMedium"
+        component="h1"
+        sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
+      >
+        Spazio di lavoro
+      </Typography>
 
       {/* ── Input area ─────────────────────────────────────────────────── */}
       <M3Surface
-        elevation={2}
-        sx={{ borderRadius: 3, p: 2 }}
+        elevation={1}
+        sx={{ borderRadius: 2, p: 2 }}
         aria-label="Area inserimento contenuto"
       >
         <Stack spacing={2}>
           <TextField
             multiline
-            minRows={3}
-            maxRows={8}
+            minRows={2}
+            maxRows={6}
             fullWidth
-            placeholder="Incolla testo, note, valutazioni, report..."
+            placeholder="Incolla testo o carica un file..."
             value={text}
             onChange={e => setText(e.target.value)}
             onKeyDown={e => {
@@ -294,33 +281,20 @@ export default function UserWorkspace(): React.JSX.Element {
 
       {/* ── Recent content list ─────────────────────────────────────────── */}
       <Stack spacing={1}>
-        <Stack direction="row" alignItems="center" spacing={1}>
-          <Typography
-            variant="subtitle2"
-            sx={{
-              color:      'var(--md-sys-color-on-surface-variant)',
-              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
-            }}
-          >
-            Contenuti recenti
-          </Typography>
-          {entries.length > 0 && (
-            <Chip
-              label={entries.length}
-              size="small"
-              aria-label={`${entries.length} contenuti disponibili`}
-              sx={{
-                height:          20,
-                backgroundColor: 'var(--md-sys-color-secondary-container)',
-                color:           'var(--md-sys-color-on-secondary-container)',
-              }}
-            />
-          )}
-        </Stack>
+        <Typography
+          variant="labelSmall"
+          component="h2"
+          sx={{
+            color:         'var(--md-sys-color-on-surface-variant)',
+            letterSpacing: '0.08em',
+          }}
+        >
+          CONTENUTI
+        </Typography>
 
         <M3Surface
           elevation={1}
-          sx={{ borderRadius: 3, overflow: 'hidden' }}
+          sx={{ borderRadius: 2, overflow: 'hidden' }}
           aria-label="Lista contenuti recenti — clicca per aprire le azioni"
         >
           {menuLoading && (
@@ -338,13 +312,13 @@ export default function UserWorkspace(): React.JSX.Element {
             <Stack
               alignItems="center"
               justifyContent="center"
-              sx={{ py: 6, px: 3 }}
+              sx={{ py: 4, px: 3 }}
             >
               <AddOutlinedIcon
                 sx={{
-                  fontSize: 'var(--md-sys-icon-size-xl, 36px)',
+                  fontSize: 'var(--md-sys-icon-size-md, 24px)',
                   color:    'var(--md-sys-color-outline)',
-                  mb:       1,
+                  mb:       0.5,
                 }}
                 aria-hidden
               />
@@ -355,7 +329,7 @@ export default function UserWorkspace(): React.JSX.Element {
                   textAlign: 'center',
                 }}
               >
-                Nessun contenuto ancora. Aggiungi testo o carica un file per iniziare.
+                Nessun contenuto. Aggiungi testo o carica un file.
               </Typography>
             </Stack>
           ) : (
@@ -375,9 +349,9 @@ export default function UserWorkspace(): React.JSX.Element {
                     ].join(' — ')}
                     sx={{
                       px: 2,
-                      py: 1.5,
+                      py: 1,
                       '&:hover': {
-                        backgroundColor: 'var(--md-sys-color-surface-container-high)',
+                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
                       },
                     }}
                   >
@@ -387,20 +361,17 @@ export default function UserWorkspace(): React.JSX.Element {
                           direction="row"
                           alignItems="center"
                           spacing={1}
-                          flexWrap="wrap"
                         >
-                          <Chip
-                            label={DOMAIN_LABEL[entry.domain] ?? entry.domain}
-                            size="small"
-                            variant="outlined"
-                            aria-hidden
+                          <Box
                             sx={{
-                              height:      20,
-                              borderColor: DOMAIN_CHIP_COLOR[entry.domain]
-                                ?? 'var(--md-sys-color-outline-variant)',
-                              color:       DOMAIN_CHIP_COLOR[entry.domain]
-                                ?? 'var(--md-sys-color-on-surface-variant)',
+                              width:        6,
+                              height:       6,
+                              borderRadius: '50%',
+                              flexShrink:   0,
+                              bgcolor:      DOMAIN_CHIP_COLOR[entry.domain]
+                                ?? 'var(--md-sys-color-outline)',
                             }}
+                            aria-hidden
                           />
                           <Typography
                             variant="body2"
@@ -410,15 +381,14 @@ export default function UserWorkspace(): React.JSX.Element {
                           >
                             {entry.label}
                           </Typography>
+                          <Typography
+                            variant="caption"
+                            component="span"
+                            sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}
+                          >
+                            {relativeTime(entry.enteredAt)}
+                          </Typography>
                         </Stack>
-                      }
-                      secondary={
-                        <Typography
-                          variant="caption"
-                          sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
-                        >
-                          {relativeTime(entry.enteredAt)} · {entry.inputType}
-                        </Typography>
                       }
                     />
                   </ListItemButton>

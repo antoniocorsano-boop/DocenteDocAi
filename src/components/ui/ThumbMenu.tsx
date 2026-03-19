@@ -33,9 +33,9 @@ import type { OrchestrationAction, OrchestrationContext } from '../../modules/or
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const ORBIT_RADIUS    = 96;   // px — raggio dell'orbita
-const FAB_SIZE        = 48;   // px — dimensione del FAB centrale
-const ANIM_DURATION   = 220;  // ms — durata animazione orbit-in
+const ORBIT_RADIUS    = 82;   // px
+const FAB_SIZE        = 40;   // px
+const ANIM_DURATION   = 160;  // ms
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -64,12 +64,12 @@ function injectKeyframes(): void {
   style.id = KEYFRAMES_ID;
   style.textContent = `
     @keyframes thumbOrbitIn {
-      from { transform: translate(-50%, -50%) scale(0) rotate(-60deg); opacity: 0; }
-      to   { transform: translate(-50%, -50%) scale(1) rotate(0deg);  opacity: 1; }
+      from { transform: translate(-50%, -50%) scale(0.82); opacity: 0; }
+      to   { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
     }
     @keyframes thumbOrbitOut {
-      from { transform: translate(-50%, -50%) scale(1) rotate(0deg);  opacity: 1; }
-      to   { transform: translate(-50%, -50%) scale(0) rotate(60deg); opacity: 0; }
+      from { transform: translate(-50%, -50%) scale(1);    opacity: 1; }
+      to   { transform: translate(-50%, -50%) scale(0.82); opacity: 0; }
     }
   `;
   document.head.appendChild(style);
@@ -140,26 +140,25 @@ function ActionChip({
         top:       chipY,
         transform: 'translate(-50%, -50%)',
         zIndex:    1400,
-        cursor:    enabled ? 'pointer' : 'not-allowed',
-        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
+        cursor:    enabled ? 'pointer' : 'default',
         fontSize:  'var(--md-sys-typescale-label-medium-size, 0.75rem)',
-        bgcolor:   enabled ? accentColor : 'var(--md-sys-color-surface-variant)',
+        bgcolor:   enabled ? accentColor : 'var(--md-sys-color-surface)',
         color:     enabled
           ? 'var(--md-sys-color-on-primary)'
           : 'var(--md-sys-color-on-surface-variant)',
-        border:    enabled ? 'none' : '1px solid var(--md-sys-color-outline)',
-        boxShadow: enabled ? '0 2px 8px rgba(0,0,0,.2)' : 'none',
-        transition: 'background-color 120ms ease, box-shadow 120ms ease',
+        border:    'none',
+        boxShadow: enabled ? '0 1px 3px rgba(0,0,0,.12)' : 'none',
+        opacity:   enabled ? 1 : 0.4,
+        transition: 'opacity 120ms ease, box-shadow 120ms ease',
         '&:hover': enabled ? {
-          bgcolor:   accentColor,
-          filter:    'brightness(1.12)',
-          boxShadow: '0 4px 12px rgba(0,0,0,.28)',
+          filter:    'brightness(1.06)',
+          boxShadow: '0 2px 8px rgba(0,0,0,.16)',
         } : {},
         // Animate in/out
         animation: visible
-          ? `thumbOrbitIn ${ANIM_DURATION}ms cubic-bezier(.34,1.56,.64,1) both`
-          : `thumbOrbitOut ${ANIM_DURATION}ms ease both`,
-        animationDelay: visible ? `${index * 30}ms` : '0ms',
+          ? `thumbOrbitIn ${ANIM_DURATION}ms ease-out both`
+          : `thumbOrbitOut ${ANIM_DURATION}ms ease-in both`,
+        animationDelay: visible ? `${index * 25}ms` : '0ms',
       }}
     />
   );
@@ -167,7 +166,7 @@ function ActionChip({
   if (!enabled) {
     return (
       <Tooltip
-        title="Capability non attiva per questo tenant"
+        title="Non disponibile"
         placement="top"
         key={action.id}
       >
@@ -210,7 +209,7 @@ export default function ThumbMenu({
       <Backdrop
         open={open}
         onClick={onClose}
-        sx={{ zIndex: 1398, bgcolor: 'rgba(0,0,0,.18)', backdropFilter: 'blur(1px)' }}
+        sx={{ zIndex: 1398, bgcolor: 'rgba(0,0,0,.10)' }}
       />
 
       {/* Action chips */}
@@ -248,7 +247,7 @@ export default function ThumbMenu({
             variant="labelSmall"
             sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
           >
-            Nessuna azione disponibile
+            Nessuna azione
           </Typography>
         </Box>
       )}
@@ -274,11 +273,11 @@ export default function ThumbMenu({
             ? 'var(--md-sys-color-error)'
             : 'var(--md-sys-color-primary)',
           color:     'var(--md-sys-color-on-primary)',
-          boxShadow: '0 4px 16px rgba(0,0,0,.3)',
-          transition: 'background-color 180ms ease, transform 120ms ease',
+          boxShadow: '0 2px 8px rgba(0,0,0,.18)',
+          transition: 'background-color 160ms ease, transform 120ms ease',
           '&:hover': {
-            transform: 'translate(-50%, -50%) scale(1.08)',
-            filter:    'brightness(1.1)',
+            transform: 'translate(-50%, -50%) scale(1.04)',
+            filter:    'brightness(1.08)',
           },
         }}
       >

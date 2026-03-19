@@ -39,42 +39,42 @@ const STEPS: OnboardingStep[] = [
   {
     icon: (
       <WavingHandOutlinedIcon
-        sx={{ fontSize: 'var(--md-sys-icon-size-2xl, 48px)', color: 'var(--md-sys-color-primary)' }}
+        sx={{ fontSize: 'var(--md-sys-icon-size-lg, 24px)', color: 'var(--md-sys-color-primary)' }}
         aria-hidden
       />
     ),
-    title: 'Benvenuto nel tuo spazio AI',
-    body:  'Questo sistema ti aiuta a organizzare, agire e rimanere in regola — automaticamente.',
+    title: '',
+    body:  'Il sistema ti aiuta ad agire e rispettare le normative.',
   },
   {
     icon: (
       <AddCircleOutlineIcon
-        sx={{ fontSize: 'var(--md-sys-icon-size-2xl, 48px)', color: 'var(--md-sys-color-secondary)' }}
+        sx={{ fontSize: 'var(--md-sys-icon-size-lg, 24px)', color: 'var(--md-sys-color-secondary)' }}
         aria-hidden
       />
     ),
-    title: 'Aggiungi contenuto',
-    body:  'Incolla testo o carica un file. Il sistema lo analizza e lo classifica in automatico.',
+    title: '',
+    body:  'Aggiungi contenuto per iniziare.',
   },
   {
     icon: (
       <TouchAppOutlinedIcon
-        sx={{ fontSize: 'var(--md-sys-icon-size-2xl, 48px)', color: 'var(--md-sys-color-tertiary)' }}
+        sx={{ fontSize: 'var(--md-sys-icon-size-lg, 24px)', color: 'var(--md-sys-color-tertiary)' }}
         aria-hidden
       />
     ),
-    title: 'Clicca per agire',
-    body:  'Clicca su qualsiasi contenuto per visualizzare le azioni disponibili nel menu radiale.',
+    title: '',
+    body:  'Clicca sul contenuto per vedere le azioni.',
   },
   {
     icon: (
       <VerifiedUserOutlinedIcon
-        sx={{ fontSize: 'var(--md-sys-icon-size-2xl, 48px)', color: 'var(--md-sys-color-primary)' }}
+        sx={{ fontSize: 'var(--md-sys-icon-size-lg, 24px)', color: 'var(--md-sys-color-primary)' }}
         aria-hidden
       />
     ),
-    title: 'Tutto tracciato e verificabile',
-    body:  'Ogni azione viene registrata automaticamente con firma crittografica. Zero intervento manuale.',
+    title: '',
+    body:  'Tutto viene registrato automaticamente.',
   },
 ];
 
@@ -132,33 +132,23 @@ export default function OnboardingOverlay({ onComplete }: OnboardingOverlayProps
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: 4,
+          borderRadius: 3,
           backgroundColor: 'var(--md-sys-color-surface-container)',
         },
       }}
     >
       <DialogTitle
         id="onboarding-title"
-        sx={{ textAlign: 'center', pt: 4, pb: 1 }}
+        sx={{ textAlign: 'center', pt: 3, pb: 1 }}
       >
-        <Stack alignItems="center" spacing={2}>
+        <Stack alignItems="center" spacing={1.5}>
           {current.icon}
-          <Typography
-            variant="h6"
-            component="span"
-            sx={{
-              color:      'var(--md-sys-color-on-surface)',
-              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
-            }}
-          >
-            {current.title}
-          </Typography>
         </Stack>
       </DialogTitle>
 
-      <DialogContent id="onboarding-body" sx={{ textAlign: 'center', px: 4 }}>
+      <DialogContent id="onboarding-body" sx={{ textAlign: 'center', px: 3 }}>
         <Typography
-          variant="body1"
+          variant="body2"
           sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
         >
           {current.body}
@@ -193,7 +183,7 @@ export default function OnboardingOverlay({ onComplete }: OnboardingOverlayProps
         </Stack>
       </DialogContent>
 
-      <DialogActions sx={{ justifyContent: 'space-between', px: 3, pb: 3 }}>
+      <DialogActions sx={{ justifyContent: 'space-between', px: 3, pb: 2 }}>
         <Button
           onClick={handleSkip}
           color="inherit"

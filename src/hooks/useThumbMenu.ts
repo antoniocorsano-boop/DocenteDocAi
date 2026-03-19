@@ -96,9 +96,9 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
       });
       const { showToast } = useUIStore.getState().actions;
       if (result.success) {
-        showToast('Azione completata e registrata.', 'success');
+        showToast('Registrato.', 'success');
       } else {
-        showToast(result.reason ?? 'Azione non disponibile.', 'error');
+        showToast(result.reason ?? 'Non disponibile.', 'error');
       }
     }
 

@@ -114,14 +114,14 @@ function SystemHealthBanner({ tenantId }: { tenantId: string }): React.JSX.Eleme
   return (
     <M3Surface
       elevation={1}
-      sx={{ p: 'var(--md-sys-spacing-4, 16px)', borderRadius: 2 }}
+      sx={{ p: 'var(--md-sys-spacing-3, 12px)', borderRadius: 2 }}
     >
       <Typography
         variant="titleMedium"
         component="h2"
         sx={{ mb: 'var(--md-sys-spacing-3, 12px)', color: 'var(--md-sys-color-on-surface)' }}
       >
-        System Health
+        Stato sistema
       </Typography>
 
       <Stack direction="row" flexWrap="wrap" gap="var(--md-sys-spacing-2, 8px)">
@@ -232,10 +232,12 @@ function SectionAccordion({
         aria-controls={`${id}-content`}
         id={`${id}-header`}
         sx={{
+          minHeight: '44px !important',
           gap: 'var(--md-sys-spacing-2, 8px)',
           '& .MuiAccordionSummary-content': {
             alignItems: 'center',
             gap:        'var(--md-sys-spacing-2, 8px)',
+            my:         '8px',
           },
         }}
       >
@@ -274,17 +276,38 @@ function SectionAccordion({
 export default function SystemPanel({ tenantId, isAdmin = true }: SystemPanelProps): React.JSX.Element {
   return (
     <Stack
-      spacing="var(--md-sys-spacing-4, 16px)"
+      spacing="var(--md-sys-spacing-3, 12px)"
       component="section"
       aria-label="Pannello di sistema"
     >
-      {/* System Health — sempre visibile, non collassabile */}
+      {/* Status bar */}
+      <Stack direction="row" alignItems="center" spacing={1}>
+        <Box
+          sx={{
+            width:        6,
+            height:       6,
+            borderRadius: '50%',
+            bgcolor:      'var(--md-sys-color-primary)',
+            flexShrink:   0,
+          }}
+          aria-hidden
+        />
+        <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+          Sistema attivo
+        </Typography>
+        <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-outline)' }}>·</Typography>
+        <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+          Tutte le attività sono tracciate
+        </Typography>
+      </Stack>
+
+      {/* Stato sistema — sempre visibile, non collassabile */}
       <SystemHealthBanner tenantId={tenantId} />
 
       {/* Cognitive Activity */}
       <SectionAccordion
         id="sys-cognitive"
-        title="Cognitive Activity"
+        title="Attività"
         defaultExpanded
         icon={<PsychologyOutlinedIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 24px)' }} />}
       >
@@ -294,7 +317,7 @@ export default function SystemPanel({ tenantId, isAdmin = true }: SystemPanelPro
       {/* Capability Status */}
       <SectionAccordion
         id="sys-capability"
-        title="Capability Status"
+        title="Funzionalità"
         defaultExpanded
         icon={<ExtensionOutlinedIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 24px)' }} />}
       >
@@ -304,7 +327,7 @@ export default function SystemPanel({ tenantId, isAdmin = true }: SystemPanelPro
       {/* Trust Chain */}
       <SectionAccordion
         id="sys-trust"
-        title="Trust Chain"
+        title="Tracciabilità"
         icon={<VerifiedUserOutlinedIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 24px)' }} />}
       >
         <TrustChainPanel tenantId={tenantId} isAdmin={isAdmin} />
