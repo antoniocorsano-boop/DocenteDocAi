@@ -36,6 +36,12 @@ export type AuditFinding = {
   paNote:            string;
   /** Evidenze tecniche verificabili — valori di sistema al momento dell'audit. */
   evidence:          string[];
+  /**
+   * Operational use case that generated or is most associated with this finding.
+   * Maps to UseCaseId in useCaseTelemetry.ts (e.g. "UC-R1", "UC-V2").
+   * Enables "audit per use case" analytics.
+   */
+  useCaseId?:        string;
 };
 
 // ── Scenario ──────────────────────────────────────────────────────────────────

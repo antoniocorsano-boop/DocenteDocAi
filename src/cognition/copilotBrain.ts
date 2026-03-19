@@ -26,6 +26,9 @@ import { rankActions }            from './rankingEngine';
 import type { ScoringFactors, RankedAction }    from './rankingEngine';
 import { useUserBehaviorStore }   from '../stores/useUserBehaviorStore';
 import { enterpriseAuditLog }     from '../services/enterprise/enterpriseAuditLog';
+import { buildUCAdaptiveBoosts }  from './adaptiveAssistant';
+import { applySovereigntyGate, getEffectiveMode } from './sovereigntyRouter';
+import { useSovereigntyStore }    from '../stores/useSovereigntyStore';
 
 // ─── Public surface type ──────────────────────────────────────────────────────
 
@@ -100,6 +103,9 @@ function buildScoringFactors(dmState: ReturnType<typeof decisionMemory.getState>
     complianceNonOk,
     recentlyExecuted: new Set(recent),
     userProfile:      useUserBehaviorStore.getState().getProfile(),
+    // UC-aware adaptive boosts: if a UC is degrading, its action types
+    // get a higher score in rankActions so the assistant surfaces them first.
+    ucAdaptiveBoosts: buildUCAdaptiveBoosts(),
   };
 }
 
@@ -124,6 +130,21 @@ function derivePriority(action: NextAction): 'high' | 'medium' | 'low' {
   return 'low';
 }
 
+// ─── Sovereignty filter ───────────────────────────────────────────────────────
+
+/**
+ * Removes actions that are invisible in the current sovereignty mode.
+ * In offline_only mode, AI-type actions are hidden so the UI never shows them.
+ * Falls back to the first action if everything is filtered (shouldn't happen
+ * because non-AI actions always pass through).
+ */
+function applySOVFilter(ranked: RankedAction[]): RankedAction[] {
+  const sovConfig = useSovereigntyStore.getState().getConfig();
+  const effective = getEffectiveMode(sovConfig);
+  if (effective !== 'offline_only') return ranked;
+  return ranked.filter((a) => applySovereigntyGate(a, sovConfig) !== null);
+}
+
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 /**
@@ -145,7 +166,7 @@ export function getCopilotPrimaryAction(): RankedAction {
   const ctx     = buildContext();
   const actions = getNextActions(ctx, 3).map(mapToSuggested);
   const dmState = decisionMemory.getState();
-  const ranked  = rankActions(actions, buildScoringFactors(dmState));
+  const ranked  = applySOVFilter(rankActions(actions, buildScoringFactors(dmState)));
   return ranked[0];
 }
 
@@ -162,7 +183,7 @@ export function getTopSecondaryActions(): RankedAction[] {
   const ctx     = buildContext();
   const actions = getNextActions(ctx, 3).map(mapToSuggested);
   const dmState = decisionMemory.getState();
-  const ranked  = rankActions(actions, buildScoringFactors(dmState));
+  const ranked  = applySOVFilter(rankActions(actions, buildScoringFactors(dmState)));
   return ranked.slice(1);
 }
 
@@ -177,7 +198,7 @@ export function getCopilotSnapshot(): {
   const ctx     = buildContext();
   const actions = getNextActions(ctx, 3).map(mapToSuggested);
   const dmState = decisionMemory.getState();
-  const ranked  = rankActions(actions, buildScoringFactors(dmState));
+  const ranked  = applySOVFilter(rankActions(actions, buildScoringFactors(dmState)));
   return {
     primary:     ranked[0],
     secondaries: ranked.slice(1),

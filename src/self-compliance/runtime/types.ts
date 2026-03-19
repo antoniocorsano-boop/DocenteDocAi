@@ -1,6 +1,8 @@
 // runtime/types.ts
 // Tipi core del Compliance Brain Runtime Engine
 
+import type { UseCaseId } from '../../cognition/useCaseTelemetry';
+
 // ── Context ───────────────────────────────────────────────────────────────────
 
 /**
@@ -25,6 +27,12 @@ export type ComplianceContext = {
   lastAuditDate:            Date | null;
   lastAuditDaysAgo:         number | null;
   lastReportStatus:         "compliant" | "warning" | "non_compliant" | null;
+  /**
+   * Operational use case that triggered this compliance evaluation.
+   * When set, the audit engine propagates it to every AuditFinding
+   * enabling "compliance failures per use case" analytics.
+   */
+  useCase?:                 UseCaseId;
 };
 
 // ── Rules ─────────────────────────────────────────────────────────────────────

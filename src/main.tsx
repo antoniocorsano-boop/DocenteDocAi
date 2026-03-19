@@ -33,6 +33,7 @@ import { useMemo, useState, useEffect } from 'react';
 import { useSettingsStore } from './stores/useSettingsStore';
 import { runRetentionCheck } from './utils/dataRetention';
 import { hasPrivacyConsent } from './components/PrivacyConsentModal';
+import { hasSovereigntyConfig } from './stores/useSovereigntyStore';
 import { WorkflowEngine } from './core/workflows/WorkflowEngine';
 import { registerBuiltinWorkflows } from './core/workflows/builtinWorkflows';
 
@@ -291,15 +292,21 @@ async function bootstrapApp() {
     // Dynamically import App after stores are ready to avoid initialization races
     const { App } = await import('./components/App');
     const { ModalProvider } = await import('./contexts/ModalContext');
-    const { default: PrivacyConsentModal } = await import('./components/PrivacyConsentModal');
+    const { default: PrivacyConsentModal }    = await import('./components/PrivacyConsentModal');
+    const { default: SovereigntyOnboarding } = await import('./components/onboarding/SovereigntyOnboarding');
 
-    /** Consent gate — keeps app blocked until GDPR informativa is accepted. */
+    /** Consent gate — keeps app blocked until GDPR informativa is accepted,
+     *  then shows sovereignty onboarding if not yet configured. */
     function AppWithConsent() {
       const isTestMode = !!(window as unknown as { __TEST_MODE?: boolean }).__TEST_MODE
         || localStorage.getItem('__e2e_test_mode') === 'true';
-      const [consented, setConsented] = useState(() => isTestMode || hasPrivacyConsent());
+      const [consented,   setConsented]   = useState(() => isTestMode || hasPrivacyConsent());
+      const [hasSov,      setHasSov]      = useState(() => isTestMode || hasSovereigntyConfig());
       if (!consented) {
         return <PrivacyConsentModal onAccepted={() => setConsented(true)} />;
+      }
+      if (!hasSov) {
+        return <SovereigntyOnboarding onCompleted={() => setHasSov(true)} />;
       }
       return (
         <NKAProvider>

@@ -42,6 +42,13 @@ export interface ScoringFactors {
   recentlyExecuted:  Set<string>;
   /** Current user behaviour profile */
   userProfile:       UserBehaviorProfile;
+  /**
+   * Action-type–keyed adaptive boosts from the Use Case drift layer.
+   * Built by adaptiveAssistant.buildUCAdaptiveBoosts().
+   * A non-zero value means the UC for that action type is currently degrading —
+   * the assistant applies extra scrutiny and surfaces compliance actions first.
+   */
+  ucAdaptiveBoosts?: Record<string, number>;
 }
 
 export interface ScoreBreakdown {
@@ -50,6 +57,8 @@ export interface ScoreBreakdown {
   urgency:           number;
   complianceWeight:  number;
   recencyBoost:      number;
+  /** Extra boost from adaptive UC scrutiny (0 when UC is stable/improving) */
+  adaptiveBoost:     number;
 }
 
 export interface RankedAction extends SuggestedAction {
@@ -109,6 +118,24 @@ function computeRecencyBoost(action: SuggestedAction, recentlyExecuted: Set<stri
   return recentlyExecuted.has(action.id) ? 0 : 5;
 }
 
+/**
+ * Adaptive boost: if the UC associated with this action type is currently
+ * degrading compliance-wise, boost compliance/approval actions for that flow.
+ * Source: adaptiveAssistant.buildUCAdaptiveBoosts() → ucAdaptiveBoosts.
+ */
+function computeAdaptiveBoost(
+  action: SuggestedAction,
+  ucAdaptiveBoosts: Record<string, number> | undefined,
+): number {
+  if (!ucAdaptiveBoosts) return 0;
+  const raw = ucAdaptiveBoosts[action.type] ?? 0;
+  // Only compliance/approval-related or enterprise actions get the full boost;
+  // other action types get half to avoid over-surfacing unrelated actions.
+  return (action.type === 'enterprise' || action.requiresApproval || action.type === 'compliance')
+    ? raw
+    : Math.round(raw * 0.5);
+}
+
 function buildExplanation(action: SuggestedAction, breakdown: ScoreBreakdown): string {
   const parts: string[] = [];
 
@@ -118,6 +145,8 @@ function buildExplanation(action: SuggestedAction, breakdown: ScoreBreakdown): s
   if (breakdown.userAffinity > 0)     parts.push('preferenza utente');
   if (breakdown.userAffinity < 0)     parts.push('azione spesso ignorata');
   if (breakdown.recencyBoost > 0)     parts.push('non eseguita di recente');
+
+  if (breakdown.adaptiveBoost > 0) parts.push('flusso UC in degrado — scrutinio aumentato');
 
   if (parts.length === 0) {
     return `Priorità ${action.priority}: azione suggerita dal motore di raccomandazione.`;
@@ -159,6 +188,7 @@ export function rankActions(
       urgency:          computeUrgency(action, factors.activeSignals),
       complianceWeight: computeComplianceWeight(action, factors.complianceNonOk),
       recencyBoost:     computeRecencyBoost(action, factors.recentlyExecuted),
+      adaptiveBoost:    computeAdaptiveBoost(action, factors.ucAdaptiveBoosts),
     };
 
     let finalScore =
@@ -166,7 +196,8 @@ export function rankActions(
       breakdown.userAffinity +
       breakdown.urgency +
       breakdown.complianceWeight +
-      breakdown.recencyBoost;
+      breakdown.recencyBoost +
+      breakdown.adaptiveBoost;
 
     // Critical actions: floor score at 100 so they are never suppressed
     if (action.priority === 'high') {

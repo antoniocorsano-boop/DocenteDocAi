@@ -50,6 +50,18 @@ export interface EnterpriseAuditEntry {
   details: Record<string, unknown>;
   /** ISO compliance flags — which standards this entry satisfies */
   complianceTags?: string[];
+  /**
+   * Operational use case that originated this audit entry.
+   * Maps to UseCaseId in useCaseTelemetry.ts (e.g. "UC-R5", "UC-R4").
+   * Enables cross-referencing enterprise audit entries with use case telemetry.
+   */
+  useCaseId?: string;
+  /**
+   * Compliance score delta caused by the action in this entry.
+   * Positive = improvement (e.g. approval granted: +5),
+   * Negative = degradation (e.g. compliance violation detected: -10).
+   */
+  complianceDelta?: number;
 }
 
 // ── Storage ───────────────────────────────────────────────────────────────────

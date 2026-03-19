@@ -29,6 +29,10 @@ import { approvalGate }             from '../services/enterprise/approvalGate';
 import { enterpriseAuditLog }       from '../services/enterprise/enterpriseAuditLog';
 import { getHandler }               from './actionRegistry';
 import { useUserBehaviorStore }     from '../stores/useUserBehaviorStore';
+import { trackUseCase }             from './useCaseTelemetry';
+import type { UseCaseId }           from './useCaseTelemetry';
+import { applySovereigntyGate }     from './sovereigntyRouter';
+import { useSovereigntyStore }      from '../stores/useSovereigntyStore';
 
 // ─── Public types ─────────────────────────────────────────────────────────────
 
@@ -54,6 +58,25 @@ export interface ExecutionResult {
   blockedReason?:     string;
 }
 
+// ─── Use Case mapping ─────────────────────────────────────────────────────────
+
+const ACTION_TYPE_TO_USE_CASE: Record<string, UseCaseId> = {
+  enterprise:  'UC-R5',   // Regulatory document processing + approval gate
+  compliance:  'UC-R1',   // Compliance framework check
+  copilot:     'UC-R4',   // Copilot engine execution
+  students:    'UC-P1',   // Student profile management
+  planning:    'UC-P2',   // Annual planning wizard
+  uda:         'UC-E1',   // UDA creation / editing
+  evaluation:  'UC-E3',   // Evaluation module
+  analytics:   'UC-V2',   // Analytics dashboard
+  general:     'UC-R4',   // Generic copilot suggestion
+};
+
+/** Map a SuggestedAction.type to the closest matching operational UC identifier. */
+function resolveUseCaseId(actionType: string): UseCaseId {
+  return ACTION_TYPE_TO_USE_CASE[actionType] ?? 'UC-R4';
+}
+
 // ─── Policy context builder ───────────────────────────────────────────────────
 
 function buildPolicyContext(ctx: ExecutionContext): PolicyContext {
@@ -74,6 +97,7 @@ function buildPolicyContext(ctx: ExecutionContext): PolicyContext {
 // ─── Audit helpers ────────────────────────────────────────────────────────────
 
 function auditExecuted(action: SuggestedAction, ctx: ExecutionContext): void {
+  const useCaseId = resolveUseCaseId(action.type);
   enterpriseAuditLog.record({
     action:    'copilot_action_executed',
     details: {
@@ -84,11 +108,15 @@ function auditExecuted(action: SuggestedAction, ctx: ExecutionContext): void {
       status:    'executed',
     },
     complianceTags: ['copilot-execution'],
-    tenantId: ctx.tenantId,
+    tenantId:   ctx.tenantId,
+    useCaseId,
+    complianceDelta: 0,
   });
+  trackUseCase(useCaseId, 'completed', 0, { actionId: action.id, type: action.type });
 }
 
 function auditBlocked(action: SuggestedAction, ctx: ExecutionContext, reason: string): void {
+  const useCaseId = resolveUseCaseId(action.type);
   enterpriseAuditLog.record({
     action:    'copilot_action_blocked',
     details: {
@@ -100,8 +128,11 @@ function auditBlocked(action: SuggestedAction, ctx: ExecutionContext, reason: st
       reason,
     },
     complianceTags: ['copilot-execution', 'policy-block'],
-    tenantId: ctx.tenantId,
+    tenantId:   ctx.tenantId,
+    useCaseId,
+    complianceDelta: -5,
   });
+  trackUseCase(useCaseId, 'compliance_fail', -5, { actionId: action.id, reason });
 }
 
 function auditApprovalSubmitted(
@@ -109,6 +140,7 @@ function auditApprovalSubmitted(
   ctx: ExecutionContext,
   approvalRequestId: string,
 ): void {
+  const useCaseId = resolveUseCaseId(action.type);
   enterpriseAuditLog.record({
     action:    'copilot_approval_submitted',
     details: {
@@ -120,8 +152,11 @@ function auditApprovalSubmitted(
       approvalRequestId,
     },
     complianceTags: ['copilot-execution', 'hitl-required'],
-    tenantId: ctx.tenantId,
+    tenantId:   ctx.tenantId,
+    useCaseId,
+    complianceDelta: 0,
   });
+  trackUseCase(useCaseId, 'started', 0, { actionId: action.id, approvalRequestId });
 }
 
 // ─── Main executor ────────────────────────────────────────────────────────────
@@ -142,6 +177,35 @@ export function executeCopilotAction(
   action: SuggestedAction,
   ctx: ExecutionContext = {},
 ): ExecutionResult {
+
+  // ── Step 0.5: Sovereignty gate ────────────────────────────────────────────
+  // Enforces the user's operational mode (offline_only / assistive_ai / autonomous_ai).
+  // Must run before any other check so the user's explicit choice is always honoured.
+  const sovConfig = useSovereigntyStore.getState().getConfig();
+  const gated     = applySovereigntyGate(action, sovConfig);
+  if (!gated) {
+    const reason =
+      "Azione non consentita: modalità operativa 'Solo Locale' attiva. " +
+      'Modifica in Governance → Controllo AI e Dati.';
+    auditBlocked(action, ctx, reason);
+    decisionMemory.emitSignal({
+      type:        'INTEGRATION_ERROR',
+      severity:    'warning',
+      message:     `Azione "${action.title}" bloccata dalla configurazione sovranità utente`,
+      sourceAgent: 'copilot-executor',
+      tenantId:    ctx.tenantId,
+    });
+    return {
+      status:        'blocked',
+      actionId:      action.id,
+      message:       reason,
+      blockedReason: reason,
+    };
+  }
+  // Forward sovereignty-upgraded requiresApproval into the HITL gate (assistive_ai mode)
+  if (gated.requiresApproval && !action.requiresApproval) {
+    action.requiresApproval = true;
+  }
 
   // ── Step 1: Policy gate ──────────────────────────────────────────────────
   const policyCtx = buildPolicyContext(ctx);

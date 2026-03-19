@@ -42,6 +42,7 @@ import { analyticsAgent }          from './agents/analyticsAgent';
 import { financialAgent }          from './agents/financialAgent';
 import { technicalAgent }          from './agents/technicalAgent';
 import { decisionMemory }          from '../../cognition/decisionMemory';
+import { trackUseCase }            from '../../cognition/useCaseTelemetry';
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -62,6 +63,8 @@ class EnterpriseOrchestratorImpl {
    */
   processRegulatoryDocument(doc: RegulatoryDocument): EnterpriseWorkflowSession {
     const sessionId = nanoid();
+
+    trackUseCase('UC-R5', 'started', 0, { documentId: doc.id, source: doc.source });
 
     enterpriseAuditLog.record({
       action:    'agent_started',
@@ -157,6 +160,12 @@ class EnterpriseOrchestratorImpl {
 
     // Commit approved KG writes
     const kgRecords = kgEnterpriseBridge.commit(approvalRequest, approvedBy);
+
+    trackUseCase('UC-R5', 'evidence_created', 2, {
+      approvalRequestId: approvalRequest.id,
+      approvedBy,
+      kgNodesCommitted: kgRecords.length,
+    });
 
     enterpriseAuditLog.record({
       action:         'approval_resolved',

@@ -111,6 +111,8 @@ export function buildAuditReport(
       remediationAction: v.remediationAction,
       paNote:            PA_NOTES[v.ruleId] ?? "Verificare la documentazione tecnica e normativa della regola.",
       evidence:          collectEvidence(ctx, v.ruleId),
+      // Propaga il Use Case dal contesto → abilita analytics "violazioni per UC"
+      useCaseId:         ctx.useCase,
     };
   });
 

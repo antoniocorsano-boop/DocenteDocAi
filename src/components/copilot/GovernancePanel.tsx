@@ -21,6 +21,7 @@ import Divider        from '@mui/material/Divider';
 import LinearProgress from '@mui/material/LinearProgress';
 import Tooltip        from '@mui/material/Tooltip';
 import M3Surface      from '../ui/M3Surface';
+import GovernanceControlPanel from '../governance/GovernanceControlPanel';
 import { useGovernanceStore } from '../../self-compliance/governance';
 import type { GovernanceConfig } from '../../self-compliance/governance';
 
@@ -255,6 +256,16 @@ const GovernancePanel: React.FC = () => {
           </Button>
         </Tooltip>
       </Box>
+
+      <Divider />
+
+      {/* ── Controllo AI e Dati (Layer Zero — Sovranità Operativa) ── */}
+      <Stack gap="var(--md-sys-spacing-2)">
+        <Typography variant="labelSmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+          Controllo AI e Dati
+        </Typography>
+        <GovernanceControlPanel />
+      </Stack>
 
     </Stack>
   );
