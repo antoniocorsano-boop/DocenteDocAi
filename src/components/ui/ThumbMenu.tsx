@@ -1,0 +1,292 @@
+/**
+ * ThumbMenu.tsx — Menu contestuale radiale (Thumb UI).
+ *
+ * Mostra le azioni contestuali dell'OrchestrationContext in un layout radiale
+ * che si apre attorno all'elemento di ancoraggio (o al centro del viewport).
+ *
+ * Design:
+ *   - FAB centrale come punto di ancoraggio visivo
+ *   - N chip in orbita radiale (angolo equidistribuito)
+ *   - Chip disabled se la capability non è attiva
+ *   - Animazione orbit-in/out via CSS keyframes — nessuna lib esterna
+ *   - Backdrop semi-trasparente per chiusura on-click
+ *
+ * MD3 Gold Compliant:
+ *   - Fab, Chip, Tooltip MUI v7
+ *   - token var(--md-sys-color-*) per colori semantici
+ *   - aria-label su ogni azione, aria-expanded su Fab, role="menu"
+ */
+
+import React, { useEffect, useMemo, useState } from 'react';
+import Backdrop  from '@mui/material/Backdrop';
+import Box       from '@mui/material/Box';
+import Chip      from '@mui/material/Chip';
+import Fab       from '@mui/material/Fab';
+import Portal    from '@mui/material/Portal';
+import Tooltip   from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+import CloseIcon from '@mui/icons-material/Close';
+import TouchAppOutlinedIcon from '@mui/icons-material/TouchAppOutlined';
+
+import { isCapabilityEnabled } from '../../modules/capabilitySystem/capabilityService';
+import type { OrchestrationAction, OrchestrationContext } from '../../modules/orchestration/types';
+
+// ─── Constants ────────────────────────────────────────────────────────────────
+
+const ORBIT_RADIUS    = 96;   // px — raggio dell'orbita
+const FAB_SIZE        = 48;   // px — dimensione del FAB centrale
+const ANIM_DURATION   = 220;  // ms — durata animazione orbit-in
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+interface ThumbMenuProps {
+  /** Menu aperto/chiuso */
+  open:       boolean;
+  /** Elemento HTML di ancoraggio (determina la posizione del menu) */
+  anchorEl?:  HTMLElement | null;
+  /** Contesto calcolato da orchestrationService */
+  context:    OrchestrationContext | null;
+  /** Tenant corrente per il capability check */
+  tenantId:   string;
+  /** Callback quando l'utente seleziona un'azione */
+  onSelect:   (action: OrchestrationAction) => void;
+  /** Callback di chiusura */
+  onClose:    () => void;
+}
+
+// ─── CSS keyframes (injected once) ───────────────────────────────────────────
+
+const KEYFRAMES_ID = 'thumb-menu-keyframes';
+
+function injectKeyframes(): void {
+  if (typeof document === 'undefined' || document.getElementById(KEYFRAMES_ID)) return;
+  const style = document.createElement('style');
+  style.id = KEYFRAMES_ID;
+  style.textContent = `
+    @keyframes thumbOrbitIn {
+      from { transform: translate(-50%, -50%) scale(0) rotate(-60deg); opacity: 0; }
+      to   { transform: translate(-50%, -50%) scale(1) rotate(0deg);  opacity: 1; }
+    }
+    @keyframes thumbOrbitOut {
+      from { transform: translate(-50%, -50%) scale(1) rotate(0deg);  opacity: 1; }
+      to   { transform: translate(-50%, -50%) scale(0) rotate(60deg); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// ─── Anchor position helper ───────────────────────────────────────────────────
+
+interface AnchorPosition {
+  left: number;
+  top:  number;
+}
+
+function getAnchorCenter(el: HTMLElement | null | undefined): AnchorPosition {
+  if (!el) {
+    return {
+      left: typeof window !== 'undefined' ? window.innerWidth  / 2 : 400,
+      top:  typeof window !== 'undefined' ? window.innerHeight / 2 : 300,
+    };
+  }
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + rect.width  / 2,
+    top:  rect.top  + rect.height / 2,
+  };
+}
+
+// ─── Action chip ──────────────────────────────────────────────────────────────
+
+interface ActionChipProps {
+  action:   OrchestrationAction;
+  index:    number;
+  total:    number;
+  center:   AnchorPosition;
+  visible:  boolean;
+  tenantId: string;
+  onSelect: (action: OrchestrationAction) => void;
+}
+
+const ACTION_CHIP_COLORS: Record<number, string> = {
+  1: 'var(--md-sys-color-error)',          // critical
+  2: 'var(--md-sys-color-tertiary)',       // high
+  3: 'var(--md-sys-color-primary)',        // medium
+  4: 'var(--md-sys-color-on-surface-variant)', // low
+};
+
+function ActionChip({
+  action, index, total, center, visible, tenantId, onSelect,
+}: ActionChipProps): React.JSX.Element {
+  const angle  = ((360 / total) * index - 90) * (Math.PI / 180);
+  const chipX  = center.left + Math.cos(angle) * ORBIT_RADIUS;
+  const chipY  = center.top  + Math.sin(angle) * ORBIT_RADIUS;
+
+  const enabled     = !action.capabilityId || isCapabilityEnabled(tenantId, action.capabilityId);
+  const accentColor = ACTION_CHIP_COLORS[action.priority] ?? ACTION_CHIP_COLORS[4];
+
+  const chip = (
+    <Chip
+      label={action.label}
+      size="small"
+      clickable={enabled}
+      disabled={!enabled}
+      onClick={enabled ? () => { onSelect(action); } : undefined}
+      aria-label={enabled ? action.label : `${action.label} (non disponibile)`}
+      role="menuitem"
+      sx={{
+        position:  'fixed',
+        left:      chipX,
+        top:       chipY,
+        transform: 'translate(-50%, -50%)',
+        zIndex:    1400,
+        cursor:    enabled ? 'pointer' : 'not-allowed',
+        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
+        fontSize:  'var(--md-sys-typescale-label-medium-size, 0.75rem)',
+        bgcolor:   enabled ? accentColor : 'var(--md-sys-color-surface-variant)',
+        color:     enabled
+          ? 'var(--md-sys-color-on-primary)'
+          : 'var(--md-sys-color-on-surface-variant)',
+        border:    enabled ? 'none' : '1px solid var(--md-sys-color-outline)',
+        boxShadow: enabled ? '0 2px 8px rgba(0,0,0,.2)' : 'none',
+        transition: 'background-color 120ms ease, box-shadow 120ms ease',
+        '&:hover': enabled ? {
+          bgcolor:   accentColor,
+          filter:    'brightness(1.12)',
+          boxShadow: '0 4px 12px rgba(0,0,0,.28)',
+        } : {},
+        // Animate in/out
+        animation: visible
+          ? `thumbOrbitIn ${ANIM_DURATION}ms cubic-bezier(.34,1.56,.64,1) both`
+          : `thumbOrbitOut ${ANIM_DURATION}ms ease both`,
+        animationDelay: visible ? `${index * 30}ms` : '0ms',
+      }}
+    />
+  );
+
+  if (!enabled) {
+    return (
+      <Tooltip
+        title="Capability non attiva per questo tenant"
+        placement="top"
+        key={action.id}
+      >
+        <span>{chip}</span>
+      </Tooltip>
+    );
+  }
+
+  return chip;
+}
+
+// ─── Component ────────────────────────────────────────────────────────────────
+
+export default function ThumbMenu({
+  open, anchorEl, context, tenantId, onSelect, onClose,
+}: ThumbMenuProps): React.JSX.Element | null {
+  useEffect(() => { injectKeyframes(); }, []);
+
+  // Mantieni la posizione costante mentre il menu è aperto
+  const [frozenCenter, setFrozenCenter] = useState<AnchorPosition | null>(null);
+
+  useEffect(() => {
+    if (open) {
+      setFrozenCenter(getAnchorCenter(anchorEl));
+    }
+  }, [open, anchorEl]);
+
+  const center = frozenCenter ?? getAnchorCenter(anchorEl);
+
+  const actions = useMemo(
+    () => context?.actions ?? [],
+    [context],
+  );
+
+  if (!open && !frozenCenter) return null;
+
+  return (
+    <Portal>
+      {/* Backdrop */}
+      <Backdrop
+        open={open}
+        onClick={onClose}
+        sx={{ zIndex: 1398, bgcolor: 'rgba(0,0,0,.18)', backdropFilter: 'blur(1px)' }}
+      />
+
+      {/* Action chips */}
+      {actions.length > 0 && actions.map((action, index) => (
+        <ActionChip
+          key={action.id}
+          action={action}
+          index={index}
+          total={actions.length}
+          center={center}
+          visible={open}
+          tenantId={tenantId}
+          onSelect={(a) => { onSelect(a); onClose(); }}
+        />
+      ))}
+
+      {/* Nessuna azione disponibile */}
+      {actions.length === 0 && open && (
+        <Box
+          role="status"
+          sx={{
+            position:  'fixed',
+            left:      center.left,
+            top:       center.top - ORBIT_RADIUS / 2,
+            transform: 'translate(-50%, -50%)',
+            zIndex:    1400,
+            bgcolor:   'var(--md-sys-color-surface)',
+            border:    '1px solid var(--md-sys-color-outline-variant)',
+            borderRadius: 2,
+            px: 2, py: 1,
+            animation: `thumbOrbitIn ${ANIM_DURATION}ms cubic-bezier(.34,1.56,.64,1) both`,
+          }}
+        >
+          <Typography
+            variant="labelSmall"
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
+          >
+            Nessuna azione disponibile
+          </Typography>
+        </Box>
+      )}
+
+      {/* FAB centrale — anchor visivo + close */}
+      <Fab
+        size="small"
+        color="primary"
+        aria-label={open ? 'Chiudi menu azioni' : 'Apri menu azioni'}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        onClick={onClose}
+        sx={{
+          position:  'fixed',
+          left:      center.left,
+          top:       center.top,
+          transform: 'translate(-50%, -50%)',
+          zIndex:    1401,
+          width:     FAB_SIZE,
+          height:    FAB_SIZE,
+          minHeight: 'unset',
+          bgcolor:   open
+            ? 'var(--md-sys-color-error)'
+            : 'var(--md-sys-color-primary)',
+          color:     'var(--md-sys-color-on-primary)',
+          boxShadow: '0 4px 16px rgba(0,0,0,.3)',
+          transition: 'background-color 180ms ease, transform 120ms ease',
+          '&:hover': {
+            transform: 'translate(-50%, -50%) scale(1.08)',
+            filter:    'brightness(1.1)',
+          },
+        }}
+      >
+        {open
+          ? <CloseIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 24px)' }} />
+          : <TouchAppOutlinedIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 24px)' }} />
+        }
+      </Fab>
+    </Portal>
+  );
+}

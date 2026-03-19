@@ -34,6 +34,7 @@ export const Studio = lazy(() => import('./Studio'));
 export const OrientamentoDashboard = lazy(() => import('./OrientamentoDashboard'));
 export const LiveAssistant = lazy(() => import('./LiveAssistant'));
 export const TeacherDashboard = lazy(() => import('./TeacherDashboard'));
+export const UserWorkspace    = lazy(() => import('./workspace/UserWorkspace'));
 
 export interface ViewConfig {
     id: View;
@@ -73,6 +74,7 @@ export const VIEW_CONFIGS: Partial<Record<View, ViewConfig>> = {
     'teacher-presentation-view': { id: 'teacher-presentation-view', component: TeacherPresentationView, auraWrapper: true },
     'orientamento': { id: 'orientamento', component: OrientamentoDashboard, auraWrapper: true, fullWidth: true },
     'teacher-dashboard': { id: 'teacher-dashboard', component: TeacherDashboard, auraWrapper: true },
+    'workspace':          { id: 'workspace',          component: UserWorkspace,    auraWrapper: true },
 };
 
 // ---------------------------------------------------------------------------
@@ -113,6 +115,7 @@ export const VIEW_LABELS: Record<View, string> = {
     'teacher-presentation-view':    'Presentazione',
     'teacher-dashboard':             'Dashboard Docente',
     'copilot':                       'Copilot Docente',
+    'workspace':                     'Spazio di Lavoro',
 };
 
 // ---------------------------------------------------------------------------

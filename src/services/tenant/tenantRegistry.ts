@@ -154,3 +154,19 @@ class TenantRegistryImpl {
 }
 
 export const tenantRegistry = new TenantRegistryImpl();
+
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+/**
+ * Mappa il ruolo utente al dominio operativo.
+ * TEACHER lavora nel dominio 'school'; ADMIN e PRINCIPAL nel dominio 'admin'.
+ */
+export function getUserDomain(role: UserRole): 'school' | 'admin' {
+  switch (role) {
+    case 'ADMIN':
+    case 'PRINCIPAL':
+      return 'admin';
+    default:
+      return 'school';
+  }
+}

@@ -129,6 +129,8 @@ export interface TenantContext {
   /** Opaque user identifier within the tenant. */
   userId: string;
   role: UserRole;
+  /** Dominio operativo corrente: 'school' per docenti, 'admin' per amministratori. */
+  domain?: 'school' | 'admin';
   /** ISO-8601 — when this context was established. */
   createdAt: string;
 }
