@@ -19,6 +19,13 @@ const DEFAULT_INTEGRATIONS: IntegrationMeta[] = [
         status: 'disconnected',
     },
     {
+        id: 'gmail',
+        label: 'Gmail',
+        icon: 'mail',
+        description: 'Ricevi e analizza email direttamente nel workspace',
+        status: 'disconnected',
+    },
+    {
         id: 'whatsapp',
         label: 'WhatsApp',
         icon: 'chat',

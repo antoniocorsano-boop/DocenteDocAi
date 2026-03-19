@@ -35,11 +35,13 @@ import Tooltip          from '@mui/material/Tooltip';
 import Typography       from '@mui/material/Typography';
 import AttachFileOutlinedIcon  from '@mui/icons-material/AttachFileOutlined';
 import AddOutlinedIcon         from '@mui/icons-material/AddOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SendOutlinedIcon        from '@mui/icons-material/SendOutlined';
 
 import M3Surface        from '../ui/M3Surface';
 import ThumbMenu        from '../ui/ThumbMenu';
 import JarvisIndicator  from '../ui/JarvisIndicator';
+import AccountLinkingPanel from './AccountLinkingPanel';
 import OnboardingOverlay, { hasCompletedOnboarding } from './OnboardingOverlay';
 
 import { ingestInput }        from '../../modules/cognitiveLayer';
@@ -107,6 +109,9 @@ export default function UserWorkspace(): React.JSX.Element {
   const [showOnboarding, setShowOnboarding] = useState(
     () => !hasCompletedOnboarding(),
   );
+
+  // ── Account linking panel ─────────────────────────────────────────────
+  const [accountPanelOpen, setAccountPanelOpen] = useState(false);
 
   // ── Input state ───────────────────────────────────────────────────────────
   const [text,      setText]     = useState('');
@@ -216,13 +221,27 @@ export default function UserWorkspace(): React.JSX.Element {
       }}
     >
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <Typography
-        variant="titleMedium"
-        component="h1"
-        sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
-      >
-        Spazio di lavoro
-      </Typography>
+      <Stack direction="row" alignItems="center">
+        <Typography
+          variant="titleMedium"
+          component="h1"
+          sx={{ flexGrow: 1, color: 'var(--md-sys-color-on-surface-variant)' }}
+        >
+          Spazio di lavoro
+        </Typography>
+        <Tooltip title="Gestisci account collegati">
+          <IconButton
+            size="small"
+            onClick={() => setAccountPanelOpen(true)}
+            aria-label="Apri pannello account collegati"
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
+          >
+            <AccountCircleOutlinedIcon
+              sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
+            />
+          </IconButton>
+        </Tooltip>
+      </Stack>
 
       {/* ── Input area ─────────────────────────────────────────────────── */}
       <M3Surface
@@ -431,6 +450,12 @@ export default function UserWorkspace(): React.JSX.Element {
           )}
         </M3Surface>
       </Stack>
+
+      {/* ── Account linking panel ─────────────────────────────────────── */}
+      <AccountLinkingPanel
+        open={accountPanelOpen}
+        onClose={() => setAccountPanelOpen(false)}
+      />
 
       {/* ── ThumbMenu (Portal-rendered, radial) ─────────────────────────── */}
       <ThumbMenu

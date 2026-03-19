@@ -11,6 +11,7 @@
 export type IntegrationId =
     | 'google_classroom'
     | 'google_drive'
+    | 'gmail'
     | 'whatsapp'
     | 'telegram';
 
