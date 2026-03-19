@@ -37,8 +37,9 @@ import AttachFileOutlinedIcon  from '@mui/icons-material/AttachFileOutlined';
 import AddOutlinedIcon         from '@mui/icons-material/AddOutlined';
 import SendOutlinedIcon        from '@mui/icons-material/SendOutlined';
 
-import M3Surface from '../ui/M3Surface';
-import ThumbMenu from '../ui/ThumbMenu';
+import M3Surface        from '../ui/M3Surface';
+import ThumbMenu        from '../ui/ThumbMenu';
+import JarvisIndicator  from '../ui/JarvisIndicator';
 import OnboardingOverlay, { hasCompletedOnboarding } from './OnboardingOverlay';
 
 import { ingestInput }        from '../../modules/cognitiveLayer';
@@ -138,14 +139,46 @@ export default function UserWorkspace(): React.JSX.Element {
       const file = e.target.files?.[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = () => {
-        handleIngest(reader.result as string, file.name);
-      };
-      reader.readAsText(file);
+      if (file.type.startsWith('image/')) {
+        reader.onload = () => {
+          const ts = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+          handleIngest(reader.result as string, `Screenshot ${ts}`);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        reader.onload = () => {
+          handleIngest(reader.result as string, file.name);
+        };
+        reader.readAsText(file);
+      }
       e.target.value = '';
     },
     [handleIngest],
   );
+
+  // ── Clipboard paste — cattura immagini incollate ──────────────────────────
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+      for (const item of Array.from(items)) {
+        if (item.type.startsWith('image/')) {
+          const file = item.getAsFile();
+          if (!file) continue;
+          e.preventDefault();
+          const reader = new FileReader();
+          reader.onload = () => {
+            const ts = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+            handleIngest(reader.result as string, `Screenshot ${ts}`);
+          };
+          reader.readAsDataURL(file);
+          return;
+        }
+      }
+    };
+    document.addEventListener('paste', handlePaste);
+    return () => document.removeEventListener('paste', handlePaste);
+  }, [handleIngest]);
 
   // ── ThumbMenu ─────────────────────────────────────────────────────────────
   const {
@@ -203,7 +236,7 @@ export default function UserWorkspace(): React.JSX.Element {
             minRows={2}
             maxRows={6}
             fullWidth
-            placeholder="Incolla testo o carica un file..."
+            placeholder="Incolla testo, immagine o carica un file..."
             value={text}
             onChange={e => setText(e.target.value)}
             onKeyDown={e => {
@@ -228,12 +261,12 @@ export default function UserWorkspace(): React.JSX.Element {
             <input
               type="file"
               ref={fileRef}
-              accept=".txt,.md,.csv,.json"
+              accept=".txt,.md,.csv,.json,.png,.jpg,.jpeg,.gif,.webp"
               style={{ display: 'none' }}
               onChange={handleFileChange}
               aria-hidden
             />
-            <Tooltip title="Carica file (.txt, .md, .csv, .json)">
+            <Tooltip title="Carica file o immagine (.txt .md .csv .json .png .jpg…)">
               <span>
                 <IconButton
                   onClick={() => fileRef.current?.click()}
@@ -407,6 +440,14 @@ export default function UserWorkspace(): React.JSX.Element {
         tenantId={tenantId}
         onSelect={handleSelect}
         onClose={handleClose}
+      />
+
+      {/* ── Jarvis background indicator — floating dot, visibile solo se entries > 0 */}
+      <JarvisIndicator
+        count={entries.length}
+        latestEntryId={entries[0]?.id ?? null}
+        hidden={open}
+        onActivate={openMenu}
       />
 
       {/* ── Onboarding overlay — only on first visit ─────────────────────── */}
