@@ -48,8 +48,9 @@ import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
 import type { CognitiveEntry } from '../../modules/cognitiveLayer/types';
 import { tenantRegistry }     from '../../services/tenant/tenantRegistry';
-import { useJarvisKeyboard }  from '../../hooks/useJarvisKeyboard';
-import { useThumbMenu }       from '../../hooks/useThumbMenu';
+import { useJarvisKeyboard }   from '../../hooks/useJarvisKeyboard';
+import { useThumbMenu }        from '../../hooks/useThumbMenu';
+import { useUniversalInput }   from '../../hooks/useUniversalInput';
 import { seedDemoContent }    from '../../utils/seedDemoContent';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
@@ -194,30 +195,6 @@ export default function UserWorkspace(): React.JSX.Element {
     [handleIngest],
   );
 
-  // ── Clipboard paste — cattura immagini incollate ──────────────────────────
-  useEffect(() => {
-    const handlePaste = (e: ClipboardEvent) => {
-      const items = e.clipboardData?.items;
-      if (!items) return;
-      for (const item of Array.from(items)) {
-        if (item.type.startsWith('image/')) {
-          const file = item.getAsFile();
-          if (!file) continue;
-          e.preventDefault();
-          const reader = new FileReader();
-          reader.onload = () => {
-            const ts = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
-            handleIngest(reader.result as string, `Screenshot ${ts}`);
-          };
-          reader.readAsDataURL(file);
-          return;
-        }
-      }
-    };
-    document.addEventListener('paste', handlePaste);
-    return () => document.removeEventListener('paste', handlePaste);
-  }, [handleIngest]);
-
   // ── ThumbMenu ─────────────────────────────────────────────────────────────
   const {
     open, anchorEl, context, loading: menuLoading,
@@ -295,8 +272,11 @@ export default function UserWorkspace(): React.JSX.Element {
     };
   }, [resetIdleTimer]);
 
+  // ── Universal input layer — global paste / drag & drop ────────────────────
+  const { isProcessing } = useUniversalInput({ tenantId });
+
   // ── Jarvis indicator state ────────────────────────────────────────────────
-  const jarvisState = menuLoading ? 'processing'
+  const jarvisState = (menuLoading || isProcessing) ? 'processing'
     : proactiveIdle    ? 'active'
     : entries.length > 0 ? 'suggestion'
     : 'idle';
