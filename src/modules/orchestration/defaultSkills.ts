@@ -82,3 +82,65 @@ skillRegistry.register({
   domain:       'pedagogical',
   allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
 });
+
+// ─── Nuove skill contestuali (Fase 2 — ORBIT time-aware) ──────────────────────
+
+skillRegistry.register({
+  ctaType:      'OPEN_SCHEDULE',
+  label:        'Apri orario',
+  domain:       'pedagogical',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+skillRegistry.register({
+  ctaType:      'OPEN_CLASS_CONTEXT',
+  label:        'Contesto classe',
+  domain:       'pedagogical',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+skillRegistry.register({
+  ctaType:      'START_LESSON',
+  label:        'Avvia lezione',
+  capabilityId: 'uda_planner',
+  domain:       'pedagogical',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+skillRegistry.register({
+  ctaType:      'LOAD_LESSON_MATERIAL',
+  label:        'Carica materiale',
+  capabilityId: 'uda_planner',
+  domain:       'pedagogical',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+skillRegistry.register({
+  ctaType:      'MARK_ATTENDANCE',
+  label:        'Segna presenze',
+  domain:       'pedagogical',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+// ─── External connector skills (Phase C) ─────────────────────────────────────
+
+skillRegistry.register({
+  ctaType:      'SEND_EMAIL',
+  label:        'Invia email',
+  domain:       'administrative',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+skillRegistry.register({
+  ctaType:      'UPLOAD_FILE',
+  label:        'Carica documento',
+  domain:       'administrative',
+  allowedRoles: ['TEACHER', 'ADMIN', 'PRINCIPAL'],
+});
+
+skillRegistry.register({
+  ctaType:      'SYNC_DATA',
+  label:        'Sincronizza dati',
+  domain:       'administrative',
+  allowedRoles: ['ADMIN', 'PRINCIPAL'],
+});

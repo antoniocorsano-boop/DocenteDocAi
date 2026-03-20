@@ -40,7 +40,11 @@ import SendOutlinedIcon          from '@mui/icons-material/SendOutlined';
 import M3Surface        from '../ui/M3Surface';
 import ThumbMenu        from '../ui/ThumbMenu';
 import JarvisIndicator  from '../ui/JarvisIndicator';
+import InlineActionStrip from '../ui/InlineActionStrip';
 import AccountLinkingPanel from './AccountLinkingPanel';
+import ScheduleLanding  from '../landing/ScheduleLanding';
+import ClassLanding     from '../landing/ClassLanding';
+import LessonLanding    from '../landing/LessonLanding';
 
 import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
@@ -54,6 +58,7 @@ import { useThumbMenu }           from '../../hooks/useThumbMenu';
 import { useUniversalInput }      from '../../hooks/useUniversalInput';
 import { useProactiveSchedule }   from '../../hooks/useProactiveSchedule';
 import { useSkillSuggestion, autoName } from '../../hooks/useSkillSuggestion';
+import { useExternalSync }        from '../../hooks/useExternalSync';
 import { seedDemoContent }       from '../../utils/seedDemoContent';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
@@ -119,6 +124,9 @@ function getProactiveReason(e: CognitiveEntry): string {
 
 interface ActiveContext { type: string; label: string }
 
+/** Determina quale landing fullscreen aprire in base ai tag dell'entry. */
+type LandingType = 'schedule' | 'class' | 'lesson';
+
 const DOMAIN_CONTEXT_LABEL: Record<string, string> = {
   compliance:     'Revisione compliance',
   pedagogical:    'Attività pedagogica',
@@ -170,6 +178,18 @@ function resolveScheduleContext(): ScheduleContext {
     minsToLesson,
   };
 }
+
+/**
+ * Decodifica il tipo di landing da aprire in base ai tag dell'entry.
+ * Ritorna null se l'entry non è destinata a una landing fullscreen.
+ */
+function decodeLandingType(entry: CognitiveEntry): LandingType | null {
+  const tags = entry.tags.map(t => t.toLowerCase());
+  if (tags.includes('schedule')) return 'schedule';
+  if (tags.includes('classe') && tags.includes('lesson')) return 'lesson';
+  if (tags.includes('classe')) return 'class';
+  return null;
+}
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function UserWorkspace(): React.JSX.Element {
@@ -195,6 +215,10 @@ export default function UserWorkspace(): React.JSX.Element {
 
   // ── Account linking panel ─────────────────────────────────────────────
   const [accountPanelOpen, setAccountPanelOpen] = useState(false);
+
+  // ── Landing overlays (Orbit fullscreen context views) ─────────────────
+  const [activeLanding, setActiveLanding] = useState<LandingType | null>(null);
+  const [landingCtx,    setLandingCtx]    = useState<ScheduleContext | null>(null);
 
   // ── Input state ───────────────────────────────────────────────────────────
   const [text,           setText]          = useState('');
@@ -257,6 +281,13 @@ export default function UserWorkspace(): React.JSX.Element {
   const handleEntryClick = useCallback(
     async (entry: CognitiveEntry, el: HTMLElement) => {
       if (loadingEntryId) return;
+      // Landing intercept: orbit entries with special tags open fullscreen views
+      const landingType = decodeLandingType(entry);
+      if (landingType) {
+        setLandingCtx(resolveScheduleContext());
+        setActiveLanding(landingType);
+        return;
+      }
       setLoadingEntryId(entry.id);
       try {
         await openMenu(entry.id, el, resolveScheduleContext());
@@ -321,6 +352,9 @@ export default function UserWorkspace(): React.JSX.Element {
 
   // ── Proactive schedule — timer-driven orbital suggestions ─────────────────
   useProactiveSchedule(tenantId);
+
+  // ── External connector sync ( register, email, file — 2 min poll) ─────────
+  useExternalSync(tenantId);
 
   // ── Emergent skill suggestion — pattern-based skill learning loop ─────────
   const { skillDraft, confirmSkill, dismissSkill } = useSkillSuggestion();
@@ -647,6 +681,16 @@ export default function UserWorkspace(): React.JSX.Element {
         onClose={() => setAccountPanelOpen(false)}
       />
 
+      {/* ── InlineActionStrip — azioni assistite sticky ──────────────────── */}
+      <InlineActionStrip
+        context={context}
+        onSelect={ctaType => {
+          const action = context?.actions.find(a => a.ctaType === ctaType);
+          if (action) void handleSelect(action);
+        }}
+        hidden={open}
+      />
+
       {/* ── ThumbMenu (Portal-rendered, radial action wheel) ────────────── */}
       <ThumbMenu
         open={open}
@@ -717,6 +761,29 @@ export default function UserWorkspace(): React.JSX.Element {
             </Button>
           </Stack>
         </M3Surface>
+      )}
+
+      {/* ── Landing overlays (Orbit fullscreen context views) ─────────────── */}
+      {activeLanding === 'schedule' && (
+        <ScheduleLanding
+          onClose={() => setActiveLanding(null)}
+          onNavigate={(type, ctx) => { setLandingCtx(ctx); setActiveLanding(type); }}
+          ctx={landingCtx}
+        />
+      )}
+      {activeLanding === 'class' && (
+        <ClassLanding
+          onClose={() => setActiveLanding(null)}
+          onNavigate={(type, ctx) => { setLandingCtx(ctx); setActiveLanding(type); }}
+          ctx={landingCtx}
+        />
+      )}
+      {activeLanding === 'lesson' && (
+        <LessonLanding
+          onClose={() => setActiveLanding(null)}
+          ctx={landingCtx}
+          context={context}
+        />
       )}
     </M3Surface>
   );
