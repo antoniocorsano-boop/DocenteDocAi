@@ -41,10 +41,12 @@ export interface UseThumbMenuState {
 }
 
 export interface UseThumbMenuHandlers {
-  /** Apre il menu per un inputId dato, calcolando il contesto */
-  openMenu:     (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext) => Promise<void>;
+  /** Apre il menu per un inputId dato, calcolando il contesto. Restituisce il contesto calcolato (null se fallito). */
+  openMenu:     (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext) => Promise<OrchestrationContext | null>;
   /** Esegue l'azione selezionata e chiude il menu */
   handleSelect: (action: OrchestrationAction) => Promise<void>;
+  /** Esegue un'azione direttamente su un contesto già noto, senza passare per il menu */
+  executeFor:   (action: OrchestrationAction, ctx: OrchestrationContext) => Promise<void>;
   /** Chiude il menu e resetta lo stato */
   handleClose:  () => void;
 }
@@ -62,13 +64,18 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
   const [context,  setContext]  = useState<OrchestrationContext | null>(null);
   const [loading,  setLoading]  = useState(false);
 
-  const openMenu = useCallback(async (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext) => {
+  const openMenu = useCallback(async (
+    inputId: string,
+    el: HTMLElement,
+    scheduleCtx?: ScheduleContext,
+  ): Promise<OrchestrationContext | null> => {
     const ctx  = tenantRegistry.getContext();
     const role = ctx.role;
 
     setAnchorEl(el);
     setLoading(true);
 
+    let builtCtx: OrchestrationContext | null = null;
     try {
       const orchestrCtx = await buildContext(inputId, {
         tenantId,
@@ -78,15 +85,17 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
       });
       if (!orchestrCtx) {
         useUIStore.getState().actions.showToast('Contenuto non disponibile', 'error');
-        return;
+        return null;
       }
       setContext(orchestrCtx);
       setOpen(true);
+      builtCtx = orchestrCtx;
     } catch {
       useUIStore.getState().actions.showToast('Errore nel caricamento', 'error');
     } finally {
       setLoading(false);
     }
+    return builtCtx;
   }, [tenantId]);
 
   const handleSelect = useCallback(async (action: OrchestrationAction) => {
@@ -124,6 +133,37 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
     setOpen(false);
   }, [context, tenantId]);
 
+  /**
+   * Esegue un'azione direttamente su un contesto già costruito,
+   * senza aprire il menu radiale. Usato da Jarvis auto-execute.
+   */
+  const executeFor = useCallback(async (
+    action: OrchestrationAction,
+    orchCtx: OrchestrationContext,
+  ): Promise<void> => {
+    const suggestion = orchCtx.suggestions.find(s => s.id === action.id);
+    if (!suggestion) return;
+    const ctx = tenantRegistry.getContext();
+    const result = await executeAction(action.ctaType, suggestion, {
+      tenantId,
+      role:   ctx.role,
+      domain: getUserDomain(ctx.role),
+    });
+    const { showToast } = useUIStore.getState().actions;
+    if (result.success) {
+      showToast(`${action.label} completata automaticamente`, 'success');
+      useUserBehaviorStore.getState().onActionExecuted(action.ctaType);
+      recordAction({
+        ctaType:   action.ctaType,
+        domain:    suggestion.domain,
+        tags:      (suggestion as { tags?: string[] }).tags ?? [],
+        timestamp: Date.now(),
+      });
+    } else {
+      showToast(result.reason ?? 'Azione non disponibile.', 'error');
+    }
+  }, [tenantId]);
+
   const handleClose = useCallback(() => {
     setOpen(false);
     setAnchorEl(null);
@@ -137,6 +177,7 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
     loading,
     openMenu,
     handleSelect,
+    executeFor,
     handleClose,
   };
 }

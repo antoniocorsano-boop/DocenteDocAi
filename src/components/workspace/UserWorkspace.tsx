@@ -50,6 +50,8 @@ import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
 import type { CognitiveEntry } from '../../modules/cognitiveLayer/types';
 import type { ScheduleContext } from '../../modules/orchestration/types';
+import { decideInitialView } from '../../modules/orchestration/entryDecision';
+import { getAutomationLevel } from '../../modules/orchestration/orchestrationService';
 import { tenantRegistry }     from '../../services/tenant/tenantRegistry';
 import { useAcademicStore }   from '../../stores/useAcademicStore';
 import { useSettingsStore }   from '../../stores/useSettingsStore';
@@ -219,7 +221,10 @@ export default function UserWorkspace(): React.JSX.Element {
   // ── Landing overlays (Orbit fullscreen context views) ─────────────────
   const [activeLanding, setActiveLanding] = useState<LandingType | null>(null);
   const [landingCtx,    setLandingCtx]    = useState<ScheduleContext | null>(null);
-
+  // ── Jarvis auto-execute toast ──────────────────────────────────────────
+  const [autoToastLabel, setAutoToastLabel] = useState<string | null>(null);
+  /** Prevent context takeover from firing more than once */
+  const initialDecisionMade = useRef(false);
   // ── Input state ───────────────────────────────────────────────────────────
   const [text,           setText]          = useState('');
   const [ingesting,      setIngesting]     = useState(false);
@@ -275,7 +280,7 @@ export default function UserWorkspace(): React.JSX.Element {
   // ── ThumbMenu ─────────────────────────────────────────────────────────────
   const {
     open, anchorEl, context, loading: menuLoading,
-    openMenu, handleSelect, handleClose,
+    openMenu, handleSelect, executeFor, handleClose,
   } = useThumbMenu(tenantId);
 
   const handleEntryClick = useCallback(
@@ -290,12 +295,25 @@ export default function UserWorkspace(): React.JSX.Element {
       }
       setLoadingEntryId(entry.id);
       try {
-        await openMenu(entry.id, el, resolveScheduleContext());
+        const schedCtx = resolveScheduleContext();
+        const orchCtx = await openMenu(entry.id, el, schedCtx);
+        // Auto-execute: if Jarvis confidence is 'auto', run silently without showing menu
+        if (orchCtx) {
+          const autoAction = orchCtx.actions.find(
+            a => getAutomationLevel(a.ctaType) === 'auto',
+          );
+          if (autoAction) {
+            handleClose();
+            setAutoToastLabel(autoAction.label);
+            await executeFor(autoAction, orchCtx);
+            setTimeout(() => setAutoToastLabel(null), 3000);
+          }
+        }
       } finally {
         setLoadingEntryId(null);
       }
     },
-    [openMenu, loadingEntryId],
+    [openMenu, handleClose, executeFor, loadingEntryId],
   );
 
   // ── Jarvis global keyboard shortcuts (Ctrl+J, Ctrl+U, Ctrl+Shift+D) ────────
@@ -315,7 +333,25 @@ export default function UserWorkspace(): React.JSX.Element {
     // Intentionally runs only on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  // ── Context Takeover — Jarvis decides initial view on first load ─────────
+  useEffect(() => {
+    if (initialDecisionMade.current || entries.length === 0) return;
+    initialDecisionMade.current = true;
+    const decision = decideInitialView(entries);
+    if (decision.type === 'lesson-takeover') {
+      setLandingCtx(decision.ctx);
+      setActiveLanding('lesson');
+      setAutoToastLabel(`Lezione pronta — ${decision.lessonLabel}`);
+      setTimeout(() => setAutoToastLabel(null), 4000);
+    } else if (decision.type === 'schedule-prime') {
+      setLandingCtx(decision.ctx);
+      setActiveLanding('schedule');
+    } else if (decision.type === 'suggestion') {
+      setProactiveIdle(true);
+    }
+    // ref guard ensures single execution; entries is the correct trigger
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [entries.length]);
   // ── Active context ─────────────────────────────────────────────────────────
   const activeContext = useMemo(() => resolveActiveContext(entries), [entries]);
 
@@ -378,51 +414,19 @@ export default function UserWorkspace(): React.JSX.Element {
         p:             { xs: 1.5, sm: 2 },
       }}
     >
-      {/* ── Header ─────────────────────────────────────────────────────── */}
-      <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
-        <Stack spacing={0.25}>
-          {/* System status row */}
-          <Stack direction="row" alignItems="center" spacing={1.5}>
-            <Typography
-              variant="labelSmall"
-              sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'flex', alignItems: 'center', gap: 0.5 }}
-            >
-              <Box
-                component="span"
-                sx={{ color: 'var(--md-sys-color-tertiary)', lineHeight: 1 }}
-                aria-hidden
-              >●</Box>
-              Sistema attivo
-            </Typography>
-            <Typography
-              variant="labelSmall"
-              sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'flex', alignItems: 'center', gap: 0.5 }}
-            >
-              <Box
-                component="span"
-                sx={{
-                  color:      activeContext.type === 'compliance'
-                    ? 'var(--md-sys-color-error)'
-                    : 'var(--md-sys-color-primary)',
-                  lineHeight: 1,
-                }}
-                aria-hidden
-              >●</Box>
-              {entries.length} attivit{entries.length === 1 ? 'à' : 'à'} tracciat{entries.length === 1 ? 'a' : 'e'}
-            </Typography>
-          </Stack>
-          {/* Active context label */}
-          <Typography
-            variant="titleSmall"
-            component="h1"
-            sx={{
-              color:      'var(--md-sys-color-on-surface)',
-              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
-            }}
-          >
-            {activeContext.label}
-          </Typography>
-        </Stack>
+      {/* ── Header — zero-UI: only active context + account icon ──────── */}
+      <Stack direction="row" alignItems="center" justifyContent="space-between">
+        <Typography
+          variant="titleSmall"
+          component="h1"
+          sx={{
+            color:      'var(--md-sys-color-on-surface-variant)',
+            fontWeight: 'var(--md-sys-typescale-weight-semibold)',
+            transition: 'color 300ms',
+          }}
+        >
+          {activeContext.label}
+        </Typography>
 
         <Tooltip title="Gestisci account collegati">
           <IconButton
@@ -589,7 +593,7 @@ export default function UserWorkspace(): React.JSX.Element {
           <List disablePadding aria-label="Contenuti recenti">
             {entries.map((entry, idx) => (
               <React.Fragment key={entry.id}>
-                {idx > 0 && <Divider component="li" />}
+                {idx > 0 && <Divider component="li" sx={{ opacity: 0.4 }} />}
                 <ListItemButton
                   ref={idx === 0 ? (el) => { latestEntryAnchorRef.current = el; } : undefined}
                   onClick={e => { void handleEntryClick(entry, e.currentTarget); }}
@@ -601,7 +605,7 @@ export default function UserWorkspace(): React.JSX.Element {
                   ].join(' — ')}
                   sx={{
                     px: 2,
-                    py: 0.875,
+                    py: 0.625,
                     borderLeft: entry.id === suggestedEntry?.id && proactiveIdle
                       ? `3px solid ${DOMAIN_CHIP_COLOR[entry.domain] ?? 'var(--md-sys-color-primary)'}`
                       : '3px solid transparent',
@@ -610,6 +614,7 @@ export default function UserWorkspace(): React.JSX.Element {
                       backgroundColor: 'var(--md-sys-color-surface-container-low)',
                     },
                     '&:hover .jarvis-hint-icon': { opacity: 1 },
+                    '&:hover .entry-timestamp': { opacity: 0.7 },
                   }}
                 >
                   <ListItemText
@@ -647,9 +652,15 @@ export default function UserWorkspace(): React.JSX.Element {
                           />
                         ) : (
                           <Typography
+                            className="entry-timestamp"
                             variant="caption"
                             component="span"
-                            sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}
+                            sx={{
+                              color:      'var(--md-sys-color-on-surface-variant)',
+                              flexShrink: 0,
+                              opacity:    0,
+                              transition: 'opacity 150ms',
+                            }}
                           >
                             {relativeTime(entry.enteredAt)}
                           </Typography>
@@ -763,27 +774,96 @@ export default function UserWorkspace(): React.JSX.Element {
         </M3Surface>
       )}
 
+      {/* ── Jarvis auto-execute banner ────────────────────────────────── */}
+      {autoToastLabel && (
+        <M3Surface
+          elevation={3}
+          aria-live="assertive"
+          aria-label={`Jarvis: ${autoToastLabel}`}
+          sx={{
+            position:   'fixed',
+            top:        16,
+            left:       '50%',
+            transform:  'translateX(-50%)',
+            px:         2.5,
+            py:         1,
+            borderRadius: 8,
+            zIndex:     1400,
+            bgcolor:    'var(--md-sys-color-primary-container)',
+            display:    'flex',
+            alignItems: 'center',
+            gap:        1,
+            animation:  'jarvisBannerIn 220ms ease-out',
+            '@keyframes jarvisBannerIn': {
+              from: { opacity: 0, transform: 'translateX(-50%) translateY(-10px)' },
+              to:   { opacity: 1, transform: 'translateX(-50%) translateY(0)' },
+            },
+          }}
+        >
+          <AutoAwesomeIcon
+            sx={{ fontSize: 'var(--md-sys-icon-size-sm, 18px)', color: 'var(--md-sys-color-primary)' }}
+            aria-hidden
+          />
+          <Typography
+            variant="labelMedium"
+            sx={{ color: 'var(--md-sys-color-on-primary-container)', whiteSpace: 'nowrap' }}
+          >
+            {autoToastLabel}
+          </Typography>
+        </M3Surface>
+      )}
+
       {/* ── Landing overlays (Orbit fullscreen context views) ─────────────── */}
       {activeLanding === 'schedule' && (
-        <ScheduleLanding
-          onClose={() => setActiveLanding(null)}
-          onNavigate={(type, ctx) => { setLandingCtx(ctx); setActiveLanding(type); }}
-          ctx={landingCtx}
-        />
+        <Box
+          sx={{
+            animation: 'orbitIn 200ms ease-out',
+            '@keyframes orbitIn': {
+              from: { opacity: 0, transform: 'scale(0.985)' },
+              to:   { opacity: 1, transform: 'scale(1)' },
+            },
+          }}
+        >
+          <ScheduleLanding
+            onClose={() => setActiveLanding(null)}
+            onNavigate={(type, ctx) => { setLandingCtx(ctx); setActiveLanding(type); }}
+            ctx={landingCtx}
+          />
+        </Box>
       )}
       {activeLanding === 'class' && (
-        <ClassLanding
-          onClose={() => setActiveLanding(null)}
-          onNavigate={(type, ctx) => { setLandingCtx(ctx); setActiveLanding(type); }}
-          ctx={landingCtx}
-        />
+        <Box
+          sx={{
+            animation: 'orbitIn 200ms ease-out',
+            '@keyframes orbitIn': {
+              from: { opacity: 0, transform: 'scale(0.985)' },
+              to:   { opacity: 1, transform: 'scale(1)' },
+            },
+          }}
+        >
+          <ClassLanding
+            onClose={() => setActiveLanding(null)}
+            onNavigate={(type, ctx) => { setLandingCtx(ctx); setActiveLanding(type); }}
+            ctx={landingCtx}
+          />
+        </Box>
       )}
       {activeLanding === 'lesson' && (
-        <LessonLanding
-          onClose={() => setActiveLanding(null)}
-          ctx={landingCtx}
-          context={context}
-        />
+        <Box
+          sx={{
+            animation: 'orbitIn 200ms ease-out',
+            '@keyframes orbitIn': {
+              from: { opacity: 0, transform: 'scale(0.985)' },
+              to:   { opacity: 1, transform: 'scale(1)' },
+            },
+          }}
+        >
+          <LessonLanding
+            onClose={() => setActiveLanding(null)}
+            ctx={landingCtx}
+            context={context}
+          />
+        </Box>
       )}
     </M3Surface>
   );
