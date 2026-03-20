@@ -61,9 +61,12 @@ import { useThumbMenu }           from '../../hooks/useThumbMenu';
 import { useUniversalInput }      from '../../hooks/useUniversalInput';
 import { useProactiveSchedule }   from '../../hooks/useProactiveSchedule';
 import { useSkillSuggestion, autoName } from '../../hooks/useSkillSuggestion';
+import { useAutoSettingsEngine }      from '../../hooks/useAutoSettingsEngine';
 import { useExternalSync }        from '../../hooks/useExternalSync';
 import { seedDemoContent }       from '../../utils/seedDemoContent';
 import SimulationPanel          from '../../simulation/SimulationPanel';
+import JarvisNexus              from '../ui/JarvisNexus';
+import { useEmergentSkillsStore } from '../../stores/useEmergentSkillsStore';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
 
@@ -409,6 +412,32 @@ export default function UserWorkspace(): React.JSX.Element {
   // ── Emergent skill suggestion — pattern-based skill learning loop ─────────
   const { skillDraft, confirmSkill, dismissSkill } = useSkillSuggestion();
 
+  // ── Auto-Settings Engine — adaptive configuration ────────────────────────
+  const { pending: asPending, appliedIds: asAppliedIds, applyDelta, dismissDelta } =
+    useAutoSettingsEngine(tenantId);
+
+  // ── Emergent skills persistence ───────────────────────────────────────────
+  const emergentSkillActions = useEmergentSkillsStore(s => s.actions);
+
+  /** Wraps confirmSkill to also sync the singleton to the persisted store */
+  const handleConfirmSkill = useCallback(() => {
+    confirmSkill();
+    setTimeout(() => emergentSkillActions.syncFromSingleton(), 0);
+  }, [confirmSkill, emergentSkillActions]);
+
+  // ── Jarvis Nexus (Ctrl+Shift+J) ────────────────────────────────────────────
+  const [nexusOpen, setNexusOpen] = useState(false);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.ctrlKey && e.shiftKey && e.key === 'J') {
+        e.preventDefault();
+        setNexusOpen(prev => !prev);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   // ── Jarvis indicator state ────────────────────────────────────────────────
   const jarvisState = (menuLoading || isProcessing) ? 'processing'
     : proactiveIdle    ? 'active'
@@ -443,6 +472,23 @@ export default function UserWorkspace(): React.JSX.Element {
         </Typography>
 
         <Stack direction="row" alignItems="center" gap={0.5}>
+          <Tooltip title="Jarvis Nexus (Ctrl+Shift+J)">
+            <IconButton
+              size="small"
+              onClick={() => setNexusOpen(p => !p)}
+              aria-label="Apri Jarvis Nexus (Ctrl+Shift+J)"
+              sx={{ color: nexusOpen ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
+            >
+              <Box
+                component="span"
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
+              >
+                hub
+              </Box>
+            </IconButton>
+          </Tooltip>
           <Tooltip title="Impostazioni (Ctrl+,)">
             <IconButton
               size="small"
@@ -754,8 +800,8 @@ export default function UserWorkspace(): React.JSX.Element {
         onActivate={openMenu}
       />
 
-      {/* ── Emergent skill suggestion card ───────────────────────────────── */}
-      {skillDraft && (
+      {/* ── Emergent skill suggestion card (compact, outside Nexus) ────────── */}
+      {skillDraft && !nexusOpen && (
         <M3Surface
           elevation={2}
           aria-live="polite"
@@ -790,7 +836,7 @@ export default function UserWorkspace(): React.JSX.Element {
             <Button
               size="small"
               variant="contained"
-              onClick={confirmSkill}
+              onClick={handleConfirmSkill}
               aria-label="Conferma creazione skill emergente"
             >
               Crea
@@ -806,6 +852,20 @@ export default function UserWorkspace(): React.JSX.Element {
           </Stack>
         </M3Surface>
       )}
+
+      {/* ── JarvisNexus — cinematic right-panel command center ─────────────── */}
+      <JarvisNexus
+        open={nexusOpen}
+        onClose={() => setNexusOpen(false)}
+        tenantId={tenantId}
+        pending={asPending}
+        appliedIds={asAppliedIds}
+        onApplyDelta={applyDelta}
+        onDismissDelta={dismissDelta}
+        skillDraft={skillDraft}
+        onConfirmSkill={handleConfirmSkill}
+        onDismissSkill={dismissSkill}
+      />
 
       {/* ── Jarvis auto-execute banner ────────────────────────────────── */}
       {autoToastLabel && (
