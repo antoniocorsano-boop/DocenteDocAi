@@ -2,8 +2,7 @@ import type { Preview } from '@storybook/react-vite';
 
 // Load the same global styles used by the app so Storybook stories render with MD3 tokens and layout.
 import '../src/theme.css';
-import '../src/layout.css';
-import '../src/components.css';
+import '../src/global.css';
 import '../src/logo.css';
 import '../src/modules.css';
 

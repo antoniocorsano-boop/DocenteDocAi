@@ -63,7 +63,7 @@ function readinessChip(report: PALiveAuditReport) {
 
 // ─── Componente ───────────────────────────────────────────────────────────────
 
-export function AuditVerbalePanel() {
+export function AuditVerbalePanel(): React.JSX.Element {
   const db                        = useComplianceStore.getState().db;
   const [scenarioId, setScenarioId] = useState<string>(AUDIT_SCENARIOS[0].id);
   const [report, setReport]       = useState<PALiveAuditReport | null>(null);
@@ -175,7 +175,7 @@ export function AuditVerbalePanel() {
             label={`Score: ${Math.round(report.overallScore)}%`}
             color={report.overallScore >= 80 ? 'success' : report.overallScore >= 60 ? 'warning' : 'error'}
             size="small"
-            sx={{ fontWeight: 700, fontSize: 13 }}
+            sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}
           />
           {statusChip(report)}
           {readinessChip(report)}
@@ -253,7 +253,7 @@ export function AuditVerbalePanel() {
                 m: 0,
                 p: 2,
                 fontFamily: '"Roboto Mono", monospace',
-                fontSize: 11,
+                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                 lineHeight: 1.6,
                 overflowX: 'auto',
                 maxHeight: 480,

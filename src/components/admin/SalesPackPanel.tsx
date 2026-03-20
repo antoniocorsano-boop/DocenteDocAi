@@ -80,7 +80,7 @@ function ScoreChip({ score }: { score: number }) {
       label={`${score}%`}
       color={color}
       size="small"
-      sx={{ fontWeight: 700, minWidth: 52 }}
+      sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', minWidth: 52 }}
     />
   );
 }
@@ -109,7 +109,7 @@ function DocPreview({
   return (
     <Accordion disableGutters elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
       <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <Typography variant="body2" sx={{ fontWeight: 600 }}>
+        <Typography variant="body2" sx={{ fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}>
           {title}
         </Typography>
       </AccordionSummary>
@@ -177,7 +177,7 @@ function PackCard({
     >
       {/* ── Header card ── */}
       <Box sx={{ p: 2, display: 'flex', gap: 1.5, alignItems: 'center', flexWrap: 'wrap' }}>
-        <Chip label={`v${pack.version}`} size="small" variant="outlined" sx={{ fontWeight: 700 }} />
+        <Chip label={`v${pack.version}`} size="small" variant="outlined" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)' }} />
         <ScoreChip score={pack.complianceScore} />
         <StatusChip status={pack.complianceStatus} />
         {pack.aiEnabled
@@ -289,10 +289,28 @@ function PackCard({
 
 // ─── Pannello principale ──────────────────────────────────────────────────────
 
-export function SalesPackPanel({ isAdmin, tenantId, userId }: SalesPackPanelProps) {
+export function SalesPackPanel({ isAdmin, tenantId, userId }: SalesPackPanelProps): React.JSX.Element {
   const packs    = useSalesPackStore(s => s.packs.filter(p => p.tenantId === tenantId));
   const [generating, setGenerating] = useState(false);
   const [lastError, setLastError]   = useState<string | null>(null);
+
+  const handleGenerate = useCallback(() => {
+    setGenerating(true);
+    setLastError(null);
+    try {
+      createSalesPack(tenantId, userId);
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Errore sconosciuto';
+      setLastError(msg);
+      slog.info('UI', 'Errore generazione Sales Pack', { error: msg });
+    } finally {
+      setGenerating(false);
+    }
+  }, [tenantId, userId]);
+
+  const handleDelete = useCallback((id: string) => {
+    deleteSalesPack(id);
+  }, []);
 
   // Accesso negato ai non admin
   if (!isAdmin) {
@@ -312,24 +330,6 @@ export function SalesPackPanel({ isAdmin, tenantId, userId }: SalesPackPanelProp
       </Box>
     );
   }
-
-  const handleGenerate = useCallback(() => {
-    setGenerating(true);
-    setLastError(null);
-    try {
-      createSalesPack(tenantId, userId);
-    } catch (err) {
-      const msg = err instanceof Error ? err.message : 'Errore sconosciuto';
-      setLastError(msg);
-      slog.info('UI', 'Errore generazione Sales Pack', { error: msg });
-    } finally {
-      setGenerating(false);
-    }
-  }, [tenantId, userId]);
-
-  const handleDelete = useCallback((id: string) => {
-    deleteSalesPack(id);
-  }, []);
 
   // Ordina per data desc
   const sortedPacks = [...packs].sort((a, b) => b.createdAt - a.createdAt);

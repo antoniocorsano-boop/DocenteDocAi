@@ -52,7 +52,7 @@ function EventChip({ eventType }: { eventType: string }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function TrustChainPanel({ tenantId, isAdmin }: TrustChainPanelProps) {
+export function TrustChainPanel({ tenantId, isAdmin }: TrustChainPanelProps): React.JSX.Element {
   const records       = useTrustStore(s =>
     [...s.records.filter(r => r.tenantId === tenantId)]
       .sort((a, b) => b.timestamp - a.timestamp),
@@ -201,7 +201,7 @@ export function TrustChainPanel({ tenantId, isAdmin }: TrustChainPanelProps) {
                   <TableCell>
                     <M3Typography
                       variant="bodySmall"
-                      sx={{ fontFamily: 'monospace', fontSize: '0.7rem' }}
+                      sx={{ fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-font-size)' }}
                     >
                       {r.hash.slice(0, 20)}…
                     </M3Typography>
@@ -209,7 +209,7 @@ export function TrustChainPanel({ tenantId, isAdmin }: TrustChainPanelProps) {
                   <TableCell>
                     <M3Typography
                       variant="bodySmall"
-                      sx={{ fontFamily: 'monospace', fontSize: '0.7rem', color: 'text.secondary' }}
+                      sx={{ fontFamily: 'monospace', fontSize: 'var(--md-sys-typescale-body-small-font-size)', color: 'text.secondary' }}
                     >
                       {r.prevHash ? r.prevHash.slice(0, 16) + '…' : '(primo)'}
                     </M3Typography>

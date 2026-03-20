@@ -69,7 +69,7 @@ function frequencyColor(f: AuditCycle['frequency']): string {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function EscalationConfigPanel() {
+export default function EscalationConfigPanel(): React.JSX.Element {
   const model = useMemo(() => buildContinuousComplianceModel(), []);
 
   return (
@@ -118,8 +118,8 @@ export default function EscalationConfigPanel() {
                       sx={{
                         bgcolor:    severityColor(rule.severity),
                         color:      severityTextColor(rule.severity),
-                        fontWeight: 600,
-                        fontSize:   '11px',
+                        fontWeight: 'var(--md-sys-typescale-weight-semibold)',
+                        fontSize:   'var(--md-sys-typescale-label-small-font-size)',
                       }}
                     />
                   </TableCell>
@@ -174,7 +174,7 @@ export default function EscalationConfigPanel() {
                     sx={{
                       bgcolor:    frequencyColor(cycle.frequency),
                       color:      'var(--md-sys-color-on-surface)',
-                      fontWeight: 600,
+                      fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                     }}
                   />
                   <Typography variant="labelMedium">{cycle.type.replace(/_/g, ' ')}</Typography>
@@ -191,7 +191,7 @@ export default function EscalationConfigPanel() {
                         label={a}
                         size="small"
                         variant="outlined"
-                        sx={{ fontSize: '11px', height: 22 }}
+                        sx={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', height: 22 }}
                       />
                     ))}
                   </Stack>

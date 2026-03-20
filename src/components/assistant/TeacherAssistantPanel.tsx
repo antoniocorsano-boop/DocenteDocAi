@@ -119,13 +119,13 @@ function ActionCard({ action }: { action: RankedAction }) {
               <Chip
                 label="Richiede HITL"
                 size="small"
-                sx={{ bgcolor: 'var(--md-sys-color-secondary-container)', fontSize: '11px' }}
+                sx={{ bgcolor: 'var(--md-sys-color-secondary-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
               />
             )}
             <Chip
               label={PRIORITY_LABEL[action.priority] ?? action.priority}
               size="small"
-              sx={{ bgcolor: PRIORITY_COLOR[action.priority] ?? 'var(--md-sys-color-surface-variant)', fontSize: '11px' }}
+              sx={{ bgcolor: PRIORITY_COLOR[action.priority] ?? 'var(--md-sys-color-surface-variant)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
             />
           </Stack>
         </Stack>
@@ -417,7 +417,7 @@ const TeacherAssistantPanel: React.FC = () => {
                 <Chip
                   label={adaptive.degrading.length}
                   size="small"
-                  sx={{ height: 18, fontSize: '11px', bgcolor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)' }}
+                  sx={{ height: 18, fontSize: 'var(--md-sys-typescale-label-small-font-size)', bgcolor: 'var(--md-sys-color-error-container)', color: 'var(--md-sys-color-on-error-container)' }}
                   aria-label={`${adaptive.degrading.length} use case in degradazione`}
                 />
               )}
@@ -532,7 +532,7 @@ const TeacherAssistantPanel: React.FC = () => {
                       <Chip
                         label={req.status ?? 'pending'}
                         size="small"
-                        sx={{ bgcolor: 'var(--md-sys-color-tertiary-container)', fontSize: '11px' }}
+                        sx={{ bgcolor: 'var(--md-sys-color-tertiary-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
                       />
                     </Stack>
                     <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-secondary-container)' }}>
@@ -617,9 +617,9 @@ const TeacherAssistantPanel: React.FC = () => {
                         </Typography>
                         <Stack direction="row" gap="var(--md-sys-spacing-1)">
                           {p.autoRemediate && (
-                            <Chip label="Auto-remediate" size="small" sx={{ bgcolor: 'var(--md-sys-color-secondary-container)', fontSize: '11px' }} />
+                            <Chip label="Auto-remediate" size="small" sx={{ bgcolor: 'var(--md-sys-color-secondary-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }} />
                           )}
-                          <Chip label={`boost +${p.complianceBoost}`} size="small" sx={{ bgcolor: 'var(--md-sys-color-tertiary-container)', fontSize: '11px' }} />
+                          <Chip label={`boost +${p.complianceBoost}`} size="small" sx={{ bgcolor: 'var(--md-sys-color-tertiary-container)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }} />
                         </Stack>
                       </Stack>
                       <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-error-container)', opacity: 0.85 }}>
@@ -659,7 +659,7 @@ const TeacherAssistantPanel: React.FC = () => {
                         size="small"
                         sx={{
                           bgcolor: s.avgComplianceDelta >= 0 ? 'var(--md-sys-color-tertiary-container)' : 'var(--md-sys-color-error-container)',
-                          fontSize: '11px',
+                          fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                         }}
                       />
                     </Stack>

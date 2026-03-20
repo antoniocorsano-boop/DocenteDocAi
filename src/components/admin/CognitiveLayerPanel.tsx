@@ -10,7 +10,7 @@
  *   isAdmin   — se true mostra i controlli di ingestion manuale
  */
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -78,7 +78,7 @@ function SuggestionIcon({ type }: { type: string }) {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function CognitiveLayerPanel({ tenantId, isAdmin }: Props) {
+export default function CognitiveLayerPanel({ tenantId, isAdmin }: Props): React.JSX.Element {
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

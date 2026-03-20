@@ -149,7 +149,7 @@ const DegradingCard: React.FC<{ profile: AdaptiveProfile }> = ({ profile }) => (
               size="small"
               sx={{
                 height: 20,
-                fontSize: '0.65rem',
+                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                 bgcolor: 'var(--md-sys-color-error-container)',
                 color:   'var(--md-sys-color-on-error-container)',
                 '& .MuiChip-label': { px: 1 },
@@ -162,7 +162,7 @@ const DegradingCard: React.FC<{ profile: AdaptiveProfile }> = ({ profile }) => (
               size="small"
               sx={{
                 height: 20,
-                fontSize: '0.65rem',
+                fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                 bgcolor: 'var(--md-sys-color-tertiary-container)',
                 color:   'var(--md-sys-color-on-tertiary-container)',
                 '& .MuiChip-label': { px: 1 },
@@ -251,7 +251,7 @@ const UCCard: React.FC<{
           sx={{
             alignSelf: 'flex-start',
             height: 18,
-            fontSize: '0.6rem',
+            fontSize: 'var(--md-sys-typescale-label-small-font-size)',
             bgcolor: 'var(--md-sys-color-error-container)',
             color:   'var(--md-sys-color-on-error-container)',
             '& .MuiChip-label': { px: 1 },

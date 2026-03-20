@@ -13,7 +13,7 @@
  * MD3 compliant: M3Surface, M3Typography, MUI v7 only.
  */
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useMemo, useState, useRef } from 'react';
 import {
   Box, Button, Chip, CircularProgress, Divider, Stack,
   TextField, Accordion, AccordionSummary, AccordionDetails,
@@ -211,9 +211,9 @@ function ActionCard({
 
 // ─── Main component ───────────────────────────────────────────────────────────
 
-export function SalesPackSelfPanel({ tenantId, userId, isAdmin }: SalesPackSelfPanelProps) {
+export function SalesPackSelfPanel({ tenantId, userId, isAdmin }: SalesPackSelfPanelProps): React.JSX.Element {
   const packs        = useSalesPackStore(s => s.packs.filter(p => p.tenantId === tenantId));
-  const latestPack   = [...packs].sort((a, b) => b.createdAt - a.createdAt)[0];
+  const latestPack   = useMemo(() => [...packs].sort((a, b) => b.createdAt - a.createdAt)[0], [packs]);
 
   const [actions,    setActions]    = useState<PackAction[]>([]);
   const [loadingAct, setLoadingAct] = useState(false);
@@ -231,7 +231,7 @@ export function SalesPackSelfPanel({ tenantId, userId, isAdmin }: SalesPackSelfP
     getSuggestedActions(latestPack, isAdmin)
       .then(setActions)
       .finally(() => setLoadingAct(false));
-  }, [latestPack?.id, isAdmin]);
+  }, [latestPack, isAdmin]);
 
   const handleGenerate = async () => {
     setGenerating(true);

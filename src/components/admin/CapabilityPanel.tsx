@@ -14,7 +14,7 @@
  *   isAdmin   — se true mostra i controlli di unlock
  */
 
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   Box,
   Button,
@@ -91,7 +91,7 @@ function CapabilityCard({
 
   const stateInfo = STATE_CHIP[capability.state] ?? STATE_CHIP['locked'];
 
-  async function handleUnlock() {
+  async function handleUnlock(): Promise<void> {
     setUnlocking(true);
     try {
       await unlockCapability(tenantId, capability.id, capability.requiredTier, 'admin');
@@ -183,7 +183,7 @@ function CapabilityCard({
 
 // ─── Main Panel ───────────────────────────────────────────────────────────────
 
-export default function CapabilityPanel({ tenantId, isAdmin }: Props) {
+export default function CapabilityPanel({ tenantId, isAdmin }: Props): React.JSX.Element {
   const [filter, setFilter] = useState<'all' | CapabilityCategory>('all');
   const [_unlockCount, setUnlockCount] = useState(0);
 

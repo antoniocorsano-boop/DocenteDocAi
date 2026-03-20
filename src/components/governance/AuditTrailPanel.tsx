@@ -78,7 +78,7 @@ const STATUS_LABELS: Record<ComplianceStatusPA, string> = {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 
-export default function AuditTrailPanel() {
+export default function AuditTrailPanel(): React.JSX.Element {
   const runs         = useAuditTrailStore(s => s.runs);
   const clearHistory = useAuditTrailStore(s => s.clearHistory);
 
@@ -116,7 +116,7 @@ export default function AuditTrailPanel() {
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value as ComplianceStatusPA | 'ALL')}
             aria-label="Filtra per stato compliance"
-            sx={{ minWidth: 180, fontSize: '0.875rem' }}
+            sx={{ minWidth: 180, fontSize: 'var(--md-sys-typescale-body-medium-font-size)' }}
           >
             <MenuItem value="ALL">Tutti gli stati</MenuItem>
             <MenuItem value="CONFORME">Conforme</MenuItem>
@@ -219,7 +219,7 @@ export default function AuditTrailPanel() {
                         sx={{
                           bgcolor: scoreColor(run.score),
                           color: 'var(--md-sys-color-on-surface)',
-                          fontWeight: 600,
+                          fontWeight: 'var(--md-sys-typescale-weight-semibold)',
                           minWidth: 52,
                         }}
                       />
@@ -231,7 +231,7 @@ export default function AuditTrailPanel() {
                         sx={{
                           bgcolor: statusColor(run.complianceStatus),
                           color:   statusTextColor(run.complianceStatus),
-                          fontWeight: 500,
+                          fontWeight: 'var(--md-sys-typescale-weight-medium)',
                           whiteSpace: 'nowrap',
                         }}
                       />
@@ -243,7 +243,7 @@ export default function AuditTrailPanel() {
                         sx={{
                           bgcolor: readinessColor(run.certificationReadiness),
                           color:   readinessTextColor(run.certificationReadiness),
-                          fontSize: '11px',
+                          fontSize: 'var(--md-sys-typescale-label-small-font-size)',
                           whiteSpace: 'nowrap',
                         }}
                       />
@@ -256,7 +256,7 @@ export default function AuditTrailPanel() {
                           sx={{
                             bgcolor: 'var(--md-sys-color-error-container)',
                             color:   'var(--md-sys-color-on-error-container)',
-                            fontWeight: 700,
+                            fontWeight: 'var(--md-sys-typescale-weight-bold)',
                             minWidth: 32,
                           }}
                         />
