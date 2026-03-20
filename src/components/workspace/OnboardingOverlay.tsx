@@ -43,7 +43,7 @@ const STEPS: OnboardingStep[] = [
         aria-hidden
       />
     ),
-    title: '',
+    title: 'Benvenuto',
     body:  'Il sistema ti aiuta ad agire e rispettare le normative.',
   },
   {
@@ -53,7 +53,7 @@ const STEPS: OnboardingStep[] = [
         aria-hidden
       />
     ),
-    title: '',
+    title: 'Aggiungi contenuti',
     body:  'Aggiungi contenuto per iniziare.',
   },
   {
@@ -63,7 +63,7 @@ const STEPS: OnboardingStep[] = [
         aria-hidden
       />
     ),
-    title: '',
+    title: 'Azioni intelligenti',
     body:  'Clicca sul contenuto per vedere le azioni.',
   },
   {
@@ -73,7 +73,7 @@ const STEPS: OnboardingStep[] = [
         aria-hidden
       />
     ),
-    title: '',
+    title: 'Tracciabilità',
     body:  'Tutto viene registrato automaticamente.',
   },
 ];
@@ -143,6 +143,18 @@ export default function OnboardingOverlay({ onComplete }: OnboardingOverlayProps
       >
         <Stack alignItems="center" spacing={1.5}>
           {current.icon}
+          {current.title && (
+            <Typography
+              variant="titleMedium"
+              component="span"
+              sx={{
+                color:      'var(--md-sys-color-on-surface)',
+                fontWeight: 'var(--md-sys-typescale-weight-semibold)',
+              }}
+            >
+              {current.title}
+            </Typography>
+          )}
         </Stack>
       </DialogTitle>
 

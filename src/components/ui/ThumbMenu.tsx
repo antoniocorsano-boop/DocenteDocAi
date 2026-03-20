@@ -30,6 +30,7 @@ import TouchAppOutlinedIcon from '@mui/icons-material/TouchAppOutlined';
 
 import { isCapabilityEnabled } from '../../modules/capabilitySystem/capabilityService';
 import type { OrchestrationAction, OrchestrationContext } from '../../modules/orchestration/types';
+import { useUIStore } from '../../stores/useUIStore';
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -120,8 +121,10 @@ function ActionChip({
   action, index, total, center, visible, tenantId, selected, onSelect,
 }: ActionChipProps): React.JSX.Element {
   const angle  = ((360 / total) * index - 90) * (Math.PI / 180);
-  const chipX  = center.left + Math.cos(angle) * ORBIT_RADIUS;
-  const chipY  = center.top  + Math.sin(angle) * ORBIT_RADIUS;
+  const rawX   = center.left + Math.cos(angle) * ORBIT_RADIUS;
+  const rawY   = center.top  + Math.sin(angle) * ORBIT_RADIUS;
+  const safeX  = Math.max(40, Math.min(rawX, window.innerWidth  - 40));
+  const safeY  = Math.max(40, Math.min(rawY, window.innerHeight - 40));
 
   const enabled     = !action.capabilityId || isCapabilityEnabled(tenantId, action.capabilityId);
   const accentColor = ACTION_CHIP_COLORS[action.priority] ?? ACTION_CHIP_COLORS[4];
@@ -137,8 +140,8 @@ function ActionChip({
       role="menuitem"
       sx={{
         position:  'fixed',
-        left:      chipX,
-        top:       chipY,
+        left:      safeX,
+        top:       safeY,
         transform: 'translate(-50%, -50%)',
         zIndex:    1400,
         cursor:    enabled ? 'pointer' : 'default',
@@ -197,6 +200,14 @@ export default function ThumbMenu({
     }
   }, [open, anchorEl]);
 
+  // C1: Reset frozenCenter after close animation — prevents ghost FAB
+  useEffect(() => {
+    if (!open) {
+      const t = setTimeout(() => setFrozenCenter(null), ANIM_DURATION + 60);
+      return () => clearTimeout(t);
+    }
+  }, [open]);
+
   const center = frozenCenter ?? getAnchorCenter(anchorEl);
 
   const actions = useMemo(
@@ -207,9 +218,9 @@ export default function ThumbMenu({
   // ── Keyboard navigation ──────────────────────────────────────────────────
   const [selectedIndex, setSelectedIndex] = useState<number>(-1);
 
-  // Reset selection when menu opens/closes or actions change
+  // Reset selection when menu opens/closes — no auto-select (M3)
   useEffect(() => {
-    setSelectedIndex(open && actions.length > 0 ? 0 : -1);
+    setSelectedIndex(-1);
   }, [open, actions.length]);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -228,9 +239,12 @@ export default function ThumbMenu({
       case 'Enter': {
         e.preventDefault();
         const action = actions[selectedIndex];
-        if (action && (!action.capabilityId || isCapabilityEnabled(tenantId, action.capabilityId))) {
+        if (!action) break;
+        if (!action.capabilityId || isCapabilityEnabled(tenantId, action.capabilityId)) {
           onSelect(action);
           onClose();
+        } else {
+          useUIStore.getState().actions.showToast('Non disponibile', 'info');
         }
         break;
       }
@@ -247,6 +261,18 @@ export default function ThumbMenu({
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
   }, [handleKeyDown]);
+
+  // OL: Position of selected chip for label display
+  const selectedChipPos = useMemo(() => {
+    if (selectedIndex < 0 || selectedIndex >= actions.length) return null;
+    const angle = ((360 / actions.length) * selectedIndex - 90) * (Math.PI / 180);
+    const rawX  = center.left + Math.cos(angle) * ORBIT_RADIUS;
+    const rawY  = center.top  + Math.sin(angle) * ORBIT_RADIUS;
+    return {
+      x: Math.max(40, Math.min(rawX, window.innerWidth  - 40)),
+      y: Math.max(40, Math.min(rawY, window.innerHeight - 40)),
+    };
+  }, [selectedIndex, actions.length, center]);
 
   if (!open && !frozenCenter) return null;
 
@@ -273,6 +299,26 @@ export default function ThumbMenu({
           onSelect={(a) => { onSelect(a); onClose(); }}
         />
       ))}
+
+      {/* OL: Label micro sotto chip selezionato */}
+      {selectedChipPos && open && (
+        <Typography
+          variant="labelSmall"
+          sx={{
+            position:      'fixed',
+            left:          selectedChipPos.x,
+            top:           selectedChipPos.y + 30,
+            transform:     'translateX(-50%)',
+            opacity:       0.75,
+            zIndex:        1400,
+            pointerEvents: 'none',
+            whiteSpace:    'nowrap',
+            color:         'var(--md-sys-color-on-surface)',
+          }}
+        >
+          {actions[selectedIndex]?.label}
+        </Typography>
+      )}
 
       {/* Nessuna azione disponibile */}
       {actions.length === 0 && open && (

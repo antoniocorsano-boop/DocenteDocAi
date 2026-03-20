@@ -39,6 +39,15 @@ function injectKeyframes(): void {
       70%  { box-shadow: 0 0 0 7px transparent; opacity: 1; }
       100% { box-shadow: 0 0 0 0px transparent; opacity: .9; }
     }
+    @keyframes jarvisGlow {
+      0%   { box-shadow: 0 0 0 0px var(--md-sys-color-primary); opacity: 1; }
+      50%  { box-shadow: 0 0 12px 4px var(--md-sys-color-primary); opacity: 1; }
+      100% { box-shadow: 0 0 0 0px var(--md-sys-color-primary); opacity: 1; }
+    }
+    @keyframes jarvisProcessing {
+      0%, 100% { box-shadow: 0 0 0 0px var(--md-sys-color-tertiary); opacity: .8; }
+      50%       { box-shadow: 0 0 0 5px transparent; opacity: 1; }
+    }
   `;
   document.head.appendChild(style);
 }
@@ -54,15 +63,25 @@ export interface JarvisIndicatorProps {
   hidden: boolean;
   /** Callback al click — apre ThumbMenu per latestEntryId */
   onActivate: (entryId: string, anchor: HTMLElement) => void;
+  /** Stato visivo Jarvis: suggestion (default) | active | processing */
+  state?: 'idle' | 'suggestion' | 'active' | 'processing';
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
+
+const ANIM_MAP: Record<string, string> = {
+  suggestion: 'jarvisPulse 2.6s ease-out infinite',
+  active:     'jarvisGlow 1.2s ease-out infinite',
+  processing: 'jarvisProcessing 0.7s ease-in-out infinite',
+  idle:       'none',
+};
 
 export default function JarvisIndicator({
   count,
   latestEntryId,
   hidden,
   onActivate,
+  state = 'suggestion',
 }: JarvisIndicatorProps): React.JSX.Element | null {
   const fabRef = useRef<HTMLButtonElement>(null);
 
@@ -106,7 +125,7 @@ export default function JarvisIndicator({
             backgroundColor: 'var(--md-sys-color-primary-container)',
             color:           'var(--md-sys-color-on-primary-container)',
             boxShadow:       '0 2px 10px rgba(0,0,0,.20)',
-            animation:       'jarvisPulse 2.6s ease-out infinite',
+            animation:       ANIM_MAP[state] ?? ANIM_MAP.suggestion,
             transition:      'background-color 160ms ease, color 160ms ease',
             '&:hover': {
               backgroundColor: 'var(--md-sys-color-primary)',

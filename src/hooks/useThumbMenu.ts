@@ -73,8 +73,14 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
         role,
         domain: getUserDomain(role),
       });
+      if (!orchestrCtx) {
+        useUIStore.getState().actions.showToast('Contenuto non disponibile', 'error');
+        return;
+      }
       setContext(orchestrCtx);
       setOpen(true);
+    } catch {
+      useUIStore.getState().actions.showToast('Errore nel caricamento', 'error');
     } finally {
       setLoading(false);
     }
@@ -96,7 +102,7 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
       });
       const { showToast } = useUIStore.getState().actions;
       if (result.success) {
-        showToast('Registrato.', 'success');
+        showToast(`${action.label} completata`, 'success');
       } else {
         showToast(result.reason ?? 'Non disponibile.', 'error');
       }

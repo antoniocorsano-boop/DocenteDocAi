@@ -25,7 +25,6 @@ import Button           from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import Divider          from '@mui/material/Divider';
 import IconButton       from '@mui/material/IconButton';
-import LinearProgress   from '@mui/material/LinearProgress';
 import List             from '@mui/material/List';
 import ListItemButton   from '@mui/material/ListItemButton';
 import ListItemText     from '@mui/material/ListItemText';
@@ -35,6 +34,7 @@ import Tooltip          from '@mui/material/Tooltip';
 import Typography       from '@mui/material/Typography';
 import AttachFileOutlinedIcon  from '@mui/icons-material/AttachFileOutlined';
 import AddOutlinedIcon         from '@mui/icons-material/AddOutlined';
+import AutoAwesomeIcon         from '@mui/icons-material/AutoAwesome';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import SendOutlinedIcon        from '@mui/icons-material/SendOutlined';
 
@@ -115,9 +115,11 @@ export default function UserWorkspace(): React.JSX.Element {
   const [accountPanelOpen, setAccountPanelOpen] = useState(false);
 
   // ── Input state ───────────────────────────────────────────────────────────
-  const [text,      setText]     = useState('');
-  const [ingesting, setIngesting] = useState(false);
+  const [text,           setText]          = useState('');
+  const [ingesting,      setIngesting]     = useState(false);
+  const [loadingEntryId, setLoadingEntryId] = useState<string | null>(null);
   const fileRef              = useRef<HTMLInputElement>(null);
+  const inputRef             = useRef<HTMLInputElement>(null);
   /** Anchor element of the latest (first) entry — used by Ctrl+J */
   const latestEntryAnchorRef  = useRef<HTMLElement | null>(null);
 
@@ -195,11 +197,29 @@ export default function UserWorkspace(): React.JSX.Element {
   } = useThumbMenu(tenantId);
 
   const handleEntryClick = useCallback(
-    (entry: CognitiveEntry, el: HTMLElement) => {
-      openMenu(entry.id, el);
+    async (entry: CognitiveEntry, el: HTMLElement) => {
+      if (loadingEntryId) return;
+      setLoadingEntryId(entry.id);
+      try {
+        await openMenu(entry.id, el);
+      } finally {
+        setLoadingEntryId(null);
+      }
     },
-    [openMenu],
+    [openMenu, loadingEntryId],
   );
+
+  // ── Post-onboarding: trigger Orbit on first entry ─────────────────────────
+  const handleOnboardingComplete = useCallback(() => {
+    setShowOnboarding(false);
+    setTimeout(() => {
+      const first = entries[0];
+      if (!first) return;
+      const anchor = latestEntryAnchorRef.current;
+      if (!anchor) return;
+      void openMenu(first.id, anchor);
+    }, 400);
+  }, [entries, openMenu]);
 
   // ── Jarvis global keyboard shortcuts (Ctrl+J, Ctrl+U, Ctrl+Shift+D) ────────
   useJarvisKeyboard({
@@ -237,7 +257,7 @@ export default function UserWorkspace(): React.JSX.Element {
         <Typography
           variant="titleMedium"
           component="h1"
-          sx={{ flexGrow: 1, color: 'var(--md-sys-color-on-surface-variant)' }}
+          sx={{ flexGrow: 1, color: 'var(--md-sys-color-on-surface)' }}
         >
           Spazio di lavoro
         </Typography>
@@ -263,6 +283,7 @@ export default function UserWorkspace(): React.JSX.Element {
       >
         <Stack spacing={2}>
           <TextField
+            inputRef={inputRef}
             multiline
             minRows={2}
             maxRows={6}
@@ -343,6 +364,25 @@ export default function UserWorkspace(): React.JSX.Element {
         </Stack>
       </M3Surface>
 
+      {/* ── Jarvis suggested hint ───────────────────────────────────────── */}
+      {entries[0] && (
+        <Box sx={{ px: 0.5 }}>
+          <Typography
+            variant="labelSmall"
+            sx={{ color: 'var(--md-sys-color-primary)', opacity: 0.8 }}
+          >
+            Suggerito
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.75 }}
+            noWrap
+          >
+            Analizza: {entries[0].label}
+          </Typography>
+        </Box>
+      )}
+
       {/* ── Recent content list ─────────────────────────────────────────── */}
       <Stack spacing={1}>
         <Typography
@@ -361,17 +401,6 @@ export default function UserWorkspace(): React.JSX.Element {
           sx={{ borderRadius: 2, overflow: 'hidden' }}
           aria-label="Lista contenuti recenti — clicca per aprire le azioni"
         >
-          {menuLoading && (
-            <LinearProgress
-              aria-label="Caricamento azioni disponibili"
-              sx={{
-                '& .MuiLinearProgress-bar': {
-                  backgroundColor: 'var(--md-sys-color-primary)',
-                },
-              }}
-            />
-          )}
-
           {entries.length === 0 ? (
             <Stack
               alignItems="center"
@@ -391,10 +420,20 @@ export default function UserWorkspace(): React.JSX.Element {
                 sx={{
                   color:     'var(--md-sys-color-on-surface-variant)',
                   textAlign: 'center',
+                  mb:        1,
                 }}
               >
                 Nessun contenuto. Aggiungi testo o carica un file.
               </Typography>
+              <Button
+                size="small"
+                variant="text"
+                onClick={() => inputRef.current?.focus()}
+                aria-label="Vai all'area di inserimento contenuto"
+                sx={{ borderRadius: 8 }}
+              >
+                Inizia
+              </Button>
             </Stack>
           ) : (
             <List
@@ -406,7 +445,8 @@ export default function UserWorkspace(): React.JSX.Element {
                   {idx > 0 && <Divider component="li" />}
                   <ListItemButton
                     ref={idx === 0 ? (el) => { latestEntryAnchorRef.current = el; } : undefined}
-                    onClick={e => handleEntryClick(entry, e.currentTarget)}
+                    onClick={e => { void handleEntryClick(entry, e.currentTarget); }}
+                    disabled={!!(loadingEntryId && loadingEntryId !== entry.id)}
                     aria-label={[
                       entry.label,
                       DOMAIN_LABEL[entry.domain] ?? entry.domain,
@@ -418,6 +458,9 @@ export default function UserWorkspace(): React.JSX.Element {
                       '&:hover': {
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                       },
+                      '&:hover .jarvis-hint-icon': {
+                        opacity: 1,
+                      },
                     }}
                   >
                     <ListItemText
@@ -427,17 +470,21 @@ export default function UserWorkspace(): React.JSX.Element {
                           alignItems="center"
                           spacing={1}
                         >
-                          <Box
-                            sx={{
-                              width:        6,
-                              height:       6,
-                              borderRadius: '50%',
-                              flexShrink:   0,
-                              bgcolor:      DOMAIN_CHIP_COLOR[entry.domain]
-                                ?? 'var(--md-sys-color-outline)',
-                            }}
-                            aria-hidden
-                          />
+                          <Tooltip title={DOMAIN_LABEL[entry.domain] ?? entry.domain}>
+                            <Box
+                              sx={{
+                                width:        6,
+                                height:       6,
+                                borderRadius: '50%',
+                                flexShrink:   0,
+                                cursor:       'help',
+                                bgcolor:      DOMAIN_CHIP_COLOR[entry.domain]
+                                  ?? 'var(--md-sys-color-outline)',
+                              }}
+                              role="img"
+                              aria-label={DOMAIN_LABEL[entry.domain] ?? entry.domain}
+                            />
+                          </Tooltip>
                           <Typography
                             variant="body2"
                             component="span"
@@ -446,13 +493,33 @@ export default function UserWorkspace(): React.JSX.Element {
                           >
                             {entry.label}
                           </Typography>
-                          <Typography
-                            variant="caption"
-                            component="span"
-                            sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}
-                          >
-                            {relativeTime(entry.enteredAt)}
-                          </Typography>
+                          {loadingEntryId === entry.id ? (
+                            <CircularProgress
+                              size={12}
+                              thickness={5}
+                              aria-label="Caricamento azioni"
+                              sx={{ flexShrink: 0, color: 'var(--md-sys-color-primary)' }}
+                            />
+                          ) : (
+                            <Typography
+                              variant="caption"
+                              component="span"
+                              sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}
+                            >
+                              {relativeTime(entry.enteredAt)}
+                            </Typography>
+                          )}
+                          <AutoAwesomeIcon
+                            className="jarvis-hint-icon"
+                            sx={{
+                              fontSize:   'var(--md-sys-icon-size-xs, 14px)',
+                              color:      'var(--md-sys-color-on-surface-variant)',
+                              opacity:    0.3,
+                              flexShrink: 0,
+                              transition: 'opacity 120ms',
+                            }}
+                            aria-hidden
+                          />
                         </Stack>
                       }
                     />
@@ -485,12 +552,13 @@ export default function UserWorkspace(): React.JSX.Element {
         count={entries.length}
         latestEntryId={entries[0]?.id ?? null}
         hidden={open}
+        state={menuLoading ? 'processing' : entries.length > 0 ? 'suggestion' : 'idle'}
         onActivate={openMenu}
       />
 
       {/* ── Onboarding overlay — only on first visit ─────────────────────── */}
       {showOnboarding && (
-        <OnboardingOverlay onComplete={() => setShowOnboarding(false)} />
+        <OnboardingOverlay onComplete={handleOnboardingComplete} />
       )}
     </M3Surface>
   );
