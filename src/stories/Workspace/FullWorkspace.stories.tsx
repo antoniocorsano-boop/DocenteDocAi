@@ -348,7 +348,7 @@ function JarvisAutoPilotSimulation(): React.JSX.Element {
           label={simState}
           size="small"
           sx={{
-            fontSize:   10,
+            fontSize:   'var(--md-sys-typescale-label-small-font-size)',
             height:     20,
             bgcolor:    simState === 'active' ? 'var(--md-sys-color-primary-container)'
               : simState === 'processing'     ? 'var(--md-sys-color-tertiary-container)'
