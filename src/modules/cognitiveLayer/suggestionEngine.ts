@@ -12,7 +12,7 @@
  * Il motore è puro (no side-effects) — chiamarlo è sempre sicuro.
  */
 
-import type { CognitiveEntry, CognitiveSuggestion, CognitiveDomain } from './types';
+import type { CognitiveEntry, CognitiveSuggestion, CognitiveDomain, ScheduleContext } from './types';
 
 // ─── ID helper ────────────────────────────────────────────────────────────────
 
@@ -136,7 +136,7 @@ function rulesForCommercial(entry: CognitiveEntry): CognitiveSuggestion[] {
   return suggestions;
 }
 
-function rulesForPedagogical(entry: CognitiveEntry): CognitiveSuggestion[] {
+function rulesForPedagogical(entry: CognitiveEntry, scheduleHint?: ScheduleContext): CognitiveSuggestion[] {
   const suggestions: CognitiveSuggestion[] = [];
   const contentLower = entry.content.toLowerCase();
 
@@ -156,6 +156,34 @@ function rulesForPedagogical(entry: CognitiveEntry): CognitiveSuggestion[] {
       'Rubrica valutativa rilevata',
       'Il testo contiene criteri di valutazione. Considera di collegarlo a un\'UDA esistente.',
     ));
+  }
+
+  // ─── Regole schedule-aware (attivate solo se scheduleHint disponibile) ───
+
+  if (scheduleHint) {
+    const { minsToLesson, lessonType } = scheduleHint;
+
+    // Lezione imminente (≤15 min) → apri registro in anticipo
+    if (minsToLesson !== undefined && minsToLesson <= 15 && minsToLesson > -60) {
+      suggestions.push(nextStep(
+        entry,
+        'Lezione imminente — apri il registro',
+        `Mancano ${Math.max(0, minsToLesson)} minuti all'inizio. Compila il registro ora.`,
+        'Apri registro',
+        'OPEN_REGISTER',
+      ));
+    }
+
+    // Lezione di tipo Laboratorio → suggerisci di caricare il deliverable
+    if (lessonType === 'Laboratorio') {
+      suggestions.push(nextStep(
+        entry,
+        'Prepara il deliverable per il lab',
+        'La prossima lezione è di Laboratorio. Carica o prepara il materiale da distribuire.',
+        'Carica deliverable',
+        'LOAD_DELIVERABLE',
+      ));
+    }
   }
 
   return suggestions;
@@ -183,8 +211,11 @@ function rulesForAdministrative(entry: CognitiveEntry): CognitiveSuggestion[] {
 /**
  * Genera un array di suggerimenti per una CognitiveEntry già classificata.
  * Restituisce sempre un array (vuoto se nessuna regola si attiva).
+ *
+ * @param entry         - Entry classificata
+ * @param scheduleHint  - Contesto orario opzionale per regole time-sensitive
  */
-export function generateSuggestions(entry: CognitiveEntry): CognitiveSuggestion[] {
+export function generateSuggestions(entry: CognitiveEntry, scheduleHint?: ScheduleContext): CognitiveSuggestion[] {
   const suggestions: CognitiveSuggestion[] = [];
 
   switch (entry.domain as CognitiveDomain) {
@@ -195,7 +226,7 @@ export function generateSuggestions(entry: CognitiveEntry): CognitiveSuggestion[
       suggestions.push(...rulesForCommercial(entry));
       break;
     case 'pedagogical':
-      suggestions.push(...rulesForPedagogical(entry));
+      suggestions.push(...rulesForPedagogical(entry, scheduleHint));
       break;
     case 'administrative':
       suggestions.push(...rulesForAdministrative(entry));

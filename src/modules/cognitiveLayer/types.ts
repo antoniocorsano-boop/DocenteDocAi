@@ -111,3 +111,23 @@ export type ClassificationResult = {
   confidence: ClassificationConfidence;
   tags:       string[];
 };
+
+// ─── Schedule context ─────────────────────────────────────────────────────────
+
+/**
+ * Contesto orario del docente al momento del click sul menu.
+ * Popolato lazily da UserWorkspace leggendo useAcademicStore one-shot.
+ * Consente a suggestionEngine di produrre azioni time-sensitive.
+ */
+export interface ScheduleContext {
+  /** ID della lezione corrente o imminente */
+  currentLessonId?: string;
+  /** ID / nome classe attiva */
+  activeClassId?:   string;
+  /** Epoch ms della prossima lezione */
+  nextLessonAt?:    number;
+  /** Tipo di lezione imminente */
+  lessonType?:      'Teoria' | 'Disegno' | 'Laboratorio' | 'Test' | 'Verifica' | 'Disposizione' | 'Ricevimento';
+  /** Minuti alla prossima lezione (negativo = già in corso) */
+  minsToLesson?:    number;
+}

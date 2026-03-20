@@ -45,7 +45,10 @@ import AccountLinkingPanel from './AccountLinkingPanel';
 import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
 import type { CognitiveEntry } from '../../modules/cognitiveLayer/types';
+import type { ScheduleContext } from '../../modules/orchestration/types';
 import { tenantRegistry }     from '../../services/tenant/tenantRegistry';
+import { useAcademicStore }   from '../../stores/useAcademicStore';
+import { useSettingsStore }   from '../../stores/useSettingsStore';
 import { useJarvisKeyboard }   from '../../hooks/useJarvisKeyboard';
 import { useThumbMenu }        from '../../hooks/useThumbMenu';
 import { useUniversalInput }   from '../../hooks/useUniversalInput';
@@ -136,7 +139,35 @@ function resolveActiveContext(entries: CognitiveEntry[]): ActiveContext {
   const topDomain = Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0];
   return { type: topDomain, label: DOMAIN_CONTEXT_LABEL[topDomain] ?? 'Attività in corso' };
 }
+// ─── Schedule context resolver ────────────────────────────────────────────────────────
 
+/**
+ * Legge useAcademicStore + useSettingsStore one-shot per costruire il
+ * contesto orario del momento. Chiamato solo al click su una entry —
+ * non crea subscription né side-effect.
+ */
+function resolveScheduleContext(): ScheduleContext {
+  const { lessons } = useAcademicStore.getState();
+  const { settings } = useSettingsStore.getState();
+
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayLessons = Object.values(lessons).filter(l => l.data === todayStr && !l.svolta);
+  if (todayLessons.length === 0) return {};
+
+  const next = todayLessons[0];
+  const [h, m] = (settings.orarioInizio ?? '08:00').split(':').map(Number);
+  const now = new Date();
+  const startMs = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m).getTime();
+  const minsToLesson = Math.floor((startMs - Date.now()) / 60_000);
+
+  return {
+    currentLessonId: next.id,
+    activeClassId:   next.classe,
+    nextLessonAt:    startMs,
+    lessonType:      next.tipoLezione,
+    minsToLesson,
+  };
+}
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function UserWorkspace(): React.JSX.Element {
@@ -226,7 +257,7 @@ export default function UserWorkspace(): React.JSX.Element {
       if (loadingEntryId) return;
       setLoadingEntryId(entry.id);
       try {
-        await openMenu(entry.id, el);
+        await openMenu(entry.id, el, resolveScheduleContext());
       } finally {
         setLoadingEntryId(null);
       }

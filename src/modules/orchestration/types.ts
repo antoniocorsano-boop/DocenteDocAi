@@ -12,9 +12,11 @@
  *   - actions[]      → derivati, semplificati, per la ThumbMenu (separation of concerns)
  */
 
-import type { CognitiveDomain, CognitiveSuggestion } from '../cognitiveLayer/types';
+import type { CognitiveDomain, CognitiveSuggestion, ScheduleContext } from '../cognitiveLayer/types';
 import type { Capability } from '../capabilitySystem/types';
 import type { UserRole } from '../../services/tenant/types';
+
+export type { ScheduleContext };
 
 // ─── Trust status ──────────────────────────────────────────────────────────────
 
@@ -66,13 +68,19 @@ export interface OrchestrationContext {
 /** Opzioni per buildContext — filtri di ruolo e dominio. */
 export interface OrchestrationOptions {
   /** ID del tenant attivo */
-  tenantId:        string;
+  tenantId:         string;
   /** Ruolo utente — determina quali azioni sono visibili */
-  role?:           UserRole;
+  role?:            UserRole;
   /** Dominio utente — contesto operativo corrente */
-  domain?:         'school' | 'admin';
+  domain?:          'school' | 'admin';
   /** Numero massimo di suggerimenti da considerare (default: 10) */
-  maxSuggestions?: number;
+  maxSuggestions?:  number;
+  /**
+   * Contesto orario del docente (popolato lazily).
+   * Passato a suggestionEngine per azioni time-sensitive (OPEN_REGISTER,
+   * LOAD_DELIVERABLE) senza polling continuo del calendario.
+   */
+  scheduleContext?: ScheduleContext;
 }
 
 // ─── ExecuteActionResult ──────────────────────────────────────────────────────

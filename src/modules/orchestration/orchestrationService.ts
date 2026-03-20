@@ -106,7 +106,7 @@ export async function buildContext(
   if (!entry) return null;
 
   // 2. Ricalcola sempre suggestions (mai da cache)
-  const rawSuggestions = generateSuggestions(entry).slice(0, maxSuggestions);
+  const rawSuggestions = generateSuggestions(entry, opts.scheduleContext).slice(0, maxSuggestions);
 
   // 3. Mappa suggestions → actions (solo quelle con ctaType) e filtra per ruolo
   const actions: OrchestrationAction[] = rawSuggestions

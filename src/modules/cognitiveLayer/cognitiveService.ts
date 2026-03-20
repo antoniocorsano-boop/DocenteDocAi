@@ -54,6 +54,13 @@ export async function ingestInput(params: IngestParams): Promise<IngestResult> {
   const classification = classifyInput(content);
 
   // 2. Build entry
+  const baseTags = [...classification.tags];
+  // Arricchisci i tag con classeId/lessonType se presenti nei meta (dominio pedagogical)
+  if (classification.domain === 'pedagogical' && meta) {
+    if (typeof meta.classeId === 'string' && meta.classeId) baseTags.push(meta.classeId);
+    if (typeof meta.lessonType === 'string' && meta.lessonType) baseTags.push(meta.lessonType.toLowerCase());
+  }
+
   const entry: CognitiveEntry = {
     id: cogId(),
     tenantId,
@@ -64,7 +71,7 @@ export async function ingestInput(params: IngestParams): Promise<IngestResult> {
     label: label ?? `${classification.domain} — ${inputType}`,
     enteredAt: Date.now(),
     sourceId,
-    tags: classification.tags,
+    tags: baseTags,
     meta: meta ?? {},
   };
 

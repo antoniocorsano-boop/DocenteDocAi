@@ -22,7 +22,7 @@ import { useCallback, useState } from 'react';
 import { buildContext, executeAction } from '../modules/orchestration/orchestrationService';
 import { tenantRegistry, getUserDomain } from '../services/tenant/tenantRegistry';
 import { useUIStore } from '../stores/useUIStore';
-import type { OrchestrationAction, OrchestrationContext } from '../modules/orchestration/types';
+import type { OrchestrationAction, OrchestrationContext, ScheduleContext } from '../modules/orchestration/types';
 import type { CognitiveSuggestion } from '../modules/cognitiveLayer/types';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -40,7 +40,7 @@ export interface UseThumbMenuState {
 
 export interface UseThumbMenuHandlers {
   /** Apre il menu per un inputId dato, calcolando il contesto */
-  openMenu:     (inputId: string, el: HTMLElement) => Promise<void>;
+  openMenu:     (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext) => Promise<void>;
   /** Esegue l'azione selezionata e chiude il menu */
   handleSelect: (action: OrchestrationAction) => Promise<void>;
   /** Chiude il menu e resetta lo stato */
@@ -60,7 +60,7 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
   const [context,  setContext]  = useState<OrchestrationContext | null>(null);
   const [loading,  setLoading]  = useState(false);
 
-  const openMenu = useCallback(async (inputId: string, el: HTMLElement) => {
+  const openMenu = useCallback(async (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext) => {
     const ctx  = tenantRegistry.getContext();
     const role = ctx.role;
 
@@ -72,6 +72,7 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
         tenantId,
         role,
         domain: getUserDomain(role),
+        scheduleContext: scheduleCtx,
       });
       if (!orchestrCtx) {
         useUIStore.getState().actions.showToast('Contenuto non disponibile', 'error');
