@@ -14,6 +14,7 @@ import { persist } from 'zustand/middleware';
 import {
   DEFAULT_TRUST,
   applyTrustEvent,
+  decaySkillTrust,
   trustHealthScore,
   type TrustScore,
   type TrustEvent,
@@ -24,10 +25,12 @@ import {
 interface TrustState {
   score: TrustScore;
   actions: {
-    /** Aggiorna il trust score in risposta a un evento (apply/dismiss/correct). */
+    /** Aggiorna il trust score in risposta a un evento (apply/dismiss/correct/reversed). */
     applyEvent:      (event: TrustEvent) => void;
     /** Azzera il trust per una skill specifica (es. quando rimossa). */
     resetSkillTrust: (skillId: string)   => void;
+    /** Applica un tick di decadimento al skillTrust di una skill inattiva. */
+    decaySkill:      (skillId: string)   => void;
     /** Ripristina il punteggio di default (es. reset stato utente). */
     reset:           ()                  => void;
   };
@@ -50,6 +53,9 @@ export const useTrustStore = create<TrustState>()(
               skillTrust: { ...s.score.skillTrust, [skillId]: 0.50 },
             },
           })),
+
+        decaySkill: (skillId) =>
+          set((s) => ({ score: decaySkillTrust(s.score, skillId) })),
 
         reset: () => set({ score: DEFAULT_TRUST }),
       },

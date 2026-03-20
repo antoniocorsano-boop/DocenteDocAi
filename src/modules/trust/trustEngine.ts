@@ -25,11 +25,21 @@ export interface TrustScore {
   skillTrust:  Readonly<Record<string, number>>;
 }
 
+/**
+ * Livello di visibilità per l'auto-esecuzione di una skill emergente.
+ *
+ *   silent   — nessuna UI: l'azione avviene senza disturbare
+ *   ambient  — micro feedback (glow / badge) senza interruzione del flusso
+ *   explicit — card o toast: richiede attenzione esplicita dell'utente
+ */
+export type ExecutionVisibility = 'silent' | 'ambient' | 'explicit';
+
 export type TrustEvent =
-  | { type: 'delta_applied';   deltaId: string; category: string }
-  | { type: 'delta_dismissed'; deltaId: string; category: string }
-  | { type: 'skill_used';      skillId: string }
-  | { type: 'user_corrected' };  // utente ha annullato un'azione automatica
+  | { type: 'delta_applied';      deltaId: string; category: string }
+  | { type: 'delta_dismissed';    deltaId: string; category: string }
+  | { type: 'skill_used';         skillId: string }
+  | { type: 'skill_auto_reversed'; skillId: string }  // utente ha annullato un auto-fire
+  | { type: 'user_corrected' };  // utente ha corretto Jarvis esplicitamente
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -40,14 +50,15 @@ export const DEFAULT_TRUST: TrustScore = {
 };
 
 /** Minimo systemTrust richiesto per azioni su categoria 'automation'. */
-export const TRUST_THRESHOLD_AUTOMATION = 0.65;
+export const TRUST_THRESHOLD_AUTOMATION    = 0.65;
 /** Minimo systemTrust per categorie theme/general. */
-export const TRUST_THRESHOLD_THEME      = 0.55;
-/**
- * Soglia skillTrust per attivare l'auto-fire di una skill emergente.
- * Sous questa soglia la skill viene ancora proposta come card.
- */
-export const SKILL_AUTO_FIRE_THRESHOLD  = 0.75;
+export const TRUST_THRESHOLD_THEME         = 0.55;
+/** Soglia skillTrust sotto la quale l'auto-fire è ancora esplicito (card). */
+export const SKILL_AUTO_FIRE_THRESHOLD     = 0.75;  // alias di SKILL_TRUST_AMBIENT_THRESHOLD
+/** Sopra questa soglia l'auto-fire è completamente silenzioso (zero UI). */
+export const SKILL_TRUST_SILENT_THRESHOLD  = 0.90;
+/** Tra ambient e silent: auto-fire + micro glow (nessun testo). */
+export const SKILL_TRUST_AMBIENT_THRESHOLD = 0.75;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -93,6 +104,20 @@ export function applyTrustEvent(event: TrustEvent, current: TrustScore): TrustSc
           ...current.skillTrust,
           [event.skillId]: clamp(prev + 0.05),
         },
+      };
+    }
+
+    case 'skill_auto_reversed': {
+      // L'utente ha annullato un auto-fire — segnale forte che la skill ha errato.
+      // Penalità pesante su skillTrust + penalità leggera su systemTrust.
+      const prev = current.skillTrust[event.skillId] ?? 0;
+      return {
+        ...current,
+        skillTrust: {
+          ...current.skillTrust,
+          [event.skillId]: clamp(prev - 0.20),
+        },
+        systemTrust: clamp(current.systemTrust - 0.05),
       };
     }
 
@@ -148,4 +173,36 @@ export function isLowRisk(
  */
 export function trustHealthScore(trust: TrustScore): number {
   return Math.round((trust.systemTrust * 0.6 + trust.userTrust * 0.4) * 100);
+}
+
+/**
+ * Determina il livello di visibilità per l'auto-esecuzione di una skill.
+ *
+ *   ≥ 0.90 → silent  (Jarvis agisce senza alcun segnale)
+ *   ≥ 0.75 → ambient (Jarvis agisce + micro glow sull'hub)
+ *   < 0.75 → explicit (mostra il card di proposta all'utente)
+ */
+export function getExecutionVisibility(skillId: string, trust: TrustScore): ExecutionVisibility {
+  const st = trust.skillTrust[skillId] ?? 0;
+  if (st >= SKILL_TRUST_SILENT_THRESHOLD)  return 'silent';
+  if (st >= SKILL_TRUST_AMBIENT_THRESHOLD) return 'ambient';
+  return 'explicit';
+}
+
+/**
+ * Applica un tick di decadimento al skillTrust di una skill.
+ * Da chiamare periodicamente (es. ogni ora) per le skill non usate di recente.
+ * Decremento: -0.05 per tick. Non scende mai sotto 0.
+ * Se la skill è sconosciuta (nessun trust registrato), non fa nulla.
+ */
+export function decaySkillTrust(trust: TrustScore, skillId: string): TrustScore {
+  const prev = trust.skillTrust[skillId];
+  if (prev === undefined) return trust;
+  return {
+    ...trust,
+    skillTrust: {
+      ...trust.skillTrust,
+      [skillId]: clamp(prev - 0.05),
+    },
+  };
 }

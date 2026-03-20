@@ -67,8 +67,10 @@ export interface JarvisNexusProps {
   nexusState?:     NexusState;
   /** Quante ottimizzazioni stealth ha applicato questa sessione. */
   stealthCount?:   number;
-  /** Quante skill emergenti sono state auto-eseguite questa sessione. */
+  /** Quante skill emergenti sono state auto-eseguite questa sessione (total). */
   autoFiredCount?: number;
+  /** Quante auto-esecuzioni ambient (trust 0.75–0.89) questa sessione. */
+  ambientFiredCount?: number;
   // Feature 1 — Auto-settings
   pending:         AutoSettingsDelta[];
   appliedIds:      string[];
@@ -529,6 +531,7 @@ export default memo(function JarvisNexus({
   nexusState = 'idle',
   stealthCount = 0,
   autoFiredCount = 0,
+  ambientFiredCount = 0,
   pending,
   appliedIds,
   onApplyDelta,
@@ -949,7 +952,7 @@ export default memo(function JarvisNexus({
           </Box>
 
           {/* ── Footer ────────────────────────────────────────────────────── */}
-          {(appliedIds.length > 0 || stealthCount > 0) && (
+          {(appliedIds.length > 0 || stealthCount > 0 || autoFiredCount > 0) && (
             <Box
               sx={{
                 px:         1.5,
@@ -975,8 +978,13 @@ export default memo(function JarvisNexus({
                   </Box>
                 )}
                 {autoFiredCount > 0 && (
-                  <Box component="span" sx={{ color: 'var(--md-sys-color-tertiary)', ml: 0.5 }}>
-                    · {autoFiredCount} skill auto
+                  <Box component="span" sx={{
+                    color: ambientFiredCount > 0
+                      ? 'var(--md-sys-color-tertiary)'
+                      : 'var(--md-sys-color-outline)',
+                    ml: 0.5,
+                  }}>
+                    · {autoFiredCount === 1 ? 'Sta lavorando per te' : `Automazioni attive (${autoFiredCount})`}
                   </Box>
                 )}
               </Typography>

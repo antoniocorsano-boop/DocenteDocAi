@@ -21,7 +21,7 @@ import {
 } from '../modules/orchestration/patternDetector';
 import { emergentSkillStore } from '../modules/orchestration/emergentSkillStore';
 import { useTrustStore }       from '../stores/useTrustStore';
-import { SKILL_AUTO_FIRE_THRESHOLD } from '../modules/trust/trustEngine';
+import { getExecutionVisibility } from '../modules/trust/trustEngine';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -35,11 +35,19 @@ export interface UseSkillSuggestionReturn {
   /** Ignora il suggerimento senza creare la skill. */
   dismissSkill:  () => void;
   /**
-   * Quante skill sono state auto-eseguite in questa sessione.
-   * Auto-fire avviene quando il pattern corrisponde a una skill già confermata
-   * e skillTrust[skill.id] ≥ SKILL_AUTO_FIRE_THRESHOLD.
+   * Numero totale di auto-esecuzioni questa sessione (silent + ambient).
    */
   autoFiredCount: number;
+  /**
+   * Numero di auto-esecuzioni in modalità ambient (trust 0.75–0.89).
+   * Usato da UserWorkspace per attivare il micro-glow sull'hub button.
+   */
+  ambientFiredCount: number;
+  /**
+   * Segnala che l'utente ha annullato un'azione auto-eseguita da Jarvis.
+   * Applica una penaltà forte su skillTrust[skillId] (-0.20).
+   */
+  reportReversal: (skillId: string) => void;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -47,6 +55,8 @@ export interface UseSkillSuggestionReturn {
 const POLL_INTERVAL_MS   = 5_000;
 const SESSION_KEY_PREFIX = 'jarvis_dismissed_skill_';
 const DYNAMIC_PREFIX     = 'DYNAMIC_SKILL::';
+/** Ogni N tick del poll da 5s si applica un tick di decay (720 × 5s = 60 min). */
+const DECAY_EVERY_N_TICKS = 720;
 
 // ─── Label lookup ─────────────────────────────────────────────────────────────
 
@@ -93,9 +103,12 @@ function markDismissed(ctaType: string): void {
 // ─── Hook ─────────────────────────────────────────────────────────────────────
 
 export function useSkillSuggestion(): UseSkillSuggestionReturn {
-  const [skillDraft, setSkillDraft]     = useState<SkillDraft | null>(null);
+  const [skillDraft, setSkillDraft]         = useState<SkillDraft | null>(null);
   const [autoFiredCount, setAutoFiredCount] = useState(0);
-  const autoFiredRef                    = useRef(0);
+  const [ambientFiredCount, setAmbientFiredCount] = useState(0);
+  const autoFiredRef    = useRef(0);
+  const ambientFiredRef = useRef(0);
+  const decayTickRef    = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const clearTimer = useCallback(() => {
@@ -110,17 +123,28 @@ export function useSkillSuggestion(): UseSkillSuggestionReturn {
       // Non proporre se c'è già un draft in attesa
       if (skillDraft !== null) return;
 
+      // ── Decay periodico (ogni 60 min) ───────────────────────────────────
+      decayTickRef.current += 1;
+      if (decayTickRef.current >= DECAY_EVERY_N_TICKS) {
+        decayTickRef.current = 0;
+        const storeActions = useTrustStore.getState().actions;
+        for (const skill of emergentSkillStore.list()) {
+          storeActions.decaySkill(skill.id);
+        }
+      }
+
       const pattern = detectPattern();
       if (!pattern) return;
 
-      // ── Auto-fire path ────────────────────────────────────────────────────
-      // Se il pattern corrisponde a una skill già confermata con trust alto,
-      // eseguila silenziosamente senza mostrare il card di proposta.
+      // ── 3-tier execution visibility ──────────────────────────────────
+      // silent   (≥ 0.90) — opera senza nessun segnale
+      // ambient  (0.75–0.89) — opera + micro-glow sull'hub button
+      // explicit (< 0.75)  — mostra card di proposta come al solito
       const existingSkill = emergentSkillStore.resolveByCtaType(pattern.ctaType);
       if (existingSkill) {
-        const trust     = useTrustStore.getState();
-        const skillTrustVal = trust.score.skillTrust[existingSkill.id] ?? 0;
-        if (skillTrustVal >= SKILL_AUTO_FIRE_THRESHOLD) {
+        const trust      = useTrustStore.getState().score;
+        const visibility = getExecutionVisibility(existingSkill.id, trust);
+        if (visibility === 'silent' || visibility === 'ambient') {
           emergentSkillStore.incrementUsage(existingSkill.id);
           useTrustStore.getState().actions.applyEvent({
             type: 'skill_used',
@@ -129,10 +153,14 @@ export function useSkillSuggestion(): UseSkillSuggestionReturn {
           clearActionLog();
           autoFiredRef.current += 1;
           setAutoFiredCount(autoFiredRef.current);
+          if (visibility === 'ambient') {
+            ambientFiredRef.current += 1;
+            setAmbientFiredCount(ambientFiredRef.current);
+          }
           return;
         }
       }
-      // ── Normal proposal path ──────────────────────────────────────────────
+      // ── Explicit path (card proposta) ───────────────────────────────
       if (wasDismissed(pattern.ctaType)) return;
 
       setSkillDraft(pattern);
@@ -164,5 +192,16 @@ export function useSkillSuggestion(): UseSkillSuggestionReturn {
     setSkillDraft(null);
   }, [skillDraft]);
 
-  return { skillDraft, confirmSkill, dismissSkill, autoFiredCount };
+  /**
+   * Segnala a Jarvis che l'utente ha annullato un'azione auto-eseguita.
+   * Applica penaltà -0.20 su skillTrust[skillId] e -0.05 su systemTrust.
+   */
+  const reportReversal = useCallback((skillId: string): void => {
+    useTrustStore.getState().actions.applyEvent({
+      type: 'skill_auto_reversed',
+      skillId,
+    });
+  }, []);
+
+  return { skillDraft, confirmSkill, dismissSkill, autoFiredCount, ambientFiredCount, reportReversal };
 }

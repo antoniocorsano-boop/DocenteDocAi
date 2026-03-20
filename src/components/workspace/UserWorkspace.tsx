@@ -412,7 +412,7 @@ export default function UserWorkspace(): React.JSX.Element {
   useExternalSync(tenantId);
 
   // ── Emergent skill suggestion — pattern-based skill learning loop ─────────
-  const { skillDraft, confirmSkill, dismissSkill, autoFiredCount: asAutoFiredCount } = useSkillSuggestion();
+  const { skillDraft, confirmSkill, dismissSkill, autoFiredCount: asAutoFiredCount, ambientFiredCount: asAmbientFiredCount } = useSkillSuggestion();
 
   // ── Auto-Settings Engine — adaptive configuration ────────────────────────
   const { pending: asPending, appliedIds: asAppliedIds, stealthCount: asStealthCount, applyDelta, dismissDelta } =
@@ -526,7 +526,7 @@ export default function UserWorkspace(): React.JSX.Element {
                     : nexusState === 'suggestion'
                       ? 'var(--md-sys-color-primary)'
                       : 'var(--md-sys-color-on-surface-variant)',
-                animation: !nexusOpen && (nexusState === 'learning' || nexusState === 'suggestion')
+                animation: !nexusOpen && (nexusState === 'learning' || nexusState === 'suggestion' || asAmbientFiredCount > 0)
                   ? 'nexusHubPulse 2.2s ease-in-out infinite'
                   : 'none',
                 '@keyframes nexusHubPulse': {
@@ -917,6 +917,7 @@ export default function UserWorkspace(): React.JSX.Element {
         nexusState={nexusState}
         stealthCount={asStealthCount}
         autoFiredCount={asAutoFiredCount}
+        ambientFiredCount={asAmbientFiredCount}
         pending={asPending}
         appliedIds={asAppliedIds}
         onApplyDelta={handleApplyDelta}
