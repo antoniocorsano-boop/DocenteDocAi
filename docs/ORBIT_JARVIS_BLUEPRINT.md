@@ -164,7 +164,7 @@ animation:   scale(0.82→1) + fade
 | Event Capture (file, clipboard, immagini)                           | `UserWorkspace.tsx`                                 | ✅ Completato |
 | Event Capture (screenshot paste)                                    | `UserWorkspace.tsx`                                 | ✅ Completato |
 | Account linking OAuth (Drive, Gmail, Classroom, WhatsApp, Telegram) | `AccountLinkingPanel.tsx`                           | ✅ Completato |
-| GovernanceDashboard integration                                     | `src/components/governance/`                        | ✅ Parziale   |
+| GovernanceDashboard integration                                     | `src/components/governance/`                        | ✅ Completato |
 
 **Shortcut tastiera attive:**
 

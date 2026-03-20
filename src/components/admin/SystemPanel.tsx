@@ -31,11 +31,13 @@ import RemoveCircleOutlineIcon   from '@mui/icons-material/RemoveCircleOutline';
 import PsychologyOutlinedIcon    from '@mui/icons-material/PsychologyOutlined';
 import ExtensionOutlinedIcon     from '@mui/icons-material/ExtensionOutlined';
 import LockOpenOutlinedIcon      from '@mui/icons-material/LockOpenOutlined';
+import PolicyOutlinedIcon        from '@mui/icons-material/PolicyOutlined';
 
 import M3Surface         from '../../components/ui/M3Surface';
-import CognitiveLayerPanel from './CognitiveLayerPanel';
-import CapabilityPanel     from './CapabilityPanel';
-import { TrustChainPanel } from './TrustChainPanel';
+import CognitiveLayerPanel   from './CognitiveLayerPanel';
+import CapabilityPanel       from './CapabilityPanel';
+import { TrustChainPanel }   from './TrustChainPanel';
+import GovernanceDashboard   from '../governance/GovernanceDashboard';
 
 import { useCognitiveStore }   from '../../modules/cognitiveLayer/cognitiveStore';
 import { listCapabilities }    from '../../modules/capabilitySystem/capabilityService';
@@ -332,6 +334,19 @@ export default function SystemPanel({ tenantId, isAdmin = true }: SystemPanelPro
       >
         <TrustChainPanel tenantId={tenantId} isAdmin={isAdmin} />
       </SectionAccordion>
+
+      {/* Governance & Compliance — solo admin */}
+      {isAdmin && (
+        <SectionAccordion
+          id="sys-governance"
+          title="Governance"
+          icon={<PolicyOutlinedIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 24px)' }} />}
+        >
+          <Box sx={{ p: 'var(--md-sys-spacing-3, 12px)' }}>
+            <GovernanceDashboard />
+          </Box>
+        </SectionAccordion>
+      )}
     </Stack>
   );
 }
