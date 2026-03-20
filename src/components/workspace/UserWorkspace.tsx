@@ -45,6 +45,7 @@ import AccountLinkingPanel from './AccountLinkingPanel';
 import ScheduleLanding  from '../landing/ScheduleLanding';
 import ClassLanding     from '../landing/ClassLanding';
 import LessonLanding    from '../landing/LessonLanding';
+import SettingsLanding  from '../settings/SettingsLanding';
 
 import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
@@ -128,7 +129,7 @@ function getProactiveReason(e: CognitiveEntry): string {
 interface ActiveContext { type: string; label: string }
 
 /** Determina quale landing fullscreen aprire in base ai tag dell'entry. */
-type LandingType = 'schedule' | 'class' | 'lesson';
+type LandingType = 'schedule' | 'class' | 'lesson' | 'settings';
 
 const DOMAIN_CONTEXT_LABEL: Record<string, string> = {
   compliance:     'Revisione compliance',
@@ -317,6 +318,18 @@ export default function UserWorkspace(): React.JSX.Element {
     [openMenu, handleClose, executeFor, loadingEntryId],
   );
 
+  // ── Ctrl+, → open Settings Landing ────────────────────────────────────
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent): void => {
+      if (e.ctrlKey && e.key === ',') {
+        e.preventDefault();
+        setActiveLanding(prev => prev === 'settings' ? null : 'settings');
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
   // ── Jarvis global keyboard shortcuts (Ctrl+J, Ctrl+U, Ctrl+Shift+D) ────────
   useJarvisKeyboard({
     open,
@@ -429,18 +442,37 @@ export default function UserWorkspace(): React.JSX.Element {
           {activeContext.label}
         </Typography>
 
-        <Tooltip title="Gestisci account collegati">
-          <IconButton
-            size="small"
-            onClick={() => setAccountPanelOpen(true)}
-            aria-label="Apri pannello account collegati"
-            sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
-          >
-            <AccountCircleOutlinedIcon
-              sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
-            />
-          </IconButton>
-        </Tooltip>
+        <Stack direction="row" alignItems="center" gap={0.5}>
+          <Tooltip title="Impostazioni (Ctrl+,)">
+            <IconButton
+              size="small"
+              onClick={() => setActiveLanding(prev => prev === 'settings' ? null : 'settings')}
+              aria-label="Apri impostazioni (Ctrl+,)"
+              sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
+            >
+              <Box
+                component="span"
+                className="material-symbols-outlined"
+                aria-hidden="true"
+                sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
+              >
+                settings
+              </Box>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Gestisci account collegati">
+            <IconButton
+              size="small"
+              onClick={() => setAccountPanelOpen(true)}
+              aria-label="Apri pannello account collegati"
+              sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
+            >
+              <AccountCircleOutlinedIcon
+                sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
+              />
+            </IconButton>
+          </Tooltip>
+        </Stack>
       </Stack>
 
       {/* ── Universal input ─────────────────────────────────────────────── */}
@@ -863,6 +895,25 @@ export default function UserWorkspace(): React.JSX.Element {
             onClose={() => setActiveLanding(null)}
             ctx={landingCtx}
             context={context}
+          />
+        </Box>
+      )}
+      {activeLanding === 'settings' && (
+        <Box
+          sx={{
+            position:    'fixed',
+            inset:       0,
+            zIndex:      1600,
+            animation:   'orbitIn 180ms ease-out',
+            '@keyframes orbitIn': {
+              from: { opacity: 0, transform: 'scale(0.98)' },
+              to:   { opacity: 1, transform: 'scale(1)' },
+            },
+          }}
+        >
+          <SettingsLanding
+            onClose={() => setActiveLanding(null)}
+            tenantId={tenantId}
           />
         </Box>
       )}

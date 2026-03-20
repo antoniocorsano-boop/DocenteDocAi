@@ -5,7 +5,7 @@
 export type DeviceType = 'mobile' | 'desktop';
 
 /** Tipo di landing che il motore può attivare. */
-export type LandingType = 'schedule' | 'class' | 'lesson';
+export type LandingType = 'schedule' | 'class' | 'lesson' | 'settings';
 
 /** Stato di avanzamento della simulazione. */
 export type SimStatus = 'idle' | 'running' | 'paused' | 'done';

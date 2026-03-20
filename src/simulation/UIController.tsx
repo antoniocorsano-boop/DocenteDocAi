@@ -15,9 +15,10 @@
 import React, { useCallback } from 'react';
 import { Box } from '@mui/material';
 
-import ScheduleLanding from '../components/landing/ScheduleLanding';
-import ClassLanding    from '../components/landing/ClassLanding';
-import LessonLanding   from '../components/landing/LessonLanding';
+import ScheduleLanding  from '../components/landing/ScheduleLanding';
+import ClassLanding     from '../components/landing/ClassLanding';
+import LessonLanding    from '../components/landing/LessonLanding';
+import SettingsLanding  from '../components/settings/SettingsLanding';
 
 import { useSimulationStore } from './simulationStore';
 import type { ScheduleContext } from '../modules/orchestration/types';
@@ -78,6 +79,12 @@ export default function UIController(): React.JSX.Element | null {
         <LessonLanding
           onClose={handleClose}
           ctx={scheduleCtx}
+        />
+      )}
+      {activeLanding === 'settings' && (
+        <SettingsLanding
+          onClose={handleClose}
+          tenantId="sim-tenant"
         />
       )}
     </Box>

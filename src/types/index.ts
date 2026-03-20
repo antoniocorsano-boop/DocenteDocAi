@@ -26,6 +26,7 @@ export * from './aiMaturita.types';
 export * from './teacherModel.types';
 export * from './integration.types';
 export * from './sovereignty.types';
+export * from './settings.types';
 
 
 // Legacy types.ts exports (to be migrated)
