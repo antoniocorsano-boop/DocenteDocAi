@@ -32,17 +32,15 @@ import Stack            from '@mui/material/Stack';
 import TextField        from '@mui/material/TextField';
 import Tooltip          from '@mui/material/Tooltip';
 import Typography       from '@mui/material/Typography';
-import AttachFileOutlinedIcon  from '@mui/icons-material/AttachFileOutlined';
-import AddOutlinedIcon         from '@mui/icons-material/AddOutlined';
-import AutoAwesomeIcon         from '@mui/icons-material/AutoAwesome';
+import AttachFileOutlinedIcon    from '@mui/icons-material/AttachFileOutlined';
+import AutoAwesomeIcon           from '@mui/icons-material/AutoAwesome';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-import SendOutlinedIcon        from '@mui/icons-material/SendOutlined';
+import SendOutlinedIcon          from '@mui/icons-material/SendOutlined';
 
 import M3Surface        from '../ui/M3Surface';
 import ThumbMenu        from '../ui/ThumbMenu';
 import JarvisIndicator  from '../ui/JarvisIndicator';
 import AccountLinkingPanel from './AccountLinkingPanel';
-import OnboardingOverlay, { hasCompletedOnboarding } from './OnboardingOverlay';
 
 import { ingestInput }        from '../../modules/cognitiveLayer';
 import { useCognitiveStore }  from '../../modules/cognitiveLayer/cognitiveStore';
@@ -112,6 +110,33 @@ function getProactiveReason(e: CognitiveEntry): string {
   return 'Suggerito da Jarvis';
 }
 
+// ─── Active context resolver ──────────────────────────────────────────────────
+
+interface ActiveContext { type: string; label: string }
+
+const DOMAIN_CONTEXT_LABEL: Record<string, string> = {
+  compliance:     'Revisione compliance',
+  pedagogical:    'Attività pedagogica',
+  administrative: 'Gestione amministrativa',
+  technical:      'Supporto tecnico',
+  operational:    'Attività operativa',
+  commercial:     'Area commerciale',
+};
+
+function resolveActiveContext(entries: CognitiveEntry[]): ActiveContext {
+  if (entries.length === 0) return { type: 'unknown', label: 'Attività in corso' };
+  const recent = entries.slice(0, 10);
+  // Compliance always takes priority
+  if (recent.some(e => e.domain === 'compliance')) {
+    return { type: 'compliance', label: 'Revisione compliance' };
+  }
+  // Most frequent domain
+  const freq: Record<string, number> = {};
+  for (const e of recent) freq[e.domain] = (freq[e.domain] ?? 0) + 1;
+  const topDomain = Object.entries(freq).sort((a, b) => b[1] - a[1])[0][0];
+  return { type: topDomain, label: DOMAIN_CONTEXT_LABEL[topDomain] ?? 'Attività in corso' };
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 
 export default function UserWorkspace(): React.JSX.Element {
@@ -134,11 +159,6 @@ export default function UserWorkspace(): React.JSX.Element {
     refresh();
     return useCognitiveStore.subscribe(refresh);
   }, [tenantId]);
-
-  // ── Onboarding ────────────────────────────────────────────────────────────
-  const [showOnboarding, setShowOnboarding] = useState(
-    () => !hasCompletedOnboarding(),
-  );
 
   // ── Account linking panel ─────────────────────────────────────────────
   const [accountPanelOpen, setAccountPanelOpen] = useState(false);
@@ -214,18 +234,6 @@ export default function UserWorkspace(): React.JSX.Element {
     [openMenu, loadingEntryId],
   );
 
-  // ── Post-onboarding: trigger Orbit on first entry ─────────────────────────
-  const handleOnboardingComplete = useCallback(() => {
-    setShowOnboarding(false);
-    setTimeout(() => {
-      const first = entries[0];
-      if (!first) return;
-      const anchor = latestEntryAnchorRef.current;
-      if (!anchor) return;
-      void openMenu(first.id, anchor);
-    }, 400);
-  }, [entries, openMenu]);
-
   // ── Jarvis global keyboard shortcuts (Ctrl+J, Ctrl+U, Ctrl+Shift+D) ────────
   useJarvisKeyboard({
     open,
@@ -243,6 +251,9 @@ export default function UserWorkspace(): React.JSX.Element {
     // Intentionally runs only on mount
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // ── Active context ─────────────────────────────────────────────────────────
+  const activeContext = useMemo(() => resolveActiveContext(entries), [entries]);
 
   // ── Proactive intelligence — scored best entry ────────────────────────────
   const suggestedEntry = useMemo(() => {
@@ -287,28 +298,65 @@ export default function UserWorkspace(): React.JSX.Element {
     <M3Surface
       elevation={0}
       sx={{
-        minHeight: '100%',
-        display:   'flex',
+        minHeight:     '100%',
+        display:       'flex',
         flexDirection: 'column',
-        gap:       2,
-        p:         { xs: 1.5, sm: 2, md: 3 },
+        gap:           1.5,
+        p:             { xs: 1.5, sm: 2 },
       }}
     >
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <Stack direction="row" alignItems="center">
-        <Typography
-          variant="titleMedium"
-          component="h1"
-          sx={{ flexGrow: 1, color: 'var(--md-sys-color-on-surface)' }}
-        >
-          Spazio di lavoro
-        </Typography>
+      <Stack direction="row" alignItems="flex-start" justifyContent="space-between">
+        <Stack spacing={0.25}>
+          {/* System status row */}
+          <Stack direction="row" alignItems="center" spacing={1.5}>
+            <Typography
+              variant="labelSmall"
+              sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'flex', alignItems: 'center', gap: 0.5 }}
+            >
+              <Box
+                component="span"
+                sx={{ color: 'var(--md-sys-color-tertiary)', lineHeight: 1 }}
+                aria-hidden
+              >●</Box>
+              Sistema attivo
+            </Typography>
+            <Typography
+              variant="labelSmall"
+              sx={{ color: 'var(--md-sys-color-on-surface-variant)', display: 'flex', alignItems: 'center', gap: 0.5 }}
+            >
+              <Box
+                component="span"
+                sx={{
+                  color:      activeContext.type === 'compliance'
+                    ? 'var(--md-sys-color-error)'
+                    : 'var(--md-sys-color-primary)',
+                  lineHeight: 1,
+                }}
+                aria-hidden
+              >●</Box>
+              {entries.length} attivit{entries.length === 1 ? 'à' : 'à'} tracciat{entries.length === 1 ? 'a' : 'e'}
+            </Typography>
+          </Stack>
+          {/* Active context label */}
+          <Typography
+            variant="titleSmall"
+            component="h1"
+            sx={{
+              color:      'var(--md-sys-color-on-surface)',
+              fontWeight: 'var(--md-sys-typescale-weight-semibold)',
+            }}
+          >
+            {activeContext.label}
+          </Typography>
+        </Stack>
+
         <Tooltip title="Gestisci account collegati">
           <IconButton
             size="small"
             onClick={() => setAccountPanelOpen(true)}
             aria-label="Apri pannello account collegati"
-            sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
           >
             <AccountCircleOutlinedIcon
               sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
@@ -317,20 +365,32 @@ export default function UserWorkspace(): React.JSX.Element {
         </Tooltip>
       </Stack>
 
-      {/* ── Input area ─────────────────────────────────────────────────── */}
+      {/* ── Universal input ─────────────────────────────────────────────── */}
       <M3Surface
         elevation={1}
-        sx={{ borderRadius: 2, p: 2 }}
+        sx={{ borderRadius: 2, p: 1.5 }}
         aria-label="Area inserimento contenuto"
       >
-        <Stack spacing={2}>
+        <Stack direction="row" spacing={1} alignItems="flex-end">
+          <input
+            type="file"
+            ref={fileRef}
+            accept=".txt,.md,.csv,.json,.png,.jpg,.jpeg,.gif,.webp,application/pdf"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+            aria-hidden
+          />
           <TextField
             inputRef={inputRef}
             multiline
-            minRows={2}
-            maxRows={6}
+            minRows={1}
+            maxRows={5}
             fullWidth
-            placeholder="Incolla testo, immagine o carica un file..."
+            placeholder={
+              activeContext.type === 'compliance'
+                ? 'Incolla documento GDPR, verbale, circolare…'
+                : 'Incolla testo, PDF o trascina un file…'
+            }
             value={text}
             onChange={e => setText(e.target.value)}
             onKeyDown={e => {
@@ -349,18 +409,8 @@ export default function UserWorkspace(): React.JSX.Element {
               },
             }}
           />
-
-          <Stack direction="row" spacing={1} alignItems="center">
-            {/* Hidden file input */}
-            <input
-              type="file"
-              ref={fileRef}
-              accept=".txt,.md,.csv,.json,.png,.jpg,.jpeg,.gif,.webp"
-              style={{ display: 'none' }}
-              onChange={handleFileChange}
-              aria-hidden
-            />
-            <Tooltip title="Carica file o immagine (.txt .md .csv .json .png .jpg…)">
+          <Stack direction="row" spacing={0.5} sx={{ flexShrink: 0, pb: 0.25 }}>
+            <Tooltip title="Carica file o PDF">
               <span>
                 <IconButton
                   onClick={() => fileRef.current?.click()}
@@ -375,54 +425,47 @@ export default function UserWorkspace(): React.JSX.Element {
                 </IconButton>
               </span>
             </Tooltip>
-
-            <Box sx={{ flexGrow: 1 }} />
-
-            <Button
-              variant="contained"
-              onClick={handleSubmit}
-              disabled={ingesting || !text.trim()}
-              startIcon={
-                ingesting
-                  ? (
-                    <CircularProgress
-                      size={16}
-                      color="inherit"
-                      aria-label="Analisi in corso"
-                    />
-                  )
-                  : (
-                    <SendOutlinedIcon
-                      sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }}
-                    />
-                  )
-              }
-              aria-label={ingesting ? 'Analisi in corso' : 'Analizza contenuto'}
-              sx={{ borderRadius: 8 }}
-            >
-              {ingesting ? 'Analisi...' : 'Analizza'}
-            </Button>
+            <Tooltip title={ingesting ? 'Analisi in corso…' : 'Invia (Ctrl+Invio)'}>
+              <span>
+                <IconButton
+                  onClick={handleSubmit}
+                  disabled={ingesting || !text.trim()}
+                  aria-label={ingesting ? 'Analisi in corso' : 'Analizza contenuto'}
+                  size="small"
+                  sx={{
+                    color: text.trim()
+                      ? 'var(--md-sys-color-primary)'
+                      : 'var(--md-sys-color-on-surface-variant)',
+                  }}
+                >
+                  {ingesting
+                    ? <CircularProgress size={16} color="inherit" aria-label="Analisi in corso" />
+                    : <SendOutlinedIcon sx={{ fontSize: 'var(--md-sys-icon-size-md, 20px)' }} />
+                  }
+                </IconButton>
+              </span>
+            </Tooltip>
           </Stack>
         </Stack>
       </M3Surface>
 
-      {/* ── Jarvis proactive hint ──────────────────────────────────────── */}
+      {/* ── Jarvis suggestion block ─────────────────────────────────────── */}
       {suggestedEntry && (
         <Box
           sx={{
             px:         0.5,
             transition: 'opacity 400ms ease',
-            opacity:    proactiveIdle ? 1 : 0.7,
+            opacity:    proactiveIdle ? 1 : 0.65,
           }}
         >
           <Typography
             variant="labelSmall"
             sx={{
-              color:      proactiveIdle
+              color:         proactiveIdle
                 ? 'var(--md-sys-color-primary)'
                 : 'var(--md-sys-color-on-surface-variant)',
               letterSpacing: '0.06em',
-              transition: 'color 300ms',
+              transition:    'color 300ms',
             }}
           >
             {proactiveIdle ? 'Jarvis suggerisce' : 'Suggerito'}
@@ -437,157 +480,127 @@ export default function UserWorkspace(): React.JSX.Element {
         </Box>
       )}
 
-      {/* ── Recent content list ─────────────────────────────────────────── */}
-      <Stack spacing={1}>
-        <Typography
-          variant="labelSmall"
-          component="h2"
-          sx={{
-            color:         'var(--md-sys-color-on-surface-variant)',
-            letterSpacing: '0.08em',
-          }}
-        >
-          CONTENUTI
-        </Typography>
-
-        <M3Surface
-          elevation={1}
-          sx={{ borderRadius: 2, overflow: 'hidden' }}
-          aria-label="Lista contenuti recenti — clicca per aprire le azioni"
-        >
-          {entries.length === 0 ? (
-            <Stack
-              alignItems="center"
-              justifyContent="center"
-              sx={{ py: 4, px: 3 }}
+      {/* ── Content list ────────────────────────────────────────────────── */}
+      <M3Surface
+        elevation={1}
+        sx={{ borderRadius: 2, overflow: 'hidden', flexGrow: 1 }}
+        aria-label="Lista contenuti recenti — clicca per aprire le azioni"
+      >
+        {entries.length === 0 ? (
+          <Stack
+            alignItems="center"
+            justifyContent="center"
+            sx={{ py: 5, px: 3 }}
+          >
+            <Typography
+              variant="body2"
+              sx={{
+                color:     'var(--md-sys-color-on-surface-variant)',
+                textAlign: 'center',
+                mb:        1.5,
+              }}
             >
-              <AddOutlinedIcon
-                sx={{
-                  fontSize: 'var(--md-sys-icon-size-md, 24px)',
-                  color:    'var(--md-sys-color-outline)',
-                  mb:       0.5,
-                }}
-                aria-hidden
-              />
-              <Typography
-                variant="body2"
-                sx={{
-                  color:     'var(--md-sys-color-on-surface-variant)',
-                  textAlign: 'center',
-                  mb:        1,
-                }}
-              >
-                Nessun contenuto. Aggiungi testo o carica un file.
-              </Typography>
-              <Button
-                size="small"
-                variant="text"
-                onClick={() => inputRef.current?.focus()}
-                aria-label="Vai all'area di inserimento contenuto"
-                sx={{ borderRadius: 8 }}
-              >
-                Inizia
-              </Button>
-            </Stack>
-          ) : (
-            <List
-              disablePadding
-              aria-label="Contenuti recenti"
+              Incolla o trascina contenuti
+            </Typography>
+            <Button
+              size="small"
+              variant="text"
+              onClick={() => inputRef.current?.focus()}
+              aria-label="Inizia ad inserire contenuto"
+              sx={{ borderRadius: 8 }}
             >
-              {entries.map((entry, idx) => (
-                <React.Fragment key={entry.id}>
-                  {idx > 0 && <Divider component="li" />}
-                  <ListItemButton
-                    ref={idx === 0 ? (el) => { latestEntryAnchorRef.current = el; } : undefined}
-                    onClick={e => { void handleEntryClick(entry, e.currentTarget); }}
-                    disabled={!!(loadingEntryId && loadingEntryId !== entry.id)}
-                    aria-label={[
-                      entry.label,
-                      DOMAIN_LABEL[entry.domain] ?? entry.domain,
-                      relativeTime(entry.enteredAt),
-                    ].join(' — ')}
-                    sx={{
-                      px: 2,
-                      py: 1,
-                      borderLeft: entry.id === suggestedEntry?.id && proactiveIdle
-                        ? `3px solid ${DOMAIN_CHIP_COLOR[entry.domain] ?? 'var(--md-sys-color-primary)'}`
-                        : '3px solid transparent',
-                      transition: 'border-left-color 300ms ease',
-                      '&:hover': {
-                        backgroundColor: 'var(--md-sys-color-surface-container-low)',
-                      },
-                      '&:hover .jarvis-hint-icon': {
-                        opacity: 1,
-                      },
-                    }}
-                  >
-                    <ListItemText
-                      primary={
-                        <Stack
-                          direction="row"
-                          alignItems="center"
-                          spacing={1}
-                        >
-                          <Tooltip title={DOMAIN_LABEL[entry.domain] ?? entry.domain}>
-                            <Box
-                              sx={{
-                                width:        6,
-                                height:       6,
-                                borderRadius: '50%',
-                                flexShrink:   0,
-                                cursor:       'help',
-                                bgcolor:      DOMAIN_CHIP_COLOR[entry.domain]
-                                  ?? 'var(--md-sys-color-outline)',
-                              }}
-                              role="img"
-                              aria-label={DOMAIN_LABEL[entry.domain] ?? entry.domain}
-                            />
-                          </Tooltip>
-                          <Typography
-                            variant="body2"
-                            component="span"
-                            sx={{ color: 'var(--md-sys-color-on-surface)', flexGrow: 1 }}
-                            noWrap
-                          >
-                            {entry.label}
-                          </Typography>
-                          {loadingEntryId === entry.id ? (
-                            <CircularProgress
-                              size={12}
-                              thickness={5}
-                              aria-label="Caricamento azioni"
-                              sx={{ flexShrink: 0, color: 'var(--md-sys-color-primary)' }}
-                            />
-                          ) : (
-                            <Typography
-                              variant="caption"
-                              component="span"
-                              sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}
-                            >
-                              {relativeTime(entry.enteredAt)}
-                            </Typography>
-                          )}
-                          <AutoAwesomeIcon
-                            className="jarvis-hint-icon"
+              Inizia
+            </Button>
+          </Stack>
+        ) : (
+          <List disablePadding aria-label="Contenuti recenti">
+            {entries.map((entry, idx) => (
+              <React.Fragment key={entry.id}>
+                {idx > 0 && <Divider component="li" />}
+                <ListItemButton
+                  ref={idx === 0 ? (el) => { latestEntryAnchorRef.current = el; } : undefined}
+                  onClick={e => { void handleEntryClick(entry, e.currentTarget); }}
+                  disabled={!!(loadingEntryId && loadingEntryId !== entry.id)}
+                  aria-label={[
+                    entry.label,
+                    DOMAIN_LABEL[entry.domain] ?? entry.domain,
+                    relativeTime(entry.enteredAt),
+                  ].join(' — ')}
+                  sx={{
+                    px: 2,
+                    py: 0.875,
+                    borderLeft: entry.id === suggestedEntry?.id && proactiveIdle
+                      ? `3px solid ${DOMAIN_CHIP_COLOR[entry.domain] ?? 'var(--md-sys-color-primary)'}`
+                      : '3px solid transparent',
+                    transition: 'border-left-color 300ms ease',
+                    '&:hover': {
+                      backgroundColor: 'var(--md-sys-color-surface-container-low)',
+                    },
+                    '&:hover .jarvis-hint-icon': { opacity: 1 },
+                  }}
+                >
+                  <ListItemText
+                    primary={
+                      <Stack direction="row" alignItems="center" spacing={1}>
+                        <Tooltip title={DOMAIN_LABEL[entry.domain] ?? entry.domain}>
+                          <Box
                             sx={{
-                              fontSize:   'var(--md-sys-icon-size-xs, 14px)',
-                              color:      'var(--md-sys-color-on-surface-variant)',
-                              opacity:    0.3,
-                              flexShrink: 0,
-                              transition: 'opacity 120ms',
+                              width:        6,
+                              height:       6,
+                              borderRadius: '50%',
+                              flexShrink:   0,
+                              cursor:       'help',
+                              bgcolor:      DOMAIN_CHIP_COLOR[entry.domain]
+                                ?? 'var(--md-sys-color-outline)',
                             }}
-                            aria-hidden
+                            role="img"
+                            aria-label={DOMAIN_LABEL[entry.domain] ?? entry.domain}
                           />
-                        </Stack>
-                      }
-                    />
-                  </ListItemButton>
-                </React.Fragment>
-              ))}
-            </List>
-          )}
-        </M3Surface>
-      </Stack>
+                        </Tooltip>
+                        <Typography
+                          variant="body2"
+                          component="span"
+                          sx={{ color: 'var(--md-sys-color-on-surface)', flexGrow: 1 }}
+                          noWrap
+                        >
+                          {entry.label}
+                        </Typography>
+                        {loadingEntryId === entry.id ? (
+                          <CircularProgress
+                            size={12}
+                            thickness={5}
+                            aria-label="Caricamento azioni"
+                            sx={{ flexShrink: 0, color: 'var(--md-sys-color-primary)' }}
+                          />
+                        ) : (
+                          <Typography
+                            variant="caption"
+                            component="span"
+                            sx={{ color: 'var(--md-sys-color-on-surface-variant)', flexShrink: 0 }}
+                          >
+                            {relativeTime(entry.enteredAt)}
+                          </Typography>
+                        )}
+                        <AutoAwesomeIcon
+                          className="jarvis-hint-icon"
+                          sx={{
+                            fontSize:   'var(--md-sys-icon-size-xs, 14px)',
+                            color:      'var(--md-sys-color-on-surface-variant)',
+                            opacity:    0.3,
+                            flexShrink: 0,
+                            transition: 'opacity 120ms',
+                          }}
+                          aria-hidden
+                        />
+                      </Stack>
+                    }
+                  />
+                </ListItemButton>
+              </React.Fragment>
+            ))}
+          </List>
+        )}
+      </M3Surface>
 
       {/* ── Account linking panel ─────────────────────────────────────── */}
       <AccountLinkingPanel
@@ -595,7 +608,7 @@ export default function UserWorkspace(): React.JSX.Element {
         onClose={() => setAccountPanelOpen(false)}
       />
 
-      {/* ── ThumbMenu (Portal-rendered, radial) ─────────────────────────── */}
+      {/* ── ThumbMenu (Portal-rendered, radial action wheel) ────────────── */}
       <ThumbMenu
         open={open}
         anchorEl={anchorEl}
@@ -605,7 +618,7 @@ export default function UserWorkspace(): React.JSX.Element {
         onClose={handleClose}
       />
 
-      {/* ── Jarvis background indicator — floating dot, visibile solo se entries > 0 */}
+      {/* ── Jarvis indicator — always visible ───────────────────────────── */}
       <JarvisIndicator
         count={entries.length}
         latestEntryId={suggestedEntry?.id ?? null}
@@ -613,11 +626,6 @@ export default function UserWorkspace(): React.JSX.Element {
         state={jarvisState}
         onActivate={openMenu}
       />
-
-      {/* ── Onboarding overlay — only on first visit ─────────────────────── */}
-      {showOnboarding && (
-        <OnboardingOverlay onComplete={handleOnboardingComplete} />
-      )}
     </M3Surface>
   );
 }
