@@ -62,6 +62,7 @@ import { useProactiveSchedule }   from '../../hooks/useProactiveSchedule';
 import { useSkillSuggestion, autoName } from '../../hooks/useSkillSuggestion';
 import { useExternalSync }        from '../../hooks/useExternalSync';
 import { seedDemoContent }       from '../../utils/seedDemoContent';
+import SimulationPanel          from '../../simulation/SimulationPanel';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
 
@@ -865,6 +866,9 @@ export default function UserWorkspace(): React.JSX.Element {
           />
         </Box>
       )}
+
+      {/* ── Simulation Engine demo panel ────────────────────────────── */}
+      <SimulationPanel tenantId={tenantId} />
     </M3Surface>
   );
 }
