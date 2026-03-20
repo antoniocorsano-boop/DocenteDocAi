@@ -17,8 +17,13 @@ import {
   computeAutoDeltas,
   type AutoSettingsDelta,
 } from '../modules/autoSettings/autoSettingsEngine';
+import {
+  isLowRisk,
+  effectiveConfidence,
+} from '../modules/trust/trustEngine';
 import { useCognitiveStore }       from '../modules/cognitiveLayer/cognitiveStore';
 import { useSettingsStore }        from '../stores/useSettingsStore';
+import { useTrustStore }           from '../stores/useTrustStore';
 import { useUIStore }              from '../stores/useUIStore';
 import { useUserBehaviorStore }    from '../stores/useUserBehaviorStore';
 import type { AppThemeState, AiSettings } from '../types';
@@ -26,7 +31,10 @@ import type { AppThemeState, AiSettings } from '../types';
 // ─── Constants ────────────────────────────────────────────────────────────────
 
 const SCAN_INTERVAL_MS       = 45_000;
-const AUTO_APPLY_THRESHOLD   = 0.88;
+/** Tier 1: applica silenziosamente senza toast né card (true stealth). */
+const STEALTH_THRESHOLD      = 0.92;
+/** Tier 2: applica con toast breve, nessuna card nel Nexus. */
+const AUTO_APPLY_THRESHOLD   = 0.85;
 const DISMISSED_KEY          = 'jarvis_aset_dismissed_v1';
 const APPLIED_SESSION_KEY    = 'jarvis_aset_applied_session';
 
@@ -69,6 +77,8 @@ export interface UseAutoSettingsEngineReturn {
   pending:       AutoSettingsDelta[];
   /** IDs applicati in questa sessione (autoapply + manuali). */
   appliedIds:    string[];
+  /** Quante volte Jarvis ha agito in stealth questa sessione. */
+  stealthCount:  number;
   /** Applica manualmente un delta e lo marca come applicato. */
   applyDelta:    (id: string) => void;
   /** Ignora un delta per sempre (persiste a localStorage). */
@@ -78,13 +88,15 @@ export interface UseAutoSettingsEngineReturn {
 // ─── Hook ─────────────────────────────────────────────────────────────────────
 
 export function useAutoSettingsEngine(tenantId: string): UseAutoSettingsEngineReturn {
-  const [pending,    setPending]    = useState<AutoSettingsDelta[]>([]);
-  const [appliedIds, setAppliedIds] = useState<string[]>(() => [...loadApplied()]);
+  const [pending,      setPending]      = useState<AutoSettingsDelta[]>([]);
+  const [appliedIds,   setAppliedIds]   = useState<string[]>(() => [...loadApplied()]);
+  const [stealthCount, setStealthCount] = useState(0);
 
   // Use refs to avoid stale closures in the scan callback
-  const dismissedRef   = useRef<Set<string>>(loadDismissed());
-  const appliedIdsRef  = useRef<Set<string>>(loadApplied());
-  const pendingRef     = useRef<AutoSettingsDelta[]>([]);
+  const dismissedRef    = useRef<Set<string>>(loadDismissed());
+  const appliedIdsRef   = useRef<Set<string>>(loadApplied());
+  const stealthCountRef = useRef(0);
+  const pendingRef      = useRef<AutoSettingsDelta[]>([]);
 
   // ── Apply payload ──────────────────────────────────────────────────────────
   const applyPayload = useCallback((delta: AutoSettingsDelta): void => {
@@ -124,28 +136,47 @@ export function useAutoSettingsEngine(tenantId: string): UseAutoSettingsEngineRe
     const autoApplied: AutoSettingsDelta[] = [];
     const newPending:  AutoSettingsDelta[] = [];
 
+    const trust = useTrustStore.getState().score;
+
     for (const delta of deltas) {
       if (dismissedRef.current.has(delta.id))  continue;
       if (appliedIdsRef.current.has(delta.id)) continue;
 
-      if (delta.confidence >= AUTO_APPLY_THRESHOLD) {
-        // Auto-apply silently
+      const effConf = effectiveConfidence(delta.confidence, trust);
+
+      if (effConf >= STEALTH_THRESHOLD && isLowRisk(delta, trust)) {
+        // ── Tier 1: stealth totale — nessun toast, nessuna card ────────────
+        applyPayload(delta);
+        appliedIdsRef.current.add(delta.id);
+        stealthCountRef.current += 1;
+        useTrustStore.getState().actions.applyEvent({
+          type: 'delta_applied', deltaId: delta.id, category: delta.category,
+        });
+      } else if (effConf >= AUTO_APPLY_THRESHOLD) {
+        // ── Tier 2: auto-apply + toast breve ────────────────────────────────
         applyPayload(delta);
         appliedIdsRef.current.add(delta.id);
         autoApplied.push(delta);
+        useTrustStore.getState().actions.applyEvent({
+          type: 'delta_applied', deltaId: delta.id, category: delta.category,
+        });
       } else {
+        // ── Tier 3: card nel Nexus (richiede conferma utente) ───────────────
         newPending.push(delta);
       }
     }
 
-    // Announce auto-applied deltas via toast
+    // Tier-2 toast hint (compatto — Tier 1 non emette nulla)
     if (autoApplied.length > 0) {
       const { showToast } = useUIStore.getState().actions;
       const labels = autoApplied.map(d => d.label).join(', ');
-      showToast(`Jarvis ha ottimizzato: ${labels}`, 'info');
+      showToast(`Jarvis ✦ ${labels}`, 'info');
       saveApplied(appliedIdsRef.current);
       setAppliedIds([...appliedIdsRef.current]);
     }
+
+    // Aggiorna stealthCount (React skippa il re-render se il valore è uguale)
+    setStealthCount(stealthCountRef.current);
 
     // Only update pending state if changed (avoid re-renders)
     const prevIds = pendingRef.current.map(d => d.id).join(',');
@@ -192,5 +223,5 @@ export function useAutoSettingsEngine(tenantId: string): UseAutoSettingsEngineRe
     setPending(next);
   }, []);
 
-  return { pending, appliedIds, applyDelta, dismissDelta };
+  return { pending, appliedIds, stealthCount, applyDelta, dismissDelta };
 }

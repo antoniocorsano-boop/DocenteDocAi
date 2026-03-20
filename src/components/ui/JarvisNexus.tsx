@@ -20,10 +20,11 @@
  *   – aria-label su tutti gli elementi interattivi
  */
 
-import React, { memo, useEffect, useMemo, useRef } from 'react';
+import React, { memo, useEffect, useMemo, useRef, useState } from 'react';
 import Box              from '@mui/material/Box';
 import Button           from '@mui/material/Button';
 import Chip             from '@mui/material/Chip';
+import Collapse         from '@mui/material/Collapse';
 import Fade             from '@mui/material/Fade';
 import IconButton       from '@mui/material/IconButton';
 import LinearProgress   from '@mui/material/LinearProgress';
@@ -35,12 +36,26 @@ import AutoAwesomeIcon  from '@mui/icons-material/AutoAwesome';
 import CloseIcon        from '@mui/icons-material/Close';
 import ExtensionIcon    from '@mui/icons-material/Extension';
 
-import M3Surface        from './M3Surface';
+import M3Surface          from './M3Surface';
 import { useCognitiveStore }       from '../../modules/cognitiveLayer/cognitiveStore';
 import { useEmergentSkillsStore }  from '../../stores/useEmergentSkillsStore';
+import { useTrustStore, selectTrustHealth } from '../../stores/useTrustStore';
 import { autoName }                from '../../hooks/useSkillSuggestion';
 import type { AutoSettingsDelta }  from '../../modules/autoSettings/autoSettingsEngine';
 import type { SkillDraft }         from '../../hooks/useSkillSuggestion';
+
+// ─── Nexus visual state ────────────────────────────────────────────────────────────────
+
+/**
+ * Stato visivo del pannello Jarvis: determina colori, animazioni e
+ * comportamento del centro orbitale.
+ */
+export type NexusState =
+  | 'idle'        // nessuna attività
+  | 'suggestion'  // delta in attesa di conferma
+  | 'processing'  // scan in corso
+  | 'decision'    // azione automatica appena eseguita
+  | 'learning';   // nuova skill rilevata
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -48,6 +63,10 @@ export interface JarvisNexusProps {
   open:            boolean;
   onClose:         () => void;
   tenantId:        string;
+  /** Stato visivo del Nexus (determina animazione orbitale). */
+  nexusState?:     NexusState;
+  /** Quante ottimizzazioni stealth ha applicato questa sessione. */
+  stealthCount?:   number;
   // Feature 1 — Auto-settings
   pending:         AutoSettingsDelta[];
   appliedIds:      string[];
@@ -98,11 +117,58 @@ const CATEGORY_RING_COLOR: Record<string, string> = {
   general:    'var(--md-sys-color-outline)',
 };
 
+// ─── Orbital state config ─────────────────────────────────────────────────────
+
+const ORB_CONFIGS: Record<NexusState, {
+  fill:         string;
+  glowColor:    string;
+  animation:    string;
+  label:        string;
+}> = {
+  idle: {
+    fill:      'var(--md-sys-color-primary)',
+    glowColor: 'transparent',
+    animation: 'none',
+    label:     'In ascolto',
+  },
+  suggestion: {
+    fill:      'var(--md-sys-color-primary)',
+    glowColor: 'var(--md-sys-color-primary)',
+    animation: 'nexusPulse 2s ease-in-out infinite',
+    label:     'Suggerimento',
+  },
+  processing: {
+    fill:      'var(--md-sys-color-tertiary)',
+    glowColor: 'transparent',
+    animation: 'nexusOrbit1 1s linear infinite',
+    label:     'Elaborazione',
+  },
+  decision: {
+    fill:      'var(--md-sys-color-secondary)',
+    glowColor: 'var(--md-sys-color-secondary)',
+    animation: 'nexusFlash 0.6s ease-out 3',
+    label:     'Decisione',
+  },
+  learning: {
+    fill:      'var(--md-sys-color-tertiary)',
+    glowColor: 'var(--md-sys-color-tertiary)',
+    animation: 'nexusBirth 1.8s ease-in-out infinite',
+    label:     'Apprendimento',
+  },
+};
+
 // ─── Orbital SVG Header ───────────────────────────────────────────────────────
 
-const OrbitalHeader = memo(function OrbitalHeader({ onClose }: { onClose: () => void }) {
+const OrbitalHeader = memo(function OrbitalHeader({
+  onClose,
+  nexusState = 'idle',
+}: {
+  onClose:     () => void;
+  nexusState?: NexusState;
+}) {
   const now = new Date();
   const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  const orb = ORB_CONFIGS[nexusState];
 
   return (
     <Box
@@ -179,9 +245,34 @@ const OrbitalHeader = memo(function OrbitalHeader({ onClose }: { onClose: () => 
           <circle cx="64" cy="48" r="3.5" fill="var(--md-sys-color-primary)" opacity="0.8" />
         </Box>
 
-        {/* Centre glow */}
-        <circle cx="48" cy="48" r="7" fill="var(--md-sys-color-primary-container)" opacity="0.85" />
-        <circle cx="48" cy="48" r="4" fill="var(--md-sys-color-primary)" opacity="0.9" />
+        {/* Centre orb — reacts to nexusState */}
+        <Box
+          component="g"
+          aria-label={`Jarvis: ${orb.label}`}
+          sx={{
+            transformOrigin: '48px 48px',
+            animation:       orb.animation,
+            '@keyframes nexusPulse': {
+              '0%, 100%': { transform: 'scale(1)',    opacity: 0.9 },
+              '50%':      { transform: 'scale(1.35)', opacity: 1 },
+            },
+            '@keyframes nexusFlash': {
+              '0%, 100%': { opacity: 0.5 },
+              '50%':      { opacity: 1 },
+            },
+            '@keyframes nexusBirth': {
+              '0%, 100%': { transform: 'scale(1) rotate(0deg)',    opacity: 0.8 },
+              '50%':      { transform: 'scale(1.4) rotate(180deg)', opacity: 1 },
+            },
+          }}
+        >
+          <circle
+            cx="48" cy="48" r="8"
+            fill={orb.glowColor !== 'transparent' ? orb.glowColor : 'var(--md-sys-color-primary-container)'}
+            opacity="0.3"
+          />
+          <circle cx="48" cy="48" r="4.5" fill={orb.fill} opacity="0.95" />
+        </Box>
       </Box>
 
       {/* Title + subtitle */}
@@ -201,7 +292,10 @@ const OrbitalHeader = memo(function OrbitalHeader({ onClose }: { onClose: () => 
           component="p"
           sx={{ color: 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
         >
-          {timeStr} — Centro di controllo adattivo
+          {timeStr}
+          {nexusState !== 'idle' && (
+            <> · <Box component="span" sx={{ color: 'var(--md-sys-color-primary)' }}>{orb.label}</Box></>
+          )}
         </Typography>
       </Box>
 
@@ -430,6 +524,8 @@ export default memo(function JarvisNexus({
   open,
   onClose,
   tenantId,
+  nexusState = 'idle',
+  stealthCount = 0,
   pending,
   appliedIds,
   onApplyDelta,
@@ -455,7 +551,11 @@ export default memo(function JarvisNexus({
   // ── Persisted skills ───────────────────────────────────────────────────────
   const skills        = useEmergentSkillsStore(s => s.skills);
   const skillActions  = useEmergentSkillsStore(s => s.actions);
+  // ── Trust health ────────────────────────────────────────────────────────────────
+  const trustHealth   = useTrustStore(selectTrustHealth);
 
+  // ── Activity stream expanded state (collapsed by default) ────────────────────
+  const [streamExpanded, setStreamExpanded] = useState(false);
   // ── Recent cognitive entries ───────────────────────────────────────────────
   // Snapshot computed only when tenantId changes (not reactive-subscribed here
   // to avoid extra complexity; the main workspace already handles that).
@@ -528,7 +628,7 @@ export default memo(function JarvisNexus({
           }}
         >
           {/* ── Orbital header ──────────────────────────────────────────── */}
-          <OrbitalHeader onClose={onClose} />
+          <OrbitalHeader onClose={onClose} nexusState={nexusState} />
 
           {/* ── Scroll content ──────────────────────────────────────────── */}
           <Box
@@ -729,23 +829,50 @@ export default memo(function JarvisNexus({
               )}
             </Box>
 
-            {/* ── Recent Activity stream ─────────────────────────────────── */}
+            {/* ── Recent Activity stream (collapsed by default) ─────────── */}
             {recentEntries.length > 0 && (
               <Box>
-                <Typography
-                  variant="labelSmall"
-                  component="h3"
-                  mb={1}
-                  sx={{
-                    color:         'var(--md-sys-color-on-surface-variant)',
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.08em',
-                  }}
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  mb={streamExpanded ? 1 : 0}
                 >
-                  Attività Recente
-                </Typography>
-                <Stack spacing={0.5}>
-                  {recentEntries.map(entry => (
+                  <Typography
+                    variant="labelSmall"
+                    component="h3"
+                    sx={{
+                      color:         'var(--md-sys-color-on-surface-variant)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                    }}
+                  >
+                    Attività Recente
+                  </Typography>
+                  <IconButton
+                    size="small"
+                    onClick={() => setStreamExpanded(v => !v)}
+                    aria-label={streamExpanded ? 'Comprimi attività recente' : 'Espandi attività recente'}
+                    sx={{ p: 0.25, color: 'var(--md-sys-color-on-surface-variant)' }}
+                  >
+                    <Box
+                      component="span"
+                      className="material-symbols-outlined"
+                      aria-hidden="true"
+                      sx={{
+                        fontSize:   'var(--md-sys-icon-size-sm, 18px)',
+                        transition: 'transform 200ms',
+                        transform:  streamExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                      }}
+                    >
+                      expand_more
+                    </Box>
+                  </IconButton>
+                </Stack>
+
+                <Collapse in={streamExpanded} unmountOnExit>
+                  <Stack spacing={0.5}>
+                    {recentEntries.map(entry => (
                     <Stack
                       key={entry.id}
                       direction="row"
@@ -777,21 +904,22 @@ export default memo(function JarvisNexus({
                         }}
                       >
                         {entry.label}
-                      </Typography>
-                      <Typography
-                        variant="bodySmall"
-                        component="span"
-                        sx={{
-                          color:     'var(--md-sys-color-on-surface-variant)',
-                          fontSize:  'var(--md-sys-typescale-label-small-font-size)',
-                          flexShrink: 0,
-                        }}
-                      >
-                        {relativeTime(entry.enteredAt)}
-                      </Typography>
-                    </Stack>
-                  ))}
-                </Stack>
+                        </Typography>
+                        <Typography
+                          variant="bodySmall"
+                          component="span"
+                          sx={{
+                            color:     'var(--md-sys-color-on-surface-variant)',
+                            fontSize:  'var(--md-sys-typescale-label-small-font-size)',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {relativeTime(entry.enteredAt)}
+                        </Typography>
+                      </Stack>
+                    ))}
+                  </Stack>
+                </Collapse>
               </Box>
             )}
 
@@ -818,7 +946,7 @@ export default memo(function JarvisNexus({
           </Box>
 
           {/* ── Footer ────────────────────────────────────────────────────── */}
-          {appliedIds.length > 0 && (
+          {(appliedIds.length > 0 || stealthCount > 0) && (
             <Box
               sx={{
                 px:         1.5,
@@ -826,6 +954,10 @@ export default memo(function JarvisNexus({
                 borderTop:  '1px solid var(--md-sys-color-outline-variant)',
                 bgcolor:    'var(--md-sys-color-surface-container-highest)',
                 flexShrink: 0,
+                display:    'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap:        1,
               }}
             >
               <Typography
@@ -833,8 +965,28 @@ export default memo(function JarvisNexus({
                 component="p"
                 sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
               >
-                ✓ {appliedIds.length} ottimizazion{appliedIds.length === 1 ? 'e applicata' : 'i applicate'} oggi
+                ✓ {appliedIds.length + stealthCount} aggiustament{(appliedIds.length + stealthCount) === 1 ? 'o' : 'i'}
+                {stealthCount > 0 && (
+                  <Box component="span" sx={{ color: 'var(--md-sys-color-outline)', ml: 0.5 }}>
+                    ({stealthCount} silenziosi)
+                  </Box>
+                )}
               </Typography>
+              <Chip
+                label={`Fiducia ${trustHealth}%`}
+                size="small"
+                aria-label={`Indice di fiducia Jarvis: ${trustHealth}%`}
+                sx={{
+                  height:   16,
+                  fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                  bgcolor:  trustHealth >= 70
+                    ? 'var(--md-sys-color-secondary-container)'
+                    : 'var(--md-sys-color-error-container)',
+                  color:    trustHealth >= 70
+                    ? 'var(--md-sys-color-on-secondary-container)'
+                    : 'var(--md-sys-color-on-error-container)',
+                }}
+              />
             </Box>
           )}
         </M3Surface>

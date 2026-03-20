@@ -66,7 +66,9 @@ import { useExternalSync }        from '../../hooks/useExternalSync';
 import { seedDemoContent }       from '../../utils/seedDemoContent';
 import SimulationPanel          from '../../simulation/SimulationPanel';
 import JarvisNexus              from '../ui/JarvisNexus';
+import type { NexusState }       from '../ui/JarvisNexus';
 import { useEmergentSkillsStore } from '../../stores/useEmergentSkillsStore';
+import { useTrustStore }          from '../../stores/useTrustStore';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
 
@@ -413,8 +415,27 @@ export default function UserWorkspace(): React.JSX.Element {
   const { skillDraft, confirmSkill, dismissSkill } = useSkillSuggestion();
 
   // ── Auto-Settings Engine — adaptive configuration ────────────────────────
-  const { pending: asPending, appliedIds: asAppliedIds, applyDelta, dismissDelta } =
+  const { pending: asPending, appliedIds: asAppliedIds, stealthCount: asStealthCount, applyDelta, dismissDelta } =
     useAutoSettingsEngine(tenantId);
+
+  // ── Trust engine ───────────────────────────────────────────────────────
+  const trustActions = useTrustStore(s => s.actions);
+
+  const handleApplyDelta = useCallback((id: string): void => {
+    const delta = asPending.find(d => d.id === id);
+    if (delta) {
+      trustActions.applyEvent({ type: 'delta_applied', deltaId: id, category: delta.category });
+    }
+    applyDelta(id);
+  }, [asPending, applyDelta, trustActions]);
+
+  const handleDismissDelta = useCallback((id: string): void => {
+    const delta = asPending.find(d => d.id === id);
+    if (delta) {
+      trustActions.applyEvent({ type: 'delta_dismissed', deltaId: id, category: delta.category });
+    }
+    dismissDelta(id);
+  }, [asPending, dismissDelta, trustActions]);
 
   // ── Emergent skills persistence ───────────────────────────────────────────
   const emergentSkillActions = useEmergentSkillsStore(s => s.actions);
@@ -438,7 +459,26 @@ export default function UserWorkspace(): React.JSX.Element {
     return () => window.removeEventListener('keydown', onKey);
   }, []);
 
-  // ── Jarvis indicator state ────────────────────────────────────────────────
+  // ── Auto-open Nexus when a new skill is detected ──────────────────────
+  const prevSkillDraftRef = useRef<typeof skillDraft>(null);
+  useEffect(() => {
+    if (skillDraft != null && prevSkillDraftRef.current == null && !nexusOpen) {
+      setNexusOpen(true);
+    }
+    prevSkillDraftRef.current = skillDraft;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [skillDraft]); // nexusOpen intentionally excluded: don't auto-open if already open
+
+  // ── Nexus visual state ───────────────────────────────────────────────────────
+  const nexusState: NexusState = skillDraft != null
+    ? 'learning'
+    : asPending.length > 0
+      ? 'suggestion'
+      : (asAppliedIds.length > 0 || asStealthCount > 0)
+        ? 'decision'
+        : 'idle';
+
+  // ── Jarvis indicator state (for JarvisIndicator — separate from nexusState) ───
   const jarvisState = (menuLoading || isProcessing) ? 'processing'
     : proactiveIdle    ? 'active'
     : entries.length > 0 ? 'suggestion'
@@ -477,7 +517,23 @@ export default function UserWorkspace(): React.JSX.Element {
               size="small"
               onClick={() => setNexusOpen(p => !p)}
               aria-label="Apri Jarvis Nexus (Ctrl+Shift+J)"
-              sx={{ color: nexusOpen ? 'var(--md-sys-color-primary)' : 'var(--md-sys-color-on-surface-variant)', mt: 0.25 }}
+              sx={{
+                mt:         0.25,
+                color:      nexusOpen
+                  ? 'var(--md-sys-color-primary)'
+                  : nexusState === 'learning'
+                    ? 'var(--md-sys-color-tertiary)'
+                    : nexusState === 'suggestion'
+                      ? 'var(--md-sys-color-primary)'
+                      : 'var(--md-sys-color-on-surface-variant)',
+                animation: !nexusOpen && (nexusState === 'learning' || nexusState === 'suggestion')
+                  ? 'nexusHubPulse 2.2s ease-in-out infinite'
+                  : 'none',
+                '@keyframes nexusHubPulse': {
+                  '0%, 100%': { opacity: 0.8, transform: 'scale(1)' },
+                  '50%':      { opacity: 1,   transform: 'scale(1.12)' },
+                },
+              }}
             >
               <Box
                 component="span"
@@ -858,10 +914,12 @@ export default function UserWorkspace(): React.JSX.Element {
         open={nexusOpen}
         onClose={() => setNexusOpen(false)}
         tenantId={tenantId}
+        nexusState={nexusState}
+        stealthCount={asStealthCount}
         pending={asPending}
         appliedIds={asAppliedIds}
-        onApplyDelta={applyDelta}
-        onDismissDelta={dismissDelta}
+        onApplyDelta={handleApplyDelta}
+        onDismissDelta={handleDismissDelta}
         skillDraft={skillDraft}
         onConfirmSkill={handleConfirmSkill}
         onDismissSkill={dismissSkill}
