@@ -18,6 +18,7 @@
  */
 
 import './defaultSkills';
+import { emergentSkillStore }      from './emergentSkillStore';
 import { useCognitiveStore }      from '../cognitiveLayer/cognitiveStore';
 import { generateSuggestions }    from '../cognitiveLayer/suggestionEngine';
 import { listCapabilities, isCapabilityEnabled } from '../capabilitySystem/capabilityService';
@@ -121,10 +122,48 @@ export async function buildContext(
   // 5. Trust status (async)
   const trustStatus = await getTrustStatus(tenantId);
 
+  // 6. Append dynamic (emergent) skills as synthetic suggestions + actions
+  const dynamicSkills = emergentSkillStore.match({
+    domain:    entry.domain,
+    tags:      entry.tags,
+    inputType: entry.inputType,
+  });
+
+  const allSuggestions = [...rawSuggestions];
+  const allActions     = [...actions];
+
+  for (const skill of dynamicSkills) {
+    const syntheticId = `dsk_${skill.id}`;
+    const syntheticSuggestion: CognitiveSuggestion = {
+      id:           syntheticId,
+      type:         'ACTION',
+      priority:     'medium',
+      domain:       (skill.trigger.domain ?? entry.domain) as CognitiveDomain,
+      title:        skill.name,
+      description:  `Skill personalizzata — eseguita ${skill.usageCount} volte`,
+      cta:          skill.name,
+      ctaType:      `${DYNAMIC_SKILL_PREFIX}${skill.id}`,
+      sourceEntryId: entry.id,
+      generatedAt:  Date.now(),
+    };
+
+    const dynamicAction: OrchestrationAction = {
+      id:       syntheticId,
+      label:    skill.name,
+      priority: 3,
+      ctaType:  `${DYNAMIC_SKILL_PREFIX}${skill.id}`,
+      domain:   syntheticSuggestion.domain,
+      meta:     { skillId: skill.id },
+    };
+
+    allSuggestions.push(syntheticSuggestion);
+    allActions.push(dynamicAction);
+  }
+
   return {
     inputId,
-    suggestions: rawSuggestions,
-    actions,
+    suggestions: allSuggestions,
+    actions:     allActions,
     capabilities,
     trustStatus,
   };
@@ -138,6 +177,8 @@ export async function buildContext(
  *   2. Crea TrustRecord di audit
  *   3. Ritorna risultato
  */
+const DYNAMIC_SKILL_PREFIX = 'DYNAMIC_SKILL::';
+
 export async function executeAction(
   ctaType: string,
   suggestion: CognitiveSuggestion,
@@ -145,6 +186,31 @@ export async function executeAction(
 ): Promise<ExecuteActionResult> {
   const { tenantId } = opts;
   const ctx = tenantRegistry.getContext();
+
+  // 0. Handle dynamic (emergent) skill execution
+  if (ctaType.startsWith(DYNAMIC_SKILL_PREFIX)) {
+    const skillId = ctaType.slice(DYNAMIC_SKILL_PREFIX.length);
+    const skill   = emergentSkillStore.resolve(skillId);
+    if (!skill) {
+      return { success: false, reason: 'Skill emergente non trovata.' };
+    }
+    emergentSkillStore.incrementUsage(skillId);
+    try {
+      const record = await createTrustRecord({
+        eventType:   'DOCUMENT_GENERATED',
+        tenantId,
+        actorId:     ctx.userId,
+        description: `Skill emergente eseguita: ${skill.name} (${skillId})`,
+        payload:     { ctaType, skillId, domain: skill.trigger.domain },
+      });
+      return { success: true, trustRecordId: record.id };
+    } catch (err) {
+      return {
+        success: false,
+        reason:  err instanceof Error ? err.message : 'Errore esecuzione skill emergente.',
+      };
+    }
+  }
 
   // 1. Capability check
   const capabilityId = skillRegistry.resolve(ctaType)?.capabilityId;

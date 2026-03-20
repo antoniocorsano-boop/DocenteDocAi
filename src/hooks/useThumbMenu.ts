@@ -20,6 +20,7 @@
 import { useCallback, useState } from 'react';
 
 import { buildContext, executeAction } from '../modules/orchestration/orchestrationService';
+import { recordAction }              from '../modules/orchestration/patternDetector';
 import { tenantRegistry, getUserDomain } from '../services/tenant/tenantRegistry';
 import { useUIStore } from '../stores/useUIStore';
 import type { OrchestrationAction, OrchestrationContext, ScheduleContext } from '../modules/orchestration/types';
@@ -104,6 +105,13 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
       const { showToast } = useUIStore.getState().actions;
       if (result.success) {
         showToast(`${action.label} completata`, 'success');
+        // Learning loop: registra l'azione per il rilevamento di pattern
+        recordAction({
+          ctaType:   action.ctaType,
+          domain:    suggestion.domain,
+          tags:      (suggestion as { tags?: string[] }).tags ?? [],
+          timestamp: Date.now(),
+        });
       } else {
         showToast(result.reason ?? 'Non disponibile.', 'error');
       }

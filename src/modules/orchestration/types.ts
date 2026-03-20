@@ -42,6 +42,11 @@ export interface OrchestrationAction {
   ctaType:       string;
   /** Dominio semantico di provenienza */
   domain:        CognitiveDomain;
+  /**
+   * Metadati arbitrari (es. skillId per dynamic skills).
+   * Usato da executeAction per routing esteso.
+   */
+  meta?:         Record<string, unknown>;
 }
 
 // ─── OrchestrationContext ─────────────────────────────────────────────────────

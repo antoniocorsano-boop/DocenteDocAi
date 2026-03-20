@@ -53,6 +53,7 @@ import { useJarvisKeyboard }      from '../../hooks/useJarvisKeyboard';
 import { useThumbMenu }           from '../../hooks/useThumbMenu';
 import { useUniversalInput }      from '../../hooks/useUniversalInput';
 import { useProactiveSchedule }   from '../../hooks/useProactiveSchedule';
+import { useSkillSuggestion, autoName } from '../../hooks/useSkillSuggestion';
 import { seedDemoContent }       from '../../utils/seedDemoContent';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
@@ -320,6 +321,9 @@ export default function UserWorkspace(): React.JSX.Element {
 
   // ── Proactive schedule — timer-driven orbital suggestions ─────────────────
   useProactiveSchedule(tenantId);
+
+  // ── Emergent skill suggestion — pattern-based skill learning loop ─────────
+  const { skillDraft, confirmSkill, dismissSkill } = useSkillSuggestion();
 
   // ── Jarvis indicator state ────────────────────────────────────────────────
   const jarvisState = (menuLoading || isProcessing) ? 'processing'
@@ -661,6 +665,59 @@ export default function UserWorkspace(): React.JSX.Element {
         state={jarvisState}
         onActivate={openMenu}
       />
+
+      {/* ── Emergent skill suggestion card ───────────────────────────────── */}
+      {skillDraft && (
+        <M3Surface
+          elevation={2}
+          aria-live="polite"
+          aria-label="Jarvis suggerisce una nuova skill"
+          sx={{
+            position:  'fixed',
+            bottom:    132,
+            right:     24,
+            maxWidth:  280,
+            p:         1.5,
+            borderRadius: 3,
+            zIndex:    1199,
+            bgcolor:   'var(--md-sys-color-surface-container-high)',
+          }}
+        >
+          <Typography
+            variant="labelSmall"
+            component="p"
+            sx={{ color: 'var(--md-sys-color-primary)', fontWeight: 'var(--md-sys-typescale-weight-semibold)' }}
+          >
+            Jarvis suggerisce
+          </Typography>
+          <Typography
+            variant="bodySmall"
+            component="p"
+            sx={{ mt: 0.5, color: 'var(--md-sys-color-on-surface-variant)' }}
+          >
+            Hai eseguito spesso «{autoName(skillDraft.ctaType)}» ({skillDraft.count}×).
+            Vuoi salvarla come skill personalizzata?
+          </Typography>
+          <Stack direction="row" spacing={1} mt={1}>
+            <Button
+              size="small"
+              variant="contained"
+              onClick={confirmSkill}
+              aria-label="Conferma creazione skill emergente"
+            >
+              Crea
+            </Button>
+            <Button
+              size="small"
+              variant="text"
+              onClick={dismissSkill}
+              aria-label="Ignora suggerimento skill emergente"
+            >
+              Ignora
+            </Button>
+          </Stack>
+        </M3Surface>
+      )}
     </M3Surface>
   );
 }
