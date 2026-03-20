@@ -412,7 +412,7 @@ export default function UserWorkspace(): React.JSX.Element {
   useExternalSync(tenantId);
 
   // ── Emergent skill suggestion — pattern-based skill learning loop ─────────
-  const { skillDraft, confirmSkill, dismissSkill } = useSkillSuggestion();
+  const { skillDraft, confirmSkill, dismissSkill, autoFiredCount: asAutoFiredCount } = useSkillSuggestion();
 
   // ── Auto-Settings Engine — adaptive configuration ────────────────────────
   const { pending: asPending, appliedIds: asAppliedIds, stealthCount: asStealthCount, applyDelta, dismissDelta } =
@@ -916,6 +916,7 @@ export default function UserWorkspace(): React.JSX.Element {
         tenantId={tenantId}
         nexusState={nexusState}
         stealthCount={asStealthCount}
+        autoFiredCount={asAutoFiredCount}
         pending={asPending}
         appliedIds={asAppliedIds}
         onApplyDelta={handleApplyDelta}

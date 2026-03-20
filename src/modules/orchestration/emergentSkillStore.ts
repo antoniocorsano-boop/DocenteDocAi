@@ -112,6 +112,18 @@ class EmergentSkillStore {
   }
 
   /**
+   * Restituisce la prima skill che contiene `ctaType` tra le proprie actions.
+   * Usato dal loop di auto-fire per verificare se un pattern corrisponde
+   * a una skill già confermata senza passare per l'ID.
+   */
+  resolveByCtaType(ctaType: string): DynamicSkill | undefined {
+    for (const skill of this._skills.values()) {
+      if (skill.actions.some(a => a.ctaType === ctaType)) return skill;
+    }
+    return undefined;
+  }
+
+  /**
    * Incrementa usageCount e aumenta confidence (+0.10, cap 1.0).
    * Chiamare dopo ogni esecuzione riuscita.
    */

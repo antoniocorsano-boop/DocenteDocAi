@@ -67,6 +67,8 @@ export interface JarvisNexusProps {
   nexusState?:     NexusState;
   /** Quante ottimizzazioni stealth ha applicato questa sessione. */
   stealthCount?:   number;
+  /** Quante skill emergenti sono state auto-eseguite questa sessione. */
+  autoFiredCount?: number;
   // Feature 1 — Auto-settings
   pending:         AutoSettingsDelta[];
   appliedIds:      string[];
@@ -526,6 +528,7 @@ export default memo(function JarvisNexus({
   tenantId,
   nexusState = 'idle',
   stealthCount = 0,
+  autoFiredCount = 0,
   pending,
   appliedIds,
   onApplyDelta,
@@ -969,6 +972,11 @@ export default memo(function JarvisNexus({
                 {stealthCount > 0 && (
                   <Box component="span" sx={{ color: 'var(--md-sys-color-outline)', ml: 0.5 }}>
                     ({stealthCount} silenziosi)
+                  </Box>
+                )}
+                {autoFiredCount > 0 && (
+                  <Box component="span" sx={{ color: 'var(--md-sys-color-tertiary)', ml: 0.5 }}>
+                    · {autoFiredCount} skill auto
                   </Box>
                 )}
               </Typography>

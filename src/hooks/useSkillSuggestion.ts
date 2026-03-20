@@ -20,6 +20,8 @@ import {
   type DetectedPattern,
 } from '../modules/orchestration/patternDetector';
 import { emergentSkillStore } from '../modules/orchestration/emergentSkillStore';
+import { useTrustStore }       from '../stores/useTrustStore';
+import { SKILL_AUTO_FIRE_THRESHOLD } from '../modules/trust/trustEngine';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -27,11 +29,17 @@ export type SkillDraft = DetectedPattern;
 
 export interface UseSkillSuggestionReturn {
   /** Pattern in attesa di conferma, o null. */
-  skillDraft:   SkillDraft | null;
+  skillDraft:    SkillDraft | null;
   /** Confirma la creazione della skill e registra nello store. */
-  confirmSkill: () => void;
+  confirmSkill:  () => void;
   /** Ignora il suggerimento senza creare la skill. */
   dismissSkill:  () => void;
+  /**
+   * Quante skill sono state auto-eseguite in questa sessione.
+   * Auto-fire avviene quando il pattern corrisponde a una skill già confermata
+   * e skillTrust[skill.id] ≥ SKILL_AUTO_FIRE_THRESHOLD.
+   */
+  autoFiredCount: number;
 }
 
 // ─── Constants ────────────────────────────────────────────────────────────────
@@ -85,7 +93,9 @@ function markDismissed(ctaType: string): void {
 // ─── Hook ─────────────────────────────────────────────────────────────────────
 
 export function useSkillSuggestion(): UseSkillSuggestionReturn {
-  const [skillDraft, setSkillDraft] = useState<SkillDraft | null>(null);
+  const [skillDraft, setSkillDraft]     = useState<SkillDraft | null>(null);
+  const [autoFiredCount, setAutoFiredCount] = useState(0);
+  const autoFiredRef                    = useRef(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const clearTimer = useCallback(() => {
@@ -102,6 +112,27 @@ export function useSkillSuggestion(): UseSkillSuggestionReturn {
 
       const pattern = detectPattern();
       if (!pattern) return;
+
+      // ── Auto-fire path ────────────────────────────────────────────────────
+      // Se il pattern corrisponde a una skill già confermata con trust alto,
+      // eseguila silenziosamente senza mostrare il card di proposta.
+      const existingSkill = emergentSkillStore.resolveByCtaType(pattern.ctaType);
+      if (existingSkill) {
+        const trust     = useTrustStore.getState();
+        const skillTrustVal = trust.score.skillTrust[existingSkill.id] ?? 0;
+        if (skillTrustVal >= SKILL_AUTO_FIRE_THRESHOLD) {
+          emergentSkillStore.incrementUsage(existingSkill.id);
+          useTrustStore.getState().actions.applyEvent({
+            type: 'skill_used',
+            skillId: existingSkill.id,
+          });
+          clearActionLog();
+          autoFiredRef.current += 1;
+          setAutoFiredCount(autoFiredRef.current);
+          return;
+        }
+      }
+      // ── Normal proposal path ──────────────────────────────────────────────
       if (wasDismissed(pattern.ctaType)) return;
 
       setSkillDraft(pattern);
@@ -133,5 +164,5 @@ export function useSkillSuggestion(): UseSkillSuggestionReturn {
     setSkillDraft(null);
   }, [skillDraft]);
 
-  return { skillDraft, confirmSkill, dismissSkill };
+  return { skillDraft, confirmSkill, dismissSkill, autoFiredCount };
 }

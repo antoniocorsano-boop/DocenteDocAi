@@ -43,6 +43,11 @@ export const DEFAULT_TRUST: TrustScore = {
 export const TRUST_THRESHOLD_AUTOMATION = 0.65;
 /** Minimo systemTrust per categorie theme/general. */
 export const TRUST_THRESHOLD_THEME      = 0.55;
+/**
+ * Soglia skillTrust per attivare l'auto-fire di una skill emergente.
+ * Sous questa soglia la skill viene ancora proposta come card.
+ */
+export const SKILL_AUTO_FIRE_THRESHOLD  = 0.75;
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
