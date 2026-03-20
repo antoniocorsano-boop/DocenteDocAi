@@ -17,12 +17,14 @@
  *   PRINCIPAL  → tutte le azioni
  */
 
+import './defaultSkills';
 import { useCognitiveStore }      from '../cognitiveLayer/cognitiveStore';
 import { generateSuggestions }    from '../cognitiveLayer/suggestionEngine';
 import { listCapabilities, isCapabilityEnabled } from '../capabilitySystem/capabilityService';
 import { useTrustStore }          from '../trustLayer/trustStore';
 import { verifyChain, createTrustRecord } from '../trustLayer/trustService';
 import { tenantRegistry }         from '../../services/tenant/tenantRegistry';
+import { skillRegistry }          from './skillRegistry';
 import type { CognitiveSuggestion, CognitiveDomain } from '../cognitiveLayer/types';
 import type {
   OrchestrationContext,
@@ -31,20 +33,6 @@ import type {
   ExecuteActionResult,
   TrustStatus,
 } from './types';
-
-// ─── CTA → Capability mapping ─────────────────────────────────────────────────
-
-/**
- * Mappa i tipi di azione (ctaType) alle capability richieste.
- * undefined = azione sempre disponibile (nessun gate).
- */
-const CTA_CAPABILITY_MAP: Record<string, string | undefined> = {
-  RUN_AUDIT:           'gdpr_retention',
-  GENERATE_DPIA:       'gdpr_retention',
-  EXPORT_UDA:          'uda_planner',
-  GENERATE_SALES_PACK: 'sales_pack',
-  CREATE_TRUST_RECORD: 'trust_layer',
-};
 
 // ─── Priority mapping ─────────────────────────────────────────────────────────
 
@@ -92,7 +80,7 @@ function suggestionToAction(s: CognitiveSuggestion): OrchestrationAction | null 
   return {
     id:           s.id,
     label:        s.cta ?? s.title,
-    capabilityId: CTA_CAPABILITY_MAP[s.ctaType],
+    capabilityId: skillRegistry.resolve(s.ctaType)?.capabilityId,
     priority:     PRIORITY_NUMBER[s.priority] ?? 4,
     ctaType:      s.ctaType,
     domain:       s.domain,
@@ -159,7 +147,7 @@ export async function executeAction(
   const ctx = tenantRegistry.getContext();
 
   // 1. Capability check
-  const capabilityId = CTA_CAPABILITY_MAP[ctaType];
+  const capabilityId = skillRegistry.resolve(ctaType)?.capabilityId;
   if (capabilityId && !isCapabilityEnabled(tenantId, capabilityId)) {
     return {
       success: false,

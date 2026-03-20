@@ -65,6 +65,11 @@ export interface JarvisIndicatorProps {
   onActivate: (entryId: string, anchor: HTMLElement) => void;
   /** Stato visivo Jarvis: suggestion (default) | active | processing */
   state?: 'idle' | 'suggestion' | 'active' | 'processing';
+  /**
+   * Distanza dal bordo inferiore in px (default 76).
+   * Usare quando altri elementi fissi (es. FAB governance) occupano l’area.
+   */
+  bottomOffset?: number;
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -82,6 +87,7 @@ export default function JarvisIndicator({
   hidden,
   onActivate,
   state = 'suggestion',
+  bottomOffset,
 }: JarvisIndicatorProps): React.JSX.Element | null {
   const fabRef = useRef<HTMLButtonElement>(null);
 
@@ -104,7 +110,7 @@ export default function JarvisIndicator({
         overlap="circular"
         sx={{
           position: 'fixed',
-          bottom:   76,
+          bottom:   bottomOffset ?? 76,
           right:    24,
           zIndex:   1200,
         }}
