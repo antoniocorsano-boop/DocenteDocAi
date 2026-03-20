@@ -49,10 +49,11 @@ import type { ScheduleContext } from '../../modules/orchestration/types';
 import { tenantRegistry }     from '../../services/tenant/tenantRegistry';
 import { useAcademicStore }   from '../../stores/useAcademicStore';
 import { useSettingsStore }   from '../../stores/useSettingsStore';
-import { useJarvisKeyboard }   from '../../hooks/useJarvisKeyboard';
-import { useThumbMenu }        from '../../hooks/useThumbMenu';
-import { useUniversalInput }   from '../../hooks/useUniversalInput';
-import { seedDemoContent }    from '../../utils/seedDemoContent';
+import { useJarvisKeyboard }      from '../../hooks/useJarvisKeyboard';
+import { useThumbMenu }           from '../../hooks/useThumbMenu';
+import { useUniversalInput }      from '../../hooks/useUniversalInput';
+import { useProactiveSchedule }   from '../../hooks/useProactiveSchedule';
+import { seedDemoContent }       from '../../utils/seedDemoContent';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
 
@@ -316,6 +317,9 @@ export default function UserWorkspace(): React.JSX.Element {
 
   // ── Universal input layer — global paste / drag & drop ────────────────────
   const { isProcessing } = useUniversalInput({ tenantId });
+
+  // ── Proactive schedule — timer-driven orbital suggestions ─────────────────
+  useProactiveSchedule(tenantId);
 
   // ── Jarvis indicator state ────────────────────────────────────────────────
   const jarvisState = (menuLoading || isProcessing) ? 'processing'

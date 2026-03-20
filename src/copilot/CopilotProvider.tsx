@@ -37,6 +37,9 @@ import type { CopilotSuggestion } from './CopilotPredictions';
 import { executeCopilotAction } from './CopilotActions';
 import type { ActionContext } from './CopilotActions';
 import { initArtisticConsilium, _resetArtisticConsilium } from '../services/ArtisticConsilium';
+import { mapCopilotSuggestionToIngest, isMappedToOrbit } from './adapters/predictionsToCognitive';
+import { ingestInput } from '../modules/cognitiveLayer';
+import { tenantRegistry } from '../services/tenant/tenantRegistry';
 
 // ── Context ───────────────────────────────────────────────────────────────────
 
@@ -96,10 +99,30 @@ export function CopilotProvider({
             const newSuggestions = suggest(eventName, payload);
             if (!newSuggestions.length) return;
 
+            // Suggestions con mapping Orbit → Cognitive Layer (JarvisIndicator)
+            const { tenantId } = tenantRegistry.getContext();
+            for (const s of newSuggestions) {
+                const params = mapCopilotSuggestionToIngest(s, tenantId);
+                if (params) {
+                    void ingestInput({
+                        tenantId:  params.tenantId,
+                        sourceId:  params.sourceId,
+                        inputType: 'system_event',
+                        content:   params.content,
+                        label:     params.label,
+                        meta:      params.meta,
+                    });
+                }
+            }
+
+            // Suggestions senza mapping → chip bar legacy
+            const unmapped = newSuggestions.filter(s => !isMappedToOrbit(s));
+            if (!unmapped.length) return;
+
             setSuggestions((prev) => {
                 // Deduplicate by id
                 const existingIds = new Set(prev.map((s) => s.id));
-                const fresh = newSuggestions.filter((s) => !existingIds.has(s.id));
+                const fresh = unmapped.filter((s) => !existingIds.has(s.id));
                 return [...prev, ...fresh].slice(0, MAX_SUGGESTIONS);
             });
 
