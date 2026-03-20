@@ -33,7 +33,7 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
             <span
                 style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
-                    color: 'var(--md-sys-color-tertiary)',
+                    color: 'var(--md-sys-color-on-tertiary-container)',
                     fontWeight: 'var(--md-sys-typescale-weight-bold)',
                     animation: `pulse var(--md-sys-motion-duration-extra-long) var(--md-sys-motion-easing-standard) infinite`
                 }}
@@ -44,7 +44,7 @@ const AiMemoryChip: React.FC<AiMemoryChipProps> = ({ label }) => {
                 style={{
                     fontSize: 'var(--md-sys-typescale-body-large-font-size)',
                     fontWeight: 'var(--md-sys-typescale-weight-extrabold)',
-                    color: 'var(--md-sys-color-tertiary)',
+                    color: 'var(--md-sys-color-on-tertiary-container)',
                     textTransform: 'uppercase',
                     letterSpacing: '0.15em'
                 }}
