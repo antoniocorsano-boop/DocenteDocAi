@@ -19,7 +19,7 @@
  *   - aria-label su ogni elemento interattivo
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Box              from '@mui/material/Box';
 import Button           from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -81,6 +81,34 @@ function relativeTime(ts: number): string {
   const h = Math.floor(min / 60);
   if (h < 24)   return `${h}h fa`;
   return `${Math.floor(h / 24)}g fa`;
+}
+
+// ─── Proactive scoring ────────────────────────────────────────────────────────
+
+const DOMAIN_SCORE: Record<string, number> = {
+  compliance: 40, pedagogical: 30, administrative: 20,
+  technical: 10, operational: 5, commercial: 5, unknown: 0,
+};
+const CONF_SCORE:   Record<string, number> = { high: 20, medium: 10, low: 0 };
+const URGENT_TAGS = new Set([
+  'gdpr', 'uda', 'urgente', 'scadenza', 'dpia', 'audit', 'violazione',
+]);
+
+function scoreEntry(e: CognitiveEntry): number {
+  let s = (DOMAIN_SCORE[e.domain] ?? 0) + (CONF_SCORE[e.confidence] ?? 0);
+  const ageMin = (Date.now() - e.enteredAt) / 60_000;
+  if (ageMin < 10)  s += 15;
+  else if (ageMin < 60) s += 5;
+  if (e.tags.some(t => URGENT_TAGS.has(t.toLowerCase()))) s += 10;
+  return s;
+}
+
+function getProactiveReason(e: CognitiveEntry): string {
+  if (e.tags.some(t => URGENT_TAGS.has(t.toLowerCase()))) return 'Elemento critico rilevato';
+  if (e.domain === 'compliance')                           return 'Richiede attenzione normativa';
+  if (e.domain === 'pedagogical' && e.confidence === 'high') return 'Pronto per analisi';
+  if ((Date.now() - e.enteredAt) / 60_000 < 5)            return 'Appena aggiunto';
+  return 'Suggerito da Jarvis';
 }
 
 // ─── Component ────────────────────────────────────────────────────────────────
@@ -239,6 +267,40 @@ export default function UserWorkspace(): React.JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ── Proactive intelligence — scored best entry ────────────────────────────
+  const suggestedEntry = useMemo(() => {
+    if (entries.length === 0) return null;
+    return entries.reduce((best, e) => scoreEntry(e) > scoreEntry(best) ? e : best);
+  }, [entries]);
+
+  // ── Idle timer — proactive state after 4s of no interaction ──────────────
+  const [proactiveIdle, setProactiveIdle] = useState(false);
+  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const resetIdleTimer = useCallback(() => {
+    setProactiveIdle(false);
+    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    if (entries.length > 0 && !open) {
+      idleTimerRef.current = setTimeout(() => setProactiveIdle(true), 4000);
+    }
+  }, [entries.length, open]);
+
+  useEffect(() => {
+    const EVENTS = ['mousemove', 'keydown', 'click', 'touchstart'] as const;
+    EVENTS.forEach(ev => document.addEventListener(ev, resetIdleTimer, { passive: true }));
+    resetIdleTimer();
+    return () => {
+      EVENTS.forEach(ev => document.removeEventListener(ev, resetIdleTimer));
+      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
+    };
+  }, [resetIdleTimer]);
+
+  // ── Jarvis indicator state ────────────────────────────────────────────────
+  const jarvisState = menuLoading ? 'processing'
+    : proactiveIdle    ? 'active'
+    : entries.length > 0 ? 'suggestion'
+    : 'idle';
+
   // ─────────────────────────────────────────────────────────────────────────
 
   return (
@@ -364,21 +426,33 @@ export default function UserWorkspace(): React.JSX.Element {
         </Stack>
       </M3Surface>
 
-      {/* ── Jarvis suggested hint ───────────────────────────────────────── */}
-      {entries[0] && (
-        <Box sx={{ px: 0.5 }}>
+      {/* ── Jarvis proactive hint ──────────────────────────────────────── */}
+      {suggestedEntry && (
+        <Box
+          sx={{
+            px:         0.5,
+            transition: 'opacity 400ms ease',
+            opacity:    proactiveIdle ? 1 : 0.7,
+          }}
+        >
           <Typography
             variant="labelSmall"
-            sx={{ color: 'var(--md-sys-color-primary)', opacity: 0.8 }}
+            sx={{
+              color:      proactiveIdle
+                ? 'var(--md-sys-color-primary)'
+                : 'var(--md-sys-color-on-surface-variant)',
+              letterSpacing: '0.06em',
+              transition: 'color 300ms',
+            }}
           >
-            Suggerito
+            {proactiveIdle ? 'Jarvis suggerisce' : 'Suggerito'}
           </Typography>
           <Typography
             variant="body2"
-            sx={{ color: 'var(--md-sys-color-on-surface-variant)', opacity: 0.75 }}
+            sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}
             noWrap
           >
-            Analizza: {entries[0].label}
+            {getProactiveReason(suggestedEntry)}: {suggestedEntry.label}
           </Typography>
         </Box>
       )}
@@ -455,6 +529,10 @@ export default function UserWorkspace(): React.JSX.Element {
                     sx={{
                       px: 2,
                       py: 1,
+                      borderLeft: entry.id === suggestedEntry?.id && proactiveIdle
+                        ? `3px solid ${DOMAIN_CHIP_COLOR[entry.domain] ?? 'var(--md-sys-color-primary)'}`
+                        : '3px solid transparent',
+                      transition: 'border-left-color 300ms ease',
                       '&:hover': {
                         backgroundColor: 'var(--md-sys-color-surface-container-low)',
                       },
@@ -550,9 +628,9 @@ export default function UserWorkspace(): React.JSX.Element {
       {/* ── Jarvis background indicator — floating dot, visibile solo se entries > 0 */}
       <JarvisIndicator
         count={entries.length}
-        latestEntryId={entries[0]?.id ?? null}
+        latestEntryId={suggestedEntry?.id ?? null}
         hidden={open}
-        state={menuLoading ? 'processing' : entries.length > 0 ? 'suggestion' : 'idle'}
+        state={jarvisState}
         onActivate={openMenu}
       />
 
