@@ -26,6 +26,7 @@ import { useTrustStore }          from '../trustLayer/trustStore';
 import { verifyChain, createTrustRecord } from '../trustLayer/trustService';
 import { tenantRegistry }         from '../../services/tenant/tenantRegistry';
 import { skillRegistry }          from './skillRegistry';
+import { useUserBehaviorStore }   from '../../stores/useUserBehaviorStore';
 import type { CognitiveSuggestion, CognitiveDomain } from '../cognitiveLayer/types';
 import type {
   OrchestrationContext,
@@ -91,6 +92,20 @@ function suggestionToAction(s: CognitiveSuggestion): OrchestrationAction | null 
 // ─── Public API ───────────────────────────────────────────────────────────────
 
 /**
+ * Determina il livello di automazione per un'azione in base al profilo
+ * comportamentale dell'utente:
+ *   - 'auto'      → l'azione è nelle preferite (freq > 3) + riskTolerance 'high'
+ *   - 'assisted'  → azione preferita ma riskTolerance non 'high'
+ *   - 'suggested' → default
+ */
+export function getAutomationLevel(ctaType: string): 'suggested' | 'assisted' | 'auto' {
+  const { preferredActions, riskTolerance } = useUserBehaviorStore.getState().profile;
+  if (!preferredActions.includes(ctaType)) return 'suggested';
+  if (riskTolerance === 'high') return 'auto';
+  return 'assisted';
+}
+
+/**
  * Costruisce il contesto di orchestrazione per un input specifico.
  *
  * Il context è ephemeral — ricalcolato ad ogni chiamata (no stale data).
@@ -110,10 +125,22 @@ export async function buildContext(
   const rawSuggestions = generateSuggestions(entry, opts.scheduleContext).slice(0, maxSuggestions);
 
   // 3. Mappa suggestions → actions (solo quelle con ctaType) e filtra per ruolo
-  const actions: OrchestrationAction[] = rawSuggestions
+  const rawActions: OrchestrationAction[] = rawSuggestions
     .map(suggestionToAction)
     .filter((a): a is OrchestrationAction => a !== null)
-    .filter(a => isActionAllowedForRole(a.domain, role))
+    .filter(a => isActionAllowedForRole(a.domain, role));
+
+  // 4a. Behavior-driven boost/suppress:
+  //     - preferredActions: priority -1 (promuoviamo in cima)
+  //     - ignoredActions: filtrate fuori (a meno che dominio compliance — mai soppresso)
+  const { preferredActions, ignoredActions } = useUserBehaviorStore.getState().profile;
+
+  const actions: OrchestrationAction[] = rawActions
+    .filter(a => a.domain === 'compliance' || !ignoredActions.includes(a.ctaType))
+    .map(a => preferredActions.includes(a.ctaType)
+      ? { ...a, priority: Math.max(1, a.priority - 1) }
+      : a,
+    )
     .sort((a, b) => a.priority - b.priority);
 
   // 4. Capability del tenant

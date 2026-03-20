@@ -23,6 +23,7 @@ import { buildContext, executeAction } from '../modules/orchestration/orchestrat
 import { recordAction }              from '../modules/orchestration/patternDetector';
 import { tenantRegistry, getUserDomain } from '../services/tenant/tenantRegistry';
 import { useUIStore } from '../stores/useUIStore';
+import { useUserBehaviorStore } from '../stores/useUserBehaviorStore';
 import type { OrchestrationAction, OrchestrationContext, ScheduleContext } from '../modules/orchestration/types';
 import type { CognitiveSuggestion } from '../modules/cognitiveLayer/types';
 
@@ -105,7 +106,9 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
       const { showToast } = useUIStore.getState().actions;
       if (result.success) {
         showToast(`${action.label} completata`, 'success');
-        // Learning loop: registra l'azione per il rilevamento di pattern
+        // Behavior model: registra azione eseguita per learning loop
+        useUserBehaviorStore.getState().onActionExecuted(action.ctaType);
+        // Pattern detector: registra l'azione per il rilevamento di skill emergenti
         recordAction({
           ctaType:   action.ctaType,
           domain:    suggestion.domain,
