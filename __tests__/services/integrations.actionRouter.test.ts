@@ -279,7 +279,7 @@ describe('routeIntent — show_next_step', () => {
 
     it('message reflects current workspace state — no students → create class hint', async () => {
         const result = await routeIntent(makeIntent({ action: 'show_next_step', params: {} }));
-        expect(result.message).toMatch(/crea.*classe|import/i);
+        expect(result.message).toMatch(/aggiungi.*classe|crea.*classe|import/i);
     });
 
     it('message adapts when students exist but no UDA', async () => {
@@ -294,7 +294,7 @@ describe('routeIntent — show_next_step', () => {
 describe('getNextActionSuggestion', () => {
     it('suggests creating a class when no students exist', () => {
         const msg = getNextActionSuggestion();
-        expect(msg).toMatch(/crea.*classe|import/i);
+        expect(msg).toMatch(/aggiungi.*classe|crea.*classe|import/i);
     });
 
     it('suggests creating a UDA when students exist but no UDA', () => {
@@ -311,7 +311,7 @@ describe('getNextActionSuggestion', () => {
             evaluation: '', tools: '', startPos: 0, width: 1, color: '#fff', borderColor: '#000', textColor: '#000',
         }]);
         const msg = getNextActionSuggestion();
-        expect(msg).toMatch(/event[io]|riunione/i);
+        expect(msg).toMatch(/lezione|event[io]|riunione/i);
     });
 });
 

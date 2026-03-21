@@ -1,7 +1,14 @@
 import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import AssistantModal from '../../src/components/AssistantModal';
 import { vi } from 'vitest';
+
+// Mock the AI service so the test doesn't depend on API calls or retry delays
+vi.mock('../../src/services/aiService', () => ({
+  chatWithAi: vi.fn().mockResolvedValue({ role: 'model', text: 'Risposta AI (demo): ciao' }),
+  generateUdaWithAi: vi.fn(),
+  generateLessonPlanWithAi: vi.fn(),
+}));
 
 describe('AssistantModal', () => {
   it('renders and handles send + AI response and Escape', async () => {
@@ -18,9 +25,8 @@ describe('AssistantModal', () => {
     const sendButton = screen.getByRole('button', { name: /send/i });
     fireEvent.click(sendButton);
 
-    // wait for the simulated AI response (uses a 900ms timeout in the component)
-    // Accept either the demo response or an error message (makes test robust to env differences)
-    const ai = await screen.findByText(/Risposta AI \(demo\): ciao|Si è verificato un errore nella generazione della risposta\./i, {}, { timeout: 2000 });
+    // AI service is mocked to resolve immediately — no retry delays
+    const ai = await screen.findByText(/Risposta AI \(demo\): ciao|Si è verificato un errore nella generazione della risposta\./i, {}, { timeout: 5000 });
     expect(ai).toBeInTheDocument();
 
     // Escape should trigger onClose

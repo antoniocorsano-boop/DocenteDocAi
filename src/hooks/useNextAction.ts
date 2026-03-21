@@ -66,7 +66,7 @@ export function useNextAction(): NextAction {
         analyticsViews:      usageProfile.analyticsViews,
         workspaceConfigured: usageProfile.workspaceConfigured,
       },
-      hasStudents:      students.filter((s) => !s.isArchived).length > 0,
+      hasStudents:      (students ?? []).filter((s) => !s.isArchived).length > 0,
       pendingApprovals: pendingCount,
       signals:          dmState.signals.map((s) => ({ type: s.type, severity: s.severity })),
       complianceStatus: dmState.complianceStatus,
