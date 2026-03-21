@@ -61,7 +61,7 @@ class EnterpriseOrchestratorImpl {
    *   - ApprovalRequest (pending human approval)
    *   - Staged KG write (committed only after approval)
    */
-  processRegulatoryDocument(doc: RegulatoryDocument): EnterpriseWorkflowSession {
+  async processRegulatoryDocument(doc: RegulatoryDocument): Promise<EnterpriseWorkflowSession> {
     const sessionId = nanoid();
 
     trackUseCase('UC-R5', 'started', 0, { documentId: doc.id, source: doc.source });
@@ -117,7 +117,7 @@ class EnterpriseOrchestratorImpl {
     });
 
     // ── Stage 3: Stage KG writes (not committed until approved) ──────────────
-    kgEnterpriseBridge.stage(regulatoryResult, approvalRequest.id);
+    await kgEnterpriseBridge.stage(regulatoryResult, approvalRequest.id);
 
     const session: EnterpriseWorkflowSession = {
       id:               sessionId,
@@ -151,15 +151,15 @@ class EnterpriseOrchestratorImpl {
    *
    * Returns updated session with all agent results and automation actions.
    */
-  runAgentPipeline(
+  async runAgentPipeline(
     session: EnterpriseWorkflowSession,
     approvedBy: string,
-  ): EnterpriseWorkflowSession {
+  ): Promise<EnterpriseWorkflowSession> {
     const { approvalRequest } = session;
     if (!approvalRequest) return session;
 
     // Commit approved KG writes
-    const kgRecords = kgEnterpriseBridge.commit(approvalRequest, approvedBy);
+    const kgRecords = await kgEnterpriseBridge.commit(approvalRequest, approvedBy);
 
     trackUseCase('UC-R5', 'evidence_created', 2, {
       approvalRequestId: approvalRequest.id,
@@ -274,10 +274,10 @@ class EnterpriseOrchestratorImpl {
   /**
    * Generate a compliance status report for the current session / tenant.
    */
-  getComplianceReport(tenantId?: string) {
+  async getComplianceReport(tenantId?: string) {
     const allLogs       = enterpriseAuditLog.getAll().filter(e => !tenantId || e.tenantId === tenantId);
     const _allRequests  = approvalGate.getAllRequests().filter(r => !tenantId || r.tenantId === tenantId);
-    const committed     = kgEnterpriseBridge.getCommitted().filter(r => !tenantId || r.tenantId === tenantId);
+    const committed     = (await kgEnterpriseBridge.getCommitted()).filter(r => !tenantId || r.tenantId === tenantId);
     const pending       = approvalGate.getPendingCount();
 
     return generateComplianceReport(allLogs.length, committed.length, pending);

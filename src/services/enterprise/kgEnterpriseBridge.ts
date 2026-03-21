@@ -19,28 +19,32 @@ import type {
   AgentRole,
 } from '../../types/enterprise.types';
 import { enterpriseAuditLog } from './enterpriseAuditLog';
+import { encrypt, decrypt } from '../../modules/system/StorageCrypto';
 
 // ── Staged writes storage ─────────────────────────────────────────────────────
 
 const STAGED_KEY    = 'kg_enterprise_staged_v1';
 const COMMITTED_KEY = 'kg_enterprise_committed_v1';
 
-function safeJSON<T>(key: string, fallback: T): T {
+// P23: AES-GCM encrypted storage helpers (session-scoped ephemeral key)
+async function secureRead<T>(key: string, fallback: T): Promise<T> {
   try {
     if (typeof localStorage === 'undefined') return fallback;
     const raw = localStorage.getItem(key);
-    return raw ? (JSON.parse(raw) as T) : fallback;
+    if (!raw) return fallback;
+    const plain = await decrypt(raw);
+    return JSON.parse(plain) as T;
   } catch {
     return fallback;
   }
 }
 
-function safeStore(key: string, value: unknown): void {
+async function secureWrite(key: string, value: unknown): Promise<void> {
   try {
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem(key, JSON.stringify(value));
-    }
-  } catch { /* quota — silent */ }
+    if (typeof localStorage === 'undefined') return;
+    const cipher = await encrypt(JSON.stringify(value));
+    localStorage.setItem(key, cipher);
+  } catch { /* quota or crypto unavailable — silent */ }
 }
 
 // ── Staged write shape ────────────────────────────────────────────────────────
@@ -67,7 +71,7 @@ class KGEnterpriseBridgeImpl {
    * Stage KG nodes from an AgentResult for later approval-gated commit.
    * Nothing is written to the KG graph here.
    */
-  stage(result: AgentResult, approvalRequestId: string): StagedKGWrite {
+  async stage(result: AgentResult, approvalRequestId: string): Promise<StagedKGWrite> {
     const stubs = (result.data['kgNodeStubs'] as Array<{
       id: string;
       type: string;
@@ -90,9 +94,9 @@ class KGEnterpriseBridgeImpl {
       })),
     };
 
-    const all = safeJSON<StagedKGWrite[]>(STAGED_KEY, []);
+    const all = await secureRead<StagedKGWrite[]>(STAGED_KEY, []);
     all.push(staged);
-    safeStore(STAGED_KEY, all);
+    await secureWrite(STAGED_KEY, all);
 
     enterpriseAuditLog.record({
       action:          'kg_write_staged',
@@ -114,8 +118,8 @@ class KGEnterpriseBridgeImpl {
    * Commit staged writes to the KG after approval.
    * Creates real KGNode entries via upsertNode.
    */
-  commit(approvalRequest: ApprovalRequest, approvedBy: string): KGEnterpriseWriteRecord[] {
-    const all     = safeJSON<StagedKGWrite[]>(STAGED_KEY, []);
+  async commit(approvalRequest: ApprovalRequest, approvedBy: string): Promise<KGEnterpriseWriteRecord[]> {
+    const all     = await secureRead<StagedKGWrite[]>(STAGED_KEY, []);
     const targets = all.filter(s => s.approvalRequestId === approvalRequest.id);
     const records: KGEnterpriseWriteRecord[] = [];
     const now     = new Date().toISOString();
@@ -164,12 +168,12 @@ class KGEnterpriseBridgeImpl {
 
     // Remove the committed staged entries
     const remaining = all.filter(s => s.approvalRequestId !== approvalRequest.id);
-    safeStore(STAGED_KEY, remaining);
+    await secureWrite(STAGED_KEY, remaining);
 
     // Persist committed records
-    const committed = safeJSON<KGEnterpriseWriteRecord[]>(COMMITTED_KEY, []);
+    const committed = await secureRead<KGEnterpriseWriteRecord[]>(COMMITTED_KEY, []);
     committed.push(...records);
-    safeStore(COMMITTED_KEY, committed);
+    await secureWrite(COMMITTED_KEY, committed);
 
     return records;
   }
@@ -177,11 +181,11 @@ class KGEnterpriseBridgeImpl {
   /**
    * Reject and discard staged writes for a rejected approval.
    */
-  reject(approvalRequestId: string): void {
-    const all       = safeJSON<StagedKGWrite[]>(STAGED_KEY, []);
+  async reject(approvalRequestId: string): Promise<void> {
+    const all       = await secureRead<StagedKGWrite[]>(STAGED_KEY, []);
     const rejected  = all.filter(s => s.approvalRequestId === approvalRequestId);
     const remaining = all.filter(s => s.approvalRequestId !== approvalRequestId);
-    safeStore(STAGED_KEY, remaining);
+    await secureWrite(STAGED_KEY, remaining);
 
     for (const staged of rejected) {
       enterpriseAuditLog.record({
@@ -198,12 +202,12 @@ class KGEnterpriseBridgeImpl {
     }
   }
 
-  getStaged(): StagedKGWrite[] {
-    return safeJSON<StagedKGWrite[]>(STAGED_KEY, []);
+  async getStaged(): Promise<StagedKGWrite[]> {
+    return secureRead<StagedKGWrite[]>(STAGED_KEY, []);
   }
 
-  getCommitted(): KGEnterpriseWriteRecord[] {
-    return safeJSON<KGEnterpriseWriteRecord[]>(COMMITTED_KEY, []);
+  async getCommitted(): Promise<KGEnterpriseWriteRecord[]> {
+    return secureRead<KGEnterpriseWriteRecord[]>(COMMITTED_KEY, []);
   }
 }
 

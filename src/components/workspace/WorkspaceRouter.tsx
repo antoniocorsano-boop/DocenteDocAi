@@ -14,25 +14,32 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 import { useInteractionMode } from '../../hooks/useInteractionMode';
-import UserWorkspace    from './UserWorkspace';
-import DesktopWorkspace from './DesktopWorkspace';
+import UserWorkspace          from './UserWorkspace';
+import DesktopWorkspace       from './DesktopWorkspace';
+import { WorkspaceErrorBoundary } from './WorkspaceErrorBoundary';
 
 export default function WorkspaceRouter(): React.JSX.Element {
   const mode = useInteractionMode();
 
   if (mode === 'desktop') {
     return (
-      <Suspense
-        fallback={
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-            <CircularProgress aria-label="Caricamento workspace desktop…" />
-          </Box>
-        }
-      >
-        <DesktopWorkspace />
-      </Suspense>
+      <WorkspaceErrorBoundary label="desktop-workspace">
+        <Suspense
+          fallback={
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+              <CircularProgress aria-label="Caricamento workspace desktop…" />
+            </Box>
+          }
+        >
+          <DesktopWorkspace />
+        </Suspense>
+      </WorkspaceErrorBoundary>
     );
   }
 
-  return <UserWorkspace />;
+  return (
+    <WorkspaceErrorBoundary label="mobile-workspace">
+      <UserWorkspace />
+    </WorkspaceErrorBoundary>
+  );
 }

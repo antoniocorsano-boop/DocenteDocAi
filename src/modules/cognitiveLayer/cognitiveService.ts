@@ -17,6 +17,8 @@ import type {
   CognitiveInputType,
 } from './types';
 import { createTrustRecord } from '../trustLayer';
+import { sanitizeInput } from '../system/PrivacyGuard';
+import { isSimulation } from '../system/SimulationGuard';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -48,7 +50,10 @@ function cogId(): string {
  * @returns  IngestResult con l'entry classificata e i suggerimenti generati.
  */
 export async function ingestInput(params: IngestParams): Promise<IngestResult> {
-  const { tenantId, sourceId, inputType, content, label, meta } = params;
+  const { tenantId, sourceId, inputType, label, meta } = params;
+
+  // 0. Sanitize input (XSS / injection prevention — P22 PrivacyGuard)
+  const content = sanitizeInput(params.content);
 
   // 1. Classify
   const classification = classifyInput(content);
@@ -81,7 +86,12 @@ export async function ingestInput(params: IngestParams): Promise<IngestResult> {
   // 4. Generate suggestions (sync, pure)
   const suggestions = generateSuggestions(entry);
 
-  // 5. Trust record (fire-and-forget — non blocca il flusso se fallisce)
+  // 5. Trust record — skipped in simulation mode to avoid unnecessary overhead
+  //    (P22 SimulationGuard: real trust tracking should not happen for synthetic events)
+  if (isSimulation()) {
+    return { entry, suggestions };
+  }
+
   void createTrustRecord({
     eventType: 'AI_ACTION',
     tenantId,

@@ -6,6 +6,7 @@ import {
 } from '../types';
 import { INITIAL_KB_GUIDE } from '../constants';
 import { DEFAULT_TEMPLATES } from '../constants/defaultTemplates';
+import { initKeyVault, clearKeyVault } from '../modules/system/KeyVault';
 
 // ============================================================================
 // TYPES
@@ -85,7 +86,15 @@ export const useSystemStore = create<SystemStore>((set) => ({
     templates: DEFAULT_TEMPLATES,
     feedSources: [],
     actions: {
-        setUser: (user) => set({ user }),
+        setUser: (user) => {
+            set({ user });
+            // P24: initialise/clear the per-user encryption key on every identity change
+            if (user) {
+                void initKeyVault({ id: user.id, email: user.email });
+            } else {
+                clearKeyVault();
+            }
+        },
         setAnalyticsEvents: (input) => set((state) => ({ 
             analyticsEvents: typeof input === 'function' ? input(state.analyticsEvents) : input 
         })),

@@ -44,6 +44,7 @@ import { SettingsDebugSection }         from './SettingsDebug';
 import { SettingsAdvancedSection }      from './SettingsAdvanced';
 import SettingsIntegrationsSection      from './SettingsIntegrations';
 import SettingsSkillsPanel              from './SettingsSkillsPanel';
+import { PrivacyPolicyPanel }           from './PrivacyPolicyPanel';
 
 import { useSettingsLogic }      from '../../hooks/useSettingsLogic';
 import { useJarvisSettings }     from '../../hooks/useJarvisSettings';
@@ -61,7 +62,7 @@ interface SettingsLandingProps {
   initialCategory?:  string;
 }
 
-type CategoryId = 'generali' | 'interfaccia' | 'ai' | 'skills' | 'integrazioni' | 'avanzate';
+type CategoryId = 'generali' | 'interfaccia' | 'ai' | 'skills' | 'integrazioni' | 'avanzate' | 'privacy';
 
 interface Category {
   id:       CategoryId;
@@ -79,6 +80,7 @@ const CATEGORIES: Category[] = [
   { id: 'skills',       label: 'Skills',       icon: 'extension',        shortcut: 'Alt+4' },
   { id: 'integrazioni', label: 'Integrazioni', icon: 'cloud_sync',       shortcut: 'Alt+5' },
   { id: 'avanzate',     label: 'Avanzate',     icon: 'developer_mode',   shortcut: 'Alt+6' },
+  { id: 'privacy',      label: 'Privacy & Sicurezza', icon: 'lock',          shortcut: 'Alt+7' },
 ];
 
 // ─── SettingsLanding ─────────────────────────────────────────────────────────
@@ -288,6 +290,9 @@ export default function SettingsLanding({
             />
           </Box>
         );
+
+      case 'privacy':
+        return <PrivacyPolicyPanel expanded />;
 
       default:
         return <Box />;

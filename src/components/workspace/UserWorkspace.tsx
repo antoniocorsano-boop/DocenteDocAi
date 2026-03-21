@@ -63,12 +63,23 @@ import { useProactiveSchedule }   from '../../hooks/useProactiveSchedule';
 import { useSkillSuggestion, autoName } from '../../hooks/useSkillSuggestion';
 import { useAutoSettingsEngine }      from '../../hooks/useAutoSettingsEngine';
 import { useExternalSync }        from '../../hooks/useExternalSync';
+import { useOrbitSession }        from '../../hooks/useOrbitSession';
 import { seedDemoContent }       from '../../utils/seedDemoContent';
 import SimulationPanel          from '../../simulation/SimulationPanel';
 import JarvisNexus              from '../ui/JarvisNexus';
 import type { NexusState }       from '../ui/JarvisNexus';
 import { useEmergentSkillsStore } from '../../stores/useEmergentSkillsStore';
 import { useTrustStore }          from '../../stores/useTrustStore';
+import { useFlowStore, selectActiveFlows } from '../../stores/useFlowStore';
+import { buildFlowFromPattern, executeFlow } from '../../modules/flows/flowEngine';
+import type { OrbitBehaviorSignals }             from '../../theme/orbitStates';
+import { getBehaviorSignals,
+         recordInteraction }                      from '../../modules/orchestration/patternDetector';
+import { resolveFinalPresence }                  from '../../theme/presenceEngine';
+import { resolveDominantPersonality }            from '../../theme/agentPersonality';
+import { runExecutionPipeline }                  from '../../modules/orbit/executionEngine';
+import { useOrbitPipeline }                      from '../../hooks/useOrbitPipeline';
+import { useIdleDetection }                      from '../../hooks/useIdleDetection';
 
 // ─── Domain display helpers ───────────────────────────────────────────────────
 
@@ -302,8 +313,9 @@ export default function UserWorkspace(): React.JSX.Element {
       }
       setLoadingEntryId(entry.id);
       try {
+        recordInteraction();
         const schedCtx = resolveScheduleContext();
-        const orchCtx = await openMenu(entry.id, el, schedCtx);
+        const orchCtx = await openMenu(entry.id, el, schedCtx, orbitSession);
         // Auto-execute: if Jarvis confidence is 'auto', run silently without showing menu
         if (orchCtx) {
           const autoAction = orchCtx.actions.find(
@@ -320,6 +332,7 @@ export default function UserWorkspace(): React.JSX.Element {
         setLoadingEntryId(null);
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [openMenu, handleClose, executeFor, loadingEntryId],
   );
 
@@ -366,7 +379,7 @@ export default function UserWorkspace(): React.JSX.Element {
       setLandingCtx(decision.ctx);
       setActiveLanding('schedule');
     } else if (decision.type === 'suggestion') {
-      setProactiveIdle(true);
+      forceIdle();
     }
     // ref guard ensures single execution; entries is the correct trigger
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -380,27 +393,11 @@ export default function UserWorkspace(): React.JSX.Element {
     return entries.reduce((best, e) => scoreEntry(e) > scoreEntry(best) ? e : best);
   }, [entries]);
 
-  // ── Idle timer — proactive state after 4s of no interaction ──────────────
-  const [proactiveIdle, setProactiveIdle] = useState(false);
-  const idleTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const resetIdleTimer = useCallback(() => {
-    setProactiveIdle(false);
-    if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    if (entries.length > 0 && !open) {
-      idleTimerRef.current = setTimeout(() => setProactiveIdle(true), 4000);
-    }
-  }, [entries.length, open]);
-
-  useEffect(() => {
-    const EVENTS = ['mousemove', 'keydown', 'click', 'touchstart'] as const;
-    EVENTS.forEach(ev => document.addEventListener(ev, resetIdleTimer, { passive: true }));
-    resetIdleTimer();
-    return () => {
-      EVENTS.forEach(ev => document.removeEventListener(ev, resetIdleTimer));
-      if (idleTimerRef.current) clearTimeout(idleTimerRef.current);
-    };
-  }, [resetIdleTimer]);
+  // ── Idle timer — P22: throttled, zero-dep listeners ─────────────────────
+  const {
+    isIdle:    proactiveIdle,
+    forceIdle,
+  } = useIdleDetection({ enabled: entries.length > 0 && !open, idleMs: 4_000 });
 
   // ── Universal input layer — global paste / drag & drop ────────────────────
   const { isProcessing } = useUniversalInput({ tenantId });
@@ -410,6 +407,44 @@ export default function UserWorkspace(): React.JSX.Element {
 
   // ── External connector sync ( register, email, file — 2 min poll) ─────────
   useExternalSync(tenantId);
+
+  // ── Orbit session — context-aware session mode for action ranking ──────────
+  const { session: orbitSession } = useOrbitSession();
+
+  // ── Jarvis presence level — viewport-aware ────────────────────────────────
+  const [viewportWidth, setViewportWidth] = React.useState(() =>
+    typeof window !== 'undefined' ? window.innerWidth : 1280
+  );
+  React.useEffect(() => {
+    const onResize = () => setViewportWidth(window.innerWidth);
+    window.addEventListener('resize', onResize, { passive: true });
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
+
+  // Auto-open ClassLanding when a lesson is in progress (one-shot per session)
+  const sessionLandingFiredRef = useRef(false);
+  useEffect(() => {
+    if (
+      !sessionLandingFiredRef.current &&
+      orbitSession.mode === 'teaching' &&
+      orbitSession.timeContext === 'lesson' &&
+      orbitSession.activeClassId &&
+      !activeLanding
+    ) {
+      sessionLandingFiredRef.current = true;
+      setLandingCtx({
+        currentLessonId: orbitSession.currentLessonId,
+        activeClassId:   orbitSession.activeClassId,
+      });
+      setActiveLanding('class');
+    }
+    // Reset guard when lesson ends so next lesson can trigger again
+    if (orbitSession.timeContext !== 'lesson') {
+      sessionLandingFiredRef.current = false;
+    }
+  // activeLanding is intentionally excluded: don't fight a user-dismissed landing
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orbitSession.mode, orbitSession.timeContext, orbitSession.activeClassId]);
 
   // ── Emergent skill suggestion — pattern-based skill learning loop ─────────
   const { skillDraft, confirmSkill, dismissSkill, autoFiredCount: asAutoFiredCount, ambientFiredCount: asAmbientFiredCount } = useSkillSuggestion();
@@ -445,6 +480,39 @@ export default function UserWorkspace(): React.JSX.Element {
     confirmSkill();
     setTimeout(() => emergentSkillActions.syncFromSingleton(), 0);
   }, [confirmSkill, emergentSkillActions]);
+
+  // ── Flow Store — Orbit flows ───────────────────────────────────────────────
+  const activeFlows   = useFlowStore(selectActiveFlows);
+  const flowTrust     = useFlowStore(s => s.flowTrust);
+  const flowActions   = useFlowStore(s => s.actions);
+
+  /** Try to build a flow from current action log patterns — at most once per session */
+  const flowBuiltRef = useRef(false);
+  useEffect(() => {
+    if (flowBuiltRef.current) return;
+    const flow = buildFlowFromPattern();
+    if (flow) {
+      flowBuiltRef.current = true;
+      flowActions.addFlow(flow);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // single run on mount — log patterns are session-ephemeral
+
+  const handleRunFlow = useCallback(async (flowId: string) => {
+    const flow = useFlowStore.getState().flows.find(f => f.id === flowId);
+    if (!flow) return;
+    const ctx = tenantRegistry.getContext();
+    const result = await executeFlow(flow, { tenantId: ctx.tenantId, role: ctx.role });
+    if (result.completedFully) {
+      flowActions.onSuccess(flowId);
+    } else {
+      flowActions.onReversal(flowId);
+    }
+  }, [flowActions]);
+
+  const handleRemoveFlow = useCallback((flowId: string) => {
+    flowActions.removeFlow(flowId);
+  }, [flowActions]);
 
   // ── Jarvis Nexus (Ctrl+Shift+J) ────────────────────────────────────────────
   const [nexusOpen, setNexusOpen] = useState(false);
@@ -483,6 +551,64 @@ export default function UserWorkspace(): React.JSX.Element {
     : proactiveIdle    ? 'active'
     : entries.length > 0 ? 'suggestion'
     : 'idle';
+
+  // ── Jarvis presence level — adaptive (P16) ───────────────────────────────
+  // activeAgentsCount = active flows (flow-agents) + 1 if any ambient fires
+  const activeAgentsCount =
+    activeFlows.length + (asAmbientFiredCount > 0 ? 1 : 0);
+
+  // ── P22: stable behaviorSignals reference for pipeline hook memoization ──
+  // entries.length is a proxy dep: getBehaviorSignals() reads the module-level
+  // interaction log which changes only when recordInteraction() is called.
+  const behaviorSignals = useMemo<OrbitBehaviorSignals>(() => ({
+    viewportWidth,
+    ambientFiredCount: asAmbientFiredCount,
+    activeAgentsCount,
+    ...getBehaviorSignals(),
+  }), [viewportWidth, asAmbientFiredCount, activeAgentsCount, entries.length]);
+
+  // ── P16–P21 pipeline (P22: single memoized hook, replaces 6 inline calcs) ─
+  const {
+    sessionAgents,
+    cognitiveSignals,
+    attentionMap,
+    coordinationActions,
+    narrative: coordinationLabel,
+  } = useOrbitPipeline({ behaviorSignals, activeFlows, flowTrust });
+
+  // Personality + presence level for Nexus (depends on nexusState — local only)
+  const dominantPersonality = useMemo(
+    () => resolveDominantPersonality(sessionAgents),
+    [sessionAgents],
+  );
+  const nexusPresenceLevel = resolveFinalPresence({
+    nexusState,
+    behaviorSignals,
+    cognitiveSignals,
+    agents: sessionAgents,
+  });
+
+  // ── P20 — Execution pipeline ──────────────────────────────────────────────
+  // Ref prevents re-running the pipeline when the action set hasn't changed.
+  const lastPipelineKeyRef = useRef('');
+  useEffect(() => {
+    if (coordinationActions.length === 0) return;
+
+    const key = coordinationActions.map(a => `${a.agentId}:${a.type}`).join('|');
+    if (key === lastPipelineKeyRef.current) return;
+    lastPipelineKeyRef.current = key;
+
+    void runExecutionPipeline(coordinationActions, {
+      dispatch: (event) => {
+        if (import.meta.env.DEV) {
+          console.debug('[orbit/P20]', event.type, event.payload);
+        }
+      },
+      logger: import.meta.env.DEV
+        ? (msg, data) => console.debug(msg, data)
+        : undefined,
+    });
+  }, [coordinationActions]);
 
   // ─────────────────────────────────────────────────────────────────────────
 
@@ -918,6 +1044,11 @@ export default function UserWorkspace(): React.JSX.Element {
         stealthCount={asStealthCount}
         autoFiredCount={asAutoFiredCount}
         ambientFiredCount={asAmbientFiredCount}
+        presenceLevel={nexusPresenceLevel}
+        agentMotionMultiplier={dominantPersonality?.motionMultiplier}
+        agentColorShift={dominantPersonality?.colorShift}
+        attentionMap={attentionMap}
+        coordinationLabel={coordinationLabel}
         pending={asPending}
         appliedIds={asAppliedIds}
         onApplyDelta={handleApplyDelta}
@@ -925,6 +1056,9 @@ export default function UserWorkspace(): React.JSX.Element {
         skillDraft={skillDraft}
         onConfirmSkill={handleConfirmSkill}
         onDismissSkill={dismissSkill}
+        flows={activeFlows}
+        onRunFlow={handleRunFlow}
+        onRemoveFlow={handleRemoveFlow}
       />
 
       {/* ── Jarvis auto-execute banner ────────────────────────────────── */}

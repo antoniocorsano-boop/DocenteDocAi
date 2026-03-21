@@ -12,6 +12,33 @@ if (import.meta.env.VITE_OTEL_EXPORTER_OTLP_ENDPOINT) {
   import('./tracing');
 }
 
+// P27: Monitoring & Observability — Sentry + client metrics reporter
+// initMonitoring() is privacy-gated: no-op when VITE_SENTRY_DSN is unset or
+// when the user's privacy mode blocks external telemetry.
+import { initMonitoring }       from './services/monitoring';
+import { startMetricsReporter } from './services/apiMetrics';
+
+// P28: Plan store sync — updates token limit when user.plan changes
+import { syncPlanFromUser } from './stores/usePlanStore';
+import { setTokenLimit }    from './modules/system/TokenController';
+import { useSystemStore }   from './stores/useSystemStore';
+// P29/P30: Built-in agent registrations + server sync
+import { registerBuiltInAgents, syncAgentsFromServer } from './modules/agents/builtInAgents';
+
+initMonitoring();
+startMetricsReporter();
+
+// Sync plan → TokenController whenever user signs in (or plan changes)
+syncPlanFromUser();
+useSystemStore.subscribe((state) => {
+  const plan = state.user?.plan ?? 'free';
+  setTokenLimit(plan === 'pro' ? 10_000 : 1_000);
+});
+
+// Register built-in agents locally, then sync with server registry (P30)
+registerBuiltInAgents();
+syncAgentsFromServer(); // best-effort, non-blocking
+
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import ErrorBoundary from './components/ErrorBoundary';
@@ -20,6 +47,8 @@ import ErrorBoundary from './components/ErrorBoundary';
 import './theme.css';
 import './logo.css';
 import './global.css';
+import './styles/orbit-brand.css';
+import './styles/copilot-brand.css';
 
 // Theme imports
 import { M3ThemeProvider } from './theme/theme';
@@ -265,6 +294,39 @@ async function bootstrapApp() {
             <AppMuiThemeWrapper>
               <M3ThemeProvider>
                 <LandingPage />
+              </M3ThemeProvider>
+            </AppMuiThemeWrapper>
+          </React.StrictMode>
+        </ErrorBoundary>
+      );
+      return;
+    }
+
+    // ── Legal pages fast-path (no auth, no consent gate) ─────────────────────
+    if (window.location.pathname === '/terms') {
+      const { default: TermsPage } = await import('./pages/TermsPage');
+      root.render(
+        <ErrorBoundary>
+          <React.StrictMode>
+            <AppMuiThemeWrapper>
+              <M3ThemeProvider>
+                <TermsPage />
+              </M3ThemeProvider>
+            </AppMuiThemeWrapper>
+          </React.StrictMode>
+        </ErrorBoundary>
+      );
+      return;
+    }
+
+    if (window.location.pathname === '/privacy') {
+      const { default: PrivacyPage } = await import('./pages/PrivacyPage');
+      root.render(
+        <ErrorBoundary>
+          <React.StrictMode>
+            <AppMuiThemeWrapper>
+              <M3ThemeProvider>
+                <PrivacyPage />
               </M3ThemeProvider>
             </AppMuiThemeWrapper>
           </React.StrictMode>

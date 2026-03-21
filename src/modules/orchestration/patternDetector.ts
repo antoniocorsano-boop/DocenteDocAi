@@ -15,6 +15,7 @@
  */
 
 import type { CognitiveDomain } from '../cognitiveLayer/types';
+import type { OrbitBehaviorSignals } from '../../theme/orbitStates';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -63,6 +64,16 @@ export function recordAction(entry: ActionLog): void {
   _log = [..._log, entry].slice(-MAX_LOG_SIZE);
 }
 
+/** Returns a snapshot of the current in-memory action log (read-only). */
+export function getActionLog(): readonly ActionLog[] {
+  return _log;
+}
+
+/** Clears the in-memory action log (for testing). */
+export function clearActionLog(): void {
+  _log = [];
+}
+
 /**
  * Analizza il log e restituisce il primo pattern rilevabile, o null.
  *
@@ -108,15 +119,115 @@ export function detectPattern(): DetectedPattern | null {
   return null;
 }
 
+// ─── Behavior Signal Derivation (P16) ─────────────────────────────────────────
+
 /**
- * Svuota il log.
- * Chiamare dopo conferma o dismissal di una skill per evitare re-trigger.
+ * Classifies the user's current intent from the recent action log.
+ *
+ * Heuristic:
+ *   - Many 'LOAD_*' / 'OPEN_*' / 'VIEW_*' → explore
+ *   - Many 'MARK_*' / 'SAVE_*' / 'SUBMIT_*' / 'EXECUTE' → execute
+ *   - Many 'GENERATE_*' / 'REVIEW_*' / 'ANALYZE_*' → learn
+ *   - Sparse log → idle
  */
-export function clearActionLog(): void {
-  _log = [];
+function detectIntent(): OrbitBehaviorSignals['userIntent'] {
+  const cutoff = Date.now() - PATTERN_WINDOW_MS;
+  const recent = _log.filter(e => e.timestamp >= cutoff);
+  if (recent.length < 2) return 'idle';
+
+  let explore = 0, execute = 0, learn = 0;
+  for (const e of recent) {
+    const t = e.ctaType.toUpperCase();
+    if (/^(LOAD|OPEN|VIEW|BROWSE)/.test(t)) explore++;
+    else if (/^(MARK|SAVE|SUBMIT|EXECUTE|START|SEND|EXPORT)/.test(t)) execute++;
+    else if (/^(GENERATE|REVIEW|ANALYZE|PLAN|EVALUATE)/.test(t)) learn++;
+  }
+
+  const max = Math.max(explore, execute, learn);
+  if (max === 0) return 'idle';
+  if (max === explore) return 'explore';
+  if (max === execute) return 'execute';
+  return 'learn';
 }
 
-/** Snapshot di sola lettura del log (per debug / test). */
-export function getActionLog(): readonly ActionLog[] {
-  return _log;
+/**
+ * Estimates task complexity from log diversity (unique domains + unique ctaTypes).
+ *
+ *   low:    1 domain, ≤ 3 unique actions
+ *   medium: 2 domains or 4–6 unique actions
+ *   high:   3+ domains or 7+ unique actions
+ */
+function estimateComplexity(): OrbitBehaviorSignals['taskComplexity'] {
+  const cutoff = Date.now() - PATTERN_WINDOW_MS;
+  const recent = _log.filter(e => e.timestamp >= cutoff);
+  if (recent.length === 0) return 'low';
+
+  const domains  = new Set(recent.map(e => e.domain).filter(Boolean)).size;
+  const ctaTypes = new Set(recent.map(e => e.ctaType)).size;
+
+  if (domains >= 3 || ctaTypes >= 7) return 'high';
+  if (domains >= 2 || ctaTypes >= 4) return 'medium';
+  return 'low';
+}
+
+/**
+ * Computes a confidence score (0–1) based on pattern strength.
+ *
+ *   No recent actions          → 0.2 (cold start)
+ *   Weak log (< MIN_REPEAT)    → 0.4
+ *   Pattern detected           → 0.5 + 0.05 per repeat above min (max 0.95)
+ */
+function computeConfidence(): number {
+  const pattern = detectPattern();
+  if (!pattern) {
+    return _log.length === 0 ? 0.2 : 0.4;
+  }
+  const extra = Math.max(0, pattern.count - MIN_REPEAT_COUNT);
+  return Math.min(0.95, 0.5 + extra * 0.05);
+}
+
+/**
+ * Returns the subset of OrbitBehaviorSignals that can be derived from the
+ * in-memory action log. Used by UserWorkspace to build the full signals object
+ * before calling `resolveAdaptivePresence`.
+ *
+ * Does NOT include `viewportWidth`, `ambientFiredCount`, or `activeAgentsCount`
+ * — those must be provided by the caller.
+ */
+export function getBehaviorSignals(): Pick<
+  OrbitBehaviorSignals,
+  'userIntent' | 'taskComplexity' | 'agentConfidence'
+> {
+  return {
+    userIntent:      detectIntent(),
+    taskComplexity:  estimateComplexity(),
+    agentConfidence: computeConfidence(),
+  };
+}
+
+// ─── Interaction tracking (Fase 2.3) ─────────────────────────────────────────
+// A lightweight ring buffer of entry-click timestamps used to compute
+// "user activity density" for the cognitive load model.
+// Separate from recordAction (which tracks completed actions) — this fires
+// on every entry tap, including taps that open the menu but select nothing.
+
+const INTERACTION_RING_SIZE = 60;
+let _interactions: number[] = [];
+
+/**
+ * Records a user entry-click timestamp.
+ * Call from handleEntryClick before any other logic so even bounced clicks
+ * (landing intercepts, loading guards) are counted.
+ */
+export function recordInteraction(ts: number = Date.now()): void {
+  _interactions = [..._interactions, ts].slice(-INTERACTION_RING_SIZE);
+}
+
+/**
+ * Returns the number of interactions recorded within the last `windowMs` ms.
+ * Default window: 60 seconds — covers one typical teacher micro-session.
+ */
+export function getRecentInteractionCount(windowMs = 60_000): number {
+  const cutoff = Date.now() - windowMs;
+  return _interactions.filter(t => t >= cutoff).length;
 }

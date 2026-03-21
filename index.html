@@ -23,8 +23,8 @@
     frame-src 'self' https://accounts.google.com https://apis.google.com https://www.gstatic.com;
     child-src 'self' https://accounts.google.com https://apis.google.com https://www.gstatic.com blob:;
     manifest-src 'self';">
-  <title>DocenteDoc AI</title>
-  <meta name="description" content="DocenteDoc AI — Assistente intelligente per la documentazione scolastica dei docenti italiani." />
+  <title>Orbit — DocenteDoc AI</title>
+  <meta name="description" content="Orbit by DocenteDoc AI — Assistente AI per la pianificazione didattica, il registro di classe e il Copilot per la Pubblica Amministrazione." />
 
   <!-- CRITICAL: Load scheduler polyfill BEFORE any module scripts -->
   <!-- This must be a classic script (not type="module") to block module execution -->
@@ -33,10 +33,16 @@
   <!-- PWA & Mobile App Meta Tags -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="DocenteDoc AI">
+  <meta name="apple-mobile-web-app-title" content="Orbit">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Orbit brand fonts: Barlow Condensed (display) + Barlow (body) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Barlow:wght@400;500&display=swap" /></noscript>
+  <!-- CopilotDoc brand fonts: Lora (display serif) + DM Sans (body) + DM Mono (data) -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@500&display=swap" /></noscript>
 
   <!-- Google Identity Services for Drive Sync - LOAD AFTER modules to avoid conflicts -->
   <!-- REMOVED: <script type="module" src="/init-flags.js"></script> -->
@@ -50,19 +56,23 @@
       <div id="app-splash" style="
         position:fixed;inset:0;
         display:flex;flex-direction:column;align-items:center;justify-content:center;
-        background:#fffbfe;
-        font-family:Roboto,system-ui,sans-serif;
-        color:#6750a4;
-        gap:16px;
+        background:radial-gradient(ellipse at 50% 40%,#141C2E 0%,#070B14 100%);
+        font-family:'Barlow Condensed',system-ui,sans-serif;
+        color:#E8F0FF;
+        gap:20px;
         z-index:9999;
       ">
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" aria-hidden="true">
-          <circle cx="28" cy="28" r="24" stroke="#6750a4" stroke-width="4" stroke-dasharray="120 40" opacity="0.9">
-            <animateTransform attributeName="transform" type="rotate" from="0 28 28" to="360 28 28" dur="1s" repeatCount="indefinite"/>
-          </circle>
+        <!-- Orbit icon SVG inline -->
+        <svg width="64" height="64" viewBox="0 0 512 512" fill="none" aria-hidden="true">
+          <rect width="512" height="512" rx="110" fill="#141C2E"/>
+          <ellipse cx="256" cy="256" rx="172" ry="60" stroke="#00C8FF" stroke-width="2.5" stroke-opacity="0.85"/>
+          <ellipse cx="256" cy="256" rx="108" ry="36" stroke="#8B6FFF" stroke-width="2" stroke-opacity="0.65"/>
+          <circle cx="256" cy="256" r="60" fill="#FF8C00" opacity="0.9"/>
+          <circle cx="244" cy="244" r="18" fill="white" fill-opacity="0.18"/>
+          <animateTransform attributeName="transform" type="rotate" from="0 256 256" to="360 256 256" dur="2s" repeatCount="indefinite" additive="sum"/>
         </svg>
-        <span style="font-size:1.1rem;font-weight:500;letter-spacing:.02em">DocenteDoc AI</span>
-        <span style="font-size:.85rem;color:#79747e">Avvio in corso&hellip;</span>
+        <span style="font-size:1.4rem;font-weight:700;letter-spacing:.22em;text-transform:uppercase">ORBIT</span>
+        <span style="font-size:.8rem;font-family:'Barlow',system-ui,sans-serif;color:#8899BB;letter-spacing:.06em">by DocenteDoc AI</span>
       </div>
     </div>
     <script><!-- React rimuove #app-splash al montaggio -->

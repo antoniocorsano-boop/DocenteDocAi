@@ -40,7 +40,8 @@ import JarvisDock       from '../ui/JarvisDock';
 import CommandPalette   from '../ui/CommandPalette';
 import SplitView        from '../ui/SplitView';
 import FocusMode        from '../ui/FocusMode';
-import UserWorkspace    from './UserWorkspace';
+import UserWorkspace          from './UserWorkspace';
+import { WorkspaceErrorBoundary } from './WorkspaceErrorBoundary';
 import ScheduleLanding  from '../landing/ScheduleLanding';
 
 import { buildContext, executeAction, getAutomationLevel } from '../../modules/orchestration/orchestrationService';
@@ -195,7 +196,11 @@ export default function DesktopWorkspace(): React.JSX.Element {
 
   // ─────────────────────────────────────────────────────────────────────────────
   // Schedule panel (SplitView secondary)
-  const schedulePrimary = <UserWorkspace />;
+  const schedulePrimary = (
+    <WorkspaceErrorBoundary label="desktop-schedule">
+      <UserWorkspace />
+    </WorkspaceErrorBoundary>
+  );
   const schedulePanel   = scheduleOpen
     ? <ScheduleLanding
         onClose={() => setScheduleOpen(false)}

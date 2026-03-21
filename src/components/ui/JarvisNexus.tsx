@@ -43,6 +43,10 @@ import { useTrustStore, selectTrustHealth } from '../../stores/useTrustStore';
 import { autoName }                from '../../hooks/useSkillSuggestion';
 import type { AutoSettingsDelta }  from '../../modules/autoSettings/autoSettingsEngine';
 import type { SkillDraft }         from '../../hooks/useSkillSuggestion';
+import type { OrbitFlow }          from '../../modules/flows/orbitFlow';
+import { getMacroState, resolvePresenceLevel } from '../../theme/orbitStates';
+import type { JarvisPresenceLevel }            from '../../theme/orbitStates';
+import { ORBIT_MOTION }                        from '../../theme/orbitTokens';
 
 // ─── Nexus visual state ────────────────────────────────────────────────────────────────
 
@@ -71,6 +75,17 @@ export interface JarvisNexusProps {
   autoFiredCount?: number;
   /** Quante auto-esecuzioni ambient (trust 0.75–0.89) questa sessione. */
   ambientFiredCount?: number;
+  /** Flows Orbit attivi da mostrare nella sezione Flussi. */
+  flows?: OrbitFlow[];
+  /**
+   * Override the Jarvis presence level.
+   * When omitted, the level is derived from nexusState + ambientFiredCount + viewportWidth.
+   */
+  presenceLevel?: JarvisPresenceLevel;
+  /** Callback: l'utente ha richiesto l'esecuzione di un flow. */
+  onRunFlow?: (flowId: string) => void;
+  /** Callback: l'utente ha rimosso / archiviato un flow. */
+  onRemoveFlow?: (flowId: string) => void;
   // Feature 1 — Auto-settings
   pending:         AutoSettingsDelta[];
   appliedIds:      string[];
@@ -80,6 +95,24 @@ export interface JarvisNexusProps {
   skillDraft:      SkillDraft | null;
   onConfirmSkill:  () => void;
   onDismissSkill:  () => void;
+  // P17 — Agent personality overrides
+  /** Scales the centre-orb animation duration. < 1 = calmer, > 1 = faster. */
+  agentMotionMultiplier?: number;
+  /** Hex accent colour override for the centre orb (from dominant agent personality). */
+  agentColorShift?: string;
+  /**
+   * P18 — Attention routing map produced by `resolveAttention`.
+   * Keys are flow/agent ids; values are `AgentAttentionState`.
+   * When provided, flow cards are visually differentiated by attention tier
+   * (primary → full opacity, secondary → 70%, background → 35%).
+   */
+  attentionMap?: Record<string, 'primary' | 'secondary' | 'background' | 'suppressed'>;
+  /**
+   * P19 — Current coordination action label (Italian) for the narrative strip.
+   * When set, a minimal status banner is shown below the orbital header.
+   * Examples: "Analisi in corso…", "Esecuzione task…"
+   */
+  coordinationLabel?: string;
 }
 
 // ─── Domain colors ────────────────────────────────────────────────────────────
@@ -138,13 +171,13 @@ const ORB_CONFIGS: Record<NexusState, {
   suggestion: {
     fill:      'var(--md-sys-color-primary)',
     glowColor: 'var(--md-sys-color-primary)',
-    animation: 'nexusPulse 2s ease-in-out infinite',
+    animation: `nexusPulse ${ORBIT_MOTION.activePulseDuration} ease-in-out infinite`,
     label:     'Suggerimento',
   },
   processing: {
     fill:      'var(--md-sys-color-tertiary)',
     glowColor: 'transparent',
-    animation: 'nexusOrbit1 1s linear infinite',
+    animation: `nexusOrbit1 ${ORBIT_MOTION.processingSpinDuration} linear infinite`,
     label:     'Elaborazione',
   },
   decision: {
@@ -156,19 +189,37 @@ const ORB_CONFIGS: Record<NexusState, {
   learning: {
     fill:      'var(--md-sys-color-tertiary)',
     glowColor: 'var(--md-sys-color-tertiary)',
-    animation: 'nexusBirth 1.8s ease-in-out infinite',
+    animation: `nexusBirth ${ORBIT_MOTION.idlePulseDuration} ease-in-out infinite`,
     label:     'Apprendimento',
   },
 };
 
 // ─── Orbital SVG Header ───────────────────────────────────────────────────────
 
+/**
+ * Scales the seconds-duration inside a CSS animation shorthand string.
+ * Example: scaleCssAnim('nexusPulse 1.5s ease-in-out infinite', 1.2) → 'nexusPulse 1.25s ease-in-out infinite'
+ * Higher multiplier = faster animation (shorter duration).
+ * Returns the string unchanged when multiplier === 1 or animation === 'none'.
+ */
+function scaleCssAnim(cssAnim: string, multiplier: number): string {
+  if (cssAnim === 'none' || multiplier === 1) return cssAnim;
+  return cssAnim.replace(/(\.?\d+\.?\d*)s(?=\s|$)/, (_, d: string) => {
+    const adjusted = parseFloat(d) / multiplier;
+    return `${adjusted.toFixed(2)}s`;
+  });
+}
+
 const OrbitalHeader = memo(function OrbitalHeader({
   onClose,
   nexusState = 'idle',
+  agentMotionMultiplier = 1,
+  agentColorShift,
 }: {
-  onClose:     () => void;
-  nexusState?: NexusState;
+  onClose:               () => void;
+  nexusState?:           NexusState;
+  agentMotionMultiplier?: number;
+  agentColorShift?:      string;
 }) {
   const now = new Date();
   const timeStr = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
@@ -249,13 +300,13 @@ const OrbitalHeader = memo(function OrbitalHeader({
           <circle cx="64" cy="48" r="3.5" fill="var(--md-sys-color-primary)" opacity="0.8" />
         </Box>
 
-        {/* Centre orb — reacts to nexusState */}
+        {/* Centre orb — reacts to nexusState + agent personality */}
         <Box
           component="g"
           aria-label={`Jarvis: ${orb.label}`}
           sx={{
             transformOrigin: '48px 48px',
-            animation:       orb.animation,
+            animation:       scaleCssAnim(orb.animation, agentMotionMultiplier),
             '@keyframes nexusPulse': {
               '0%, 100%': { transform: 'scale(1)',    opacity: 0.9 },
               '50%':      { transform: 'scale(1.35)', opacity: 1 },
@@ -272,10 +323,10 @@ const OrbitalHeader = memo(function OrbitalHeader({
         >
           <circle
             cx="48" cy="48" r="8"
-            fill={orb.glowColor !== 'transparent' ? orb.glowColor : 'var(--md-sys-color-primary-container)'}
+            fill={orb.glowColor !== 'transparent' ? (agentColorShift ?? orb.glowColor) : 'var(--md-sys-color-primary-container)'}
             opacity="0.3"
           />
-          <circle cx="48" cy="48" r="4.5" fill={orb.fill} opacity="0.95" />
+          <circle cx="48" cy="48" r="4.5" fill={agentColorShift ?? orb.fill} opacity="0.95" />
         </Box>
       </Box>
 
@@ -532,6 +583,10 @@ export default memo(function JarvisNexus({
   stealthCount = 0,
   autoFiredCount = 0,
   ambientFiredCount = 0,
+  flows = [],
+  onRunFlow,
+  onRemoveFlow,
+  presenceLevel: presenceLevelProp,
   pending,
   appliedIds,
   onApplyDelta,
@@ -539,7 +594,19 @@ export default memo(function JarvisNexus({
   skillDraft,
   onConfirmSkill,
   onDismissSkill,
+  agentMotionMultiplier = 1,
+  agentColorShift,
+  attentionMap = {},
+  coordinationLabel,
 }: JarvisNexusProps): React.JSX.Element {
+
+  // ── Presence + macro state ────────────────────────────────────────────────
+  const currentViewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1280;
+  const presenceLevel = presenceLevelProp ??
+    resolvePresenceLevel(nexusState, ambientFiredCount, currentViewportWidth);
+  const macroState    = getMacroState(nexusState, ambientFiredCount);
+  const isCinematic   = presenceLevel === 'cinematic';
+  const isAmbient     = presenceLevel === 'ambient';
 
   // ── Keyboard: Escape → close ───────────────────────────────────────────────
   useEffect(() => {
@@ -580,7 +647,7 @@ export default memo(function JarvisNexus({
   }, [open]);
 
   const hasContent =
-    pending.length > 0 || skillDraft != null || skills.length > 0 || recentEntries.length > 0;
+    pending.length > 0 || skillDraft != null || skills.length > 0 || recentEntries.length > 0 || flows.length > 0;
 
   return (
     <Portal>
@@ -611,30 +678,83 @@ export default memo(function JarvisNexus({
         {/* Panel */}
         <M3Surface
           ref={panelRef}
-          elevation={4}
+          elevation={isCinematic ? 5 : 4}
           role="dialog"
           aria-modal="true"
-          aria-label="Jarvis Nexus — Centro di controllo adattivo"
+          aria-label={`Jarvis Nexus — ${macroState.statusLabel}`}
           tabIndex={-1}
           sx={{
             position:       'fixed',
             top:            0,
             right:          0,
             bottom:         0,
-            width:          360,
+            width:          isCinematic ? 420 : isAmbient ? 320 : 360,
             display:        'flex',
             flexDirection:  'column',
             overflow:       'hidden',
-            bgcolor:        'var(--md-sys-color-surface-container-high)',
-            borderLeft:     '1px solid var(--md-sys-color-outline-variant)',
+            bgcolor:        isCinematic
+              ? 'var(--md-sys-color-surface-container-highest)'
+              : 'var(--md-sys-color-surface-container-high)',
+            borderLeft:     isCinematic
+              ? `2px solid ${macroState.orbColor}`
+              : '1px solid var(--md-sys-color-outline-variant)',
             transform:      open ? 'translateX(0)' : 'translateX(100%)',
-            transition:     'transform 280ms cubic-bezier(0.2, 0, 0, 1)',
+            transition:     `transform ${ORBIT_MOTION.panelTransitionDuration} ${ORBIT_MOTION.transitionEasing}`,
             zIndex:         1701,
             outline:        'none',
           }}
         >
           {/* ── Orbital header ──────────────────────────────────────────── */}
-          <OrbitalHeader onClose={onClose} nexusState={nexusState} />
+          <OrbitalHeader
+            onClose={onClose}
+            nexusState={nexusState}
+            agentMotionMultiplier={agentMotionMultiplier}
+            agentColorShift={agentColorShift}
+          />
+
+          {/* ── P20/P21 Narrative strip — execution status ────────────── */}
+          {coordinationLabel && (
+            <Box
+              aria-live="polite"
+              aria-atomic="true"
+              sx={{
+                display:      'flex',
+                alignItems:   'center',
+                gap:          0.75,
+                px:           1.5,
+                py:           0.75,
+                bgcolor:      'var(--md-sys-color-surface-container)',
+                borderBottom: '1px solid var(--md-sys-color-outline-variant)',
+              }}
+            >
+              {/* Active pulse dot */}
+              <Box
+                aria-hidden="true"
+                sx={{
+                  width:        6,
+                  height:       6,
+                  borderRadius: '50%',
+                  flexShrink:   0,
+                  bgcolor:      'var(--md-sys-color-primary)',
+                  animation:    'orbit-pulse 1.8s ease-in-out infinite',
+                  '@keyframes orbit-pulse': {
+                    '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                    '50%':      { opacity: 0.4, transform: 'scale(0.6)' },
+                  },
+                }}
+              />
+              <Typography
+                variant="labelSmall"
+                sx={{
+                  color:      'var(--md-sys-color-on-surface-variant)',
+                  fontStyle:  'italic',
+                  lineHeight: 1.4,
+                }}
+              >
+                {coordinationLabel}
+              </Typography>
+            </Box>
+          )}
 
           {/* ── Scroll content ──────────────────────────────────────────── */}
           <Box
@@ -834,6 +954,145 @@ export default memo(function JarvisNexus({
                 </Stack>
               )}
             </Box>
+
+            {/* ── Orbit Flows section ────────────────────────────────────── */}
+            {flows.length > 0 && (
+              <Box aria-label="Flussi Orbit attivi">
+                <Stack
+                  direction="row"
+                  alignItems="center"
+                  justifyContent="space-between"
+                  mb={1}
+                >
+                  <Typography
+                    variant="labelSmall"
+                    component="h3"
+                    sx={{
+                      color:         'var(--md-sys-color-on-surface-variant)',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.08em',
+                    }}
+                  >
+                    Flussi Orbit
+                  </Typography>
+                  <Chip
+                    label={flows.length}
+                    size="small"
+                    aria-label={`${flows.length} flussi attivi`}
+                    sx={{
+                      height:  18,
+                      fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                      bgcolor: 'var(--md-sys-color-tertiary-container)',
+                      color:   'var(--md-sys-color-on-tertiary-container)',
+                    }}
+                  />
+                </Stack>
+
+                <Stack spacing={0.75}>
+                  {flows.map(flow => {
+                    const attention = attentionMap[flow.id];
+                    // Visual tier: primary = full, secondary = slightly muted,
+                    // background = dim, suppressed = hidden, undefined = full
+                    const opacity =
+                      attention === 'suppressed' ? 0 :
+                      attention === 'background' ? 0.35 :
+                      attention === 'secondary'  ? 0.7 :
+                      1;
+                    const scale =
+                      attention === 'background' || attention === 'suppressed' ? 0.93 :
+                      attention === 'secondary'  ? 0.97 :
+                      1;
+                    return (
+                    <M3Surface
+                      key={flow.id}
+                      elevation={0}
+                      sx={{
+                        p:            1,
+                        borderRadius: 2,
+                        bgcolor:      'var(--md-sys-color-surface-container)',
+                        display:      attention === 'suppressed' ? 'none' : 'flex',
+                        flexDirection: 'column',
+                        gap:          0.5,
+                        opacity,
+                        transform:    `scale(${scale})`,
+                        transformOrigin: 'center top',
+                        transition:   'opacity 0.3s ease, transform 0.3s ease',
+                      }}
+                    >
+                      <Stack direction="row" alignItems="center" justifyContent="space-between">
+                        <Typography
+                          variant="labelSmall"
+                          component="p"
+                          sx={{
+                            color:         'var(--md-sys-color-on-surface)',
+                            overflow:      'hidden',
+                            textOverflow:  'ellipsis',
+                            whiteSpace:    'nowrap',
+                            flex:          1,
+                            mr:            1,
+                          }}
+                        >
+                          {flow.name}
+                        </Typography>
+                        <Stack direction="row" spacing={0.5} flexShrink={0}>
+                          {onRunFlow && (
+                            <Tooltip title={`Esegui flusso: ${flow.name}`}>
+                              <IconButton
+                                size="small"
+                                onClick={() => onRunFlow(flow.id)}
+                                aria-label={`Esegui flusso ${flow.name}`}
+                                sx={{ color: 'var(--md-sys-color-tertiary)', p: 0.5 }}
+                              >
+                                <AutoAwesomeIcon sx={{ fontSize: 'var(--md-sys-icon-size-xs, 16px)' }} />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                          {onRemoveFlow && (
+                            <Tooltip title={`Rimuovi flusso: ${flow.name}`}>
+                              <IconButton
+                                size="small"
+                                onClick={() => onRemoveFlow(flow.id)}
+                                aria-label={`Rimuovi flusso ${flow.name}`}
+                                sx={{ color: 'var(--md-sys-color-on-surface-variant)', p: 0.5 }}
+                              >
+                                <CloseIcon sx={{ fontSize: 'var(--md-sys-icon-size-xs, 16px)' }} />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                        </Stack>
+                      </Stack>
+                      <Stack direction="row" spacing={0.5} flexWrap="wrap" useFlexGap>
+                        {flow.steps.map(step => (
+                          <Chip
+                            key={step.stepId}
+                            label={step.label}
+                            size="small"
+                            aria-label={`Step: ${step.label}`}
+                            sx={{
+                              height:   16,
+                              fontSize: 'var(--md-sys-typescale-label-small-font-size)',
+                              bgcolor:  'var(--md-sys-color-surface-container-high)',
+                              color:    'var(--md-sys-color-on-surface-variant)',
+                            }}
+                          />
+                        ))}
+                      </Stack>
+                      <Typography
+                        variant="bodySmall"
+                        component="span"
+                        sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-typescale-label-small-font-size)' }}
+                      >
+                        {flow.executionCount} esecuzioni
+                        {flow.lastRunAt > 0 && (
+                          <> · ultima {relativeTime(flow.lastRunAt)}</>
+                        )}
+                      </Typography>
+                    </M3Surface>
+                  );
+                  })}
+                </Stack>
+              </Box>
+            )}
 
             {/* ── Recent Activity stream (collapsed by default) ─────────── */}
             {recentEntries.length > 0 && (

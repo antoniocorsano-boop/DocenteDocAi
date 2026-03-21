@@ -24,7 +24,7 @@ import { recordAction }              from '../modules/orchestration/patternDetec
 import { tenantRegistry, getUserDomain } from '../services/tenant/tenantRegistry';
 import { useUIStore } from '../stores/useUIStore';
 import { useUserBehaviorStore } from '../stores/useUserBehaviorStore';
-import type { OrchestrationAction, OrchestrationContext, ScheduleContext } from '../modules/orchestration/types';
+import type { OrchestrationAction, OrchestrationContext, OrbitSession, ScheduleContext } from '../modules/orchestration/types';
 import type { CognitiveSuggestion } from '../modules/cognitiveLayer/types';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -42,7 +42,7 @@ export interface UseThumbMenuState {
 
 export interface UseThumbMenuHandlers {
   /** Apre il menu per un inputId dato, calcolando il contesto. Restituisce il contesto calcolato (null se fallito). */
-  openMenu:     (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext) => Promise<OrchestrationContext | null>;
+  openMenu:     (inputId: string, el: HTMLElement, scheduleCtx?: ScheduleContext, session?: OrbitSession) => Promise<OrchestrationContext | null>;
   /** Esegue l'azione selezionata e chiude il menu */
   handleSelect: (action: OrchestrationAction) => Promise<void>;
   /** Esegue un'azione direttamente su un contesto già noto, senza passare per il menu */
@@ -68,6 +68,7 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
     inputId: string,
     el: HTMLElement,
     scheduleCtx?: ScheduleContext,
+    session?: OrbitSession,
   ): Promise<OrchestrationContext | null> => {
     const ctx  = tenantRegistry.getContext();
     const role = ctx.role;
@@ -82,6 +83,7 @@ export function useThumbMenu(tenantId: string): UseThumbMenuReturn {
         role,
         domain: getUserDomain(role),
         scheduleContext: scheduleCtx,
+        session,
       });
       if (!orchestrCtx) {
         useUIStore.getState().actions.showToast('Contenuto non disponibile', 'error');

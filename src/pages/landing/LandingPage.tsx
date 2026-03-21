@@ -1266,6 +1266,153 @@ const PartecipaSection: React.FC = memo(() => (
 ));
 PartecipaSection.displayName = 'PartecipaSection';
 
+// ── PRICING ───────────────────────────────────────────────────────────────────
+
+const PRICING_FREE_FEATURES = [
+  'Registro di classe completo',
+  'Pianificazione UDA illimitata',
+  'Valutazioni e annotazioni',
+  'Backup Google Drive',
+  'AI di base (1 000 token/sessione)',
+];
+
+const PRICING_PRO_FEATURES = [
+  'Tutto il piano Free',
+  'AI avanzata (10 000 token/sessione)',
+  'Analisi predittiva della classe',
+  'Copilot Docente — 14 moduli AI',
+  'Report intelligenti e spiegabilità',
+  'Priorità nel supporto',
+];
+
+const PricingSection: React.FC = memo(() => (
+  <Section id="prezzi" ariaLabel="Piani e prezzi" bg="container">
+    <SectionHeading
+      title="Un piano per ogni docente"
+      subtitle="Inizia gratis, passa a Pro quando ne hai bisogno."
+    />
+    <Stack
+      direction={{ xs: 'column', md: 'row' }}
+      spacing={{ xs: 'var(--md-sys-spacing-4)', md: 'var(--md-sys-spacing-6)' }}
+      justifyContent="center"
+      alignItems={{ xs: 'stretch', md: 'flex-start' }}
+    >
+      {/* Free card */}
+      <Card
+        variant="outlined"
+        sx={{
+          flex: 1,
+          maxWidth: { md: 380 },
+          borderRadius: 'var(--md-sys-shape-corner-large)',
+          borderColor: 'var(--md-sys-color-outline-variant)',
+        }}
+      >
+        <CardContent sx={{ p: 'var(--md-sys-spacing-6)' }}>
+          <Typography variant="titleLarge" sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-1)' }}>
+            Free
+          </Typography>
+          <Typography variant="displaySmall" sx={{ color: 'var(--md-sys-color-on-surface)', mb: 'var(--md-sys-spacing-1)' }}>
+            €0
+          </Typography>
+          <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-surface-variant)', mb: 'var(--md-sys-spacing-5)' }}>
+            per sempre
+          </Typography>
+          <Stack spacing="var(--md-sys-spacing-2)" mb="var(--md-sys-spacing-6)">
+            {PRICING_FREE_FEATURES.map(f => (
+              <Stack key={f} direction="row" spacing="var(--md-sys-spacing-2)" alignItems="center">
+                <CheckCircleOutlineIcon sx={{ color: 'var(--md-sys-color-on-surface-variant)', fontSize: 'var(--md-sys-icon-size-sm)' }} />
+                <Typography variant="bodyMedium" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>{f}</Typography>
+              </Stack>
+            ))}
+          </Stack>
+          <Button
+            variant="outlined"
+            fullWidth
+            href="/landing#hero"
+            component="a"
+            aria-label="Inizia gratis con piano Free"
+            sx={{
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+              borderColor: 'var(--md-sys-color-primary)',
+              color: 'var(--md-sys-color-primary)',
+            }}
+          >
+            Inizia gratis
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Pro card */}
+      <Card
+        sx={{
+          flex: 1,
+          maxWidth: { md: 380 },
+          borderRadius: 'var(--md-sys-shape-corner-large)',
+          bgcolor: 'var(--md-sys-color-primary)',
+          color:   'var(--md-sys-color-on-primary)',
+          position: 'relative',
+          overflow: 'visible',
+        }}
+      >
+        {/* "Consigliato" chip */}
+        <Chip
+          label="Consigliato"
+          size="small"
+          sx={{
+            position: 'absolute',
+            top: -14,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            bgcolor: 'var(--md-sys-color-tertiary)',
+            color:   'var(--md-sys-color-on-tertiary)',
+            fontWeight: 'var(--md-sys-typescale-weight-bold)',
+          }}
+        />
+        <CardContent sx={{ p: 'var(--md-sys-spacing-6)' }}>
+          <Typography variant="titleLarge" sx={{ color: 'var(--md-sys-color-on-primary)', mb: 'var(--md-sys-spacing-1)' }}>
+            Pro
+          </Typography>
+          <Stack direction="row" alignItems="baseline" spacing={1} mb="var(--md-sys-spacing-1)">
+            <Typography variant="displaySmall" sx={{ color: 'var(--md-sys-color-on-primary)' }}>
+              €7
+            </Typography>
+            <Typography variant="bodyMedium" sx={{ color: 'var(--md-sys-color-on-primary)', opacity: 0.8 }}>
+              /mese
+            </Typography>
+          </Stack>
+          <Typography variant="bodySmall" sx={{ color: 'var(--md-sys-color-on-primary)', opacity: 0.7, mb: 'var(--md-sys-spacing-5)' }}>
+            fatturazione mensile, annulla quando vuoi
+          </Typography>
+          <Stack spacing="var(--md-sys-spacing-2)" mb="var(--md-sys-spacing-6)">
+            {PRICING_PRO_FEATURES.map(f => (
+              <Stack key={f} direction="row" spacing="var(--md-sys-spacing-2)" alignItems="center">
+                <CheckCircleOutlineIcon sx={{ color: 'var(--md-sys-color-on-primary)', opacity: 0.9, fontSize: 'var(--md-sys-icon-size-sm)' }} />
+                <Typography variant="bodyMedium" sx={{ color: 'var(--md-sys-color-on-primary)' }}>{f}</Typography>
+              </Stack>
+            ))}
+          </Stack>
+          <Button
+            variant="contained"
+            fullWidth
+            href="/landing#hero"
+            component="a"
+            aria-label="Passa al piano Pro"
+            sx={{
+              borderRadius: 'var(--md-sys-shape-corner-full)',
+              bgcolor: 'var(--md-sys-color-on-primary)',
+              color:   'var(--md-sys-color-primary)',
+              '&:hover': { bgcolor: 'var(--md-sys-color-primary-container)' },
+            }}
+          >
+            Passa a Pro
+          </Button>
+        </CardContent>
+      </Card>
+    </Stack>
+  </Section>
+));
+PricingSection.displayName = 'PricingSection';
+
 // ── FOOTER ────────────────────────────────────────────────────────────────────
 
 const LandingFooter: React.FC = memo(() => (
@@ -1300,7 +1447,7 @@ const LandingFooter: React.FC = memo(() => (
         {/* Links */}
         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1, sm: 3 }} flexWrap="wrap" useFlexGap>
           <Link
-            href="/"
+            href="/privacy"
             color="inherit"
             underline="hover"
             variant="bodySmall"
@@ -1310,7 +1457,7 @@ const LandingFooter: React.FC = memo(() => (
             Privacy policy
           </Link>
           <Link
-            href="/"
+            href="/terms"
             color="inherit"
             underline="hover"
             variant="bodySmall"
@@ -1396,6 +1543,7 @@ const LandingPage: React.FC = () => (
       <FunzionalitaSection />
       <PerChiSection />
       <GuidaSection />
+      <PricingSection />
       <CtaSection />
       <ValoriSection />
       <EticaAISection />

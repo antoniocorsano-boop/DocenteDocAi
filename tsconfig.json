@@ -2,11 +2,7 @@
   "compilerOptions": {
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
     /* Bundler mode */
@@ -19,12 +15,8 @@
     /* Alias Configuration */
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@/types": [
-        "./src/types.ts"
-      ]
+      "@/*": ["./src/*"],
+      "@/types": ["./src/types.ts"]
     },
     /* Linting */
     "strict": true,
@@ -35,9 +27,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
+    "typeRoots": ["./node_modules/@types"],
     "types": ["vitest/globals"]
   },
   "include": [
@@ -49,9 +39,5 @@
     "vitest.shims.d.ts",
     "vitest.setup.tsx"
   ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "scripts"
-  ]
+  "exclude": ["node_modules", "dist", "scripts", "server"]
 }

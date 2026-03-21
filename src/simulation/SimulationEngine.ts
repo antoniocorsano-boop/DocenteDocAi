@@ -20,6 +20,7 @@ import { DayPlanner } from './DayPlanner';
 import { JarvisSimulator } from './JarvisSimulator';
 import { MetricsCollector } from './MetricsCollector';
 import { useSimulationStore } from './simulationStore';
+import { setSimulationMode } from '../modules/system/SimulationGuard';
 
 // ─── SimulationEngine ─────────────────────────────────────────────────────────
 
@@ -41,6 +42,7 @@ export class SimulationEngine {
     this._aborted = false;
     this._paused  = false;
 
+    setSimulationMode(true); // P22: prevent trust records + heavy processing during simulation
     store._actions.setStatus('running');
     store._actions.setProgress(0, events.length);
 
@@ -76,6 +78,7 @@ export class SimulationEngine {
       store._actions.setActiveLanding(null);
       store._actions.setStatus('done');
     }
+    setSimulationMode(false); // P22: restore normal processing mode
   }
 
   pause(): void {
@@ -90,6 +93,7 @@ export class SimulationEngine {
 
   abort(): void {
     this._aborted = true;
+    setSimulationMode(false); // P22: restore on abort
     useSimulationStore.getState()._actions.reset();
   }
 

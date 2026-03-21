@@ -1,4 +1,20 @@
 import { logger } from '../utils/logger';
+import { consumeTokens, canUseTokens } from '../modules/system/TokenController';
+import { isSimulation, localFallback } from '../modules/system/SimulationGuard';
+import * as OfflineQueue from '../modules/system/OfflineQueue';
+
+// P24: Register AI generate executor so queued requests are replayed on reconnect
+OfflineQueue.register<{ model: string; contents: unknown; config?: unknown }>(
+    'ai_generate',
+    async (payload) => {
+        const response = await fetch('/api/ai', {
+            method:  'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body:    JSON.stringify(payload),
+        });
+        if (!response.ok) throw new Error(`AI replay failed: ${response.status}`);
+    },
+);
 
 type GenAIModule = { GoogleGenAI?: new (opts: { apiKey: string }) => unknown; default?: unknown };
 type GoogleAIClient = {
@@ -18,6 +34,17 @@ const createProxyClient = () => ({
             contents: unknown;
             config?: unknown;
         }): Promise<{ text: string }> => {
+            // P22: block AI calls during simulation
+            if (isSimulation()) {
+                const fb = localFallback(JSON.stringify(params.contents).slice(0, 100));
+                return { text: fb.message };
+            }
+
+            const estimatedTokens = JSON.stringify(params.contents).length / 4;
+            if (!canUseTokens(estimatedTokens)) {
+                throw new Error('Token budget exceeded for this session');
+            }
+
             const response = await fetch('/api/ai', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -25,9 +52,16 @@ const createProxyClient = () => ({
             });
             if (!response.ok) {
                 const err = await response.json().catch(() => ({ error: response.statusText }));
+                // P24: network failure → enqueue for offline retry
+                if (response.status === 0 || response.status >= 500) {
+                    void OfflineQueue.enqueue('ai_generate', params);
+                }
                 throw Object.assign(new Error(err.error ?? 'AI proxy error'), { status: response.status });
             }
-            return response.json();
+            const result = await response.json() as { text: string };
+            // P22: record usage after successful call
+            consumeTokens(estimatedTokens);
+            return result;
         },
         /**
          * Streaming variant — yields SSE tokens from /api/ai.
@@ -38,6 +72,18 @@ const createProxyClient = () => ({
             contents: unknown;
             config?: unknown;
         }): AsyncGenerator<string, void, unknown> {
+            // P22: block streaming during simulation
+            if (isSimulation()) {
+                const fb = localFallback(JSON.stringify(params.contents).slice(0, 100));
+                yield fb.message;
+                return;
+            }
+
+            const estimatedTokens = JSON.stringify(params.contents).length / 4;
+            if (!canUseTokens(estimatedTokens)) {
+                throw new Error('Token budget exceeded for this session');
+            }
+
             const response = await fetch('/api/ai', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -45,13 +91,18 @@ const createProxyClient = () => ({
             });
             if (!response.ok) {
                 const err = await response.json().catch(() => ({ error: response.statusText }));
+                // P24: server errors → enqueue for offline retry
+                if (response.status >= 500) {
+                    void OfflineQueue.enqueue('ai_generate', { ...params, streaming: true });
+                }
                 throw Object.assign(new Error(err.error ?? 'AI proxy stream error'), { status: response.status });
             }
             if (!response.body) throw new Error('Streaming not supported');
 
-            const reader = response.body.getReader();
+            const reader  = response.body.getReader();
             const decoder = new TextDecoder('utf-8');
-            let buffer = '';
+            let buffer    = '';
+            let tokensYielded = 0;
             try {
                 while (true) {
                     const { value, done } = await reader.read();
@@ -67,12 +118,14 @@ const createProxyClient = () => ({
                         try {
                             const data = JSON.parse(json) as { candidates?: { content?: { parts?: { text?: string }[] } }[] };
                             const token = data.candidates?.[0]?.content?.parts?.[0]?.text;
-                            if (token) yield token;
+                            if (token) { yield token; tokensYielded += token.length / 4; }
                         } catch { /* skip malformed line */ }
                     }
                 }
             } finally {
                 reader.releaseLock();
+                // P24: record streamed token usage after stream ends
+                if (tokensYielded > 0) consumeTokens(tokensYielded);
             }
         },
     },

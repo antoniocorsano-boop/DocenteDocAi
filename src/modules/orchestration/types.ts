@@ -15,8 +15,10 @@
 import type { CognitiveDomain, CognitiveSuggestion, ScheduleContext } from '../cognitiveLayer/types';
 import type { Capability } from '../capabilitySystem/types';
 import type { UserRole } from '../../services/tenant/types';
+import type { OrbitSession } from '../session/orbitSession';
 
 export type { ScheduleContext };
+export type { OrbitSession };
 
 // ─── Trust status ──────────────────────────────────────────────────────────────
 
@@ -86,6 +88,13 @@ export interface OrchestrationOptions {
    * LOAD_DELIVERABLE) senza polling continuo del calendario.
    */
   scheduleContext?: ScheduleContext;
+  /**
+   * Sessione Orbit corrente — usata per re-ranking contestuale delle azioni.
+   * teaching  → boost OPEN_CLASS_CONTEXT, MARK_ATTENDANCE
+   * planning  → boost EXPORT_UDA, LOAD_MATERIAL
+   * administrative → boost compliance/audit actions
+   */
+  session?: OrbitSession;
 }
 
 // ─── ExecuteActionResult ──────────────────────────────────────────────────────

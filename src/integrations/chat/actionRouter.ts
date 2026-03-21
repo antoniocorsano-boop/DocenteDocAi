@@ -840,11 +840,11 @@ function handleEnterpriseStatus(): ActionResult {
  * Expected params:
  *   tenantId — optional; defaults to 'default'
  */
-function handleEnterpriseComplianceReport(params: Record<string, string>): ActionResult {
+async function handleEnterpriseComplianceReport(params: Record<string, string>): Promise<ActionResult> {
     const tenantId = params.tenantId ?? 'default';
 
     try {
-        const report = enterpriseOrchestrator.getComplianceReport(tenantId);
+        const report = await enterpriseOrchestrator.getComplianceReport(tenantId);
         const total  = report.standards.length;
         const ready  = report.standards.filter((s: { status: string }) => s.status === 'compliant').length;
         const pct    = total > 0 ? Math.round((ready / total) * 100) : 0;

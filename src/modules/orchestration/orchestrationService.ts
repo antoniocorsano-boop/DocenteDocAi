@@ -23,6 +23,7 @@ import { useCognitiveStore }      from '../cognitiveLayer/cognitiveStore';
 import { generateSuggestions }    from '../cognitiveLayer/suggestionEngine';
 import { listCapabilities, isCapabilityEnabled } from '../capabilitySystem/capabilityService';
 import { useTrustStore }          from '../trustLayer/trustStore';
+import { SESSION_BOOST_MAP }      from '../session/orbitSession';
 import { verifyChain, createTrustRecord } from '../trustLayer/trustService';
 import { tenantRegistry }         from '../../services/tenant/tenantRegistry';
 import { skillRegistry }          from './skillRegistry';
@@ -135,12 +136,19 @@ export async function buildContext(
   //     - ignoredActions: filtrate fuori (a meno che dominio compliance — mai soppresso)
   const { preferredActions, ignoredActions } = useUserBehaviorStore.getState().profile;
 
+  // 4b. Session-aware boost: promuove le azioni rilevanti per la modalità corrente
+  const sessionBoost: readonly string[] = opts.session
+    ? SESSION_BOOST_MAP[opts.session.mode]
+    : [];
+
   const actions: OrchestrationAction[] = rawActions
     .filter(a => a.domain === 'compliance' || !ignoredActions.includes(a.ctaType))
-    .map(a => preferredActions.includes(a.ctaType)
-      ? { ...a, priority: Math.max(1, a.priority - 1) }
-      : a,
-    )
+    .map(a => {
+      let p = a.priority;
+      if (preferredActions.includes(a.ctaType))  p = Math.max(1, p - 1);
+      if (sessionBoost.includes(a.ctaType))       p = Math.max(1, p - 1);
+      return p !== a.priority ? { ...a, priority: p } : a;
+    })
     .sort((a, b) => a.priority - b.priority);
 
   // 4. Capability del tenant

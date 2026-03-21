@@ -14,6 +14,7 @@ import DialogActions from '@mui/material/DialogActions';
 import CircularProgress from '@mui/material/CircularProgress';
 import InfoCard from './ui/InfoCard';
 import SectionHeader from './ui/SectionHeader';
+import CopilotSplashScreen from './ui/CopilotSplashScreen';
 // Tab 0 — default tab, kept eager to avoid Suspense flash on first render
 import CopilotPerformancePanel from './copilot/CopilotPerformancePanel';
 import { AITabErrorBoundary } from './copilot/AITabErrorBoundary';
@@ -84,12 +85,19 @@ interface CopilotDocentePanelProps {
 export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, students, evaluations, udas, settings, initialTab }: Omit<CopilotDocentePanelProps, 'competenze'>): JSX.Element {
   const [tab, setTab] = React.useState<number>(initialTab ?? 0);
   const [exportOpen, setExportOpen] = React.useState(false);
+  const [showSplash, setShowSplash] = React.useState(true);
   const capabilityLevel = useTeacherModelStore((s) => s.capabilityLevel);
   const [altroAnchor, setAltroAnchor] = React.useState<null | HTMLElement>(null);
   const [showOnboarding, dismissOnboarding] = useFirstRun();
 
   return (
-    <InfoCard variant="outlined" sx={{ mt: 'var(--md-sys-spacing-6)' }}>
+    <InfoCard variant="outlined" sx={{ mt: 'var(--md-sys-spacing-6)', position: 'relative' }}>
+      {showSplash && (
+        <CopilotSplashScreen
+          onFinished={() => setShowSplash(false)}
+          message="Preparazione Copilot Docente…"
+        />
+      )}
       <SectionHeader
         title="Copilot Docente"
         subtitle="AI per pianificazione, gestione e automazioni didattiche."
