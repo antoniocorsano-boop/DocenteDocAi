@@ -1,0 +1,361 @@
+/**
+ * SmartLandingView — P38 Intelligent landing page for the chat.
+ *
+ * Shown on first open (when useChatPrefsStore.showLanding is true).
+ * Greets the user contextually (time of day + role) and surfaces
+ * the 3 most relevant next actions from the live data stores:
+ *   - Draft / incomplete UDAs (useAcademicStore)
+ *   - Recent conversations (useConversationStore)
+ *   - Pending evaluations  (useStudentStore)
+ *
+ * A quick-input bar at the bottom lets the user start a fast chat
+ * without navigating to the full SmartChat.
+ *
+ * MD3 Gold Compliant — no hardcoded colours or spacing values.
+ */
+
+import React, { useMemo, useState, useCallback, KeyboardEvent } from 'react';
+import Box            from '@mui/material/Box';
+import Button         from '@mui/material/Button';
+import Chip           from '@mui/material/Chip';
+import IconButton     from '@mui/material/IconButton';
+import InputAdornment from '@mui/material/InputAdornment';
+import Stack          from '@mui/material/Stack';
+import TextField      from '@mui/material/TextField';
+import Tooltip        from '@mui/material/Tooltip';
+import Typography     from '@mui/material/Typography';
+import AutoAwesomeIcon          from '@mui/icons-material/AutoAwesome';
+import ChevronRightIcon         from '@mui/icons-material/ChevronRight';
+import HistoryIcon              from '@mui/icons-material/History';
+import PendingActionsIcon       from '@mui/icons-material/PendingActions';
+import SchoolIcon               from '@mui/icons-material/School';
+import SendIcon                 from '@mui/icons-material/Send';
+import TuneIcon                 from '@mui/icons-material/Tune';
+
+import { useAcademicStore }      from '@/stores/useAcademicStore';
+import { useConversationStore }  from '@/stores/useConversationStore';
+import { useStudentStore }       from '@/stores/useStudentStore';
+import { useChatPrefsStore }     from '@/stores/useChatPrefsStore';
+import { useSuggestedMode }      from '@/hooks/useSuggestedMode';
+
+// ── Time-of-day greeting ───────────────────────────────────────────────────────
+
+function getGreeting(): string {
+  const h = new Date().getHours();
+  if (h >= 5  && h < 12) return 'Buongiorno';
+  if (h >= 12 && h < 18) return 'Buon pomeriggio';
+  if (h >= 18 && h < 22) return 'Buona sera';
+  return 'Ciao';
+}
+
+const ROLE_DISPLAY: Record<string, string> = {
+  teacher:     'docente',
+  coordinator: 'coordinatore',
+  principal:   'dirigente',
+  student:     'studente',
+  parent:      'genitore',
+};
+
+// ── Suggestion card ────────────────────────────────────────────────────────────
+
+interface SuggestionCard {
+  id:      string;
+  icon:    React.ReactElement;
+  label:   string;
+  detail:  string;
+  prompt:  string;
+  color?:  'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+}
+
+// ── Props ──────────────────────────────────────────────────────────────────────
+
+export interface SmartLandingViewProps {
+  /** Called when the user sends a quick message or clicks "Apri chat completa" */
+  onStartChat:    (initialText?: string) => void;
+  /** Called when the user wants to go directly to full SmartChat */
+  onOpenFullChat: () => void;
+}
+
+// ── Component ──────────────────────────────────────────────────────────────────
+
+export function SmartLandingView({
+  onStartChat,
+  onOpenFullChat,
+}: SmartLandingViewProps): React.ReactElement {
+  const [input, setInput] = useState('');
+
+  const { uda }            = useAcademicStore();
+  const { conversations }  = useConversationStore();
+  const { students, evaluations } = useStudentStore();
+  const { role }           = useChatPrefsStore();
+  const { suggested, reason } = useSuggestedMode();
+
+  // ── Build action cards from live data ────────────────────────────────────────
+
+  const cards = useMemo<SuggestionCard[]>(() => {
+    const result: SuggestionCard[] = [];
+
+    // 1. Draft UDAs
+    const draftUDAs = uda.filter(u => {
+      const s = (u as { status?: string }).status;
+      return !s || s === 'draft' || s === 'bozza';
+    }).slice(0, 2);
+
+    if (draftUDAs.length > 0) {
+      result.push({
+        id:     'uda-draft',
+        icon:   <SchoolIcon />,
+        label:  draftUDAs.length === 1
+          ? `UDA in bozza: "${draftUDAs[0].title}"`
+          : `${draftUDAs.length} UDA in bozza`,
+        detail: 'Continua la pianificazione',
+        prompt: draftUDAs.length === 1
+          ? `Aiutami a completare la UDA "${draftUDAs[0].title}". Suggerisci obiettivi e attività.`
+          : `Ho ${draftUDAs.length} UDA in bozza. Aiutami a prioritizzarle e completarle.`,
+        color:  'warning',
+      });
+    }
+
+    // 2. Pending evaluations (no grade entered yet — voto is empty string)
+    const pendingEvals = evaluations.filter(e => !e.voto || e.voto.trim() === '').slice(0, 3);
+    if (pendingEvals.length > 0) {
+      result.push({
+        id:     'eval-pending',
+        icon:   <PendingActionsIcon />,
+        label:  `${pendingEvals.length} ${pendingEvals.length === 1 ? 'valutazione' : 'valutazioni'} da completare`,
+        detail: `${students.length} alunni in registro`,
+        prompt: `Ho ${pendingEvals.length} valutazioni da completare. Come posso organizzarle e compilarle in modo rapido?`,
+        color:  'info',
+      });
+    }
+
+    // 3. Recent conversation to continue
+    const lastConv = conversations[0];
+    if (lastConv && lastConv.messages.length > 0) {
+      const snippet = lastConv.messages[lastConv.messages.length - 1].content.slice(0, 60);
+      result.push({
+        id:     'conv-last',
+        icon:   <HistoryIcon />,
+        label:  `Riprendi: "${lastConv.title}"`,
+        detail: `…${snippet}`,
+        prompt: `Continua la conversazione: ${snippet}`,
+        color:  'secondary',
+      });
+    }
+
+    // Fallback: generic prompts when no context available
+    if (result.length === 0) {
+      result.push({
+        id:     'generic-plan',
+        icon:   <SchoolIcon />,
+        label:  'Crea una nuova UDA',
+        detail: 'Pianifica un modulo didattico completo',
+        prompt: 'Aiutami a creare una UDA per la mia classe.',
+        color:  'primary',
+      });
+      result.push({
+        id:     'generic-eval',
+        icon:   <PendingActionsIcon />,
+        label:  'Suggerisci criteri di valutazione',
+        detail: 'Per qualsiasi disciplina o competenza',
+        prompt: 'Suggerisci criteri e rubriche di valutazione per la mia materia.',
+        color:  'success',
+      });
+    }
+
+    return result.slice(0, 3);
+  }, [uda, evaluations, conversations, students.length]);
+
+  // ── Quick send ────────────────────────────────────────────────────────────────
+
+  const handleSend = useCallback(() => {
+    const trimmed = input.trim();
+    if (!trimmed) return;
+    setInput('');
+    onStartChat(trimmed);
+  }, [input, onStartChat]);
+
+  const handleKey = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      handleSend();
+    }
+  }, [handleSend]);
+
+  const greeting = getGreeting();
+  const roleLabel = ROLE_DISPLAY[role] ?? role;
+
+  return (
+    <Box
+      sx={{
+        flex:           1,
+        display:        'flex',
+        flexDirection:  'column',
+        alignItems:     'center',
+        justifyContent: 'center',
+        px:             3,
+        py:             4,
+        gap:            3,
+        overflowY:      'auto',
+      }}
+      role="main"
+      aria-label="Schermata iniziale assistente"
+    >
+      {/* ── Greeting ───────────────────────────────────────────────────────── */}
+      <Stack alignItems="center" spacing={1}>
+        <AutoAwesomeIcon
+          sx={{ fontSize: 'var(--md-sys-icon-size-2xl, 48px)', color: 'primary.main' }}
+          aria-hidden="true"
+        />
+        <Typography variant="h5" align="center">
+          {greeting}, {roleLabel}!
+        </Typography>
+        <Typography variant="body2" color="text.secondary" align="center">
+          Cosa vuoi fare oggi?
+        </Typography>
+      </Stack>
+
+      {/* ── Suggested mode badge ───────────────────────────────────────────── */}
+      <Tooltip title={reason} placement="top">
+        <Chip
+          icon={<TuneIcon />}
+          label={`Modalità suggerita: ${suggested}`}
+          size="small"
+          variant="outlined"
+          color="primary"
+          aria-label={`Modalità AI suggerita: ${suggested}. ${reason}`}
+        />
+      </Tooltip>
+
+      {/* ── Contextual action cards ───────────────────────────────────────── */}
+      <Stack
+        spacing={1.5}
+        sx={{ width: '100%', maxWidth: 480 }}
+        role="list"
+        aria-label="Azioni suggerite"
+      >
+        {cards.map(card => (
+          <Box
+            key={card.id}
+            role="listitem"
+            component="button"
+            onClick={() => onStartChat(card.prompt)}
+            aria-label={`${card.label}: ${card.detail}`}
+            sx={{
+              display:         'flex',
+              alignItems:      'center',
+              gap:             1.5,
+              p:               2,
+              borderRadius:    2,
+              border:          '1px solid',
+              borderColor:     `${card.color ?? 'primary'}.light`,
+              backgroundColor: 'background.paper',
+              cursor:          'pointer',
+              textAlign:       'left',
+              width:           '100%',
+              transition:      'background-color 0.15s',
+              '&:hover': {
+                backgroundColor: `${card.color ?? 'primary'}.50`,
+              },
+              '&:focus-visible': {
+                outline:       '2px solid',
+                outlineColor:  'primary.main',
+                outlineOffset: 2,
+              },
+            }}
+          >
+            <Box
+              sx={{
+                color:      `${card.color ?? 'primary'}.main`,
+                flexShrink: 0,
+                display:    'flex',
+                '& svg': { fontSize: 'var(--md-sys-icon-size-md, 24px)' },
+              }}
+              aria-hidden="true"
+            >
+              {card.icon}
+            </Box>
+
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  overflow:     'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace:   'nowrap',
+                }}
+              >
+                {card.label}
+              </Typography>
+              <Typography
+                variant="caption"
+                color="text.secondary"
+                sx={{
+                  overflow:     'hidden',
+                  textOverflow: 'ellipsis',
+                  whiteSpace:   'nowrap',
+                  display:      'block',
+                }}
+              >
+                {card.detail}
+              </Typography>
+            </Box>
+
+            <ChevronRightIcon
+              sx={{ color: 'text.disabled', flexShrink: 0, fontSize: 'var(--md-sys-icon-size-sm, 20px)' }}
+              aria-hidden="true"
+            />
+          </Box>
+        ))}
+      </Stack>
+
+      {/* ── Quick-input bar ──────────────────────────────────────────────── */}
+      <Box sx={{ width: '100%', maxWidth: 480 }}>
+        <TextField
+          fullWidth
+          size="small"
+          placeholder="Scrivi un messaggio rapido…"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={handleKey}
+          aria-label="Campo messaggio rapido"
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Tooltip title="Invia" placement="top">
+                    <span>
+                      <IconButton
+                        size="small"
+                        onClick={handleSend}
+                        disabled={!input.trim()}
+                        aria-label="Invia messaggio rapido"
+                        edge="end"
+                      >
+                        <SendIcon fontSize="small" />
+                      </IconButton>
+                    </span>
+                  </Tooltip>
+                </InputAdornment>
+              ),
+            },
+          }}
+        />
+      </Box>
+
+      {/* ── Open full chat ──────────────────────────────────────────────── */}
+      <Button
+        variant="text"
+        size="small"
+        endIcon={<ChevronRightIcon />}
+        onClick={onOpenFullChat}
+        aria-label="Apri chat completa"
+        sx={{ color: 'text.secondary' }}
+      >
+        Apri chat completa
+      </Button>
+    </Box>
+  );
+}
+
+export default SmartLandingView;

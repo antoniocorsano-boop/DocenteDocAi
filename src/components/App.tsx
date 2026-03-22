@@ -37,6 +37,9 @@ const ImageAnalysisModal   = React.lazy(() => import('./ImageAnalysisModal'));
 const VideoAnalysisModal   = React.lazy(() => import('./VideoAnalysisModal'));
 const HelpModal            = React.lazy(() => import('./HelpModal'));
 const CircolareAnalysisModal = React.lazy(() => import('./CircolareAnalysisModal'));
+const OrbitChatFAB         = React.lazy(() =>
+  import('./chat/OrbitChatFAB').then(m => ({ default: m.OrbitChatFAB }))
+);
 
 const handleImportEvents = () => {};
 const handleSaveToKb = () => {};
@@ -223,6 +226,10 @@ const App: React.FC = () => {
                     </React.Suspense>
                 )}
                 <FloatingSatelliteCopilot onNavigate={(v) => actions.handleNavigate(v as Parameters<typeof actions.handleNavigate>[0])} />
+                {/* Orbit Chat FAB — global persistent chat entry point */}
+                <React.Suspense fallback={null}>
+                  <OrbitChatFAB userPlan="free" />
+                </React.Suspense>
                 {modals.isLiveAssistantModalOpen && (
                     <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento assistente..." />}>
                     <AssistantModal

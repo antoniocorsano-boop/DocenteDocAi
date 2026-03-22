@@ -22,8 +22,10 @@ vi.mock('@testing-library/react', async () => {
   };
 });
 
-// Setup root div for jsdom
-document.body.innerHTML = '<div id="root"></div>';
+// Setup root div for jsdom (skipped in @vitest-environment node tests)
+if (typeof document !== 'undefined') {
+  document.body.innerHTML = '<div id="root"></div>';
+}
 
 // Mock localStorage for vitest
 const localStorageMock = (() => {
@@ -42,10 +44,12 @@ const localStorageMock = (() => {
   };
 })();
 
-Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock,
-  writable: true,
-});
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'localStorage', {
+    value: localStorageMock,
+    writable: true,
+  });
+}
 
 // Some DOM methods used by the app (like scrollTo) are not implemented
 // in the jsdom environment used by the tests. Provide no-op implementations

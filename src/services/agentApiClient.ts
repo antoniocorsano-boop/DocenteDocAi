@@ -1,5 +1,5 @@
 /**
- * services/agentApiClient.ts — HTTP client for the P30 Agent Platform API (P30)
+ * services/agentApiClient.ts — HTTP client for the P30 Agent Platform API (P31)
  *
  * Thin fetch wrappers around:
  *   GET    /agents            — list active agents
@@ -8,6 +8,7 @@
  *   POST   /agents/:id/run    — execute agent server-side
  *   POST   /memory            — save memory entry
  *   GET    /memory            — retrieve memory history
+ *   POST   /memory/search     — semantic similarity search (P31)
  *
  * All requests include `credentials: 'include'` so the session cookie is sent.
  * Network errors are returned as `{ error: string }` objects — never thrown.
@@ -53,6 +54,21 @@ export interface CreateAgentPayload {
   type:             'compliance' | 'cognitive' | 'monitoring' | 'custom';
   config?:          Record<string, unknown>;
   estimated_tokens?: number;
+}
+
+/** Result item returned by the /memory/search endpoint (P32-C). */
+export interface MemorySearchResult {
+  content:         string;
+  /** Composite score (cosine × 0.70 + temporal × 0.20 + tagBoost × 0.10) */
+  score:           number;
+  /** Raw cosine similarity component — useful for explainability UI (P33) */
+  cosine_score?:   number;
+  /** Temporal decay component — 1.0 = fresh, ~0.5 = 30 days old */
+  temporal_score?: number;
+  /** Jaccard tag-overlap component */
+  tag_score?:      number;
+  /** Keyword tags stored with this memory entry */
+  tags?:           string[];
 }
 
 // ─── Agents ───────────────────────────────────────────────────────────────────
@@ -169,6 +185,262 @@ export async function fetchMemory(limit = 20): Promise<MemoryEntry[]> {
     if (!res.ok) return [];
     const json = await res.json() as { entries: MemoryEntry[] };
     return json.entries ?? [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Semantic similarity search over the current user's memory entries (P31).
+ * Returns up to 5 results sorted by relevance score (0–1).
+ * Returns an empty array when no backend is configured or on any error.
+ */
+export async function searchMemory(query: string, limit = 5): Promise<MemorySearchResult[]> {
+  if (!BASE) return [];
+  try {
+    const res = await fetch(`${BASE}/memory/search`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify({ query, limit }),
+    });
+    if (!res.ok) return [];
+    return res.json() as Promise<MemorySearchResult[]>;
+  } catch {
+    return [];
+  }
+}
+
+// ─── Adaptive Intelligence (P34) ─────────────────────────────────────────────
+
+/** Agent scoring record returned by GET /adaptive/scores */
+export interface AgentScore {
+  agentId:     string;
+  /** Composite score [0, 1] */
+  score:       number;
+  /** Success-rate-based reliability [0, 1] */
+  reliability: number;
+  totalRuns:   number;
+  updatedAt:   string;
+}
+
+export interface LogOutcomePayload {
+  agentId:      string;
+  input?:       unknown;
+  output?:      unknown;
+  success:      boolean;
+  tokensUsed:   number;
+  cosineScore?: number | null;
+}
+
+export interface MemorySummaryResult {
+  id:         string;
+  userId:     string;
+  summary:    string;
+  entryCount: number;
+  createdAt:  string;
+}
+
+/**
+ * Fetch all agent scores from the adaptive layer.
+ * Returns [] when backend is unavailable or unauthenticated.
+ */
+export async function fetchAgentScores(): Promise<AgentScore[]> {
+  if (!BASE) return [];
+  try {
+    const res = await fetch(`${BASE}/adaptive/scores`, { credentials: 'include' });
+    if (!res.ok) return [];
+    const json = await res.json() as { scores: AgentScore[] };
+    return json.scores ?? [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Log one agent execution outcome to the adaptive layer.
+ * Fire-and-forget — never throws, returns silently on error.
+ */
+export async function logAgentOutcomeToServer(payload: LogOutcomePayload): Promise<void> {
+  if (!BASE) return;
+  try {
+    await fetch(`${BASE}/adaptive/outcomes`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify(payload),
+    });
+  } catch {
+    // non-fatal: ignore network errors
+  }
+}
+
+/**
+ * Trigger server-side score recalculation for one agent.
+ * Non-fatal — useful after batching many outcomes.
+ */
+export async function triggerScoreUpdate(agentId: string): Promise<void> {
+  if (!BASE) return;
+  try {
+    await fetch(`${BASE}/adaptive/scores/update`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify({ agentId }),
+    });
+  } catch {
+    // non-fatal
+  }
+}
+
+/**
+ * Compress old memory entries for the current user.
+ * Returns the list of summaries created, or [] on any error.
+ */
+export async function compressUserMemory(batchSize = 50): Promise<MemorySummaryResult[]> {
+  if (!BASE) return [];
+  try {
+    const res = await fetch(`${BASE}/adaptive/memory/compress`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify({ batchSize }),
+    });
+    if (!res.ok) return [];
+    const json = await res.json() as { summaries: MemorySummaryResult[] };
+    return json.summaries ?? [];
+  } catch {
+    return [];
+  }
+}
+
+// ─── Continuous Feedback Loop (P35) ──────────────────────────────────────────
+
+/** User feedback payload sent to POST /feedback. */
+export interface FeedbackPayload {
+  outcomeId?: number;
+  agentId?:   string;
+  rating:     number;   // 1-5
+  notes?:     string;
+  tags?:      string[];
+}
+
+/** Per-agent summary item returned by GET /adaptive/summary. */
+export interface AdaptiveSummaryItem {
+  agentId:     string;
+  avgScore:    number;
+  totalRuns:   number;
+  avgRating:   number | null;
+  lastUpdated: string;
+}
+
+/** Payload for POST /adaptive/update (beta users only). */
+export interface ApplyUpdatePayload {
+  agentId:      string;
+  newParams:    Record<string, unknown>;
+  triggerType?: 'auto' | 'manual';
+  learningRate?: number;
+}
+
+/** Runtime param record returned by GET /adaptive/params. */
+export interface AgentParamsEntry {
+  agentId:   string;
+  params:    Record<string, unknown>;
+  version:   number;
+  updatedAt: string;
+}
+
+/**
+ * Submit one user feedback item to the server.
+ * Fire-and-forget — never throws.
+ */
+export async function submitUserFeedback(payload: FeedbackPayload): Promise<void> {
+  if (!BASE) return;
+  try {
+    await fetch(`${BASE}/feedback`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify(payload),
+    });
+  } catch {
+    // non-fatal
+  }
+}
+
+/**
+ * Fetch per-agent adaptive metrics from GET /adaptive/summary.
+ * Returns [] when backend is unavailable.
+ */
+export async function fetchAdaptiveSummary(): Promise<AdaptiveSummaryItem[]> {
+  if (!BASE) return [];
+  try {
+    const res = await fetch(`${BASE}/adaptive/summary`, { credentials: 'include' });
+    if (!res.ok) return [];
+    const json = await res.json() as { summary: AdaptiveSummaryItem[] };
+    return json.summary ?? [];
+  } catch {
+    return [];
+  }
+}
+
+/**
+ * Apply a parameter update for a given agent (beta users only).
+ * Returns { updateId, rolledBack } on success, null on error or 403/429.
+ */
+export async function applyAdaptiveParams(
+  payload: ApplyUpdatePayload,
+): Promise<{ updateId: number; rolledBack: boolean } | null> {
+  if (!BASE) return null;
+  try {
+    const res = await fetch(`${BASE}/adaptive/update`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify(payload),
+    });
+    if (!res.ok) return null;
+    return await res.json() as { updateId: number; rolledBack: boolean };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Roll back a previously applied adaptive update by ID.
+ * Returns true when the rollback succeeded.
+ */
+export async function rollbackAdaptiveParams(updateId: number): Promise<boolean> {
+  if (!BASE) return false;
+  try {
+    const res = await fetch(`${BASE}/adaptive/rollback`, {
+      method:      'POST',
+      credentials: 'include',
+      headers:     { 'Content-Type': 'application/json' },
+      body:        JSON.stringify({ updateId }),
+    });
+    if (!res.ok) return false;
+    const json = await res.json() as { rolledBack: boolean };
+    return json.rolledBack ?? false;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Fetch all (or one) agent runtime parameter records.
+ * Returns [] when backend is unavailable.
+ */
+export async function fetchAgentParams(agentId?: string): Promise<AgentParamsEntry[]> {
+  if (!BASE) return [];
+  try {
+    const url = agentId
+      ? `${BASE}/adaptive/params?agentId=${encodeURIComponent(agentId)}`
+      : `${BASE}/adaptive/params`;
+    const res = await fetch(url, { credentials: 'include' });
+    if (!res.ok) return [];
+    const json = await res.json() as { params: AgentParamsEntry[] };
+    return json.params ?? [];
   } catch {
     return [];
   }

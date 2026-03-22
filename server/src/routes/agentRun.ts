@@ -23,6 +23,9 @@ import type { RequestHandler } from 'express';
 import { requireAuth }       from '../middleware/requireAuth';
 import { getExecutor }       from '../agents/executors';
 import { logger }            from '../logger';
+import { createEmbedding, cosineSimilarity } from '../services/embedding';
+import { extractTags }       from '../services/tagging';
+import { compositeScore, temporalDecay, tagBoost } from '../services/ranking';
 
 // ── Schemas ───────────────────────────────────────────────────────────────────
 
@@ -157,6 +160,23 @@ export function createAgentRunRouter(pool: Pool | null): Router {
       }
     }
 
+    // P31: Enrich input with relevant memory context (semantic search, non-fatal)
+    let enrichedInput = input;
+    if (pool) {
+      try {
+        const inputStr   = typeof input === 'string' ? input : JSON.stringify(input).slice(0, 500);
+        const memContext = await fetchMemoryContext(pool, userId, inputStr);
+        if (memContext.length > 0) {
+          const base       = (typeof input === 'object' && input !== null && !Array.isArray(input))
+            ? (input as Record<string, unknown>)
+            : { value: input };
+          enrichedInput = { ...base, memoryContext: memContext };
+        }
+      } catch (ctxErr) {
+        logger.warn({ message: 'memory context fetch failed, continuing without', component: 'agentRun', err: String(ctxErr) });
+      }
+    }
+
     // Execute
     const t0 = Date.now();
     let output: unknown;
@@ -165,7 +185,7 @@ export function createAgentRunRouter(pool: Pool | null): Router {
 
     try {
       const executor = getExecutor(agent.type);
-      output = await executor(input, agent.config);
+      output = await executor(enrichedInput, agent.config);
     } catch (err) {
       status   = 'error';
       errorMsg = err instanceof Error ? err.message : String(err);
@@ -178,6 +198,7 @@ export function createAgentRunRouter(pool: Pool | null): Router {
     const runId       = crypto.randomUUID();
 
     // Persist run + memory (best-effort, non-fatal)
+    // NOTE: memory saved with original input (not enrichedInput) to avoid recursion
     if (pool) {
       await saveRun(pool, { id: runId, agentId: agent.id, userId, input, output, status, blockedBy: null, durationMs, tokensUsed });
       await saveMemoryEntry(pool, { userId, content: typeof input === 'string' ? input : JSON.stringify(input), metadata: { agentId: agent.id, runId, status } });
@@ -227,12 +248,55 @@ async function saveMemoryEntry(
   m: { userId: string; content: string; metadata: Record<string, unknown> },
 ): Promise<void> {
   try {
+    // P31+P32-C: generate embedding + tags in parallel (both non-fatal)
+    const [embedding, tags] = await Promise.all([
+      createEmbedding(m.content),
+      Promise.resolve(extractTags(m.content)),
+    ]);
     await pool.query(
-      `INSERT INTO memory_entries (id, user_id, content, metadata)
-       VALUES ($1,$2,$3,$4)`,
-      [crypto.randomUUID(), m.userId, m.content, JSON.stringify(m.metadata)],
+      `INSERT INTO memory_entries (id, user_id, content, embedding, tags, metadata)
+       VALUES ($1,$2,$3,$4,$5,$6)`,
+      [crypto.randomUUID(), m.userId, m.content, embedding ? JSON.stringify(embedding) : null, tags, JSON.stringify(m.metadata)],
     );
   } catch (err) {
     logger.warn({ message: 'saveMemoryEntry failed', component: 'agentRun', err: String(err) });
   }
+}
+
+/**
+ * P31: Retrieve up to `limit` most semantically relevant memory entries for a user.
+ * Used to enrich agent inputs with past context.
+ * Returns an empty array if embeddings are unavailable or DB is unreachable.
+ */
+async function fetchMemoryContext(pool: Pool, userId: string, query: string, limit = 5): Promise<string[]> {
+  const queryEmbedding = await createEmbedding(query);
+  if (!queryEmbedding) return [];
+
+  const { rows } = await pool.query<{ content: string; embedding: unknown; tags: string[]; created_at: string }>(
+    `SELECT content, embedding, tags, created_at
+       FROM memory_entries
+      WHERE user_id = $1
+        AND embedding IS NOT NULL
+      ORDER BY created_at DESC
+      LIMIT 200`,
+    [userId],
+  );
+
+  // P32-C: composite score (cosine + temporal decay + tag boost)
+  const inputTags = extractTags(query);
+
+  return rows
+    .map(row => {
+      const cosineVal   = cosineSimilarity(queryEmbedding, row.embedding as number[]);
+      const temporalVal = temporalDecay(new Date(row.created_at));
+      const tagVal      = tagBoost(row.tags ?? [], inputTags);
+      return {
+        content: row.content,
+        score:   compositeScore(cosineVal, temporalVal, tagVal),
+      };
+    })
+    .filter(r => r.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, limit)
+    .map(r => r.content);
 }

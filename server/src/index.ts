@@ -49,6 +49,11 @@ import { createAgentsRouter }   from './routes/agents';
 import { createAgentRunRouter } from './routes/agentRun';
 import { createMemoryRouter }   from './routes/memory';
 import { createAuditRouter }    from './routes/audit';
+import { createAdaptiveRouter } from './routes/adaptive';
+import { createFeedbackRouter } from './routes/feedback';
+import { ensureAdaptiveSchema } from './services/adaptive';
+import { ensureMemoryConsolidationSchema } from './services/memoryConsolidation';
+import { ensureFeedbackSchema } from './services/feedbackLoop';
 
 // ─── Augment express-session types ───────────────────────────────────────────
 
@@ -230,9 +235,21 @@ async function ensureMemoryTable(): Promise<void> {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `);
+  // P31: add embedding column idempotently (ALTER IF NOT EXISTS is safe to run on every boot)
+  await pool.query(`
+    ALTER TABLE memory_entries ADD COLUMN IF NOT EXISTS embedding JSONB
+  `);
+  // P32-C: add tags column + GIN index for fast tag-array queries
+  await pool.query(`
+    ALTER TABLE memory_entries ADD COLUMN IF NOT EXISTS tags TEXT[] NOT NULL DEFAULT '{}'
+  `);
   await pool.query(`
     CREATE INDEX IF NOT EXISTS idx_memory_entries_user
       ON memory_entries (user_id, created_at DESC)
+  `);
+  await pool.query(`
+    CREATE INDEX IF NOT EXISTS idx_memory_entries_tags
+      ON memory_entries USING GIN (tags)
   `);
 }
 
@@ -764,10 +781,12 @@ app.post('/audit/log', async (req, res) => {
 
 // ─── P30 — Agent Platform routes ────────────────────────────────────────────
 
-app.use('/agents',  createAgentsRouter(pool));
-app.use('/agents',  createAgentRunRouter(pool));
-app.use('/memory',  createMemoryRouter(pool));
-app.use('/audit',   createAuditRouter(pool));
+app.use('/agents',   createAgentsRouter(pool));
+app.use('/agents',   createAgentRunRouter(pool));
+app.use('/memory',   createMemoryRouter(pool));
+app.use('/audit',    createAuditRouter(pool));
+app.use('/adaptive', createAdaptiveRouter(pool));
+app.use('/feedback', createFeedbackRouter(pool));
 
 // ── Health ────────────────────────────────────────────────────────────────────
 
@@ -839,6 +858,11 @@ async function main(): Promise<void> {
   await ensureAgentsTable();
   await ensureAgentRunsTable();
   await ensureMemoryTable();
+  if (pool) {
+    await ensureAdaptiveSchema(pool);
+    await ensureMemoryConsolidationSchema(pool);
+    await ensureFeedbackSchema(pool);
+  }
   await seedBuiltInAgents();
   app.listen(PORT, () => {
     logger.info({
