@@ -20,6 +20,12 @@ import {
   createEmotionalProfile,
   type EmotionalProfile,
 } from '@/modules/orchestration/EmotionalEngine';
+import {
+  createCognitiveStyle,
+  createCognitiveStyleSignals,
+  type CognitiveStyle,
+  type CognitiveStyleSignals,
+} from '@/modules/orchestration/CognitiveStyleEngine';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -74,6 +80,13 @@ export interface ChatPrefsState {
 
   emotionalProfile: EmotionalProfile;
 
+  // ── P39: Cognitive Relationship Layer ───────────────────────────────────────
+
+  cognitiveStyle:        CognitiveStyle;
+  cognitiveStyleSignals: CognitiveStyleSignals;
+  /** Cumulative reveal-button clicks (shortcut for useSmartChat) */
+  revealClickCount:      number;
+
   // ── Actions ─────────────────────────────────────────────────────────────────
 
   setRole(role: UserRole): void;
@@ -93,6 +106,12 @@ export interface ChatPrefsState {
   resetSession(): void;
   /** P38.6: persist evolved emotional profile */
   updateEmotionalProfile(profile: EmotionalProfile): void;
+  /** P39: persist evolved cognitive style */
+  updateCognitiveStyle(style: CognitiveStyle): void;
+  /** P39: persist updated raw signals */
+  updateCognitiveStyleSignals(signals: CognitiveStyleSignals): void;
+  /** P39: increment reveal-click counter */
+  recordRevealClick(): void;
   reset(): void;
 }
 
@@ -123,6 +142,11 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
       sessionUpgradeCount:  0,
       lastSessionReset:     Date.now(),
       emotionalProfile:     createEmotionalProfile(),
+
+      // ── P39 initial values ──────────────────────────────────────────────────
+      cognitiveStyle:        createCognitiveStyle(),
+      cognitiveStyleSignals: createCognitiveStyleSignals(),
+      revealClickCount:      0,
 
       setRole(role) {
         const defaults = ROLE_DEFAULTS[role];
@@ -180,6 +204,18 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
         set({ emotionalProfile: profile });
       },
 
+      updateCognitiveStyle(style) {
+        set({ cognitiveStyle: style });
+      },
+
+      updateCognitiveStyleSignals(signals) {
+        set({ cognitiveStyleSignals: signals });
+      },
+
+      recordRevealClick() {
+        set(s => ({ revealClickCount: s.revealClickCount + 1 }));
+      },
+
       reset() {
         set({
           role:                 'teacher',
@@ -194,11 +230,14 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
           sessionUpgradeCount:  0,
           lastSessionReset:     Date.now(),
           emotionalProfile:     createEmotionalProfile(),
+          cognitiveStyle:        createCognitiveStyle(),
+          cognitiveStyleSignals: createCognitiveStyleSignals(),
+          revealClickCount:      0,
         });
       },
     }),
     {
-      name:    'chat-prefs-v2',
+      name:    'chat-prefs-v3',
       storage: createJSONStorage(() => localStorage),
     },
   ),

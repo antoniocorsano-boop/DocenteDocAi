@@ -24,6 +24,8 @@ import type { Mode }              from './ModeEngine';
 import { getModeConfig }          from './ModeEngine';
 import type { EmotionalStrategy } from './EmotionalEngine';
 import { buildEmotionalSection }  from './EmotionalEngine';
+import type { CognitiveStyle }    from './CognitiveStyleEngine';
+import { buildStyleSection }      from './CognitiveStyleEngine';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -48,6 +50,8 @@ export interface BuildContextInput {
   maxTokens?:    number;
   /** P38.5: cognitive-emotional strategy modulating tone, depth and guidance */
   emotional?:    EmotionalStrategy;
+  /** P39: cognitive style learned from user behaviour */
+  cognitiveStyle?: CognitiveStyle;
 }
 
 export interface BuiltContext {
@@ -124,7 +128,8 @@ export function buildSystemPrompt(input: BuildContextInput): BuiltContext {
     buildPersonaSection(input.userProfile),
     buildModeSection(input.mode),
     buildMemorySection(input.memory ?? [], maxTokens),
-    input.emotional ? buildEmotionalSection(input.emotional) : '',
+    input.emotional      ? buildEmotionalSection(input.emotional)         : '',
+    input.cognitiveStyle ? buildStyleSection(input.cognitiveStyle)        : '',
   ].filter(Boolean);
 
   const systemPrompt = sections.join('\n\n');

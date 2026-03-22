@@ -25,6 +25,9 @@ import {
   deriveProfile,
   type EmotionalMemory, type EmotionalState,
 } from '@/modules/orchestration/EmotionalEngine';
+import {
+  applyStyleBias, deriveStyle, recordModeUsage,
+} from '@/modules/orchestration/CognitiveStyleEngine';
 import { observe }                        from '@/utils/observability';
 import type { OrchestratorResult }        from '@/modules/orchestration/CognitiveOrchestrator';
 import type { Mode }                      from '@/modules/orchestration/ModeEngine';
@@ -246,8 +249,22 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     const newProfile = deriveProfile(emotionalMemoryRef.current, state, emotionalProfile);
     useChatPrefsStore.getState().updateEmotionalProfile(newProfile);
 
+    // P39: evolve cognitive style from mode usage + reveal clicks
+    const { cognitiveStyle, cognitiveStyleSignals, revealClickCount } = useChatPrefsStore.getState();
+    const updatedSignals = recordModeUsage(
+      { ...cognitiveStyleSignals, revealClicks: revealClickCount },
+      effectiveMode,
+      state === 'blocked',
+    );
+    const newStyle = deriveStyle(updatedSignals, cognitiveStyle);
+    useChatPrefsStore.getState().updateCognitiveStyle(newStyle);
+    useChatPrefsStore.getState().updateCognitiveStyleSignals(updatedSignals);
+
+    // Apply cognitive style as a light bias on top of emotional strategy
+    const adaptedStrategy = applyStyleBias(strategy, newStyle);
+
     // Build system context with emotional modulation
-    buildSystemPrompt({ mode: effectiveMode, memory: [], emotional: strategy });
+    buildSystemPrompt({ mode: effectiveMode, memory: [], emotional: adaptedStrategy, cognitiveStyle: newStyle });
 
     // Append user message to ConversationStore
     const userMsg: ChatMessage = {
@@ -265,7 +282,7 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     if (!result) return;
 
     const rawBlocks = buildUIBlocks(result, effectiveMode);
-    const blocks    = adaptBlocks(rawBlocks, strategy);
+    const blocks    = adaptBlocks(rawBlocks, adaptedStrategy);
 
     observe('chat.emotional.signal', { state, tone: strategy.tone, depth: strategy.depth, guidance: strategy.guidance });
     observe('chat.response.completed', {

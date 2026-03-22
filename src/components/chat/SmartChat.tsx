@@ -156,7 +156,10 @@ function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: As
             variant="text"
             aria-label={`${revealLabel} (${hiddenCount} elementi nascosti)`}
             startIcon={<ExpandMoreIcon />}
-            onClick={() => setShowAll(true)}
+            onClick={() => {
+              setShowAll(true);
+              useChatPrefsStore.getState().recordRevealClick();
+            }}
             sx={{ alignSelf: 'flex-start', mt: 0.5, color: 'text.secondary' }}
           >
             {revealLabel}
