@@ -148,39 +148,88 @@ export function deriveStyle(
 // ── Strategy overlay ──────────────────────────────────────────────────────────
 
 /**
- * Applies a light cognitive-style bias on top of the emotional strategy.
- * Never overrides emotional safety signals (reassuring tone stays).
+ * P39.6 — Merge Engine.
+ *
+ * Explicit priority hierarchy between the emotional and cognitive-style layers:
+ *
+ *   Priority 1 — Emotional safety  (guidance === 'lead'):
+ *     The user is blocked or overloaded.  Cognitive style is irrelevant here;
+ *     clarity and reassurance come first.  depth → 'light', uiDensity → 'low'.
+ *
+ *   Priority 2 — Style preference  (user is stable / flowing):
+ *     structure high → uiDensity high
+ *     structure low  → uiDensity low  (but never overrides safety)
+ *     exploration high → remove maxBlocks cap entirely
+ *     autonomy high  → lift depth floor to medium
+ *     guidance rules from applyStyleBias preserved as Priority 2b
+ *
+ *   Priority 3 — Speed preference  (fine-tuning only):
+ *     Deliberate pace → allow depth 'deep' even when strategy said 'medium'
+ *     Fast pace       → cap depth to 'medium' if not in safety mode
+ *
+ * Rule of thumb:
+ *   emotion = safety signal   (moment-level)
+ *   style   = preference map  (session/cross-session level)
+ *
+ * This replaces the old `applyStyleBias` as the merge point; `applyStyleBias`
+ * is kept for backward compat but now delegates here.
+ */
+export function mergeStrategy(
+  emotional: EmotionalStrategy,
+  style:     CognitiveStyle,
+): EmotionalStrategy {
+  const result = { ...emotional };
+
+  // ── Priority 1: Emotional safety — emotion wins unconditionally ──────────────
+  if (result.guidance === 'lead') {
+    result.depth     = 'light';
+    result.uiDensity = 'low';
+    // Keep tone (already 'reassuring') and maxBlocks (already 2) from emotion.
+    return result;
+  }
+
+  // ── Priority 2: Style preference — user is stable, style shapes experience ──
+
+  // 2a. Structure drives ui density
+  if (style.structure === 'high') result.uiDensity = 'high';
+  if (style.structure === 'low')  result.uiDensity = 'low';
+
+  // 2b. Exploration removes the block cap → user wants to browse
+  if (style.exploration === 'high') {
+    delete result.maxBlocks;
+  }
+
+  // 2c. Autonomy floors depth — autonomous users tolerate / want more content
+  if (style.autonomy === 'high' && result.depth === 'light') {
+    result.depth = 'medium';
+  }
+
+  // 2d. Guidance rules (from original applyStyleBias)
+  if (style.structure === 'high' && style.autonomy === 'low' && result.guidance === 'none') {
+    result.guidance = 'suggest';
+  }
+
+  // ── Priority 3: Speed preference — fine-tuning only ────────────────────────
+  if (style.speedPreference === 'deliberate' && result.depth === 'medium') {
+    result.depth = 'deep';
+  }
+  if (style.speedPreference === 'fast' && emotional.tone !== 'reassuring') {
+    if (result.depth === 'deep') result.depth = 'medium';
+    if (!result.maxBlocks)       result.maxBlocks = 6;
+  }
+
+  return result;
+}
+
+/**
+ * Backward-compat shim: delegates to mergeStrategy.
+ * Kept so any external callers (tests, etc.) continue to work.
  */
 export function applyStyleBias(
   strategy: EmotionalStrategy,
   style:    CognitiveStyle,
 ): EmotionalStrategy {
-  const result = { ...strategy };
-
-  // High structure → always lead or suggest, never "none" guidance for guided users
-  if (style.structure === 'high' && style.autonomy === 'low' && result.guidance === 'none') {
-    result.guidance = 'suggest';
-  }
-
-  // High autonomy + high structure → deeper content, no need for hand-holding
-  if (style.autonomy === 'high' && style.structure === 'high') {
-    if (result.depth === 'light')  result.depth     = 'medium';
-    if (result.uiDensity === 'low') result.uiDensity = 'medium';
-  }
-
-  // Fast speed preference → prefer lighter depth when emotional state allows
-  if (style.speedPreference === 'fast' && strategy.tone !== 'reassuring') {
-    if (result.depth === 'deep') result.depth = 'medium';
-    // Raise maxBlocks ceiling for fast users (they scroll, they know what they want)
-    if (!result.maxBlocks) result.maxBlocks = 6;
-  }
-
-  // High exploration → lift maxBlocks so more content is visible by default
-  if (style.exploration === 'high' && !result.maxBlocks) {
-    result.maxBlocks = 6;
-  }
-
-  return result;
+  return mergeStrategy(strategy, style);
 }
 
 // ── System prompt section ─────────────────────────────────────────────────────

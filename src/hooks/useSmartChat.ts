@@ -26,7 +26,7 @@ import {
   type EmotionalMemory, type EmotionalState,
 } from '@/modules/orchestration/EmotionalEngine';
 import {
-  applyStyleBias, deriveStyle, recordModeUsage,
+  deriveStyle, recordModeUsage, mergeStrategy,
 } from '@/modules/orchestration/CognitiveStyleEngine';
 import { observe }                        from '@/utils/observability';
 import type { OrchestratorResult }        from '@/modules/orchestration/CognitiveOrchestrator';
@@ -268,8 +268,8 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
       turns:           updatedSignals.totalTurns,
     });
 
-    // Apply cognitive style as a light bias on top of emotional strategy
-    const adaptedStrategy = applyStyleBias(strategy, newStyle);
+    // P39.6: explicit merge engine — emotion (safety) > style (preference)
+    const adaptedStrategy = mergeStrategy(strategy, newStyle);
 
     // Build system context with emotional modulation
     buildSystemPrompt({ mode: effectiveMode, memory: [], emotional: adaptedStrategy, cognitiveStyle: newStyle });

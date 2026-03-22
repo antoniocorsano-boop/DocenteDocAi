@@ -211,10 +211,16 @@ export interface EmotionalMemory {
   frustrationCount: number;
   flowScore:        number;
   preferredDepth:   EmotionalStrategy['depth'];
+  /**
+   * P39.6: last state the user actually experienced.
+   * Prevents snapping back from 'blocked' / 'overloaded' too quickly —
+   * smoothState alone guards transitions but does not track perception.
+   */
+  lastPerceivedState: EmotionalState;
 }
 
 export function createEmotionalMemory(): EmotionalMemory {
-  return { frustrationCount: 0, flowScore: 0, preferredDepth: 'medium' };
+  return { frustrationCount: 0, flowScore: 0, preferredDepth: 'medium', lastPerceivedState: 'focused' };
 }
 
 export function updateEmotionalMemory(
@@ -236,6 +242,7 @@ export function updateEmotionalMemory(
       ? memory.flowScore + 1
       : Math.max(0, memory.flowScore - 1),
     preferredDepth: depthHint,
+    lastPerceivedState: state,
   };
 }
 
