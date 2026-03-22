@@ -281,19 +281,49 @@ const PRIORITY: Record<string, number> = {
 };
 
 /**
- * P38.6: mark low-priority blocks as hidden instead of slicing.
- * UI shows a "Mostra altri N elementi" button — no content is ever discarded.
+ * Minimal style hint for block density adaptation.
+ * Structurally compatible with CognitiveStyle — pass a CognitiveStyle directly.
+ * Defined here (not imported) to avoid circular dependency with CognitiveStyleEngine.
  */
-export function adaptBlocks(blocks: UIBlock[], strategy: EmotionalStrategy): AdaptedBlock[] {
+export interface BlockStyleHint {
+  structure:   'low' | 'medium' | 'high';
+  exploration: 'low' | 'medium' | 'high';
+}
+
+/**
+ * P38.6 + P39.5: mark low-priority blocks as hidden instead of slicing.
+ * UI shows a "Mostra altri N elementi" button — no content is ever discarded.
+ *
+ * P39.5 additions:
+ *   - style.exploration === 'high' → show all blocks (user actively browsing)
+ *   - style.structure   === 'high' → one extra block visible (user wants completeness)
+ *   - style.structure   === 'low'  → one fewer block (compress aggressively)
+ */
+export function adaptBlocks(
+  blocks:   UIBlock[],
+  strategy: EmotionalStrategy,
+  style?:   BlockStyleHint,
+): AdaptedBlock[] {
   if (strategy.uiDensity === 'high' || !strategy.maxBlocks) {
     return blocks as AdaptedBlock[];
   }
+
+  // Exploration: show all blocks — user actively wants to browse alternatives
+  if (style?.exploration === 'high') {
+    return blocks as AdaptedBlock[];
+  }
+
+  // Structure: adjust visible block count to match user's preference
+  const maxVisible =
+    style?.structure === 'high' ? Math.min(blocks.length, strategy.maxBlocks + 1) :
+    style?.structure === 'low'  ? Math.max(1, strategy.maxBlocks - 1)             :
+    strategy.maxBlocks;
 
   const ranked = blocks
     .map((_, i) => ({ i, priority: PRIORITY[blocks[i].type] ?? 0 }))
     .sort((a, b) => b.priority - a.priority);
 
-  const visibleIndices = new Set(ranked.slice(0, strategy.maxBlocks).map(x => x.i));
+  const visibleIndices = new Set(ranked.slice(0, maxVisible).map(x => x.i));
 
   return blocks.map((b, i) => ({ ...b, hidden: !visibleIndices.has(i) }));
 }

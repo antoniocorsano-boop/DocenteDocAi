@@ -260,6 +260,14 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     useChatPrefsStore.getState().updateCognitiveStyle(newStyle);
     useChatPrefsStore.getState().updateCognitiveStyleSignals(updatedSignals);
 
+    observe('cognitive.style.updated', {
+      structure:       newStyle.structure,
+      autonomy:        newStyle.autonomy,
+      speedPreference: newStyle.speedPreference,
+      exploration:     newStyle.exploration,
+      turns:           updatedSignals.totalTurns,
+    });
+
     // Apply cognitive style as a light bias on top of emotional strategy
     const adaptedStrategy = applyStyleBias(strategy, newStyle);
 
@@ -282,7 +290,7 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     if (!result) return;
 
     const rawBlocks = buildUIBlocks(result, effectiveMode);
-    const blocks    = adaptBlocks(rawBlocks, adaptedStrategy);
+    const blocks    = adaptBlocks(rawBlocks, adaptedStrategy, newStyle);
 
     observe('chat.emotional.signal', { state, tone: strategy.tone, depth: strategy.depth, guidance: strategy.guidance });
     observe('chat.response.completed', {

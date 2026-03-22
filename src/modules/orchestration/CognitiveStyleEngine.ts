@@ -75,9 +75,37 @@ function toLevel(score: number): StyleLevel {
   return score >= 0.6 ? 'high' : score >= 0.3 ? 'medium' : 'low';
 }
 
+// ── Level blending ────────────────────────────────────────────────────────────
+
+const LEVEL_NUM: Record<StyleLevel, number> = { low: 0, medium: 1, high: 2 };
+const NUM_LEVEL: StyleLevel[]               = ['low', 'medium', 'high'];
+
+function blendLevel(prev: StyleLevel, next: StyleLevel): StyleLevel {
+  const blended = LEVEL_NUM[prev] * 0.7 + LEVEL_NUM[next] * 0.3;
+  return NUM_LEVEL[Math.round(blended)] ?? 'medium';
+}
+
+/**
+ * Smoothly blend two CognitiveStyle snapshots.
+ *
+ * Applies 70/30 EWA to structure, autonomy, exploration.
+ * SpeedPref passes through unchanged — threshold-derived and already stable.
+ *
+ * Called automatically inside deriveStyle; also exported so external code
+ * can re-apply smoothing after any manual correction or profile import.
+ */
+export function smoothStyle(prev: CognitiveStyle, next: CognitiveStyle): CognitiveStyle {
+  return {
+    structure:       blendLevel(prev.structure,    next.structure),
+    autonomy:        blendLevel(prev.autonomy,     next.autonomy),
+    exploration:     blendLevel(prev.exploration,  next.exploration),
+    speedPreference: next.speedPreference,
+  };
+}
+
 /**
  * Derives a new CognitiveStyle from cumulative signals.
- * Called after each turn; blends with the existing style (EWA smoothing).
+ * Called after each turn; blends with the existing style via smoothStyle.
  */
 export function deriveStyle(
   signals: CognitiveStyleSignals,
@@ -109,22 +137,12 @@ export function deriveStyle(
   const nextAutonomy    = toLevel(autonomyScore);
   const nextExploration = toLevel(explorationScore);
 
-  // Exponential weighted average: keep 70% of current, blend 30% new
-  // (for string levels convert to number and back)
-  const LEVEL_NUM: Record<StyleLevel, number> = { low: 0, medium: 1, high: 2 };
-  const NUM_LEVEL: StyleLevel[] = ['low', 'medium', 'high'];
-
-  function blend(prev: StyleLevel, next: StyleLevel): StyleLevel {
-    const blended = LEVEL_NUM[prev] * 0.7 + LEVEL_NUM[next] * 0.3;
-    return NUM_LEVEL[Math.round(blended)] ?? 'medium';
-  }
-
-  return {
-    structure:       blend(current.structure,    nextStructure),
-    autonomy:        blend(current.autonomy,     nextAutonomy),
+  return smoothStyle(current, {
+    structure:       nextStructure,
+    autonomy:        nextAutonomy,
     speedPreference: t < 5 ? current.speedPreference : speedPreference,
-    exploration:     blend(current.exploration,  nextExploration),
-  };
+    exploration:     nextExploration,
+  });
 }
 
 // ── Strategy overlay ──────────────────────────────────────────────────────────
