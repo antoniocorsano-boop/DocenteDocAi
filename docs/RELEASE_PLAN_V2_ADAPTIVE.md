@@ -89,10 +89,10 @@ Ogni fase ha:
 
 ### Task
 
-- [ ] **Override stile** — aggiungere a `ChatSettingsPanel` un pannello "Il mio stile di lavoro" con 4 slider (structure / autonomy / speed / exploration); cambi manuali → `updateCognitiveStyle()` + reset `revealClickCount`
-- [ ] **Feedback inline su strategia** — sotto ogni risposta, oltre a 👍/👎, aggiungere chip `"Troppo lungo"` / `"Troppo breve"` / `"Giusto così"`; questi alimentano `recordSuggestionAccepted/Rejected`
-- [ ] **Reset stile** — bottone in settings "Reimposta stile" → factory reset cognitivo (`createCognitiveStyle()` + `createCognitiveStyleSignals()` + `revealClickCount=0`)
-- [ ] **Alert drift** — se `cognitiveStyle.structure` o `.exploration` cambia di livello in 3 turni consecutivi, `observe('cognitive.style.drift', { from, to, field })` + eventuale toast utente "Ho aggiornato il mio modello su di te"
+- [x] **Override stile** — aggiungere a `ChatSettingsPanel` un pannello "Il mio stile di lavoro" con 4 slider (structure / autonomy / speed / exploration); cambi manuali → `overrideCognitiveStyle()` + reset `revealClickCount` — commit `1f1f6c59`
+- [x] **Feedback inline su strategia** — sotto ogni risposta, oltre a 👍/👎, aggiungere chip `"Troppo lungo"` / `"Troppo breve"` / `"Giusto così"`; questi alimentano `recordSuggestionAccepted/Rejected` — commit `1f1f6c59`
+- [x] **Reset stile** — bottone in settings "Reimposta stile" → factory reset cognitivo (`createCognitiveStyle()` + `createCognitiveStyleSignals()` + `revealClickCount=0`) — commit `1f1f6c59`
+- [x] **Alert drift** — se `cognitiveStyle.structure` o `.exploration` cambia di livello in 3 turni consecutivi, `observe('cognitive.style.drift', { from, to, field })` + toast "Ho aggiornato il mio modello su di te" — commit `1f1f6c59`
 
 ### Gate di uscita
 
