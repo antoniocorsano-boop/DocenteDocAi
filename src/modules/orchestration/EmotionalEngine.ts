@@ -89,6 +89,8 @@ export interface EmotionalStrategy {
   uiDensity:  'low' | 'medium' | 'high';
   guidance:   'none' | 'suggest' | 'lead';
   maxBlocks?: number;
+  /** Dev-only annotation populated by mergeStrategy. Tree-shaken in production. */
+  _debug?: { ruleApplied: string; priority: 1 | 2 | 3 };
 }
 
 const STRATEGY_MAP: Record<EmotionalState, EmotionalStrategy> = {

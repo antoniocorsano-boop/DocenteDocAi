@@ -18,6 +18,7 @@
 
 import type { EmotionalStrategy } from './EmotionalEngine';
 import type { Mode }               from './ModeEngine';
+import { observe }                 from '@/utils/observability';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -179,43 +180,78 @@ export function mergeStrategy(
   style:     CognitiveStyle,
 ): EmotionalStrategy {
   const result = { ...emotional };
+  const appliedRules: string[] = [];
+  let   dominantPriority: 1 | 2 | 3 = 2;
 
   // ── Priority 1: Emotional safety — emotion wins unconditionally ──────────────
   if (result.guidance === 'lead') {
     result.depth     = 'light';
     result.uiDensity = 'low';
     // Keep tone (already 'reassuring') and maxBlocks (already 2) from emotion.
+    appliedRules.push('P1:safety');
+    dominantPriority = 1;
+
+    if (import.meta.env.DEV) {
+      result._debug = { ruleApplied: appliedRules.join(' + '), priority: dominantPriority };
+      observe('merge.rule.applied', {
+        rule:        appliedRules.join(' + '),
+        priority:    dominantPriority,
+        emotional:   emotional.tone,
+        structure:   style.structure,
+        exploration: style.exploration,
+      }, 'debug');
+    }
     return result;
   }
 
   // ── Priority 2: Style preference — user is stable, style shapes experience ──
 
   // 2a. Structure drives ui density
-  if (style.structure === 'high') result.uiDensity = 'high';
-  if (style.structure === 'low')  result.uiDensity = 'low';
+  if (style.structure === 'high') { result.uiDensity = 'high'; appliedRules.push('P2:structure-high'); }
+  if (style.structure === 'low')  { result.uiDensity = 'low';  appliedRules.push('P2:structure-low');  }
 
   // 2b. Exploration removes the block cap → user wants to browse
   if (style.exploration === 'high') {
     delete result.maxBlocks;
+    appliedRules.push('P2:exploration-high');
   }
 
   // 2c. Autonomy floors depth — autonomous users tolerate / want more content
   if (style.autonomy === 'high' && result.depth === 'light') {
     result.depth = 'medium';
+    appliedRules.push('P2:autonomy-high');
   }
 
   // 2d. Guidance rules (from original applyStyleBias)
   if (style.structure === 'high' && style.autonomy === 'low' && result.guidance === 'none') {
     result.guidance = 'suggest';
+    appliedRules.push('P2:suggest');
   }
 
   // ── Priority 3: Speed preference — fine-tuning only ────────────────────────
   if (style.speedPreference === 'deliberate' && result.depth === 'medium') {
     result.depth = 'deep';
+    appliedRules.push('P3:deliberate');
+    dominantPriority = 3;
   }
   if (style.speedPreference === 'fast' && emotional.tone !== 'reassuring') {
     if (result.depth === 'deep') result.depth = 'medium';
     if (!result.maxBlocks)       result.maxBlocks = 6;
+    appliedRules.push('P3:fast');
+    dominantPriority = 3;
+  }
+
+  if (appliedRules.length === 0) appliedRules.push('P2:no-op');
+
+  if (import.meta.env.DEV) {
+    result._debug = { ruleApplied: appliedRules.join(' + '), priority: dominantPriority };
+    observe('merge.rule.applied', {
+      rule:        appliedRules.join(' + '),
+      priority:    dominantPriority,
+      emotional:   emotional.tone,
+      structure:   style.structure,
+      exploration: style.exploration,
+    }, 'debug');
   }
 
   return result;

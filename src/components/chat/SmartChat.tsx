@@ -45,8 +45,9 @@ import ChevronLeftIcon        from '@mui/icons-material/ChevronLeft';
 import SettingsIcon           from '@mui/icons-material/Settings';
 import ExpandMoreIcon         from '@mui/icons-material/ExpandMore';
 
-import { ChatSettingsPanel } from './ChatSettingsPanel';
-import { SmartLandingView }  from './SmartLandingView';
+import { ChatSettingsPanel }    from './ChatSettingsPanel';
+import { SmartLandingView }     from './SmartLandingView';
+import { CognitiveDebugPanel }  from './CognitiveDebugPanel';
 
 import { useSmartChat }           from '@/hooks/useSmartChat';
 import { useConversationStore }   from '@/stores/useConversationStore';
@@ -458,6 +459,12 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
   // Show landing only when the pref is on AND there are no existing messages
   const [landingDismissed, setLandingDismissed] = useState(false);
 
+  // ── Fase 4: devtools panel — visible at ?debug=cognitive in dev mode ─
+  const [showDebugPanel] = useState(() =>
+    import.meta.env.DEV &&
+    new URLSearchParams(window.location.search).get('debug') === 'cognitive',
+  );
+
   // ── Cognitive drift detection (Fase 3, Task 4) ─────────────────────
   const cognitiveStyle      = useChatPrefsStore(s => s.cognitiveStyle);
   const [driftToast, setDriftToast] = useState(false);
@@ -707,6 +714,9 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
           Ho aggiornato il mio modello su di te
         </Alert>
       </Snackbar>
+
+      {/* ── Fase 4: Cognitive Debug Panel (dev-only, ?debug=cognitive) */}
+      {showDebugPanel && <CognitiveDebugPanel />}
     </Box>
   );
 }

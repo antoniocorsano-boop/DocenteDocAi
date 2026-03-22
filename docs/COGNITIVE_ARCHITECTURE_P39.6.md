@@ -162,21 +162,63 @@ Ogni turno di conversazione alimenta tre layer paralleli:
 
 ## 5. Telemetria — eventi emessi
 
-| Evento                      | Quando          | Payload chiave                                           |
-| --------------------------- | --------------- | -------------------------------------------------------- |
-| `cognitive.style.updated`   | ogni turno      | structure, autonomy, speedPreference, exploration, turns |
-| `chat.emotional.transition` | cambio di stato | from, to, frustration, flow                              |
-| `chat.emotional.signal`     | ogni turno      | state, tone, depth, guidance                             |
-| `chat.response.completed`   | ogni turno      | mode, emotionalState, blocksShown, blocksTotal           |
+| Evento                      | Quando           | Payload chiave                                           |
+| --------------------------- | ---------------- | -------------------------------------------------------- |
+| `cognitive.style.updated`   | ogni turno       | structure, autonomy, speedPreference, exploration, turns |
+| `chat.emotional.transition` | cambio di stato  | from, to, frustration, flow                              |
+| `chat.emotional.signal`     | ogni turno       | state, tone, depth, guidance                             |
+| `chat.response.completed`   | ogni turno       | mode, emotionalState, blocksShown, blocksTotal           |
+| `merge.rule.applied`        | ogni turno (DEV) | rule, priority, emotional, structure, exploration        |
+| `cognitive.style.drift`     | drift rilevato   | field, from, to (3 cambi consecutivi)                    |
 
 ---
 
-## 6. Commit history P38-P39.6
+## 6. Fase 4 — Explainability & Trasparenza (Fase 4)
 
-| Commit     | Tag           | Contenuto                                              |
-| ---------- | ------------- | ------------------------------------------------------ |
-| `a4003769` | P38.5+P38.6   | EmotionalEngine, learning layer, progressive reveal    |
-| `ff228673` | stabilization | smoothState, REVEAL_LABEL, stronger profile influence  |
-| `9d976415` | P39           | CognitiveStyleEngine, store v3, applyStyleBias         |
-| `3cfdbb4a` | P39.5         | smoothStyle, style-aware adaptBlocks, telemetria       |
-| `dfc8f705` | P39.6         | mergeStrategy, lastPerceivedState, gerarchia esplicita |
+### 6.1 `_debug` su `EmotionalStrategy`
+
+Il campo opzionale `_debug?: { ruleApplied: string; priority: 1|2|3 }` è stato aggiunto all'interfaccia `EmotionalStrategy` (in `EmotionalEngine.ts`). Viene popolato da `mergeStrategy` **solo in `import.meta.env.DEV`**, garantendo che Vite lo escluda dal bundle di produzione tramite tree-shaking.
+
+### 6.2 Regole tracciate da `mergeStrategy`
+
+| Identificatore        | Trigger                                                  | Priority |
+| --------------------- | -------------------------------------------------------- | -------- |
+| `P1:safety`           | `guidance === 'lead'`                                    | 1        |
+| `P2:structure-high`   | `style.structure === 'high'`                             | 2        |
+| `P2:structure-low`    | `style.structure === 'low'`                              | 2        |
+| `P2:exploration-high` | `style.exploration === 'high'`                           | 2        |
+| `P2:autonomy-high`    | `style.autonomy === 'high' && depth === 'light'`         | 2        |
+| `P2:suggest`          | `structure=high + autonomy=low + guidance=none`          | 2        |
+| `P2:no-op`            | Nessuna regola P2 o P3 applicata                         | 2        |
+| `P3:deliberate`       | `speedPreference === 'deliberate' && depth === 'medium'` | 3        |
+| `P3:fast`             | `speedPreference === 'fast' && tone !== 'reassuring'`    | 3        |
+
+Le regole si accumulano: es. `P2:structure-high + P2:exploration-high` indica che entrambe hanno modificato il risultato nello stesso turno.
+
+### 6.3 `CognitiveDebugPanel`
+
+Componente dev-only in `src/components/chat/CognitiveDebugPanel.tsx`.  
+Attivazione: `?debug=cognitive` nella URL (solo in dev).
+
+Mostra:
+
+- **Emotional Profile** — `baselineState`, `adaptability`, `updateCount`
+- **Cognitive Style** — tutti e 4 i campi (`structure`, `autonomy`, `speedPreference`, `exploration`)
+- **Signals** — tutti i contatori raw da `CognitiveStyleSignals` + `revealClickCount`
+- **Last Merge Rule** — aggiornato in real-time via `registerObserver` sull'evento `merge.rule.applied`
+
+Il panel si registra come observer al mount e si deregistra all'unmount (pulizia garantita dal ritorni di `registerObserver`).
+
+---
+
+## 7. Commit history P38-P39.6 + Fase 4
+
+| Commit     | Tag           | Contenuto                                                                           |
+| ---------- | ------------- | ----------------------------------------------------------------------------------- |
+| `a4003769` | P38.5+P38.6   | EmotionalEngine, learning layer, progressive reveal                                 |
+| `ff228673` | stabilization | smoothState, REVEAL_LABEL, stronger profile influence                               |
+| `9d976415` | P39           | CognitiveStyleEngine, store v3, applyStyleBias                                      |
+| `3cfdbb4a` | P39.5         | smoothStyle, style-aware adaptBlocks, telemetria                                    |
+| `dfc8f705` | P39.6         | mergeStrategy, lastPerceivedState, gerarchia esplicita                              |
+| `1f1f6c59` | Fase 3        | Human-in-the-Loop: sliders override, feedback chips, drift alert                    |
+| `(Fase 4)` | Fase 4        | `_debug` su EmotionalStrategy, `observe('merge.rule.applied')`, CognitiveDebugPanel |
