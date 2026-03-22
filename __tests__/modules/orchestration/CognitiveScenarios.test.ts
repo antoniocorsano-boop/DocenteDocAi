@@ -69,7 +69,7 @@ function runTurn(
   );
   const isBlocked = state === 'blocked' || state === 'overloaded';
   const newMemory  = updateEmotionalMemory(memory, signal, state);
-  const newSignals = recordModeUsage(signals, 'standard', isBlocked);
+  const newSignals = recordModeUsage(signals, 'balanced', isBlocked);
   const newStyle   = deriveStyle(newSignals, style);
   const strategy   = mergeStrategy(emotionalStrategy, newStyle);
 
@@ -279,9 +279,9 @@ describe('Scenario 2 — utente autonomo high structure', () => {
     };
     const blocks: UIBlock[] = [
       { type: 'text',    content: 'a' },
-      { type: 'insight', data: { title: 'x', value: 1, trend: 'up'   } },
-      { type: 'chart',   config: { title: 'c', type: 'bar', data: [] } },
-      { type: 'insight', data: { title: 'y', value: 2, trend: 'down' } },
+      { type: 'insight', data: { agentsUsed: [], confidence: 0.8, memoryUsed: false, memoryItems: [], intentType: 'test', durationMs: 100, mode: 'balanced', adaptiveHints: [] } },
+      { type: 'chart',   config: { chartType: 'bar', data: [] } },
+      { type: 'insight', data: { agentsUsed: [], confidence: 0.5, memoryUsed: false, memoryItems: [], intentType: 'test', durationMs: 80,  mode: 'balanced', adaptiveHints: [] } },
     ];
     const result  = adaptBlocks(blocks, strategy, { structure: style.structure, exploration: style.exploration });
     const visible = result.filter(b => !b.hidden);

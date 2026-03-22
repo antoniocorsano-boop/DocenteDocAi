@@ -209,8 +209,8 @@ describe('deriveStyle — heuristic derivation', () => {
 describe('recordModeUsage', () => {
   it('increments totalTurns on every call', () => {
     const s0 = createCognitiveStyleSignals();
-    const s1 = recordModeUsage(s0, 'standard', false);
-    const s2 = recordModeUsage(s1, 'standard', false);
+    const s1 = recordModeUsage(s0, 'balanced', false);
+    const s2 = recordModeUsage(s1, 'balanced', false);
     expect(s1.totalTurns).toBe(1);
     expect(s2.totalTurns).toBe(2);
   });
@@ -237,20 +237,20 @@ describe('recordModeUsage', () => {
 
   it('standard mode increments neither deep nor fast count', () => {
     const s0 = createCognitiveStyleSignals();
-    const s1 = recordModeUsage(s0, 'standard', false);
+    const s1 = recordModeUsage(s0, 'balanced', false);
     expect(s1.deepModeUsageCount).toBe(0);
     expect(s1.fastModeUsageCount).toBe(0);
   });
 
   it('isBlocked=true increments blockedTurns', () => {
     const s0 = createCognitiveStyleSignals();
-    const s1 = recordModeUsage(s0, 'standard', true);
+    const s1 = recordModeUsage(s0, 'balanced', true);
     expect(s1.blockedTurns).toBe(1);
   });
 
   it('isBlocked=false does not increment blockedTurns', () => {
     const s0 = createCognitiveStyleSignals();
-    const s1 = recordModeUsage(s0, 'standard', false);
+    const s1 = recordModeUsage(s0, 'balanced', false);
     expect(s1.blockedTurns).toBe(0);
   });
 

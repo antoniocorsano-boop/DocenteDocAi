@@ -46,8 +46,8 @@ const baseStrategy = (overrides: Partial<EmotionalStrategy> = {}): EmotionalStra
 });
 
 const textBlock    = (): UIBlock => ({ type: 'text',    content: 'hello' });
-const insightBlock = (): UIBlock => ({ type: 'insight', data:    { title: 'Insight', value: 42, trend: 'up'  } });
-const chartBlock   = (): UIBlock => ({ type: 'chart',   config:  { title: 'Chart',   type:  'bar', data: [] } });
+const insightBlock = (): UIBlock => ({ type: 'insight', data: { agentsUsed: [], confidence: 0.8, memoryUsed: false, memoryItems: [], intentType: 'test', durationMs: 100, mode: 'balanced', adaptiveHints: [] } });
+const chartBlock   = (): UIBlock => ({ type: 'chart',   config: { chartType: 'bar', data: [] } });
 
 // ── smoothState ────────────────────────────────────────────────────────────────
 
