@@ -69,11 +69,11 @@ Ogni fase ha:
 
 ### Task UI
 
-- [ ] **Microcopy dinamica per stato** — espandere `REVEAL_LABEL` a tutti i componenti che mostrano contenuto condizionale (non solo `AssistantMessage`)
-- [ ] **Reveal intelligente per exploration=high** — auto-espandere i blocchi (senza click) quando `exploration === 'high'` e blocchi nascosti <= 2
-- [ ] **Indice blocchi per structure=high** — se `structure === 'high'` e blocchi > 3, mostrare una mini-navbar di tipo (text / plan / insight) prima del contenuto
-- [ ] **CTA autonomia** — se `autonomy === 'high'`, aggiungere un chip `"Applicalo tu"` / `"Fammi vedere come"` sotto il blocco text nei casi in cui il sistema avrebbe proposto `guidance='suggest'`
-- [ ] **ChatSettingsPanel: sezione Stile Cognitivo** — visualizzare `cognitiveStyle` corrente (structure / autonomy / speed / exploration) come 4 chip readonly con tooltip esplicativo
+- [x] **Microcopy dinamica per stato** — espandere `REVEAL_LABEL` a tutti i componenti che mostrano contenuto condizionale (non solo `AssistantMessage`)
+- [x] **Reveal intelligente per exploration=high** — auto-espandere i blocchi (senza click) quando `exploration === 'high'` e blocchi nascosti <= 2
+- [x] **Indice blocchi per structure=high** — se `structure === 'high'` e blocchi > 3, mostrare una mini-navbar di tipo (text / plan / insight) prima del contenuto
+- [x] **CTA autonomia** — se `autonomy === 'high'`, aggiungere un chip `"Applicalo tu"` / `"Fammi vedere come"` sotto il blocco text nei casi in cui il sistema avrebbe proposto `guidance='suggest'`
+- [x] **ChatSettingsPanel: sezione Stile Cognitivo** — visualizzare `cognitiveStyle` corrente (structure / autonomy / speed / exploration) come 4 chip readonly con tooltip esplicativo
 
 ### Gate di uscita
 
