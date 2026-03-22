@@ -152,6 +152,25 @@ export function deriveProfile(
   };
 }
 
+/**
+ * P38.6-stable: prevent abrupt state jumps.
+ * Each state may only transition to its allowed next states.
+ */
+const SMOOTH_TRANSITIONS: Record<EmotionalState, EmotionalState[]> = {
+  blocked:       ['blocked', 'overloaded'],
+  overloaded:    ['overloaded', 'exploring', 'blocked'],
+  exploring:     ['exploring', 'focused', 'overloaded'],
+  focused:       ['focused', 'goal_oriented', 'exploring'],
+  goal_oriented: ['goal_oriented', 'focused'],
+};
+
+export function smoothState(
+  prev: EmotionalState,
+  next: EmotionalState,
+): EmotionalState {
+  return SMOOTH_TRANSITIONS[prev]?.includes(next) ? next : prev;
+}
+
 export function resolveStrategy(
   state:   EmotionalState,
   memory:  EmotionalMemory,
@@ -170,7 +189,15 @@ export function resolveStrategy(
     return noLimit;
   }
 
-  // P38.6: high adaptability → blend user's known preferences
+  // P38.6: always apply known depth preference (lower threshold from 0.7 → 0.4)
+  if (profile.preferredStrategy.depth && profile.adaptability >= 0.4) {
+    base.depth = profile.preferredStrategy.depth;
+    // uiDensity follows depth: deep→high, light→low, medium stays
+    if (profile.preferredStrategy.depth === 'deep')  base.uiDensity = 'high';
+    if (profile.preferredStrategy.depth === 'light') base.uiDensity = 'low';
+  }
+
+  // High adaptability: merge full preferred strategy override
   if (profile.adaptability > 0.7 && Object.keys(profile.preferredStrategy).length > 0) {
     return { ...base, ...profile.preferredStrategy };
   }
@@ -274,12 +301,14 @@ export function adaptBlocks(blocks: UIBlock[], strategy: EmotionalStrategy): Ada
 // ── Pipeline ──────────────────────────────────────────────────────────────────
 
 export function analyzeEmotional(
-  text:    string,
-  memory:  EmotionalMemory,
-  profile: EmotionalProfile = createEmotionalProfile(),
+  text:      string,
+  memory:    EmotionalMemory,
+  profile:   EmotionalProfile = createEmotionalProfile(),
+  prevState?: EmotionalState,
 ): { signal: EmotionalSignal; state: EmotionalState; strategy: EmotionalStrategy } {
   const signal   = detectSignals(text);
-  const state    = resolveState(signal);
+  const rawState = resolveState(signal);
+  const state    = prevState ? smoothState(prevState, rawState) : rawState;
   const strategy = resolveStrategy(state, memory, profile);
   return { signal, state, strategy };
 }

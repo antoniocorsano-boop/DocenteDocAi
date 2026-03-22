@@ -52,6 +52,7 @@ import { useChatPrefsStore }      from '@/stores/useChatPrefsStore';
 import { InputBar }               from './InputBar';
 import { MessageBlockRenderer }   from './MessageBlockRenderer';
 import type { ChatMessage, AdaptedBlock } from '@/types/uiBlocks';
+import type { EmotionalState }            from '@/modules/orchestration/EmotionalEngine';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -99,20 +100,32 @@ function UserBubble({ msg }: { msg: ChatMessage }) {
   );
 }
 
+// ── Emotional micro-copy map ─────────────────────────────────────────────────
+
+const REVEAL_LABEL: Record<EmotionalState, string> = {
+  focused:       'Mostra analisi completa',
+  exploring:     'Vedi altre opzioni',
+  overloaded:    'Mostra passo successivo',
+  blocked:       'Approfondisci',
+  goal_oriented: 'Dettagli',
+};
+
 // ── Assistant message ─────────────────────────────────────────────────────────
 
 interface AssistantMessageProps {
-  msg:           ChatMessage;
-  onFeedback:    (id: string, rating: 1 | 5) => void;
-  triggerAction: (agentId: string) => void;
+  msg:            ChatMessage;
+  onFeedback:     (id: string, rating: 1 | 5) => void;
+  triggerAction:  (agentId: string) => void;
+  emotionalState: EmotionalState;
 }
 
-function AssistantMessage({ msg, onFeedback, triggerAction }: AssistantMessageProps) {
+function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: AssistantMessageProps) {
   const [showAll, setShowAll] = useState(false);
 
   const adapted        = (msg.blocks ?? [{ type: 'text' as const, content: msg.content }]) as AdaptedBlock[];
   const visibleBlocks  = showAll ? adapted : adapted.filter(b => !b.hidden);
   const hiddenCount    = adapted.filter(b => b.hidden).length;
+  const revealLabel    = REVEAL_LABEL[emotionalState];
 
   return (
     <Box sx={{ mb: 2 }} role="article" aria-label="Risposta assistente">
@@ -141,12 +154,12 @@ function AssistantMessage({ msg, onFeedback, triggerAction }: AssistantMessagePr
           <Button
             size="small"
             variant="text"
-            aria-label={`Mostra ${hiddenCount} elementi aggiuntivi`}
+            aria-label={`${revealLabel} (${hiddenCount} elementi nascosti)`}
             startIcon={<ExpandMoreIcon />}
             onClick={() => setShowAll(true)}
             sx={{ alignSelf: 'flex-start', mt: 0.5, color: 'text.secondary' }}
           >
-            Mostra altri {hiddenCount} elementi
+            {revealLabel}
           </Button>
         )}
       </Stack>
@@ -478,6 +491,7 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
                   msg={msg}
                   onFeedback={(id, rating) => submitFeedback(id, rating)}
                   triggerAction={agentId => triggerAction(agentId, msg.content)}
+                  emotionalState={emotionalState}
                 />
               )
           )}

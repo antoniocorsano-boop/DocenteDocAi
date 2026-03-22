@@ -221,7 +221,12 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
 
     // P38.5 + P38.6: EmotionalEngine pipeline
     const emotionalProfile = useChatPrefsStore.getState().emotionalProfile;
-    const { signal, state, strategy } = analyzeEmotional(trimmed, emotionalMemoryRef.current, emotionalProfile);
+    const { signal, state, strategy } = analyzeEmotional(
+      trimmed,
+      emotionalMemoryRef.current,
+      emotionalProfile,
+      emotionalStateRef.current,   // prevState → smoothState
+    );
 
     // Transition telemetry (P38.6)
     const prevState = emotionalStateRef.current;
