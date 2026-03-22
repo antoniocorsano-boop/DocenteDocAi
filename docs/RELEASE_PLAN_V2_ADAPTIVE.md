@@ -51,9 +51,9 @@ Ogni fase ha:
 - [x] `__tests__/modules/orchestration/MergeEngine.test.ts` — test unitari `mergeStrategy` con tutti i path (lead → ritorno immediato, exploration=high → no cap, conflitti emotion vs style)
 - [x] `__tests__/modules/orchestration/CognitiveStyleEngine.test.ts` — test `smoothStyle` convergenza, `deriveStyle` stabilità dopo N turni
 - [x] `__tests__/modules/orchestration/EmotionalEngine.test.ts` — aggiungere casi `lastPerceivedState` + transizioni illecite bloccate da `smoothState`
-- [ ] Scenario E2E "utente bloccato per 3 turni poi si sblocca" — verificare che `uiDensity` resti bassa fino a recovery reale
-- [ ] Scenario E2E "utente autonomo high structure" — verificare `uiDensity=high` + depth floor `medium`
-- [ ] Verifica nessuna oscillazione stile nei primi 5 turni (speedPreference bloccata fino a T>=5)
+- [x] Scenario E2E "utente bloccato per 3 turni poi si sblocca" — verificare che `uiDensity` resti bassa fino a recovery reale
+- [x] Scenario E2E "utente autonomo high structure" — verificare `uiDensity=high` + depth floor `medium`
+- [x] Verifica nessuna oscillazione stile nei primi 5 turni (speedPreference bloccata fino a T>=5)
 
 ### Gate di uscita
 
