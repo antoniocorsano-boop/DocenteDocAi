@@ -1,0 +1,198 @@
+# Piano Esecutivo v2 — DocenteDoc AI verso il Rilascio
+
+**Data:** 2026-03-22  
+**Baseline tecnica:** commit `dfc8f705` (P39.6 — Merge Engine)  
+**Orizzonte target:** Pilota scuole italiane — giugno 2026
+
+---
+
+## 0. Stato corrente
+
+Il sistema ha completato il ciclo di intelligenza adattiva P38→P39.6:
+
+| Layer                                 | Stato        | Note                                    |
+| ------------------------------------- | ------------ | --------------------------------------- |
+| Orchestrator + CognitiveOrchestrator  | ✅ stabile   |                                         |
+| EmotionalEngine (L1-L4b)              | ✅ stabile   | smoothState, lastPerceivedState         |
+| EmotionalProfile cross-sessione       | ✅ stabile   | Zustand persist v3                      |
+| CognitiveStyleEngine                  | ✅ stabile   | deriveStyle, smoothStyle, mergeStrategy |
+| Merge Engine con gerarchia esplicita  | ✅ stabile   | emotion > style > speed                 |
+| UI adattiva (adaptBlocks style-aware) | ✅ stabile   |                                         |
+| Telemetria (4 eventi)                 | ✅ stabile   |                                         |
+| GDPR / Privacy consent                | ✅ stabile   | PrivacyConsentModal, dataRetention      |
+| Test baseline                         | ✅ 1740/1752 | 12 intentional skip, 0 failing          |
+| CI (lint, tsc, test, e2e-smoke)       | ✅ attivo    | 4 GitHub Actions                        |
+
+**Cosa manca per il rilascio:** UX validation, test di scenari cognitivi reali, deploy hardening, onboarding pilota.
+
+---
+
+## 1. Principi del piano
+
+**Emotion = safety signal** (momento-livello)  
+**Style = mappa di preferenza** (sessione/cross-sessione)  
+**UI = specchio del pensiero** (adattiva, non invasiva)  
+**Human-in-the-loop = guardrail e fiducia**
+
+Ogni fase ha:
+
+- criterio di completamento misurabile
+- gate di qualità prima di passare alla fase successiva
+- commit atomici + tag semantici
+
+---
+
+## 2. Fase 1 — Hardening & Test Cognitivi
+
+**Obiettivo:** il sistema regge scenari estremi senza oscillazioni visibili.
+
+### Task
+
+- [ ] `__tests__/modules/orchestration/MergeEngine.test.ts` — test unitari `mergeStrategy` con tutti i path (lead → ritorno immediato, exploration=high → no cap, conflitti emotion vs style)
+- [ ] `__tests__/modules/orchestration/CognitiveStyleEngine.test.ts` — test `smoothStyle` convergenza, `deriveStyle` stabilità dopo N turni
+- [ ] `__tests__/modules/orchestration/EmotionalEngine.test.ts` — aggiungere casi `lastPerceivedState` + transizioni illecite bloccate da `smoothState`
+- [ ] Scenario E2E "utente bloccato per 3 turni poi si sblocca" — verificare che `uiDensity` resti bassa fino a recovery reale
+- [ ] Scenario E2E "utente autonomo high structure" — verificare `uiDensity=high` + depth floor `medium`
+- [ ] Verifica nessuna oscillazione stile nei primi 5 turni (speedPreference bloccata fino a T>=5)
+
+### Gate di uscita
+
+- Test unitari: 100% path del merge engine coperti
+- 0 regressioni sulla baseline 1740 test
+- Lint + tsc: 0 errori/warning
+
+---
+
+## 3. Fase 2 — UX Adattiva Avanzata
+
+**Obiettivo:** l'esperienza visiva riflette lo stato cognitivo — l'utente percepisce che il sistema lo "conosce".
+
+### Task UI
+
+- [ ] **Microcopy dinamica per stato** — espandere `REVEAL_LABEL` a tutti i componenti che mostrano contenuto condizionale (non solo `AssistantMessage`)
+- [ ] **Reveal intelligente per exploration=high** — auto-espandere i blocchi (senza click) quando `exploration === 'high'` e blocchi nascosti <= 2
+- [ ] **Indice blocchi per structure=high** — se `structure === 'high'` e blocchi > 3, mostrare una mini-navbar di tipo (text / plan / insight) prima del contenuto
+- [ ] **CTA autonomia** — se `autonomy === 'high'`, aggiungere un chip `"Applicalo tu"` / `"Fammi vedere come"` sotto il blocco text nei casi in cui il sistema avrebbe proposto `guidance='suggest'`
+- [ ] **ChatSettingsPanel: sezione Stile Cognitivo** — visualizzare `cognitiveStyle` corrente (structure / autonomy / speed / exploration) come 4 chip readonly con tooltip esplicativo
+
+### Gate di uscita
+
+- `npm run lint`: 0 errori
+- `npm run test:unit`: 0 regressioni
+- Revisione visiva manuale: le 5 UI modificate sono conformi MD3
+
+---
+
+## 4. Fase 3 — Human-in-the-Loop
+
+**Obiettivo:** il docente può correggere il sistema quando sbaglia. Il sistema impara dalla correzione.
+
+### Task
+
+- [ ] **Override stile** — aggiungere a `ChatSettingsPanel` un pannello "Il mio stile di lavoro" con 4 slider (structure / autonomy / speed / exploration); cambi manuali → `updateCognitiveStyle()` + reset `revealClickCount`
+- [ ] **Feedback inline su strategia** — sotto ogni risposta, oltre a 👍/👎, aggiungere chip `"Troppo lungo"` / `"Troppo breve"` / `"Giusto così"`; questi alimentano `recordSuggestionAccepted/Rejected`
+- [ ] **Reset stile** — bottone in settings "Reimposta stile" → factory reset cognitivo (`createCognitiveStyle()` + `createCognitiveStyleSignals()` + `revealClickCount=0`)
+- [ ] **Alert drift** — se `cognitiveStyle.structure` o `.exploration` cambia di livello in 3 turni consecutivi, `observe('cognitive.style.drift', { from, to, field })` + eventuale toast utente "Ho aggiornato il mio modello su di te"
+
+### Gate di uscita
+
+- Override stile funziona e persiste dopo ricarica
+- Feedback inline aggiorna segnali nel turno successivo
+- 0 errori TS su nuovi componenti
+
+---
+
+## 5. Fase 4 — Explainability & Trasparenza
+
+**Obiettivo:** ogni decisione del merge engine è tracciabile e interrogabile.
+
+### Task
+
+- [ ] **Annotare `mergeStrategy`** — aggiungere al return un campo opzionale `_debug?: { ruleApplied: string; priority: 1|2|3 }` (rimosso in prod via tree-shaking o flag)
+- [ ] **Telemetria estesa** — `observe('merge.rule.applied', { rule, priority, emotional, style })` in modalità dev
+- [ ] **Devtools panel** (dev-only) — componente `CognitiveDebugPanel` nascosto dietro `?debug=cognitive` — mostra stato attuale: `EmotionalState`, `CognitiveStyle`, `lastPerceivedState`, `adaptedStrategy`, `mergeRuleApplied`
+- [ ] **Documentazione decisionale** — aggiornare `COGNITIVE_ARCHITECTURE_P39.6.md` con ogni nuova regola aggiunta
+
+### Gate di uscita
+
+- Il devtools panel si monta senza errori in dev
+- `_debug` non presente in bundle di produzione (verificato con `npm run build` + bundle analysis)
+
+---
+
+## 6. Fase 5 — Deploy Hardening & Pilota
+
+**Obiettivo:** il sistema è pronto per docenti reali in ambiente scolastico.
+
+### Task
+
+- [ ] **Vercel env check** — `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` solo server-side, verificare edge function `api/ai.ts`
+- [ ] **Rate limiting** — `api/ai.ts`: aggiungere rate limit per IP (max 30 req/min) tramite Vercel KV o header-based
+- [ ] **Error boundaries per layer cognitivo** — se `mergeStrategy` o `deriveStyle` lanciano eccezione inaspettata, fallire gracefully alla strategy base (no crash)
+- [ ] **Privacy audit** — verificare che `cognitiveStyle` e `emotionalProfile` non vengano inviati a endpoint esterni
+- [ ] **Onboarding pilota** — schermata di benvenuto che spiega brevemente "il sistema impara il tuo stile di lavoro" (fiducia + trasparenza)
+- [ ] **Lighthouse audit** — Performance ≥ 85, Accessibility ≥ 90, Best Practices ≥ 90
+- [ ] **Smoke test E2E su Vercel preview** — `npm run test:e2e:smoke` prima di ogni deploy
+
+### Gate di uscita
+
+- Build Vercel: 0 errori
+- Lighthouse: tutti i target raggiunti
+- Smoke test: pass
+- Privacy review: nessun dato cognitivo in outbound non autorizzato
+
+---
+
+## 7. Criteri di rilascio v2.0
+
+Il rilascio è approvato quando **tutti** i seguenti gate sono verdi:
+
+| Criterio                 | Metrica                                           |
+| ------------------------ | ------------------------------------------------- |
+| Test suite               | ≥ 1740 pass, 0 fail                               |
+| TypeScript               | 0 errori `tsc --noEmit`                           |
+| ESLint                   | 0 errori, ≤ 1 warning pre-esistente               |
+| Lighthouse Performance   | ≥ 85                                              |
+| Lighthouse Accessibility | ≥ 90                                              |
+| E2E smoke                | tutti pass su Vercel preview                      |
+| Privacy                  | nessun dato cognitivo in outbound non autorizzato |
+| Human-in-the-loop        | override stile funzionante                        |
+| Explainability           | devtools panel attivo in dev                      |
+
+---
+
+## 8. Rischi e mitigazioni
+
+| Rischio                                                 | Probabilità | Mitigazione                                                          |
+| ------------------------------------------------------- | ----------- | -------------------------------------------------------------------- |
+| Drift stile invisibile confonde l'utente                | Media       | Alert drift (Fase 3) + override manuale                              |
+| Merge engine produce strategia incoerente su edge cases | Bassa       | Test unitari completi (Fase 1) + error boundary (Fase 5)             |
+| Utente percepisce sistema "troppo curioso"              | Media       | Onboarding trasparente + reset stile con 1 click                     |
+| Performance degradata con telemetria densa              | Bassa       | `observe()` è fire-and-forget, non blocca il rendering               |
+| Store v3 non compatibile con dati v2 esistenti          | Bassa       | Zustand persist: cambiato `name`, la migrazione è automatica (reset) |
+
+---
+
+## 9. Sequenza di esecuzione raccomandata
+
+```
+Fase 1 (hardening)      →  ~3 giorni
+Fase 2 (UX adattiva)    →  ~4 giorni
+Fase 3 (HITL)           →  ~3 giorni
+Fase 4 (explainability) →  ~2 giorni
+Fase 5 (deploy)         →  ~2 giorni
+                            ─────────
+                            ~14 giorni lavorativi
+```
+
+Nessuna fase è bloccante per le successive se i gate di uscita sono soddisfatti.  
+Fase 5 è hard dependency: si esegue solo dopo Fase 1 + Fase 2 completate.
+
+---
+
+## 10. Riferimenti
+
+- [COGNITIVE_ARCHITECTURE_P39.6.md](./COGNITIVE_ARCHITECTURE_P39.6.md) — architettura layer e regole
+- [ROADMAP_ADAPTIVE_INTELLIGENCE.md](./ROADMAP_ADAPTIVE_INTELLIGENCE.md) — roadmap Sprint 10+
+- [CLAUDE.md](../CLAUDE.md) — setup, comandi, gotchas
+- Commit baseline: `dfc8f705` — P39.6 merge engine
