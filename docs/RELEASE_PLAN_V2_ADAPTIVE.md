@@ -108,10 +108,10 @@ Ogni fase ha:
 
 ### Task
 
-- [ ] **Annotare `mergeStrategy`** — aggiungere al return un campo opzionale `_debug?: { ruleApplied: string; priority: 1|2|3 }` (rimosso in prod via tree-shaking o flag)
-- [ ] **Telemetria estesa** — `observe('merge.rule.applied', { rule, priority, emotional, style })` in modalità dev
-- [ ] **Devtools panel** (dev-only) — componente `CognitiveDebugPanel` nascosto dietro `?debug=cognitive` — mostra stato attuale: `EmotionalState`, `CognitiveStyle`, `lastPerceivedState`, `adaptedStrategy`, `mergeRuleApplied`
-- [ ] **Documentazione decisionale** — aggiornare `COGNITIVE_ARCHITECTURE_P39.6.md` con ogni nuova regola aggiunta
+- [x] **Annotare `mergeStrategy`** — aggiunto campo opzionale `_debug?: { ruleApplied: string; priority: 1|2|3 }` su `EmotionalStrategy`; popolato da `mergeStrategy` in dev mode (tree-shaken in prod via `import.meta.env.DEV`) — commit `2d9111f2`
+- [x] **Telemetria estesa** — `observe('merge.rule.applied', { rule, priority, emotional, structure, exploration })` in dev mode; 9 regole tracciate con accumulo (`P2:structure-high + P2:exploration-high`) — commit `2d9111f2`
+- [x] **Devtools panel** (dev-only) — `CognitiveDebugPanel` nascosto dietro `?debug=cognitive` — mostra EmotionalProfile, CognitiveStyle, Signals, Last Merge Rule in real-time — commit `2d9111f2`
+- [x] **Documentazione decisionale** — `COGNITIVE_ARCHITECTURE_P39.6.md` aggiornato con sezione Fase 4, tabella regole merge, eventi telemetria — commit `2d9111f2`
 
 ### Gate di uscita
 
