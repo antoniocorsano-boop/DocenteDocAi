@@ -127,12 +127,12 @@ Ogni fase ha:
 ### Task
 
 - [ ] **Vercel env check** — `GEMINI_API_KEY` / `ANTHROPIC_API_KEY` solo server-side, verificare edge function `api/ai.ts`
-- [ ] **Rate limiting** — `api/ai.ts`: aggiungere rate limit per IP (max 30 req/min) tramite Vercel KV o header-based
-- [ ] **Error boundaries per layer cognitivo** — se `mergeStrategy` o `deriveStyle` lanciano eccezione inaspettata, fallire gracefully alla strategy base (no crash)
-- [ ] **Privacy audit** — verificare che `cognitiveStyle` e `emotionalProfile` non vengano inviati a endpoint esterni
-- [ ] **Onboarding pilota** — schermata di benvenuto che spiega brevemente "il sistema impara il tuo stile di lavoro" (fiducia + trasparenza)
-- [ ] **Lighthouse audit** — Performance ≥ 85, Accessibility ≥ 90, Best Practices ≥ 90
-- [ ] **Smoke test E2E su Vercel preview** — `npm run test:e2e:smoke` prima di ogni deploy
+- [x] **Rate limiting** — `api/ai.ts`: rate limit per IP (max 30 req/min) tramite in-memory map, bypass in test mode (`NODE_ENV=test`)
+- [x] **Error boundaries per layer cognitivo** — `deriveStyle` e `mergeStrategy` in `useSmartChat.ts` wrappati in try/catch; fallback graceful a strategia base, `observe('cognitive.engine.error', ...)` su failure
+- [x] **Privacy audit** — verificato: `cognitiveStyle` e `emotionalProfile` non inviati a endpoint esterni (solo Zustand localStorage persist)
+- [x] **Onboarding pilota** — `PilotaOnboardingModal.tsx` (3° gate in `main.tsx`, dopo PrivacyConsentModal + SovereigntyOnboarding); key `pilot_onboarding_v1`; 3 card: sistema emotivo / stile personalizzato / privacy locale
+- [ ] **Lighthouse audit** — Performance ≥ 85, Accessibility ≥ 90, Best Practices ≥ 90 _(gate manuale pre-deploy)_
+- [ ] **Smoke test E2E su Vercel preview** — `npm run test:e2e:smoke` prima di ogni deploy _(gate manuale pre-deploy)_
 
 ### Gate di uscita
 
