@@ -69,6 +69,10 @@ playwright-report/
 docs/screenshots/
 scripts/audit-md3-expressive.js
 
+# Lighthouse audit reports (auto-generated per run)
+audit/lighthouse/
+audit/bundle-stats.html
+
 *storybook.log
 storybook-static
 
