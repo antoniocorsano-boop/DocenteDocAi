@@ -256,20 +256,34 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
       effectiveMode,
       state === 'blocked',
     );
-    const newStyle = deriveStyle(updatedSignals, cognitiveStyle);
-    useChatPrefsStore.getState().updateCognitiveStyle(newStyle);
-    useChatPrefsStore.getState().updateCognitiveStyleSignals(updatedSignals);
 
-    observe('cognitive.style.updated', {
-      structure:       newStyle.structure,
-      autonomy:        newStyle.autonomy,
-      speedPreference: newStyle.speedPreference,
-      exploration:     newStyle.exploration,
-      turns:           updatedSignals.totalTurns,
-    });
+    // P39.6 + Fase 5: error boundaries — cognitive layer failures degrade gracefully
+    let newStyle = cognitiveStyle;
+    try {
+      newStyle = deriveStyle(updatedSignals, cognitiveStyle);
+      useChatPrefsStore.getState().updateCognitiveStyle(newStyle);
+      useChatPrefsStore.getState().updateCognitiveStyleSignals(updatedSignals);
+
+      observe('cognitive.style.updated', {
+        structure:       newStyle.structure,
+        autonomy:        newStyle.autonomy,
+        speedPreference: newStyle.speedPreference,
+        exploration:     newStyle.exploration,
+        turns:           updatedSignals.totalTurns,
+      });
+    } catch (e) {
+      observe('cognitive.engine.error', { phase: 'deriveStyle', error: String(e) }, 'warn');
+      // fallback: keep current cognitiveStyle unchanged
+    }
 
     // P39.6: explicit merge engine — emotion (safety) > style (preference)
-    const adaptedStrategy = mergeStrategy(strategy, newStyle);
+    let adaptedStrategy = strategy;
+    try {
+      adaptedStrategy = mergeStrategy(strategy, newStyle);
+    } catch (e) {
+      observe('cognitive.engine.error', { phase: 'mergeStrategy', error: String(e) }, 'warn');
+      // fallback: use emotional-only strategy (no style bias)
+    }
 
     // Build system context with emotional modulation
     buildSystemPrompt({ mode: effectiveMode, memory: [], emotional: adaptedStrategy, cognitiveStyle: newStyle });

@@ -23,6 +23,36 @@ const MIUR_SCHOOLS_CSV =
 // Rate-limit safeguard: reject payloads over 1MB
 const MAX_BODY_BYTES = 1_000_000;
 
+// ── In-memory IP rate limiter ────────────────────────────────────────────────
+// Best-effort: resets on Vercel cold-start (acceptable for basic DoS mitigation).
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX_REQ   = 30;
+
+interface RateEntry { count: number; resetAt: number; }
+const _ipRateMap = new Map<string, RateEntry>();
+
+function checkRateLimit(req: import('@vercel/node').VercelRequest): boolean {
+  // Skip rate limiting in test environments — the in-memory map is shared
+  // across all test requests (same process), causing false 429s.
+  if (process.env.NODE_ENV === 'test') return true;
+
+  const forwarded = req.headers['x-forwarded-for'];
+  const ip = String(
+    (Array.isArray(forwarded) ? forwarded[0] : forwarded)?.split(',')[0].trim()
+    ?? (req.socket as { remoteAddress?: string } | null)?.remoteAddress
+    ?? 'unknown',
+  );
+  const now  = Date.now();
+  const entry = _ipRateMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    _ipRateMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+  if (entry.count >= RATE_LIMIT_MAX_REQ) return false;
+  entry.count++;
+  return true;
+}
+
 // ── Allowed external hostnames for fetch_proxy and school_kb_crawl ───────────
 // Whitelist: only Italian public institution domains
 const ALLOWED_PROXY_HOSTS = [
@@ -106,6 +136,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   // Only allow POST
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
+  }
+
+  // Rate limiting — 30 requests per minute per IP (best-effort, resets on cold-start)
+  if (!checkRateLimit(req)) {
+    return res.status(429).json({ error: 'Too many requests. Limit: 30 per minute.' });
   }
 
   const body = req.body as Record<string, unknown>;

@@ -356,19 +356,27 @@ async function bootstrapApp() {
     const { ModalProvider } = await import('./contexts/ModalContext');
     const { default: PrivacyConsentModal }    = await import('./components/PrivacyConsentModal');
     const { default: SovereigntyOnboarding } = await import('./components/onboarding/SovereigntyOnboarding');
+    const { default: PilotaOnboardingModal, hasPilotOnboarding } = await import('./components/onboarding/PilotaOnboardingModal');
 
-    /** Consent gate — keeps app blocked until GDPR informativa is accepted,
-     *  then shows sovereignty onboarding if not yet configured. */
+    /** Consent gate — keeps app blocked until:
+     *  1. GDPR informativa is accepted (PrivacyConsentModal)
+     *  2. Sovereignty settings are configured (SovereigntyOnboarding)
+     *  3. Pilot cognitive-system intro is shown once (PilotaOnboardingModal)
+     */
     function AppWithConsent() {
       const isTestMode = !!(window as unknown as { __TEST_MODE?: boolean }).__TEST_MODE
         || localStorage.getItem('__e2e_test_mode') === 'true';
       const [consented,   setConsented]   = useState(() => isTestMode || hasPrivacyConsent());
       const [hasSov,      setHasSov]      = useState(() => isTestMode || hasSovereigntyConfig());
+      const [hasPilot,    setHasPilot]    = useState(() => isTestMode || hasPilotOnboarding());
       if (!consented) {
         return <PrivacyConsentModal onAccepted={() => setConsented(true)} />;
       }
       if (!hasSov) {
         return <SovereigntyOnboarding onCompleted={() => setHasSov(true)} />;
+      }
+      if (!hasPilot) {
+        return <PilotaOnboardingModal open={true} onDone={() => setHasPilot(true)} />;
       }
       return (
         <NKAProvider>
