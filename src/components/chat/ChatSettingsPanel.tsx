@@ -41,6 +41,7 @@ import PersonIcon         from '@mui/icons-material/Person';
 import HomeIcon           from '@mui/icons-material/Home';
 import TrendingUpIcon     from '@mui/icons-material/TrendingUp';
 import PsychologyIcon     from '@mui/icons-material/Psychology';
+import RestartAltIcon     from '@mui/icons-material/RestartAlt';
 
 import type { Mode }                 from '@/modules/orchestration/ModeEngine';
 import { useConversationStore }      from '@/stores/useConversationStore';
@@ -50,17 +51,22 @@ import { useSuggestedMode }          from '@/hooks/useSuggestedMode';
 
 // ── Cognitive style labels (Fase 2, Task 5) ────────────────────────────────
 
-const STYLE_LEVEL_LABELS: Record<string, string> = {
-  low:    'Bassa',
-  medium: 'Media',
-  high:   'Alta',
-};
+// ── Cognitive style slider helpers (Fase 3) ─────────────────────────────
 
-const SPEED_LABELS: Record<string, string> = {
-  fast:       'Rapido',
-  balanced:   'Bilanciato',
-  deliberate: 'Riflessivo',
-};
+const LEVEL_MARKS = [
+  { value: 0, label: 'Bassa'  },
+  { value: 1, label: 'Media'  },
+  { value: 2, label: 'Alta'   },
+];
+const SPEED_MARKS = [
+  { value: 0, label: 'Rapido'     },
+  { value: 1, label: 'Bilanciato' },
+  { value: 2, label: 'Riflessivo' },
+];
+const LEVEL_VALUES: Record<string, number> = { low: 0, medium: 1, high: 2 };
+const SPEED_VALUES: Record<string, number> = { fast: 0, balanced: 1, deliberate: 2 };
+const LEVELS        = ['low', 'medium', 'high']          as const;
+const SPEEDS        = ['fast', 'balanced', 'deliberate'] as const;
 
 // ── Mode options ───────────────────────────────────────────────────────────────
 
@@ -135,6 +141,8 @@ export function ChatSettingsPanel({
     rejectedSuggestions,
     autoApplySuggestions,
     cognitiveStyle,
+    overrideCognitiveStyle,
+    resetCognitiveStyle,
   } = useChatPrefsStore();
 
   const { suggested, reason } = useSuggestedMode();
@@ -422,42 +430,65 @@ export function ChatSettingsPanel({
           </Box>
 
           <Divider />
-          {/* ── 7b. Stile Cognitivo ─────────────────────────────── */}
+          {/* ── 7b. Il mio stile di lavoro (Fase 3 — slider override) ─── */}
           <Box>
-            <SectionHeader icon={<PsychologyIcon />} label="Stile cognitivo" />
-            <Stack direction="row" flexWrap="wrap" gap={0.75} useFlexGap sx={{ mt: 0.5 }}>
-              <Tooltip title="Preferenza per risposte strutturate e step-by-step" placement="top">
-                <Chip
-                  label={`🏗 Struttura: ${STYLE_LEVEL_LABELS[cognitiveStyle.structure]}`}
+            <SectionHeader icon={<PsychologyIcon />} label="Il mio stile di lavoro" />
+            <Stack spacing={2} sx={{ mt: 1 }}>
+              <Box>
+                <Typography variant="caption" color="text.secondary">🏗 Struttura</Typography>
+                <Slider
                   size="small"
-                  aria-label={`Struttura: ${STYLE_LEVEL_LABELS[cognitiveStyle.structure]}`}
+                  min={0} max={2} step={1}
+                  marks={LEVEL_MARKS}
+                  value={LEVEL_VALUES[cognitiveStyle.structure] ?? 1}
+                  onChange={(_, v) => overrideCognitiveStyle({ ...cognitiveStyle, structure: LEVELS[v as number] })}
+                  aria-label="Struttura cognitiva"
                 />
-              </Tooltip>
-              <Tooltip title="Quanto preferisce guidare il lavoro in autonomia" placement="top">
-                <Chip
-                  label={`🎯 Autonomia: ${STYLE_LEVEL_LABELS[cognitiveStyle.autonomy]}`}
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">🎯 Autonomia</Typography>
+                <Slider
                   size="small"
-                  aria-label={`Autonomia: ${STYLE_LEVEL_LABELS[cognitiveStyle.autonomy]}`}
+                  min={0} max={2} step={1}
+                  marks={LEVEL_MARKS}
+                  value={LEVEL_VALUES[cognitiveStyle.autonomy] ?? 1}
+                  onChange={(_, v) => overrideCognitiveStyle({ ...cognitiveStyle, autonomy: LEVELS[v as number] })}
+                  aria-label="Autonomia preferita"
                 />
-              </Tooltip>
-              <Tooltip title="Ritmo preferito: veloce, bilanciato o riflessivo" placement="top">
-                <Chip
-                  label={`⚡ Velocità: ${SPEED_LABELS[cognitiveStyle.speedPreference]}`}
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">⚡ Velocità</Typography>
+                <Slider
                   size="small"
-                  aria-label={`Velocità: ${SPEED_LABELS[cognitiveStyle.speedPreference]}`}
+                  min={0} max={2} step={1}
+                  marks={SPEED_MARKS}
+                  value={SPEED_VALUES[cognitiveStyle.speedPreference] ?? 1}
+                  onChange={(_, v) => overrideCognitiveStyle({ ...cognitiveStyle, speedPreference: SPEEDS[v as number] })}
+                  aria-label="Velocità di risposta preferita"
                 />
-              </Tooltip>
-              <Tooltip title="Propensione ad esplorare alternative e approfondimenti" placement="top">
-                <Chip
-                  label={`🔍 Esplorazione: ${STYLE_LEVEL_LABELS[cognitiveStyle.exploration]}`}
+              </Box>
+              <Box>
+                <Typography variant="caption" color="text.secondary">🔍 Esplorazione</Typography>
+                <Slider
                   size="small"
-                  aria-label={`Esplorazione: ${STYLE_LEVEL_LABELS[cognitiveStyle.exploration]}`}
+                  min={0} max={2} step={1}
+                  marks={LEVEL_MARKS}
+                  value={LEVEL_VALUES[cognitiveStyle.exploration] ?? 1}
+                  onChange={(_, v) => overrideCognitiveStyle({ ...cognitiveStyle, exploration: LEVELS[v as number] })}
+                  aria-label="Propensione all'esplorazione"
                 />
-              </Tooltip>
+              </Box>
             </Stack>
-            <Typography variant="caption" color="text.secondary" sx={{ mt: 0.75, display: 'block' }}>
-              Appreso automaticamente dall&apos;utilizzo. Si aggiorna nel tempo.
-            </Typography>
+            <Button
+              size="small"
+              color="warning"
+              startIcon={<RestartAltIcon />}
+              onClick={resetCognitiveStyle}
+              sx={{ mt: 1 }}
+              aria-label="Reimposta stile cognitivo ai valori di default"
+            >
+              Reimposta stile
+            </Button>
           </Box>
 
           <Divider />

@@ -106,8 +106,12 @@ export interface ChatPrefsState {
   resetSession(): void;
   /** P38.6: persist evolved emotional profile */
   updateEmotionalProfile(profile: EmotionalProfile): void;
-  /** P39: persist evolved cognitive style */
+  /** P39: persist evolved cognitive style (automated) */
   updateCognitiveStyle(style: CognitiveStyle): void;
+  /** Fase 3: manual user override — also resets revealClickCount */
+  overrideCognitiveStyle(style: CognitiveStyle): void;
+  /** Fase 3: factory reset (style + signals + revealClickCount) */
+  resetCognitiveStyle(): void;
   /** P39: persist updated raw signals */
   updateCognitiveStyleSignals(signals: CognitiveStyleSignals): void;
   /** P39: increment reveal-click counter */
@@ -206,6 +210,18 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
 
       updateCognitiveStyle(style) {
         set({ cognitiveStyle: style });
+      },
+
+      overrideCognitiveStyle(style) {
+        set({ cognitiveStyle: style, revealClickCount: 0 });
+      },
+
+      resetCognitiveStyle() {
+        set({
+          cognitiveStyle:        createCognitiveStyle(),
+          cognitiveStyleSignals: createCognitiveStyleSignals(),
+          revealClickCount:      0,
+        });
       },
 
       updateCognitiveStyleSignals(signals) {

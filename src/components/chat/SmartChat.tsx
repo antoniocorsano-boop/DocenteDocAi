@@ -14,6 +14,7 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Alert,
   Box,
   Button,
   Chip,
@@ -27,6 +28,7 @@ import {
   ListItemButton,
   ListItemText,
   Paper,
+  Snackbar,
   Stack,
   Tooltip,
   Typography,
@@ -53,6 +55,7 @@ import { InputBar }               from './InputBar';
 import { MessageBlockRenderer }   from './MessageBlockRenderer';
 import type { ChatMessage, AdaptedBlock } from '@/types/uiBlocks';
 import type { EmotionalState }            from '@/modules/orchestration/EmotionalEngine';
+import { observe }                        from '@/utils/observability';
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
@@ -144,6 +147,8 @@ function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: As
   const [showAll, setShowAll] = useState(() =>
     cognitiveStyle.exploration === 'high' && hiddenCount > 0 && hiddenCount <= 2
   );
+  // Per-message feedback chip state (Fase 3, Task 2)
+  const [feedbackChip, setFeedbackChip] = useState<string | null>(null);
 
   const visibleBlocks     = showAll ? adapted : adapted.filter(b => !b.hidden);
   const revealLabel       = REVEAL_LABEL[emotionalState];
@@ -239,6 +244,50 @@ function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: As
           </IconButton>
         </Tooltip>
       </Stack>
+
+      {/* Feedback inline su strategia (Fase 3, Task 2) */}
+      {feedbackChip === null ? (
+        <Stack direction="row" spacing={0.75} flexWrap="wrap" useFlexGap sx={{ mt: 0.5 }}>
+          <Chip
+            label="Troppo lungo"
+            size="small"
+            variant="outlined"
+            clickable
+            aria-label="La risposta era troppo lunga"
+            onClick={() => {
+              setFeedbackChip('lungo');
+              useChatPrefsStore.getState().recordSuggestionRejected();
+            }}
+          />
+          <Chip
+            label="Troppo breve"
+            size="small"
+            variant="outlined"
+            clickable
+            aria-label="La risposta era troppo breve"
+            onClick={() => {
+              setFeedbackChip('breve');
+              useChatPrefsStore.getState().recordSuggestionRejected();
+            }}
+          />
+          <Chip
+            label="Giusto così"
+            size="small"
+            variant="outlined"
+            color="success"
+            clickable
+            aria-label="La risposta era della lunghezza giusta"
+            onClick={() => {
+              setFeedbackChip('giusto');
+              useChatPrefsStore.getState().recordSuggestionAccepted();
+            }}
+          />
+        </Stack>
+      ) : (
+        <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
+          Grazie per il feedback!
+        </Typography>
+      )}
 
       {/* CTA autonomia — shown when autonomy=high outside blocked/overloaded state (Task 4) */}
       {cognitiveStyle.autonomy === 'high' &&
@@ -408,6 +457,36 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
   const { showLanding } = useChatPrefsStore();
   // Show landing only when the pref is on AND there are no existing messages
   const [landingDismissed, setLandingDismissed] = useState(false);
+
+  // ── Cognitive drift detection (Fase 3, Task 4) ─────────────────────
+  const cognitiveStyle      = useChatPrefsStore(s => s.cognitiveStyle);
+  const [driftToast, setDriftToast] = useState(false);
+  const styleHistoryRef = useRef<Array<{ structure: string; exploration: string }>>([]);
+  const driftMountRef   = useRef(false);
+
+  useEffect(() => {
+    const snap = { structure: cognitiveStyle.structure, exploration: cognitiveStyle.exploration };
+    if (!driftMountRef.current) {
+      driftMountRef.current = true;
+      styleHistoryRef.current = [snap];
+      return;
+    }
+    const h = [...styleHistoryRef.current, snap].slice(-4);
+    styleHistoryRef.current = h;
+    if (h.length < 4) return;
+    for (const field of ['structure', 'exploration'] as const) {
+      if (
+        h[1][field] !== h[0][field] &&
+        h[2][field] !== h[1][field] &&
+        h[3][field] !== h[2][field]
+      ) {
+        observe('cognitive.style.drift', { field, from: h[0][field], to: h[3][field] }, 'info');
+        setDriftToast(true);
+        styleHistoryRef.current = [];
+        break;
+      }
+    }
+  }, [cognitiveStyle]);
   const showLandingView = showLanding && !landingDismissed && messages.length === 0;
 
   const handleLandingStart = useCallback((text?: string) => {
@@ -611,6 +690,23 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
         autoSandbox={autoSandbox}
         setAutoSandbox={setAutoSandbox}
       />
+
+      {/* Drift alert toast (Fase 3, Task 4) */}
+      <Snackbar
+        open={driftToast}
+        autoHideDuration={4000}
+        onClose={() => setDriftToast(false)}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          severity="info"
+          variant="filled"
+          onClose={() => setDriftToast(false)}
+          sx={{ width: '100%' }}
+        >
+          Ho aggiornato il mio modello su di te
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
