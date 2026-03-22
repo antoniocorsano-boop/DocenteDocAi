@@ -109,7 +109,20 @@ const REVEAL_LABEL: Record<EmotionalState, string> = {
   blocked:       'Approfondisci',
   goal_oriented: 'Dettagli',
 };
+// ── Block type labels — mini-navbar for structure=high (Fase 2, Task 3) ─────────
 
+const BLOCK_TYPE_LABELS: Record<string, string> = {
+  text:     '📝 Testo',
+  plan:     '📋 Piano',
+  insight:  '🔍 Trasparenza',
+  actions:  '⚡ Azioni',
+  status:   '⚠️ Stato',
+  table:    '📊 Tabella',
+  chart:    '📈 Grafico',
+  form:     '📝 Modulo',
+  sandbox:  '🧪 Sandbox',
+  timeline: '📅 Timeline',
+};
 // ── Assistant message ─────────────────────────────────────────────────────────
 
 interface AssistantMessageProps {
@@ -120,12 +133,22 @@ interface AssistantMessageProps {
 }
 
 function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: AssistantMessageProps) {
-  const [showAll, setShowAll] = useState(false);
+  // Compute adapted blocks and hidden count before hooks so the useState
+  // lazy initializer can use them (exploration=high auto-reveal, Task 2)
+  const adapted       = (msg.blocks ?? [{ type: 'text' as const, content: msg.content }]) as AdaptedBlock[];
+  const hiddenCount   = adapted.filter(b => b.hidden).length;
 
-  const adapted        = (msg.blocks ?? [{ type: 'text' as const, content: msg.content }]) as AdaptedBlock[];
-  const visibleBlocks  = showAll ? adapted : adapted.filter(b => !b.hidden);
-  const hiddenCount    = adapted.filter(b => b.hidden).length;
-  const revealLabel    = REVEAL_LABEL[emotionalState];
+  const cognitiveStyle = useChatPrefsStore(s => s.cognitiveStyle);
+
+  // Auto-reveal when exploration=high and few blocks are hidden (Task 2)
+  const [showAll, setShowAll] = useState(() =>
+    cognitiveStyle.exploration === 'high' && hiddenCount > 0 && hiddenCount <= 2
+  );
+
+  const visibleBlocks     = showAll ? adapted : adapted.filter(b => !b.hidden);
+  const revealLabel       = REVEAL_LABEL[emotionalState];
+  // Unique block types in appearance order — used for mini-navbar (Task 3)
+  const uniqueBlockTypes  = Array.from(new Set(visibleBlocks.map(b => b.type)));
 
   return (
     <Box sx={{ mb: 2 }} role="article" aria-label="Risposta assistente">
@@ -142,12 +165,37 @@ function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: As
 
       {/* Blocks with progressive reveal */}
       <Stack spacing={1.25}>
+        {/* Mini-navbar block index — shown when structure=high and >3 blocks (Task 3) */}
+        {cognitiveStyle.structure === 'high' && visibleBlocks.length > 3 && (
+          <Stack
+            direction="row"
+            spacing={0.5}
+            flexWrap="wrap"
+            useFlexGap
+            sx={{ mb: 0.5 }}
+            role="navigation"
+            aria-label="Indice blocchi risposta"
+          >
+            {uniqueBlockTypes.map(type => (
+              <Chip
+                key={type}
+                label={BLOCK_TYPE_LABELS[type] ?? type}
+                size="small"
+                variant="outlined"
+                sx={{ opacity: 0.7 }}
+                aria-label={`Sezione: ${BLOCK_TYPE_LABELS[type] ?? type}`}
+              />
+            ))}
+          </Stack>
+        )}
+
         {visibleBlocks.map((block, idx) => (
           <MessageBlockRenderer
             key={idx}
             block={block}
             onAction={triggerAction}
             insightExpanded={msg.isDeep}
+            emotionalState={emotionalState}
           />
         ))}
         {!showAll && hiddenCount > 0 && (
@@ -191,6 +239,35 @@ function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: As
           </IconButton>
         </Tooltip>
       </Stack>
+
+      {/* CTA autonomia — shown when autonomy=high outside blocked/overloaded state (Task 4) */}
+      {cognitiveStyle.autonomy === 'high' &&
+       emotionalState !== 'blocked' &&
+       emotionalState !== 'overloaded' && (
+        <Stack
+          direction="row"
+          spacing={0.75}
+          flexWrap="wrap"
+          useFlexGap
+          sx={{ mt: 0.75 }}
+          aria-label="Azioni di autonomia"
+        >
+          <Chip
+            label="Applicalo tu"
+            size="small"
+            variant="outlined"
+            clickable
+            aria-label="Applica questo direttamente"
+          />
+          <Chip
+            label="Fammi vedere come"
+            size="small"
+            variant="outlined"
+            clickable
+            aria-label="Mostrami come applicarlo passo per passo"
+          />
+        </Stack>
+      )}
     </Box>
   );
 }

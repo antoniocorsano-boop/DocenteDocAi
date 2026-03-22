@@ -40,12 +40,27 @@ import TuneIcon           from '@mui/icons-material/Tune';
 import PersonIcon         from '@mui/icons-material/Person';
 import HomeIcon           from '@mui/icons-material/Home';
 import TrendingUpIcon     from '@mui/icons-material/TrendingUp';
+import PsychologyIcon     from '@mui/icons-material/Psychology';
 
 import type { Mode }                 from '@/modules/orchestration/ModeEngine';
 import { useConversationStore }      from '@/stores/useConversationStore';
 import { useChatPrefsStore }         from '@/stores/useChatPrefsStore';
 import type { UserRole }             from '@/stores/useChatPrefsStore';
 import { useSuggestedMode }          from '@/hooks/useSuggestedMode';
+
+// ── Cognitive style labels (Fase 2, Task 5) ────────────────────────────────
+
+const STYLE_LEVEL_LABELS: Record<string, string> = {
+  low:    'Bassa',
+  medium: 'Media',
+  high:   'Alta',
+};
+
+const SPEED_LABELS: Record<string, string> = {
+  fast:       'Rapido',
+  balanced:   'Bilanciato',
+  deliberate: 'Riflessivo',
+};
 
 // ── Mode options ───────────────────────────────────────────────────────────────
 
@@ -119,6 +134,7 @@ export function ChatSettingsPanel({
     acceptedSuggestions,
     rejectedSuggestions,
     autoApplySuggestions,
+    cognitiveStyle,
   } = useChatPrefsStore();
 
   const { suggested, reason } = useSuggestedMode();
@@ -406,7 +422,45 @@ export function ChatSettingsPanel({
           </Box>
 
           <Divider />
+          {/* ── 7b. Stile Cognitivo ─────────────────────────────── */}
+          <Box>
+            <SectionHeader icon={<PsychologyIcon />} label="Stile cognitivo" />
+            <Stack direction="row" flexWrap="wrap" gap={0.75} useFlexGap sx={{ mt: 0.5 }}>
+              <Tooltip title="Preferenza per risposte strutturate e step-by-step" placement="top">
+                <Chip
+                  label={`🏗 Struttura: ${STYLE_LEVEL_LABELS[cognitiveStyle.structure]}`}
+                  size="small"
+                  aria-label={`Struttura: ${STYLE_LEVEL_LABELS[cognitiveStyle.structure]}`}
+                />
+              </Tooltip>
+              <Tooltip title="Quanto preferisce guidare il lavoro in autonomia" placement="top">
+                <Chip
+                  label={`🎯 Autonomia: ${STYLE_LEVEL_LABELS[cognitiveStyle.autonomy]}`}
+                  size="small"
+                  aria-label={`Autonomia: ${STYLE_LEVEL_LABELS[cognitiveStyle.autonomy]}`}
+                />
+              </Tooltip>
+              <Tooltip title="Ritmo preferito: veloce, bilanciato o riflessivo" placement="top">
+                <Chip
+                  label={`⚡ Velocità: ${SPEED_LABELS[cognitiveStyle.speedPreference]}`}
+                  size="small"
+                  aria-label={`Velocità: ${SPEED_LABELS[cognitiveStyle.speedPreference]}`}
+                />
+              </Tooltip>
+              <Tooltip title="Propensione ad esplorare alternative e approfondimenti" placement="top">
+                <Chip
+                  label={`🔍 Esplorazione: ${STYLE_LEVEL_LABELS[cognitiveStyle.exploration]}`}
+                  size="small"
+                  aria-label={`Esplorazione: ${STYLE_LEVEL_LABELS[cognitiveStyle.exploration]}`}
+                />
+              </Tooltip>
+            </Stack>
+            <Typography variant="caption" color="text.secondary" sx={{ mt: 0.75, display: 'block' }}>
+              Appreso automaticamente dall&apos;utilizzo. Si aggiorna nel tempo.
+            </Typography>
+          </Box>
 
+          <Divider />
           {/* ── 7. Cronologia ──────────────────────────────────────────── */}
           <Box>
             <SectionHeader icon={<DeleteOutlineIcon />} label="Cronologia" />

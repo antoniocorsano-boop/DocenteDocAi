@@ -55,15 +55,18 @@ import {
 import { dispatchAction }  from '@/modules/orchestration/ActionBridge';
 import { SandboxBlock }    from './SandboxBlock';
 import type { UIBlock, FormField } from '@/types/uiBlocks';
+import type { EmotionalState }    from '@/modules/orchestration/EmotionalEngine';
 
 // ── Props ─────────────────────────────────────────────────────────────────────
 
 interface Props {
-  block:         UIBlock;
+  block:            UIBlock;
   /** Called when an action button is pressed */
-  onAction?:     (agentId: string) => void;
+  onAction?:        (agentId: string) => void;
   /** Whether to show the insight panel expanded by default */
   insightExpanded?: boolean;
+  /** Emotional state — used for dynamic microcopy in the insight accordion */
+  emotionalState?:  EmotionalState;
 }
 
 // ── Text block ────────────────────────────────────────────────────────────────
@@ -142,13 +145,26 @@ ActionsBlock.displayName = 'ActionsBlock';
 
 // ── Insight block ─────────────────────────────────────────────────────────────
 
+/** Dynamic accordion summary label based on current emotional state */
+const INSIGHT_SUMMARY_LABEL: Record<EmotionalState, string> = {
+  focused:       'Trasparenza',
+  exploring:     'Dettagli tecnici',
+  overloaded:    'Cosa è stato elaborato',
+  blocked:       'Come posso aiutarti',
+  goal_oriented: 'Riepilogo elaborazione',
+};
+
 type InsightBlockType = Extract<UIBlock, { type: 'insight' }>;
 
-const InsightBlock = memo(({ data, expanded }: {
-  data:     InsightBlockType['data'];
-  expanded: boolean;
+const InsightBlock = memo(({ data, expanded, emotionalState }: {
+  data:            InsightBlockType['data'];
+  expanded:        boolean;
+  emotionalState?: EmotionalState;
 }) => {
-  const confPct = Math.round((data.confidence ?? 0) * 100);
+  const confPct     = Math.round((data.confidence ?? 0) * 100);
+  const summaryLabel = emotionalState
+    ? INSIGHT_SUMMARY_LABEL[emotionalState]
+    : 'Trasparenza';
 
   return (
     <Accordion defaultExpanded={expanded} disableGutters square elevation={0}
@@ -162,7 +178,7 @@ const InsightBlock = memo(({ data, expanded }: {
         <Stack direction="row" spacing={1} alignItems="center">
           <SmartToyIcon fontSize="small" sx={{ color: 'text.secondary' }} aria-hidden="true" />
           <Typography variant="caption" color="text.secondary">
-            {`Trasparenza · confidenza ${confPct}% · ${data.intentType}`}
+            {`${summaryLabel} · confidenza ${confPct}% · ${data.intentType}`}
           </Typography>
         </Stack>
       </AccordionSummary>
@@ -482,7 +498,7 @@ TimelineBlock.displayName = 'TimelineBlock';
 
 // ── Main renderer ─────────────────────────────────────────────────────────────
 
-export const MessageBlockRenderer = memo(({ block, onAction, insightExpanded = false }: Props) => {
+export const MessageBlockRenderer = memo(({ block, onAction, insightExpanded = false, emotionalState }: Props) => {
   switch (block.type) {
     case 'text':
       return <TextBlock content={block.content} />;
@@ -494,7 +510,7 @@ export const MessageBlockRenderer = memo(({ block, onAction, insightExpanded = f
       return <ActionsBlock actions={block.actions} onAction={onAction} />;
 
     case 'insight':
-      return <InsightBlock data={block.data} expanded={insightExpanded} />;
+      return <InsightBlock data={block.data} expanded={insightExpanded} emotionalState={emotionalState} />;
 
     case 'status':
       return <StatusBlock data={block.data} />;
