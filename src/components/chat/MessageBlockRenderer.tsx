@@ -38,6 +38,7 @@ import {
   TextField,
   Tooltip,
   Typography,
+  LinearProgress,
 }  from '@mui/material';
 import ExpandMoreIcon      from '@mui/icons-material/ExpandMore';
 import SmartToyIcon        from '@mui/icons-material/SmartToy';
@@ -46,6 +47,7 @@ import CheckCircleIcon     from '@mui/icons-material/CheckCircle';
 import ErrorIcon           from '@mui/icons-material/Error';
 import InfoIcon            from '@mui/icons-material/Info';
 import WarningIcon         from '@mui/icons-material/Warning';
+import HelpOutlineIcon     from '@mui/icons-material/HelpOutline';
 import {
   BarChart, Bar, LineChart, Line, AreaChart, Area,
   PieChart, Pie, Cell,
@@ -53,6 +55,8 @@ import {
 } from 'recharts';
 
 import { dispatchAction }  from '@/modules/orchestration/ActionBridge';
+import { observe }         from '@/utils/observability';
+import { useChatPrefsStore } from '@/stores/useChatPrefsStore';
 import { SandboxBlock }    from './SandboxBlock';
 import type { UIBlock, FormField } from '@/types/uiBlocks';
 import type { EmotionalState }    from '@/modules/orchestration/EmotionalEngine';
@@ -113,34 +117,430 @@ const PlanBlock = memo(({ steps }: { steps: string[] }) => (
 ));
 PlanBlock.displayName = 'PlanBlock';
 
+// ── DecisionCard block (P42) — unified primary action + explain + confidence ──
+
+type DecisionCardBlockType = Extract<UIBlock, { type: 'decision_card' }>;
+
+const DecisionCardBlock = memo((
+  { primaryAction, secondaryActions, explainItems, confidence, nextAction, onAction }:
+  Omit<DecisionCardBlockType, 'type'> & { onAction?: (agentId: string) => void }
+) => {
+  const [secondaryOpen, setSecondaryOpen] = useState(false);
+  const [explainOpen,   setExplainOpen]   = useState(false);
+  const [factorsOpen,   setFactorsOpen]   = useState(false);
+  const [applied,       setApplied]       = useState(false);
+
+  const primaryLabel = nextAction ?? primaryAction.label;
+  const isHighConf   = nextAction === 'Usa questa soluzione';
+  const isLowConf    = nextAction === 'Migliora la richiesta';
+
+  // P42.5 — button color/variant driven by score for emotional feedback in a glance
+  const score = confidence?.score;
+  const btnColor: 'success' | 'primary' | 'warning' =
+    !score            ? 'primary'
+    : score >= 0.80   ? 'success'
+    : score >= 0.60   ? 'primary'
+    : 'warning';
+  const btnVariant: 'contained' | 'outlined' =
+    !score || score >= 0.60 ? 'contained' : 'outlined';
+
+  // P42.5 — very high confidence: micro-hint to act without hesitation
+  const showAutoHint = score != null && score > 0.90 && !applied;
+
+  const confPct   = confidence ? Math.round(confidence.score * 100) : null;
+  const confColor: 'success' | 'warning' | 'error' = !confidence
+    ? 'success'
+    : confidence.score >= 0.70 ? 'success'
+    : confidence.score >= 0.40 ? 'warning'
+    : 'error';
+
+  const hasFooter = secondaryActions.length > 0
+    || (explainItems && explainItems.length > 0)
+    || (confidence && confidence.factors.length > 0);
+
+  return (
+    <Paper
+      variant="outlined"
+      sx={{ borderRadius: 2, overflow: 'hidden' }}
+      role="region"
+      aria-label="Azione consigliata e trasparenza risposta"
+    >
+      {/* Primary action row */}
+      <Box sx={{ p: 1.5, pb: hasFooter ? 1 : 1.5 }}>
+        <Stack direction="row" spacing={1.5} alignItems="center" flexWrap="wrap" useFlexGap>
+          <Button
+            variant={btnVariant}
+            color={btnColor}
+            size="medium"
+            onClick={() => {
+              setApplied(true);
+              onAction?.(primaryAction.agentId);
+            }}
+            aria-label={
+              primaryAction.hint
+                ? `${primaryLabel}: ${primaryAction.hint}`
+                : primaryLabel
+            }
+          >
+            {isHighConf ? '⚡ ' : isLowConf ? '✏️ ' : ''}{primaryLabel}
+          </Button>
+
+          {/* P42.5 — lock-in moment: close the mental loop after action */}
+          {applied && (
+            <Chip
+              size="small"
+              label={isLowConf ? '✏️ Puoi ancora modificarla' : '✅ Applicato'}
+              color={isLowConf ? 'default' : 'success'}
+              variant="outlined"
+            />
+          )}
+
+          {/* Inline confidence bar */}
+          {confidence && (
+            <Stack direction="row" alignItems="center" spacing={0.75} sx={{ flex: 1, minWidth: 100 }}>
+              <LinearProgress
+                variant="determinate"
+                value={confPct!}
+                color={confColor}
+                sx={{ flex: 1, height: 4, borderRadius: 2 }}
+                aria-hidden="true"
+              />
+              <Typography variant="caption" color={`${confColor}.main`} sx={{ flexShrink: 0, minWidth: 32 }}>
+                {confPct}%
+              </Typography>
+            </Stack>
+          )}
+        </Stack>
+
+        {primaryAction.reason && (
+          <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5, pl: 0.25 }}>
+            💡 {primaryAction.reason}
+          </Typography>
+        )}
+
+        {/* P42.5 — auto-hint when confidence is exceptional: nudge to act without hesitation */}
+        {showAutoHint && (
+          <Typography variant="caption" color="success.main" sx={{ display: 'block', mt: 0.5 }}>
+            Puoi usarla direttamente — affidabilità ottima
+          </Typography>
+        )}
+      </Box>
+
+      {/* Footer: secondary actions + explain + factors */}
+      {hasFooter && (
+        <>
+          <Divider />
+          <Box sx={{ px: 1.5, py: 1 }}>
+            <Stack spacing={0.75}>
+
+              {/* Secondary actions */}
+              {secondaryActions.length > 0 && (
+                <Box>
+                  <Button
+                    size="small"
+                    variant="text"
+                    sx={{ p: 0, minWidth: 0 }}
+                    onClick={() => setSecondaryOpen(v => !v)}
+                    aria-expanded={secondaryOpen}
+                    aria-controls="dc-secondary"
+                  >
+                    <Typography variant="caption" color="text.secondary">
+                      {secondaryOpen ? '▾' : '▸'} Altre azioni ({secondaryActions.length})
+                    </Typography>
+                  </Button>
+                  {secondaryOpen && (
+                    <Stack
+                      id="dc-secondary"
+                      direction="row"
+                      spacing={0.75}
+                      flexWrap="wrap"
+                      useFlexGap
+                      sx={{ mt: 0.5 }}
+                      role="group"
+                      aria-label="Azioni secondarie"
+                    >
+                      {secondaryActions.map(a => (
+                        <Button
+                          key={a.agentId}
+                          size="small"
+                          variant="outlined"
+                          onClick={() => onAction?.(a.agentId)}
+                          aria-label={a.hint ? `${a.label}: ${a.hint}` : a.label}
+                        >
+                          {a.label}
+                        </Button>
+                      ))}
+                    </Stack>
+                  )}
+                </Box>
+              )}
+
+              {/* Explain section */}
+              {explainItems && explainItems.length > 0 && (
+                <Box>
+                  <Stack direction="row" alignItems="center" spacing={0.5}>
+                    <HelpOutlineIcon
+                      sx={{ fontSize: 'var(--md-sys-icon-size-xs, 16px)', color: 'info.main' }}
+                      aria-hidden="true"
+                    />
+                    <Button
+                      size="small"
+                      variant="text"
+                      sx={{ p: 0, minWidth: 0 }}
+                      onClick={() => {
+                        if (!explainOpen) {
+                          observe('explain.opened', {});
+                          useChatPrefsStore.getState().recordExplainOpened();
+                        }
+                        setExplainOpen(v => !v);
+                      }}
+                      aria-expanded={explainOpen}
+                      aria-controls="dc-explain"
+                    >
+                      <Typography variant="caption" color="text.secondary">
+                        Perché questa risposta? {explainOpen ? '▾' : '▸'}
+                      </Typography>
+                    </Button>
+                  </Stack>
+                  {explainOpen && (
+                    <List id="dc-explain" dense disablePadding sx={{ mt: 0.25, pl: 2.5 }}>
+                      {explainItems.map((item, idx) => (
+                        <ListItem key={idx} disablePadding sx={{ py: 0.15 }}>
+                          <ListItemText
+                            disableTypography
+                            primary={
+                              <Typography variant="caption" color="text.secondary">
+                                → {item}
+                              </Typography>
+                            }
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
+                </Box>
+              )}
+
+              {/* Confidence factors */}
+              {confidence && confidence.factors.length > 0 && (
+                <Box>
+                  <Button
+                    size="small"
+                    variant="text"
+                    sx={{ p: 0, minWidth: 0 }}
+                    onClick={() => setFactorsOpen(v => !v)}
+                    aria-expanded={factorsOpen}
+                    aria-controls="dc-factors"
+                  >
+                    <Typography variant="caption" color="text.secondary">
+                      {factorsOpen ? '▾' : '▸'} Dettagli affidabilità
+                    </Typography>
+                  </Button>
+                  {factorsOpen && (
+                    <List id="dc-factors" dense disablePadding sx={{ mt: 0.25 }}>
+                      {confidence.factors.map((f, idx) => (
+                        <ListItem key={idx} disablePadding sx={{ py: 0.15 }}>
+                          <ListItemText
+                            disableTypography
+                            primary={
+                              <Typography variant="caption" color="text.secondary">
+                                • {f}
+                              </Typography>
+                            }
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  )}
+                </Box>
+              )}
+
+            </Stack>
+          </Box>
+        </>
+      )}
+    </Paper>
+  );
+});
+DecisionCardBlock.displayName = 'DecisionCardBlock';
+
 // ── Actions block ─────────────────────────────────────────────────────────────
+
+// ── ExplainWhy block (P40) ───────────────────────────────────────────────────
+
+const ExplainBlock = memo(({ items }: { items: string[] }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <Box
+      sx={{
+        borderLeft: '2px solid',
+        borderColor: 'info.light',
+        pl: 1.5,
+        py: 0.5,
+      }}
+      role="region"
+      aria-label="Spiegazione risposta AI"
+    >
+      <Stack direction="row" alignItems="center" spacing={0.75}>
+        <HelpOutlineIcon sx={{ fontSize: 'var(--md-sys-icon-size-xs, 16px)', color: 'info.main' }} aria-hidden="true" />
+        <Typography variant="caption" color="text.secondary">
+          Perché questa risposta?
+        </Typography>
+        <Button
+          size="small"
+          variant="text"
+          sx={{ p: 0, minWidth: 0, lineHeight: 1 }}
+          onClick={() => {
+            if (!open) {
+              // P40.2: one-shot learning — track engagement with explain blocks
+              observe('explain.opened', {});
+              useChatPrefsStore.getState().recordExplainOpened();
+            }
+            setOpen(v => !v);
+          }}
+          aria-expanded={open}
+          aria-controls="explain-block-list"
+        >
+          <Typography variant="caption" color="primary.main">
+            {open ? 'Nascondi' : 'Mostra'}
+          </Typography>
+        </Button>
+      </Stack>
+      {open && (
+        <List
+          id="explain-block-list"
+          dense
+          disablePadding
+          sx={{ mt: 0.5 }}
+        >
+          {items.map((item, idx) => (
+            <ListItem key={idx} disablePadding sx={{ py: 0.2, alignItems: 'flex-start' }}>
+              <ListItemText
+                disableTypography
+                primary={
+                  <Typography variant="caption" color="text.secondary">
+                    → {item}
+                  </Typography>
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      )}
+    </Box>
+  );
+});
+ExplainBlock.displayName = 'ExplainBlock';
+
+// ── Confidence block (P41) ───────────────────────────────────────────────────
+
+const ConfidenceBlock = memo(({ score, factors }: { score: number; factors: string[] }) => {
+  const [open, setOpen] = useState(false);
+  const pct   = Math.round(score * 100);
+  const color: 'success' | 'warning' | 'error' =
+    score >= 0.70 ? 'success' : score >= 0.40 ? 'warning' : 'error';
+
+  return (
+    <Box
+      sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}
+      role="region"
+      aria-label={`Affidabilità risposta: ${pct}%`}
+    >
+      <Stack direction="row" alignItems="center" spacing={1}>
+        <Typography variant="caption" color="text.secondary" sx={{ flexShrink: 0 }}>
+          Affidabilità
+        </Typography>
+        <LinearProgress
+          variant="determinate"
+          value={pct}
+          color={color}
+          sx={{ flex: 1, height: 4, borderRadius: 2 }}
+          aria-hidden="true"
+        />
+        <Typography variant="caption" color={`${color}.main`} sx={{ flexShrink: 0, minWidth: 32 }}>
+          {pct}%
+        </Typography>
+        {factors.length > 0 && (
+          <Button
+            size="small"
+            variant="text"
+            sx={{ p: 0, minWidth: 0, lineHeight: 1 }}
+            onClick={() => setOpen(v => !v)}
+            aria-expanded={open}
+            aria-controls="confidence-block-factors"
+          >
+            <Typography variant="caption" color="text.secondary">
+              {open ? 'Nascondi' : 'Dettagli'}
+            </Typography>
+          </Button>
+        )}
+      </Stack>
+      {open && (
+        <List
+          id="confidence-block-factors"
+          dense
+          disablePadding
+          sx={{ mt: 0.25 }}
+        >
+          {factors.map((f, idx) => (
+            <ListItem key={idx} disablePadding sx={{ py: 0.15, alignItems: 'flex-start' }}>
+              <ListItemText
+                disableTypography
+                primary={
+                  <Typography variant="caption" color="text.secondary">
+                    • {f}
+                  </Typography>
+                }
+              />
+            </ListItem>
+          ))}
+        </List>
+      )}
+    </Box>
+  );
+});
+ConfidenceBlock.displayName = 'ConfidenceBlock';
 
 const ActionsBlock = memo(({ actions, onAction }: {
   actions:  NonNullable<Extract<UIBlock, { type: 'actions' }>['actions']>;
   onAction?: (agentId: string) => void;
-}) => (
-  <Stack
-    direction="row"
-    spacing={1}
-    flexWrap="wrap"
-    useFlexGap
-    role="group"
-    aria-label="Azioni disponibili"
-  >
-    {actions.map(action => (
-      <Tooltip key={action.agentId} title={action.hint ?? ''} disableHoverListener={!action.hint}>
-        <Button
-          size="small"
-          variant="outlined"
-          aria-label={action.hint ? `${action.label}: ${action.hint}` : action.label}
-          onClick={() => onAction?.(action.agentId)}
-        >
-          {action.label}
-        </Button>
-      </Tooltip>
-    ))}
-  </Stack>
-));
+}) => {
+  const hasReasons = actions.some(a => a.reason);
+  return (
+    <Stack
+      direction={hasReasons ? 'column' : 'row'}
+      spacing={hasReasons ? 0.75 : 1}
+      flexWrap={hasReasons ? undefined : 'wrap'}
+      useFlexGap={!hasReasons}
+      role="group"
+      aria-label="Azioni disponibili"
+    >
+      {actions.map(action => (
+        <Box key={action.agentId}>
+          <Tooltip title={action.hint ?? ''} disableHoverListener={!action.hint}>
+            <Button
+              size="small"
+              variant="outlined"
+              aria-label={action.hint ? `${action.label}: ${action.hint}` : action.label}
+              onClick={() => onAction?.(action.agentId)}
+            >
+              {action.label}
+            </Button>
+          </Tooltip>
+          {action.reason && (
+            <Typography
+              variant="caption"
+              color="text.secondary"
+              sx={{ display: 'block', mt: 0.25, pl: 0.25 }}
+            >
+              💡 {action.reason}
+            </Typography>
+          )}
+        </Box>
+      ))}
+    </Stack>
+  );
+});
 ActionsBlock.displayName = 'ActionsBlock';
 
 // ── Insight block ─────────────────────────────────────────────────────────────
@@ -529,6 +929,24 @@ export const MessageBlockRenderer = memo(({ block, onAction, insightExpanded = f
 
     case 'timeline':
       return <TimelineBlock events={block.events} />;
+
+    case 'explain':
+      return <ExplainBlock items={block.items} />;
+
+    case 'confidence':
+      return <ConfidenceBlock score={block.score} factors={block.factors} />;
+
+    case 'decision_card':
+      return (
+        <DecisionCardBlock
+          primaryAction={block.primaryAction}
+          secondaryActions={block.secondaryActions}
+          explainItems={block.explainItems}
+          confidence={block.confidence}
+          nextAction={block.nextAction}
+          onAction={onAction}
+        />
+      );
 
     default:
       return null;

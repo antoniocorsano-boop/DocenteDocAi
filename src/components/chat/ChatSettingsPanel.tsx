@@ -42,6 +42,9 @@ import HomeIcon           from '@mui/icons-material/Home';
 import TrendingUpIcon     from '@mui/icons-material/TrendingUp';
 import PsychologyIcon     from '@mui/icons-material/Psychology';
 import RestartAltIcon     from '@mui/icons-material/RestartAlt';
+import LockOutlinedIcon            from '@mui/icons-material/LockOutlined';
+import FileDownloadOutlinedIcon    from '@mui/icons-material/FileDownloadOutlined';
+import VisibilityOffOutlinedIcon   from '@mui/icons-material/VisibilityOffOutlined';
 
 import type { Mode }                 from '@/modules/orchestration/ModeEngine';
 import { useConversationStore }      from '@/stores/useConversationStore';
@@ -52,6 +55,8 @@ import { useSuggestedMode }          from '@/hooks/useSuggestedMode';
 // ── Cognitive style labels (Fase 2, Task 5) ────────────────────────────────
 
 // ── Cognitive style slider helpers (Fase 3) ─────────────────────────────
+
+// ── P40: export type \u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\ntype _ExportData = { chatPrefs: object; conversations: object[] };
 
 const LEVEL_MARKS = [
   { value: 0, label: 'Bassa'  },
@@ -143,9 +148,38 @@ export function ChatSettingsPanel({
     cognitiveStyle,
     overrideCognitiveStyle,
     resetCognitiveStyle,
+    reset: resetAllPrefs,
+    emotionalProfile,
   } = useChatPrefsStore();
 
   const { suggested, reason } = useSuggestedMode();
+
+  // ── Privacy: show/hide cognitive profile ─────────────────────────────────────
+  const [showCognitiveData, setShowCognitiveData] = React.useState(false);
+
+  // ── Export all user data as JSON ──────────────────────────────────────────────
+  const handleExportData = React.useCallback(() => {
+    const data = {
+      chatPrefs: {
+        role,
+        mobileDefaultMode,
+        desktopDefaultMode,
+        cognitiveStyle,
+        emotionalProfile,
+        acceptedSuggestions,
+        rejectedSuggestions,
+      },
+      conversations,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url  = URL.createObjectURL(blob);
+    const a    = document.createElement('a');
+    a.href     = url;
+    a.download = `docentedoc-dati-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }, [role, mobileDefaultMode, desktopDefaultMode, cognitiveStyle, emotionalProfile,
+      acceptedSuggestions, rejectedSuggestions, conversations]);
 
   // Keep prefs store and local state in sync for auto-sandbox
   const handleAutoSandbox = (v: boolean) => {
@@ -491,8 +525,79 @@ export function ChatSettingsPanel({
             </Button>
           </Box>
 
-          <Divider />
-          {/* ── 7. Cronologia ──────────────────────────────────────────── */}
+          <Divider />          {/* ── 8. Privacy & Dati (P40) ────────────────────────── */}
+          <Box>
+            <SectionHeader icon={<LockOutlinedIcon />} label="Privacy & Dati" />
+
+            {/* Toggle: visualizza profilo cognitivo */}
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={showCognitiveData}
+                  onChange={e => setShowCognitiveData(e.target.checked)}
+                  inputProps={{ 'aria-label': 'Mostra dati profilo cognitivo' }}
+                />
+              }
+              label={
+                <Stack direction="row" alignItems="center" spacing={0.5}>
+                  <VisibilityOffOutlinedIcon sx={{ fontSize: 14, color: 'text.secondary' }} aria-hidden="true" />
+                  <Typography variant="body2">Mostra profilo cognitivo</Typography>
+                </Stack>
+              }
+            />
+            {showCognitiveData && (
+              <Box
+                sx={{
+                  mt:              1,
+                  p:               1.25,
+                  borderRadius:    1,
+                  backgroundColor: 'action.hover',
+                  border:          '1px solid',
+                  borderColor:     'divider',
+                }}
+                aria-live="polite"
+              >
+                <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 0.5 }}>
+                  Stato rilevato
+                </Typography>
+                <Stack direction="row" flexWrap="wrap" gap={0.5} useFlexGap>
+                  <Chip label={`stile: ${cognitiveStyle.structure}`}   size="small" variant="outlined" />
+                  <Chip label={`velocità: ${cognitiveStyle.speedPreference}`} size="small" variant="outlined" />
+                  <Chip label={`stato: ${emotionalProfile?.baselineState ?? '—'}`} size="small" variant="outlined" />
+                </Stack>
+                <Typography variant="caption" color="text.disabled" display="block" sx={{ mt: 0.75 }}>
+                  Questi dati restano sul dispositivo e non vengono trasmessi.
+                </Typography>
+              </Box>
+            )}
+
+            <Stack spacing={1} sx={{ mt: 1.5 }}>
+              {/* Azzera memoria AI */}
+              <Button
+                variant="outlined"
+                color="warning"
+                size="small"
+                startIcon={<RestartAltIcon />}
+                onClick={() => { resetAllPrefs(); onClose(); }}
+                aria-label="Azzera tutta la memoria AI: profilo emotivo, stile cognitivo e preferenze"
+              >
+                Azzera memoria AI
+              </Button>
+
+              {/* Esporta dati */}
+              <Button
+                variant="outlined"
+                size="small"
+                startIcon={<FileDownloadOutlinedIcon />}
+                onClick={handleExportData}
+                aria-label="Scarica i tuoi dati in formato JSON"
+              >
+                Esporta i miei dati
+              </Button>
+            </Stack>
+          </Box>
+
+          <Divider />          {/* ── 7. Cronologia ──────────────────────────────────────────── */}
           <Box>
             <SectionHeader icon={<DeleteOutlineIcon />} label="Cronologia" />
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>

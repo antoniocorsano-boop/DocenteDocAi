@@ -86,6 +86,12 @@ export interface ChatPrefsState {
   cognitiveStyleSignals: CognitiveStyleSignals;
   /** Cumulative reveal-button clicks (shortcut for useSmartChat) */
   revealClickCount:      number;
+  /**
+   * P40.2: cumulative number of times the user opened an explain block.
+   * Used by ExplainEngine for one-shot learning: suppress explain for non-critical
+   * states when this count is low (user is not engaging with explanations).
+   */
+  explainOpenedCount:    number;
 
   // ── Actions ─────────────────────────────────────────────────────────────────
 
@@ -116,6 +122,8 @@ export interface ChatPrefsState {
   updateCognitiveStyleSignals(signals: CognitiveStyleSignals): void;
   /** P39: increment reveal-click counter */
   recordRevealClick(): void;
+  /** P40.2: increment explain-opened counter (one-shot learning signal) */
+  recordExplainOpened(): void;
   reset(): void;
 }
 
@@ -151,6 +159,7 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
       cognitiveStyle:        createCognitiveStyle(),
       cognitiveStyleSignals: createCognitiveStyleSignals(),
       revealClickCount:      0,
+      explainOpenedCount:    0,
 
       setRole(role) {
         const defaults = ROLE_DEFAULTS[role];
@@ -232,6 +241,10 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
         set(s => ({ revealClickCount: s.revealClickCount + 1 }));
       },
 
+      recordExplainOpened() {
+        set(s => ({ explainOpenedCount: s.explainOpenedCount + 1 }));
+      },
+
       reset() {
         set({
           role:                 'teacher',
@@ -249,6 +262,7 @@ export const useChatPrefsStore = create<ChatPrefsState>()(
           cognitiveStyle:        createCognitiveStyle(),
           cognitiveStyleSignals: createCognitiveStyleSignals(),
           revealClickCount:      0,
+          explainOpenedCount:    0,
         });
       },
     }),

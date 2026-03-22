@@ -29,6 +29,12 @@ export interface UIAction {
   agentId:  string;
   /** Optional hint for the action (shown as tooltip) */
   hint?:    string;
+  /**
+   * P40 — Trust signal: why this action is suggested.
+   * Rendered as a small caption below the action button.
+   * Example: "Suggerito perché stai lavorando su una lezione"
+   */
+  reason?:  string;
 }
 
 // ── Insight data (explainability) ─────────────────────────────────────────────
@@ -146,7 +152,37 @@ export type UIBlock =
   | { type: 'table';    config:   TableConfig }
   | { type: 'chart';    config:   ChartConfig }
   | { type: 'sandbox';  config:   SandboxConfig }
-  | { type: 'timeline'; events:   TimelineEvent[] };
+  | { type: 'timeline'; events:   TimelineEvent[] }
+  // ── P40 Trust Layer ───────────────────────────────────────────────────────
+  /**
+   * explain — lightweight explainability block.
+   * Renders a collapsible "Perché questa risposta?" panel with
+   * a list of natural-language reason strings.
+   */
+  | { type: 'explain';     items:    string[] }
+  /**
+   * P41 — confidence block: shows score [0-1] + contributing factor strings.
+   * Rendered as a thin progress bar with optional factor list.
+   */
+  | { type: 'confidence';  score:    number; factors: string[] }
+  /**
+   * P42 — decision_card: unified block that collapses actions + explain + confidence
+   * into a single cohesive experience.
+   *
+   * ONE ACTION RULE: `primaryAction` is the single prominent CTA.
+   * `nextAction` (from ConfidenceEngine) overrides its label based on score:
+   *   score < 0.50  → 'Raffina richiesta'  (low confidence, redirect)
+   *   score ≥ 0.80  → 'Applica subito'     (high confidence, immediate action)
+   */
+  | {
+      type:             'decision_card';
+      primaryAction:    UIAction;
+      secondaryActions: UIAction[];
+      explainItems?:    string[];
+      confidence?:      { score: number; factors: string[] };
+      /** Confidence-driven label override for the primary CTA */
+      nextAction?:      string;
+    };
 
 // ── P38.6: AdaptedBlock — UIBlock augmented with soft density flag ─────────────
 

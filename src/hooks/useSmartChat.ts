@@ -28,6 +28,8 @@ import {
 import {
   deriveStyle, recordModeUsage, mergeStrategy,
 } from '@/modules/orchestration/CognitiveStyleEngine';
+import { buildExplainBlock } from '@/modules/orchestration/ExplainEngine';
+import { buildConfidenceBlock } from '@/modules/orchestration/ConfidenceEngine';
 import { observe }                        from '@/utils/observability';
 import type { OrchestratorResult }        from '@/modules/orchestration/CognitiveOrchestrator';
 import type { Mode }                      from '@/modules/orchestration/ModeEngine';
@@ -304,6 +306,70 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     if (!result) return;
 
     const rawBlocks = buildUIBlocks(result, effectiveMode);
+
+    // P40.1 + P40.2: ExplainEngine — compute explain metadata
+    const explain = buildExplainBlock({
+      userText:            trimmed,
+      result,
+      strategy:            adaptedStrategy,
+      state,
+      mode:                effectiveMode,
+      cognitiveStyle:      newStyle,
+      explainOpenedCount:  useChatPrefsStore.getState().explainOpenedCount,
+    });
+
+    // P41: ConfidenceEngine — compute confidence metadata
+    const confidence = buildConfidenceBlock({
+      userText: trimmed,
+      result,
+      state,
+      strategy: adaptedStrategy,
+    });
+
+    // P42 — DecisionCard: when actions + (explain OR confidence) coexist, unify
+    // into a single decision_card block (ONE ACTION RULE).
+    const actionsIdx = rawBlocks.findIndex(b => b.type === 'actions');
+    const unify = actionsIdx !== -1 && (explain.shouldShow || confidence.shouldShow);
+
+    if (unify) {
+      observe('explain.shown', {
+        state,
+        depth:    adaptedStrategy.depth,
+        items:    explain.shouldShow ? explain.items.length : 0,
+        position: 'decision_card',
+      });
+      const actionsBlock = rawBlocks[actionsIdx] as Extract<typeof rawBlocks[number], { type: 'actions' }>;
+      const [primaryAction, ...secondaryActions] = actionsBlock.actions;
+      rawBlocks.splice(actionsIdx, 1, {
+        type:             'decision_card',
+        primaryAction,
+        secondaryActions,
+        explainItems:  explain.shouldShow     ? explain.items                                         : undefined,
+        confidence:    confidence.shouldShow  ? { score: confidence.score, factors: confidence.factors } : undefined,
+        nextAction:    confidence.nextAction,
+      });
+    } else {
+      // Independent paths (no actions block → inject separately)
+      if (explain.shouldShow) {
+        observe('explain.shown', {
+          state,
+          depth:    adaptedStrategy.depth,
+          items:    explain.items.length,
+          position: explain.position,
+        });
+        if (explain.position === 'first') {
+          rawBlocks.splice(1, 0, { type: 'explain', items: explain.items });
+        } else {
+          rawBlocks.push({ type: 'explain', items: explain.items });
+        }
+      } else {
+        observe('explain.hidden', { state, reason: 'not_needed' });
+      }
+      if (confidence.shouldShow) {
+        rawBlocks.push({ type: 'confidence', score: confidence.score, factors: confidence.factors });
+      }
+    }
+
     const blocks    = adaptBlocks(rawBlocks, adaptedStrategy, newStyle);
 
     observe('chat.emotional.signal', { state, tone: strategy.tone, depth: strategy.depth, guidance: strategy.guidance });

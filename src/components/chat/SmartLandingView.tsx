@@ -36,8 +36,7 @@ import { useAcademicStore }      from '@/stores/useAcademicStore';
 import { useConversationStore }  from '@/stores/useConversationStore';
 import { useStudentStore }       from '@/stores/useStudentStore';
 import { useChatPrefsStore }     from '@/stores/useChatPrefsStore';
-import { useSuggestedMode }      from '@/hooks/useSuggestedMode';
-
+import { useSuggestedMode }      from '@/hooks/useSuggestedMode';import { TrustBadge }          from './TrustBadge';
 // ── Time-of-day greeting ───────────────────────────────────────────────────────
 
 function getGreeting(): string {
@@ -46,6 +45,15 @@ function getGreeting(): string {
   if (h >= 12 && h < 18) return 'Buon pomeriggio';
   if (h >= 18 && h < 22) return 'Buona sera';
   return 'Ciao';
+}
+
+function getSmartPlaceholder(): string {
+  const h = new Date().getHours();
+  if (h >= 5  && h < 9)  return 'Cosa preparo per oggi?';
+  if (h >= 9  && h < 13) return 'Scrivi o incolla un contenuto…';
+  if (h >= 13 && h < 16) return 'Vuoi correggere o pianificare qualcosa?';
+  if (h >= 16 && h < 20) return 'Fine giornata: cosa organizzo per domani?';
+  return 'Scrivi un messaggio rapido…';
 }
 
 const ROLE_DISPLAY: Record<string, string> = {
@@ -65,6 +73,14 @@ interface SuggestionCard {
   detail:  string;
   prompt:  string;
   color?:  'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info';
+  /** P40 — Trust signal: why this card is shown */
+  reason?: string;
+  /**
+   * P41 — Direct execution action type.
+   * Clicking the card immediately sends the prompt; this label shows the user
+   * what kind of output to expect.
+   */
+  action?: 'Genera' | 'Analizza' | 'Pianifica' | 'Riprendi';
 }
 
 // ── Props ──────────────────────────────────────────────────────────────────────
@@ -113,6 +129,10 @@ export function SmartLandingView({
           ? `Aiutami a completare la UDA "${draftUDAs[0].title}". Suggerisci obiettivi e attività.`
           : `Ho ${draftUDAs.length} UDA in bozza. Aiutami a prioritizzarle e completarle.`,
         color:  'warning',
+        action: 'Pianifica',
+        reason: draftUDAs.length === 1
+          ? `Hai lasciato "${draftUDAs[0].title}" in bozza — il momento migliore per completarla`
+          : `Hai ${draftUDAs.length} UDA incomplete che potrebbero bloccare la pianificazione`,
       });
     }
 
@@ -126,6 +146,8 @@ export function SmartLandingView({
         detail: `${students.length} alunni in registro`,
         prompt: `Ho ${pendingEvals.length} valutazioni da completare. Come posso organizzarle e compilarle in modo rapido?`,
         color:  'info',
+        action: 'Analizza',
+        reason: 'Valutazioni senza voto rilevate nel registro',
       });
     }
 
@@ -140,6 +162,8 @@ export function SmartLandingView({
         detail: `…${snippet}`,
         prompt: `Continua la conversazione: ${snippet}`,
         color:  'secondary',
+        action: 'Riprendi',
+        reason: 'L’ultima conversazione si era interrotta qui — riprendi dal punto in cui eri',
       });
     }
 
@@ -148,18 +172,20 @@ export function SmartLandingView({
       result.push({
         id:     'generic-plan',
         icon:   <SchoolIcon />,
-        label:  'Crea una nuova UDA',
-        detail: 'Pianifica un modulo didattico completo',
-        prompt: 'Aiutami a creare una UDA per la mia classe.',
+        label:  'Crea una verifica di storia medievale',
+        detail: 'Esercizi + domande aperte per liceo',
+        prompt: 'Crea una verifica di storia medievale per una classe di liceo: include 5 domande a risposta multipla, 3 domande aperte e una traccia di saggio breve.',
         color:  'primary',
+        action: 'Genera',
       });
       result.push({
         id:     'generic-eval',
         icon:   <PendingActionsIcon />,
-        label:  'Suggerisci criteri di valutazione',
+        label:  'Suggerisci rubrica di valutazione',
         detail: 'Per qualsiasi disciplina o competenza',
-        prompt: 'Suggerisci criteri e rubriche di valutazione per la mia materia.',
+        prompt: 'Crea una rubrica di valutazione con 4 livelli di competenza per la produzione scritta in italiano, adatta a una classe seconda media.',
         color:  'success',
+        action: 'Genera',
       });
     }
 
@@ -184,6 +210,7 @@ export function SmartLandingView({
 
   const greeting = getGreeting();
   const roleLabel = ROLE_DISPLAY[role] ?? role;
+  const placeholder = getSmartPlaceholder();
 
   return (
     <Box
@@ -277,16 +304,29 @@ export function SmartLandingView({
             </Box>
 
             <Box sx={{ flex: 1, minWidth: 0 }}>
-              <Typography
-                variant="body2"
-                sx={{
-                  overflow:     'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace:   'nowrap',
-                }}
-              >
-                {card.label}
-              </Typography>
+              <Stack direction="row" alignItems="center" spacing={0.75} sx={{ mb: 0.25 }}>
+                <Typography
+                  variant="body2"
+                  sx={{
+                    flex:         1,
+                    overflow:     'hidden',
+                    textOverflow: 'ellipsis',
+                    whiteSpace:   'nowrap',
+                  }}
+                >
+                  {card.label}
+                </Typography>
+                {card.action && (
+                  <Chip
+                    label={card.action}
+                    size="small"
+                    color={card.color ?? 'primary'}
+                    variant="filled"
+                    sx={{ height: 18, fontSize: 'var(--md-sys-icon-size-xs, 0.65rem)', px: 0.25, flexShrink: 0 }}
+                    aria-label={`Azione: ${card.action}`}
+                  />
+                )}
+              </Stack>
               <Typography
                 variant="caption"
                 color="text.secondary"
@@ -299,6 +339,15 @@ export function SmartLandingView({
               >
                 {card.detail}
               </Typography>
+              {card.reason && (
+                <Typography
+                  variant="caption"
+                  color={`${card.color ?? 'primary'}.main`}
+                  sx={{ display: 'block', mt: 0.25, opacity: 0.8 }}
+                >
+                  💡 {card.reason}
+                </Typography>
+              )}
             </Box>
 
             <ChevronRightIcon
@@ -314,7 +363,7 @@ export function SmartLandingView({
         <TextField
           fullWidth
           size="small"
-          placeholder="Scrivi un messaggio rapido…"
+          placeholder={placeholder}
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={handleKey}
@@ -342,7 +391,8 @@ export function SmartLandingView({
           }}
         />
       </Box>
-
+      {/* ── Trust Layer (P40) ──────────────────────────────────────────────── */}
+      <TrustBadge suggestionContext={`Suggerimenti dal tuo registro e dalle conversazioni recenti`} />
       {/* ── Open full chat ──────────────────────────────────────────────── */}
       <Button
         variant="text"
