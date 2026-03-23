@@ -405,7 +405,7 @@ export function SmartLandingView({
               {card.outcome ? (
                 <Typography
                   variant="caption"
-                  sx={{ display: 'block', fontWeight: 500, color: 'text.primary' }}
+                  sx={{ display: 'block', fontWeight: 'var(--md-sys-typescale-weight-medium)', color: 'text.primary' }}
                 >
                   📄 {card.outcome}
                 </Typography>

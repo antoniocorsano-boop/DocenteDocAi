@@ -565,7 +565,7 @@ export default function UserWorkspace(): React.JSX.Element {
     ambientFiredCount: asAmbientFiredCount,
     activeAgentsCount,
     ...getBehaviorSignals(),
-  }), [viewportWidth, asAmbientFiredCount, activeAgentsCount, entries.length]);
+  }), [viewportWidth, asAmbientFiredCount, activeAgentsCount]);
 
   // ── P16–P21 pipeline (P22: single memoized hook, replaces 6 inline calcs) ─
   const {
