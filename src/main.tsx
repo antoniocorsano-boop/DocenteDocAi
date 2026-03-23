@@ -353,14 +353,24 @@ async function bootstrapApp() {
     );
 
     const lazy = await import('./stores/lazyStores');
+
+    // Kick off all chunk downloads in parallel with store preloading.
+    // Stores must be ready before App *renders*, but not before App *downloads*.
+    const appPromise        = import('./components/App');
+    const modalProvPromise  = import('./contexts/ModalContext');
+    const pilotaPromise     = import('./components/onboarding/PilotaOnboardingModal');
+    const onboardingPromise = import('./components/onboarding/UnifiedOnboardingFlow');
+    const teaserPromise     = import('./components/ui/OrbitTeaser');
+
+    // preloadAllStores runs in parallel with the above downloads
     await lazy.preloadAllStores();
 
-    // Dynamically import App after stores are ready to avoid initialization races
-    const { App } = await import('./components/App');
-    const { ModalProvider } = await import('./contexts/ModalContext');
-    const { hasPilotOnboarding } = await import('./components/onboarding/PilotaOnboardingModal');
-    const { default: UnifiedOnboardingFlow } = await import('./components/onboarding/UnifiedOnboardingFlow');
-    const { default: OrbitTeaser, hasSeenTeaser } = await import('./components/ui/OrbitTeaser');
+    // Downloads are now complete (or near-complete); destructure from cached promises
+    const { App }                                        = await appPromise;
+    const { ModalProvider }                              = await modalProvPromise;
+    const { hasPilotOnboarding }                         = await pilotaPromise;
+    const { default: UnifiedOnboardingFlow }             = await onboardingPromise;
+    const { default: OrbitTeaser, hasSeenTeaser }        = await teaserPromise;
 
     /** Consent gate — percorso unico di 4 step (Benvenuto → Come funziono → Modalità AI → Privacy GDPR).
      *  Sostituisce la cascata PrivacyConsentModal → SovereigntyOnboarding → PilotaOnboardingModal

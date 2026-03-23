@@ -89,6 +89,33 @@ export default defineConfig({
     compression({ algorithm: 'brotliCompress', exclude: [/\.(png|jpe?g|gif|webp|avif|svg)$/i] }),
     compression({ algorithm: 'gzip',           exclude: [/\.(png|jpe?g|gif|webp|avif|svg)$/i] }),
     visualizer({ open: false, filename: 'audit/bundle-stats.html', gzipSize: true, brotliSize: true, template: 'list' }),
+    // Inject modulepreload for the App chunk so it downloads in parallel with vendor chunks
+    // rather than sequentially after bootstrapApp() starts executing.
+    (() => {
+      let appChunkFile = '';
+      let homeChunkFile = '';
+      return {
+        name: 'preload-app-chunk',
+        generateBundle(_: unknown, bundle: Record<string, { type: string; name?: string; facadeModuleId?: string; fileName: string }>) {
+          for (const chunk of Object.values(bundle)) {
+            if (chunk.type !== 'chunk') continue;
+            // Match by chunk name (Rollup uses the source filename without extension as chunk name)
+            if (chunk.name === 'App') appChunkFile = chunk.fileName;
+            if (chunk.name === 'Home') homeChunkFile = chunk.fileName;
+          }
+        },
+        transformIndexHtml: {
+          order: 'post' as const,
+          handler(html: string) {
+            const tags: string[] = [];
+            if (appChunkFile)  tags.push(`<link rel="modulepreload" crossorigin href="/${appChunkFile}">`);
+            if (homeChunkFile) tags.push(`<link rel="modulepreload" crossorigin href="/${homeChunkFile}">`);
+            if (!tags.length) return html;
+            return html.replace('</head>', tags.join('') + '</head>');
+          },
+        },
+      };
+    })(),
     // Make Vite-generated CSS non-blocking to eliminate render-blocking penalty
     {
       name: 'non-blocking-css',
@@ -107,6 +134,7 @@ export default defineConfig({
   ],
   base: '/',
   build: {
+    target: 'esnext',  // modern browsers only — eliminates legacy polyfills (~11 KB saved)
     outDir: 'dist',
     emptyOutDir: true,
     sourcemap: process.env.NODE_ENV === 'development' ? true : false,

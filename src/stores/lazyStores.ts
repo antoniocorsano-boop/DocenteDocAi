@@ -92,29 +92,20 @@ export function getSettingsStoreSync(): SettingsStore {
 
 // Pre-load all stores (call this once in main.tsx after React is ready)
 export async function preloadAllStores(): Promise<void> {
-  // Load stores one by one and log progress to aid diagnostics in production failures
-  try {
-    await getStudentStore();
-    await getAcademicStore();
-    await getSystemStore();
-    logger.debug('[lazyStores] domain stores loaded');
-  } catch (e) {
-    logger.error('[lazyStores] failed loading domain stores', e);
-    throw e;
+  // Load all stores in parallel — each store module is tiny (<2 KB) so there are
+  // no ordering concerns; errors are caught and re-thrown after all settle.
+  const results = await Promise.allSettled([
+    getStudentStore(),
+    getAcademicStore(),
+    getSystemStore(),
+    getUIStore(),
+    getSettingsStore(),
+  ]);
+  const failed = results.filter(r => r.status === 'rejected') as PromiseRejectedResult[];
+  if (failed.length > 0) {
+    logger.error('[lazyStores] failed loading stores', failed.map(f => f.reason));
+    throw failed[0].reason;
   }
-  try {
-    await getUIStore();
-    logger.debug('[lazyStores] ui store loaded');
-  } catch (e) {
-    logger.error('[lazyStores] failed loading ui store', e);
-    throw e;
-  }
-  try {
-    await getSettingsStore();
-    logger.debug('[lazyStores] settings store loaded');
-  } catch (e) {
-    logger.error('[lazyStores] failed loading settings store', e);
-    throw e;
-  }
+  logger.debug('[lazyStores] all stores loaded in parallel');
 }
 

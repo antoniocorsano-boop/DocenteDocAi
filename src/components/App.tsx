@@ -8,15 +8,15 @@ import '../design-system/typography.css';
 import '../design-system/spacing.css';
 import '../design-system/breakpoints.css';
 import '../design-system/accessibility-focus.css';
-import FloatingSatelliteCopilot from './copilot/FloatingSatelliteCopilot';
 import SkipLink from './SkipLink';
 import SuggestionBanner from './SuggestionBanner';
+const FloatingSatelliteCopilot = React.lazy(() => import('./copilot/FloatingSatelliteCopilot'));
 import { useAppEngine } from '../hooks/useAppEngine';
 import type { Modals } from '../types';
 import { usePrefetch } from '../hooks/usePrefetch';
 import { useSmartNavigation } from '../hooks/useSmartNavigation';
 import ViewManager from './ViewManager';
-import { ModalManager } from './ModalManager';
+const ModalManager = React.lazy(() => import('./ModalManager').then(m => ({ default: m.ModalManager })));
 import Snackbar from './Snackbar';
 import ErrorBoundary from './ErrorBoundary';
 import { AppLayout } from './AppLayout';
@@ -148,7 +148,9 @@ const App: React.FC = () => {
                         modals={modals}
                     />
                 </main>
-                <ModalManager appState={appState} actions={actions} modals={modals} />
+                <React.Suspense fallback={null}>
+                  <ModalManager appState={appState} actions={actions} modals={modals} />
+                </React.Suspense>
                 {/* Modali globali — stato gestito da useUIStore (source of truth unico) */}
                 {modals.isImageAnalysisOpen && (
                     <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento analisi immagine..." />}>
@@ -228,7 +230,9 @@ const App: React.FC = () => {
                     <NKABottomSheet open={true} nodes={nkaStore.nodes} onClose={() => modals.setIsNkaMapOpen?.(false)} onNodeSelect={() => {}} />
                     </React.Suspense>
                 )}
-                <FloatingSatelliteCopilot onNavigate={(v) => actions.handleNavigate(v as Parameters<typeof actions.handleNavigate>[0])} />
+                <React.Suspense fallback={null}>
+                  <FloatingSatelliteCopilot onNavigate={(v) => actions.handleNavigate(v as Parameters<typeof actions.handleNavigate>[0])} />
+                </React.Suspense>
                 {/* Orbit Chat FAB — global persistent chat entry point */}
                 <React.Suspense fallback={null}>
                   <OrbitChatFAB userPlan="free" />
