@@ -56,6 +56,7 @@ function TabFallback(): JSX.Element {
 
 // ── First-run onboarding ──────────────────────────────────────────────────────
 const ONBOARDING_KEY = 'copilot_onboarding_v1';
+const COPILOT_TAB_KEY = 'copilot_active_tab_v1';
 
 function useFirstRun(): [boolean, () => void] {
   const [show, setShow] = React.useState<boolean>(() => {
@@ -83,12 +84,23 @@ interface CopilotDocentePanelProps {
 }
 
 export default function CopilotDocentePanel({ suggestions, classHealth, snapshots, className, studentId, students, evaluations, udas, settings, initialTab }: Omit<CopilotDocentePanelProps, 'competenze'>): JSX.Element {
-  const [tab, setTab] = React.useState<number>(initialTab ?? 0);
+  const [tab, setTab] = React.useState<number>(() => {
+    if (initialTab !== undefined) return initialTab;
+    try { const s = sessionStorage.getItem(COPILOT_TAB_KEY); return s !== null ? Number(s) : 0; }
+    catch { return 0; }
+  });
   const [exportOpen, setExportOpen] = React.useState(false);
   const [showSplash, setShowSplash] = React.useState(true);
   const capabilityLevel = useTeacherModelStore((s) => s.capabilityLevel);
   const [altroAnchor, setAltroAnchor] = React.useState<null | HTMLElement>(null);
   const [showOnboarding, dismissOnboarding] = useFirstRun();
+
+  // Navigate to a tab and persist the choice
+  const navToTab = React.useCallback((v: number) => {
+    setTab(v);
+    try { sessionStorage.setItem(COPILOT_TAB_KEY, String(v)); } catch { /* ignore */ }
+    setAltroAnchor(null);
+  }, []);
 
   return (
     <InfoCard variant="outlined" sx={{ mt: 'var(--md-sys-spacing-6)', position: 'relative' }}>
@@ -105,7 +117,7 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
       <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
         <Tabs
           value={tab}
-          onChange={(_, v) => setTab(v)}
+          onChange={(_, v) => navToTab(v as number)}
           aria-label="Copilot Docente Tabs"
           sx={{ mb: 'var(--md-sys-spacing-4)', flex: 1 }}
           variant="scrollable"
@@ -117,17 +129,17 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
           <Tab label="Esportazione" />
           <Tab label="Planning" />
           <Tab label="Comunicazione" />
-          <Tab label="Predizione" />
+          <Tab label="Predizione" sx={{ display: 'none' }} />
           <Tab label="Dashboard" />
           <Tab label="Azioni" />
-          <Tab label="Spiegabilità" />
-          <Tab label="Dev Tools" sx={{ display: import.meta.env.DEV ? undefined : 'none' }} />
+          <Tab label="Spiegabilità" sx={{ display: 'none' }} />
+          <Tab label="Dev Tools" sx={{ display: 'none' }} />
           <Tab label="Raccomandazioni AI" />
           <Tab label="Finanziamenti" sx={{ display: 'none' }} />
           <Tab label="Maturità AI" sx={{ display: 'none' }} />
-          <Tab label="Artistico" sx={{ display: capabilityLevel >= 2 ? undefined : 'none' }} />
-          <Tab label="Brain" />
-          <Tab label="Analitiche UC" />
+          <Tab label="Artistico" sx={{ display: 'none' }} />
+          <Tab label="Brain" sx={{ display: 'none' }} />
+          <Tab label="Analitiche UC" sx={{ display: 'none' }} />
         </Tabs>
         <Tooltip title="Sezioni avanzate">
           <Button
@@ -149,10 +161,17 @@ export default function CopilotDocentePanel({ suggestions, classHealth, snapshot
         onClose={() => setAltroAnchor(null)}
         MenuListProps={{ 'aria-label': 'Sezioni avanzate' }}
       >
-        <MenuItem onClick={() => { setTab(12); setAltroAnchor(null); }}>Finanziamenti</MenuItem>
-        <MenuItem onClick={() => { setTab(13); setAltroAnchor(null); }}>Maturità AI</MenuItem>
+        <MenuItem onClick={() => navToTab(12)}>Finanziamenti</MenuItem>
+        <MenuItem onClick={() => navToTab(13)}>Maturità AI</MenuItem>
+        <MenuItem onClick={() => navToTab(6)}>Predizione</MenuItem>
+        <MenuItem onClick={() => navToTab(9)}>Spiegabilità</MenuItem>
+        <MenuItem onClick={() => navToTab(15)}>Brain</MenuItem>
+        <MenuItem onClick={() => navToTab(16)}>Analitiche UC</MenuItem>
+        {capabilityLevel >= 2 && (
+          <MenuItem onClick={() => navToTab(14)}>Artistico</MenuItem>
+        )}
         {import.meta.env.DEV && (
-          <MenuItem onClick={() => { setTab(10); setAltroAnchor(null); }}>Dev Tools</MenuItem>
+          <MenuItem onClick={() => navToTab(10)}>Dev Tools</MenuItem>
         )}
       </Menu>
       <React.Suspense fallback={<TabFallback />}>

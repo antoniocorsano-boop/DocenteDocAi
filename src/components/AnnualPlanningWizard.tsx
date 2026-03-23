@@ -1,6 +1,13 @@
 // MD3 Compliant - Block J Migration Complete (5 violations eliminated)
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+
+// ── Wizard draft persistence ──────────────────────────────────────────────────
+const ANNUAL_WIZARD_DRAFT_KEY = 'annual_wizard_draft_v1';
+function loadWizardDraft(): Record<string, unknown> {
+  try { return JSON.parse(sessionStorage.getItem(ANNUAL_WIZARD_DRAFT_KEY) ?? '{}') as Record<string, unknown>; }
+  catch { return {}; }
+}
 import { InfoCard, AiThinkingGem, EmptyState } from './ui';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -42,24 +49,26 @@ type WizardStep = 'context' | 'situation' | 'methodology' | 'sequence' | 'previe
 const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     onClose, userClasses, settings, aiSettings, onSaveUda, onAddLessons, onSaveReport, onSaveEvent, knowledgeBase, students, pianiInclusione
 }) => {
-  const [step, setStep] = useState<WizardStep>('context');
+  // Restore wizard state from sessionStorage to prevent data loss on navigate-away
+  const [_draft] = useState<Record<string, unknown>>(loadWizardDraft);
+  const [step, setStep] = useState<WizardStep>(() => (_draft.step as WizardStep) || 'context');
 
     // UI Store for toast notifications
     const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
 
     // Step 1: Context
-    const [selectedClass, setSelectedClass] = useState<string>(userClasses[0] || '');
-    const [selectedSubject, setSelectedSubject] = useState<string>(settings.disciplines[0] || '');
-    const [selectedKbFiles, setSelectedKbFiles] = useState<string[]>([]);
-    
+    const [selectedClass, setSelectedClass] = useState<string>(() => (_draft.selectedClass as string) || userClasses[0] || '');
+    const [selectedSubject, setSelectedSubject] = useState<string>(() => (_draft.selectedSubject as string) || settings.disciplines[0] || '');
+    const [selectedKbFiles, setSelectedKbFiles] = useState<string[]>(() => (_draft.selectedKbFiles as string[]) || []);
+
     // Step 2: Situation (AI Assisted)
-    const [situationTags, setSituationTags] = useState<string[]>([]);
-    const [situationNotes, setSituationNotes] = useState('');
-        const [situazioneText, setSituazioneText] = useState('');
+    const [situationTags, setSituationTags] = useState<string[]>(() => (_draft.situationTags as string[]) || []);
+    const [situationNotes, setSituationNotes] = useState<string>(() => (_draft.situationNotes as string) || '');
+    const [situazioneText, setSituazioneText] = useState<string>(() => (_draft.situazioneText as string) || '');
     const [situationStatus, setSituationStatus] = useState<string | null>(null);
 
     // Step 3: Methodology & Goals
-    const [methodology, setMethodology] = useState('Lezione frontale partecipata, Cooperative Learning, Laboratorio.');
+    const [methodology, setMethodology] = useState<string>(() => (_draft.methodology as string) || 'Lezione frontale partecipata, Cooperative Learning, Laboratorio.');
     const [methodologyStatus, setMethodologyStatus] = useState<string | null>(null);
 
     // Step 4: UDA Sequence
@@ -69,23 +78,40 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
         hours: number;
         topic: string;
     }
-    const [plannedUdas, setPlannedUdas] = useState<PlannedUda[]>([]);
+    const [plannedUdas, setPlannedUdas] = useState<PlannedUda[]>(() => (_draft.plannedUdas as PlannedUda[]) || []);
     const [newUdaTitle, setNewUdaTitle] = useState('');
     const [newUdaHours, setNewUdaHours] = useState(10);
-    const [hoursPerWeek, setHoursPerWeek] = useState(3);
+    const [hoursPerWeek, setHoursPerWeek] = useState<number>(() => (_draft.hoursPerWeek as number) || 3);
     const [planGenerationStatus, setPlanGenerationStatus] = useState<string | null>(null);
-    const [showSequenceHelp, setShowSequenceHelp] = useState(false); 
+    const [showSequenceHelp, setShowSequenceHelp] = useState(false);
 
     // Step 5: Milestones
     const currentYear = new Date().getMonth() >= 8 ? new Date().getFullYear() : new Date().getFullYear() - 1;
-    const [term1End, setTerm1End] = useState<string>(`${currentYear}-12-22`);
-    const [term2End, setTerm2End] = useState<string>(`${currentYear + 1}-06-08`);
-    
+    const [term1End, setTerm1End] = useState<string>(() => (_draft.term1End as string) || `${currentYear}-12-22`);
+    const [term2End, setTerm2End] = useState<string>(() => (_draft.term2End as string) || `${currentYear + 1}-06-08`);
+
     // Step 6: Preview
-    const [schedulePreview, setSchedulePreview] = useState<{ uda: PlannedUda, start: string, end: string }[]>([]);
-    
+    const [schedulePreview, setSchedulePreview] = useState<{ uda: PlannedUda, start: string, end: string }[]>(() => (_draft.schedulePreview as { uda: PlannedUda, start: string, end: string }[]) || []);
+
     // General
     const [processingStatus, setProcessingStatus] = useState<string | null>(null);
+
+    // Persist draft to sessionStorage on every meaningful change
+    useEffect(() => {
+        try {
+            sessionStorage.setItem(ANNUAL_WIZARD_DRAFT_KEY, JSON.stringify({
+                step, selectedClass, selectedSubject, selectedKbFiles,
+                situationTags, situationNotes, situazioneText, methodology,
+                plannedUdas, hoursPerWeek, term1End, term2End, schedulePreview,
+            }));
+        } catch { /* sessionStorage unavailable */ }
+    }, [step, selectedClass, selectedSubject, selectedKbFiles, situationTags, situationNotes, situazioneText, methodology, plannedUdas, hoursPerWeek, term1End, term2End, schedulePreview]);
+
+    // Clear draft and close — used by Dialog onClose and on successful generation
+    const handleClose = React.useCallback(() => {
+        try { sessionStorage.removeItem(ANNUAL_WIZARD_DRAFT_KEY); } catch { /* ignore */ }
+        onClose();
+    }, [onClose]);
 
     // --- HELPERS ---
     const recommendedFiles = useMemo(() => knowledgeBase.filter(kb => 
@@ -317,8 +343,8 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
             };
             onSaveReport(newReport);
             saveAs(blob, fileName);
-            
-            onClose();
+
+            handleClose();
         } catch (e: unknown) {
             logger.error("Errore generazione documento:", e);
             showToast("Errore durante la generazione del documento. Riprova.", "error");
@@ -374,7 +400,7 @@ const AnnualPlanningWizard: React.FC<AnnualPlanningWizardProps> = ({
     );
 
     return (
-        <Dialog open onClose={onClose} fullScreen>
+        <Dialog open onClose={handleClose} fullScreen>
             <DialogTitle>Progettazione Annuale Guidata</DialogTitle>
             <DialogContent>
                     {renderStepIndicator()}
