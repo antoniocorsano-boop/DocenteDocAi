@@ -105,11 +105,13 @@ const Settings: React.FC<SettingsProps> = (props) => {
                     isDriveConnected={driveState.isAuthenticated}
                     driveConnectedAt={driveState.lastSyncTime ? String(driveState.lastSyncTime) : undefined}
                 />
-                <SettingsDebugSection
-                    expanded={expandedId === 'debug_logging'}
-                    onToggle={() => handleGroupToggle('debug_logging')}
-                    showToast={showToast}
-                />
+                {import.meta.env.DEV && (
+                  <SettingsDebugSection
+                      expanded={expandedId === 'debug_logging'}
+                      onToggle={() => handleGroupToggle('debug_logging')}
+                      showToast={showToast}
+                  />
+                )}
                 <SettingsAdvancedSection
                     expanded={expandedId === 'advanced'}
                     onToggle={() => handleGroupToggle('advanced')}

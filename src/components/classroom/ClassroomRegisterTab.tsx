@@ -179,14 +179,14 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                 >
                     <thead>
                         <tr>
-                            <th style={{ ...thStyle, width: '220px' }}>Studente</th>
-                            <th style={{ ...thStyle, textAlign: 'center', width: '80px' }}>Pres.</th>
-                            <th style={{ ...thStyle, textAlign: 'center', width: '80px' }}>Compiti</th>
-                            <th style={{ ...thStyle, width: '120px' }}>Partecip.</th>
-                            <th style={{ ...thStyle, textAlign: 'center', width: '70px' }}>Scritti</th>
-                            <th style={{ ...thStyle, textAlign: 'center', width: '70px' }}>Orali</th>
-                            <th style={{ ...thStyle, textAlign: 'center', width: '90px' }}>Media</th>
-                            <th style={{ ...thStyle, textAlign: 'center', width: '44px' }}></th>
+                            <th style={{ ...thStyle, minWidth: '160px' }}>Studente</th>
+                            <th style={{ ...thStyle, textAlign: 'center', minWidth: '64px' }}>Pres.</th>
+                            <th style={{ ...thStyle, textAlign: 'center', minWidth: '64px' }}>Compiti</th>
+                            <th style={{ ...thStyle, minWidth: '100px' }}>Partecip.</th>
+                            <th style={{ ...thStyle, textAlign: 'center', minWidth: '56px' }}>Scritti</th>
+                            <th style={{ ...thStyle, textAlign: 'center', minWidth: '56px' }}>Orali</th>
+                            <th style={{ ...thStyle, textAlign: 'center', minWidth: '72px' }}>Media</th>
+                            <th style={{ ...thStyle, textAlign: 'center', minWidth: '44px' }}></th>
                         </tr>
                     </thead>
                     <tbody>

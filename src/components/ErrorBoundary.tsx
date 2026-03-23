@@ -2,6 +2,7 @@
 import React, { Component, ErrorInfo, ReactNode } from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import { useUIStore } from '../stores/useUIStore';
 import { logger } from '../utils/logger';
 
@@ -44,52 +45,53 @@ const ErrorFallback: React.FC<{ error?: Error }> = ({ error }) => {
 	const { showToast } = useUIStore(state => ({ showToast: state.actions.showToast }));
 
 	React.useEffect(() => {
-		showToast(
-			"Si è verificato un errore imprevisto. L'applicazione verrà ricaricata.",
-			"error"
-		);
-
-		// Auto-reload after a short delay to give user time to see the message
-		const timer = setTimeout(() => {
-			window.location.reload();
-		}, 3000);
-
-		return () => clearTimeout(timer);
-}, [showToast]);
+		showToast("Si è verificato un errore imprevisto.", "error");
+	}, [showToast]);
 
 	return (
-		<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-			<div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--md-sys-spacing-4)' }}>
-				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-					<Box component="span" className="material-symbols-outlined" aria-hidden="true">error</Box>
-				</div>
-
+		<Box sx={{
+			display: 'flex',
+			flexDirection: 'column',
+			gap: 'var(--md-sys-spacing-4)',
+			alignItems: 'center',
+			justifyContent: 'center',
+			minHeight: '40vh',
+			p: 'var(--md-sys-spacing-6)',
+		}}>
+			<Box sx={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
+				<Box component="span" className="material-symbols-outlined" aria-hidden="true"
+					sx={{ fontSize: 'var(--md-sys-icon-size-xl)', color: 'var(--md-sys-color-error)' }}>
+					error
+				</Box>
 				<Typography variant="h6" component="h2">
-					Oops! Qualcosa è andato storto
+					Qualcosa è andato storto
 				</Typography>
+			</Box>
 
-				<Typography variant="body2" component="p">
-					Si è verificato un errore imprevisto nell'applicazione.
-					La pagina verrà ricaricata automaticamente tra pochi secondi.
-				</Typography>
+			<Typography variant="body2" component="p" sx={{ color: 'var(--md-sys-color-on-surface-variant)', textAlign: 'center', maxWidth: '480px' }}>
+				Si è verificato un errore imprevisto. Puoi ricaricare la pagina oppure consultare la console (F12) per i dettagli.
+			</Typography>
 
-				<div style={{ display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-3)' }}>
-					<Box component="span" className="material-symbols-outlined" aria-hidden="true">refresh</Box>
-					<Typography variant="body2" component="span">Ricaricamento in corso...</Typography>
-				</div>
+			<Button
+				variant="contained"
+				onClick={() => window.location.reload()}
+				startIcon={<Box component="span" className="material-symbols-outlined" aria-hidden="true">refresh</Box>}
+				aria-label="Ricarica la pagina"
+			>
+				Ricarica pagina
+			</Button>
 
-				{process.env.NODE_ENV === 'development' && error && (
-					<details>
-						<summary>
-							Dettagli errore (solo in sviluppo)
-						</summary>
-						<pre >
-							{error.stack}
-						</pre>
-					</details>
-				)}
-			</div>
-		</div>
+			{import.meta.env.DEV && error && (
+				<details style={{ maxWidth: '640px', width: '100%' }}>
+					<summary style={{ cursor: 'pointer', color: 'var(--md-sys-color-outline)' }}>
+						Dettagli errore (solo in sviluppo)
+					</summary>
+					<pre style={{ fontSize: '12px', overflowX: 'auto', padding: 'var(--md-sys-spacing-3)', background: 'var(--md-sys-color-surface-container)' }}>
+						{error.stack}
+					</pre>
+				</details>
+			)}
+		</Box>
 	);
 };
 
