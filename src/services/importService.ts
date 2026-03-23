@@ -1,8 +1,47 @@
 import Papa from 'papaparse';
 import { Studente, Valutazione } from '../types';
 
-// xlsx is loaded on-demand (user uploads a .xlsx file) to keep the initial bundle lean
-const loadXLSX = () => import('xlsx');
+// exceljs is loaded on-demand (user uploads a .xlsx/.xls file) to keep the initial bundle lean
+const loadExcelJS = () => import('exceljs');
+
+function _unwrapCellValue(v: unknown): unknown {
+    if (v === null || v === undefined) return v;
+    if (typeof v === 'object') {
+        const o = v as Record<string, unknown>;
+        if ('text' in o) return o.text;
+        if ('result' in o) return o.result;
+        if ('hyperlink' in o) return o.text ?? o.hyperlink;
+    }
+    return v;
+}
+
+async function _readExcelFile(file: File): Promise<Record<string, unknown>[]> {
+    const mod = await loadExcelJS();
+    const WorkbookCtor: new () => import('exceljs').Workbook =
+        (mod as unknown as { default: { Workbook: new () => import('exceljs').Workbook } }).default?.Workbook ??
+        (mod as unknown as { Workbook: new () => import('exceljs').Workbook }).Workbook;
+    const workbook = new WorkbookCtor();
+    const buffer = await file.arrayBuffer();
+    await workbook.xlsx.load(buffer);
+    const ws = workbook.worksheets[0];
+    if (!ws) return [];
+    const headers: string[] = [];
+    const rows: Record<string, unknown>[] = [];
+    ws.eachRow((row, rowNum) => {
+        const vals = row.values as unknown[];
+        if (rowNum === 1) {
+            for (let i = 1; i < vals.length; i++) headers.push(String(vals[i] ?? ''));
+        } else {
+            const obj: Record<string, unknown> = {};
+            for (let i = 1; i < vals.length; i++) {
+                const key = headers[i - 1];
+                if (key) obj[key] = _unwrapCellValue(vals[i]);
+            }
+            if (Object.keys(obj).length) rows.push(obj);
+        }
+    });
+    return rows;
+}
 
 export interface ImportResult {
     students: Studente[];
@@ -56,12 +95,7 @@ export const ImportService = {
             });
         } else if (extension === 'xlsx' || extension === 'xls') {
             try {
-                const XLSX = await loadXLSX();
-                const data = await file.arrayBuffer();
-                const workbook = XLSX.read(data);
-                const firstSheetName = workbook.SheetNames[0];
-                const worksheet = workbook.Sheets[firstSheetName];
-                const jsonData = XLSX.utils.sheet_to_json(worksheet) as Record<string, unknown>[];
+                const jsonData = await _readExcelFile(file);
                 const headers = jsonData.length > 0 ? Object.keys(jsonData[0]) : [];
                 return { headers, data: jsonData, errors: [] };
             } catch (error) {
@@ -144,12 +178,7 @@ export const ImportService = {
      */
     async parseExcel(file: File): Promise<ImportResult> {
         try {
-            const XLSX = await loadXLSX();
-            const data = await file.arrayBuffer();
-            const workbook = XLSX.read(data);
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            const jsonData = XLSX.utils.sheet_to_json(worksheet) as Record<string, unknown>[];
+            const jsonData = await _readExcelFile(file);
             return ImportService.mapDataToInternal(jsonData);
         } catch (error) {
             return { students: [], evaluations: [], errors: [`Errore durante il parsing Excel: ${error instanceof Error ? error.message : 'Errore sconosciuto'}`] };

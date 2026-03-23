@@ -1,24 +1,32 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { ImportService } from "../../src/services/importService";
 import Papa from "papaparse";
-import * as XLSX from "xlsx";
 
-// Mock XLSX
-vi.mock("xlsx", async () => {
-    const actual = await vi.importActual<typeof import("xlsx")>("xlsx");
-    return {
-        ...actual,
-        read: vi.fn(),
-        utils: {
-            ...actual.utils,
-            sheet_to_json: vi.fn()
-        }
-    };
+const xlsxMock = vi.hoisted(() => ({
+    rows: [] as Array<{ values: unknown[] }>,
+    error: null as Error | null,
+}));
+
+// Mock exceljs
+vi.mock("exceljs", () => {
+    function WorkbookMock(this: any) {
+        this.worksheets = [{
+            eachRow(cb: (row: { values: unknown[] }, n: number) => void) {
+                xlsxMock.rows.forEach((row, i) => cb(row, i + 1));
+            }
+        }];
+        this.xlsx = {
+            load: () => (xlsxMock.error ? Promise.reject(xlsxMock.error) : Promise.resolve()),
+        };
+    }
+    return { default: { Workbook: WorkbookMock }, Workbook: WorkbookMock };
 });
 
 describe("ImportService Coverage", () => {
     beforeEach(() => {
         vi.clearAllMocks();
+        xlsxMock.rows = [];
+        xlsxMock.error = null;
     });
 
     describe("parseCSV", () => {
@@ -53,32 +61,27 @@ describe("ImportService Coverage", () => {
     describe("parseExcel", () => {
         it("should parse a valid Excel file", async () => {
             const mockData = [{ Cognome: "Rossi", Nome: "Mario", Classe: "1A" }];
-            
-            (XLSX.read as any).mockReturnValue({
-                SheetNames: ["Sheet1"],
-                Sheets: { "Sheet1": {} }
-            });
-            (XLSX.utils.sheet_to_json as any).mockReturnValue(mockData);
-            
+            xlsxMock.rows = [
+                { values: [undefined, "Cognome", "Nome", "Classe"] },
+                { values: [undefined, mockData[0].Cognome, mockData[0].Nome, mockData[0].Classe] },
+            ];
+
             const file = new File([""], "students.xlsx");
             file.arrayBuffer = vi.fn().mockResolvedValue(new ArrayBuffer(0));
-            
+
             const result = await ImportService.parseExcel(file);
-            
+
             expect(result.students).toHaveLength(1);
             expect(result.students[0].cognome).toBe("Rossi");
         });
 
         it("should handle Excel parsing errors", async () => {
+            xlsxMock.error = new Error("XLSX read error");
             const file = new File([""], "error.xlsx");
             file.arrayBuffer = vi.fn().mockResolvedValue(new ArrayBuffer(0));
-            
-            (XLSX.read as any).mockImplementation(() => {
-                throw new Error("XLSX read error");
-            });
 
             const result = await ImportService.parseExcel(file);
-            
+
             expect(result.errors).toHaveLength(1);
             expect(result.errors[0]).toContain("Errore durante il parsing Excel: XLSX read error");
         });
@@ -260,22 +263,21 @@ describe("ImportService Coverage", () => {
         });
 
         it("should get raw data from Excel", async () => {
-            (XLSX.read as any).mockReturnValue({
-                SheetNames: ["Sheet1"],
-                Sheets: { "Sheet1": {} }
-            });
-            (XLSX.utils.sheet_to_json as any).mockReturnValue([{ Col1: "Val1" }]);
-            
+            xlsxMock.rows = [
+                { values: [undefined, "Col1"] },
+                { values: [undefined, "Val1"] },
+            ];
+
             const file = new File([""], "test.xlsx");
             file.arrayBuffer = vi.fn().mockResolvedValue(new ArrayBuffer(0));
-            
+
             const result = await ImportService.getRawData(file);
             expect(result.headers).toContain("Col1");
             expect(result.data[0].Col1).toBe("Val1");
         });
 
         it("should handle Excel errors in getRawData", async () => {
-            (XLSX.read as any).mockImplementation(() => { throw new Error("Excel error"); });
+            xlsxMock.error = new Error("Excel error");
             const file = new File([""], "test.xlsx");
             file.arrayBuffer = vi.fn().mockResolvedValue(new ArrayBuffer(0));
             const result = await ImportService.getRawData(file);

@@ -75,7 +75,7 @@ export default defineConfig({
       injectManifest: {
         globPatterns: ['index.html', '**/*.{js,css,woff,woff2,png,svg,webmanifest}'],
         // Escludi dal precache i chunk lazy pesanti: vengono scaricati on-demand, non al primo avvio
-        globIgnores: ['**/{pdf-vendor,xlsx-vendor,dnd-vendor,chart-vendor,ai-vendor,opentelemetry-vendor}-*.js'],
+        globIgnores: ['**/{pdf-vendor,excel-vendor,dnd-vendor,chart-vendor,ai-vendor,opentelemetry-vendor}-*.js'],
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // Aumentato a 5MB per gestire i chunk pesanti
       },
       devOptions: {
@@ -151,7 +151,7 @@ export default defineConfig({
           !dep.includes('ai-vendor') &&
           !dep.includes('dnd-vendor') &&
           !dep.includes('chart-vendor') &&
-          !dep.includes('xlsx-vendor') &&
+          !dep.includes('excel-vendor') &&
           !dep.includes('opentelemetry-vendor')
         ),
     },
@@ -204,9 +204,9 @@ export default defineConfig({
           ) {
             return 'pdf-vendor';
           }
-          // xlsx — loaded on demand for Excel file import
-          if (id.includes('node_modules/xlsx')) {
-            return 'xlsx-vendor';
+          // exceljs — loaded on demand for Excel file import
+          if (id.includes('node_modules/exceljs')) {
+            return 'excel-vendor';
           }
           // DnD — not needed on initial render
           if (id.includes('@dnd-kit')) {

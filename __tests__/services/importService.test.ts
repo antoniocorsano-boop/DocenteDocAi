@@ -1,14 +1,25 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { ImportService } from '../../src/services/importService';
-import * as XLSX from 'xlsx';
 import Papa from 'papaparse';
 
-vi.mock('xlsx', () => ({
-  read: vi.fn(),
-  utils: {
-    sheet_to_json: vi.fn()
-  }
+const xlsxMock = vi.hoisted(() => ({
+  rows: [] as Array<{ values: unknown[] }>,
+  error: null as Error | null,
 }));
+
+vi.mock('exceljs', () => {
+  function WorkbookMock(this: any) {
+    this.worksheets = [{
+      eachRow(cb: (row: { values: unknown[] }, n: number) => void) {
+        xlsxMock.rows.forEach((row, i) => cb(row, i + 1));
+      }
+    }];
+    this.xlsx = {
+      load: () => (xlsxMock.error ? Promise.reject(xlsxMock.error) : Promise.resolve()),
+    };
+  }
+  return { default: { Workbook: WorkbookMock }, Workbook: WorkbookMock };
+});
 
 vi.mock('papaparse', () => ({
   default: {
@@ -20,6 +31,8 @@ describe('ImportService', () => {
   beforeEach(() => {
     vi.restoreAllMocks();
     vi.clearAllMocks();
+    xlsxMock.rows = [];
+    xlsxMock.error = null;
     
     // Polyfill File methods if missing
     if (!File.prototype.arrayBuffer) {
@@ -96,11 +109,10 @@ describe('ImportService', () => {
     it('should parse Excel raw data', async () => {
       const file = new File([''], 'test.xlsx');
       vi.spyOn(File.prototype, 'arrayBuffer').mockResolvedValue(new ArrayBuffer(0));
-      (XLSX.read as any).mockReturnValue({
-        SheetNames: ['Sheet1'],
-        Sheets: { Sheet1: {} }
-      });
-      (XLSX.utils.sheet_to_json as any).mockReturnValue([{ cognome: 'Rossi', nome: 'Mario' }]);
+      xlsxMock.rows = [
+        { values: [undefined, 'cognome', 'nome'] },
+        { values: [undefined, 'Rossi', 'Mario'] },
+      ];
 
       const result = await ImportService.getRawData(file);
       expect(result.headers).toEqual(['cognome', 'nome']);
@@ -217,8 +229,10 @@ describe('ImportService', () => {
     it('should parse Excel and map to internal', async () => {
       const file = new File([''], 'test.xlsx');
       vi.spyOn(File.prototype, 'arrayBuffer').mockResolvedValue(new ArrayBuffer(0));
-      (XLSX.read as any).mockReturnValue({ SheetNames: ['S1'], Sheets: { S1: {} } });
-      (XLSX.utils.sheet_to_json as any).mockReturnValue([{ Cognome: 'Rossi', Nome: 'Mario' }]);
+      xlsxMock.rows = [
+        { values: [undefined, 'Cognome', 'Nome'] },
+        { values: [undefined, 'Rossi', 'Mario'] },
+      ];
       const result = await ImportService.parseExcel(file);
       expect(result.students.length).toBeGreaterThan(0);
     });
@@ -345,8 +359,7 @@ describe('ImportService', () => {
     it('should handle .xls files in getRawData', async () => {
       const file = new File([''], 'test.xls');
       vi.spyOn(File.prototype, 'arrayBuffer').mockResolvedValue(new ArrayBuffer(0));
-      (XLSX.read as any).mockReturnValue({ SheetNames: ['S1'], Sheets: { S1: {} } });
-      (XLSX.utils.sheet_to_json as any).mockReturnValue([]);
+      xlsxMock.rows = []; // empty sheet
       const result = await ImportService.getRawData(file);
       expect(result.headers).toEqual([]);
     });
