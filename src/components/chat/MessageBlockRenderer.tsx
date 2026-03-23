@@ -130,12 +130,23 @@ const DecisionCardBlock = memo((
   const [factorsOpen,   setFactorsOpen]   = useState(false);
   const [applied,       setApplied]       = useState(false);
 
-  const primaryLabel = nextAction ?? primaryAction.label;
-  const isHighConf   = nextAction === 'Usa questa soluzione';
-  const isLowConf    = nextAction === 'Migliora la richiesta';
+  // P43 — action-forward CTA labels driven by score (clarity > jargon)
+  const score     = confidence?.score;
+  const ctaLabel  = score != null
+    ? score >= 0.80  ? 'Applica subito'
+    : score >= 0.60  ? 'Usa e controlla'
+    :                  'Rivediamo insieme'
+    : (nextAction ?? primaryAction.label);
+  const ctaPrefix = score != null
+    ? score >= 0.80  ? '⚡ '
+    : score >= 0.60  ? '👍 '
+    : '⚠️ '
+    : nextAction === 'Usa questa soluzione'  ? '⚡ '
+    : nextAction === 'Migliora la richiesta' ? '✏️ '
+    : '';
+  const isLowConf  = score != null ? score <  0.60 : nextAction === 'Migliora la richiesta';
 
   // P42.5 — button color/variant driven by score for emotional feedback in a glance
-  const score = confidence?.score;
   const btnColor: 'success' | 'primary' | 'warning' =
     !score            ? 'primary'
     : score >= 0.80   ? 'success'
@@ -178,11 +189,11 @@ const DecisionCardBlock = memo((
             }}
             aria-label={
               primaryAction.hint
-                ? `${primaryLabel}: ${primaryAction.hint}`
-                : primaryLabel
+                ? `${ctaLabel}: ${primaryAction.hint}`
+                : ctaLabel
             }
           >
-            {isHighConf ? '⚡ ' : isLowConf ? '✏️ ' : ''}{primaryLabel}
+            {ctaPrefix}{ctaLabel}
           </Button>
 
           {/* P42.5 — lock-in moment: close the mental loop after action */}
@@ -224,6 +235,11 @@ const DecisionCardBlock = memo((
             Puoi usarla direttamente — affidabilità ottima
           </Typography>
         )}
+
+        {/* P43 — always-visible safety signal: lowers action resistance */}
+        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.75, pl: 0.25 }}>
+          ✔ Puoi modificare tutto prima di usare
+        </Typography>
       </Box>
 
       {/* Footer: secondary actions + explain + factors */}

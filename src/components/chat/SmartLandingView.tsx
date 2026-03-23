@@ -81,6 +81,59 @@ interface SuggestionCard {
    * what kind of output to expect.
    */
   action?: 'Genera' | 'Analizza' | 'Pianifica' | 'Riprendi';
+  /** P43 — Outcome: what the user gets (visible before clicking) */
+  outcome?: string;
+  /** P43 — Estimated time to complete (e.g. '2 min') */
+  time?: string;
+  /** P43 — Perceived difficulty */
+  difficulty?: 'facile' | 'medio' | 'avanzato';
+}
+
+// ── Adaptation signal ──────────────────────────────────────────────────────────
+
+function AdaptationSignal(): React.ReactElement | null {
+  const {
+    cognitiveStyle,
+    cognitiveStyleSignals,
+    revealClickCount,
+    explainOpenedCount,
+    acceptedSuggestions,
+  } = useChatPrefsStore();
+
+  const totalSignals =
+    (cognitiveStyleSignals?.totalTurns     ?? 0) +
+    (revealClickCount                       ?? 0) +
+    (explainOpenedCount                     ?? 0) +
+    (acceptedSuggestions                    ?? 0);
+
+  if (totalSignals === 0) return null;
+
+  if (totalSignals >= 5) {
+    let learned = '';
+    const speed = cognitiveStyle?.speedPreference;
+    if (speed === 'fast') {
+      learned = 'risposte rapide';
+    } else if (speed === 'deliberate') {
+      learned = 'risposte approfondite';
+    } else if (cognitiveStyle?.structure === 'high') {
+      learned = 'risposte strutturate';
+    } else if (cognitiveStyle?.exploration === 'high') {
+      learned = 'approfondire le risposte';
+    } else {
+      learned = 'un ritmo bilanciato';
+    }
+    return (
+      <Typography variant="caption" color="primary.main" align="center" component="p">
+        🧠 Ora preferisci {learned} ✔
+      </Typography>
+    );
+  }
+
+  return (
+    <Typography variant="caption" color="text.secondary" align="center" component="p">
+      🧠 Si sta adattando al tuo modo di lavorare
+    </Typography>
+  );
 }
 
 // ── Props ──────────────────────────────────────────────────────────────────────
@@ -119,12 +172,17 @@ export function SmartLandingView({
 
     if (draftUDAs.length > 0) {
       result.push({
-        id:     'uda-draft',
-        icon:   <SchoolIcon />,
-        label:  draftUDAs.length === 1
+        id:      'uda-draft',
+        icon:    <SchoolIcon />,
+        label:   draftUDAs.length === 1
           ? `UDA in bozza: "${draftUDAs[0].title}"`
           : `${draftUDAs.length} UDA in bozza`,
-        detail: 'Continua la pianificazione',
+        detail:  'Continua la pianificazione',
+        outcome: draftUDAs.length === 1
+          ? 'Bozza completata + sequenza attività'
+          : 'Priorità definite + piano di completamento',
+        time:       '5 min',
+        difficulty: 'facile',
         prompt: draftUDAs.length === 1
           ? `Aiutami a completare la UDA "${draftUDAs[0].title}". Suggerisci obiettivi e attività.`
           : `Ho ${draftUDAs.length} UDA in bozza. Aiutami a prioritizzarle e completarle.`,
@@ -140,14 +198,17 @@ export function SmartLandingView({
     const pendingEvals = evaluations.filter(e => !e.voto || e.voto.trim() === '').slice(0, 3);
     if (pendingEvals.length > 0) {
       result.push({
-        id:     'eval-pending',
-        icon:   <PendingActionsIcon />,
-        label:  `${pendingEvals.length} ${pendingEvals.length === 1 ? 'valutazione' : 'valutazioni'} da completare`,
-        detail: `${students.length} alunni in registro`,
-        prompt: `Ho ${pendingEvals.length} valutazioni da completare. Come posso organizzarle e compilarle in modo rapido?`,
-        color:  'info',
-        action: 'Analizza',
-        reason: 'Valutazioni senza voto rilevate nel registro',
+        id:         'eval-pending',
+        icon:       <PendingActionsIcon />,
+        label:      `${pendingEvals.length} ${pendingEvals.length === 1 ? 'valutazione' : 'valutazioni'} da completare`,
+        detail:     `${students.length} alunni in registro`,
+        outcome:    'Registro aggiornato + note per ogni alunno',
+        time:       '3 min',
+        difficulty: 'facile',
+        prompt:     `Ho ${pendingEvals.length} valutazioni da completare. Come posso organizzarle e compilarle in modo rapido?`,
+        color:      'info',
+        action:     'Analizza',
+        reason:     'Valutazioni senza voto rilevate nel registro',
       });
     }
 
@@ -156,36 +217,45 @@ export function SmartLandingView({
     if (lastConv && lastConv.messages.length > 0) {
       const snippet = lastConv.messages[lastConv.messages.length - 1].content.slice(0, 60);
       result.push({
-        id:     'conv-last',
-        icon:   <HistoryIcon />,
-        label:  `Riprendi: "${lastConv.title}"`,
-        detail: `…${snippet}`,
-        prompt: `Continua la conversazione: ${snippet}`,
-        color:  'secondary',
-        action: 'Riprendi',
-        reason: 'L’ultima conversazione si era interrotta qui — riprendi dal punto in cui eri',
+        id:         'conv-last',
+        icon:       <HistoryIcon />,
+        label:      `Riprendi: "${lastConv.title}"`,
+        detail:     `…${snippet}`,
+        outcome:    'Conversazione ripristinata dal punto in cui eri',
+        time:       '< 1 min',
+        difficulty: 'facile',
+        prompt:     `Continua la conversazione: ${snippet}`,
+        color:      'secondary',
+        action:     'Riprendi',
+        reason:     'L’ultima conversazione si era interrotta qui — riprendi dal punto in cui eri',
       });
     }
 
     // Fallback: generic prompts when no context available
     if (result.length === 0) {
       result.push({
-        id:     'generic-plan',
-        icon:   <SchoolIcon />,
-        label:  'Crea una verifica di storia medievale',
-        detail: 'Esercizi + domande aperte per liceo',
-        prompt: 'Crea una verifica di storia medievale per una classe di liceo: include 5 domande a risposta multipla, 3 domande aperte e una traccia di saggio breve.',
-        color:  'primary',
-        action: 'Genera',
+        id:         'generic-plan',
+        icon:       <SchoolIcon />,
+        label:      'Crea una verifica di storia medievale',
+        detail:     'Esercizi + domande aperte per liceo',
+        outcome:    'PDF pronto + griglia di valutazione',
+        time:       '2 min',
+        difficulty: 'facile',
+        prompt:     'Crea una verifica di storia medievale per una classe di liceo: include 5 domande a risposta multipla, 3 domande aperte e una traccia di saggio breve.',
+        color:      'primary',
+        action:     'Genera',
       });
       result.push({
-        id:     'generic-eval',
-        icon:   <PendingActionsIcon />,
-        label:  'Suggerisci rubrica di valutazione',
-        detail: 'Per qualsiasi disciplina o competenza',
-        prompt: 'Crea una rubrica di valutazione con 4 livelli di competenza per la produzione scritta in italiano, adatta a una classe seconda media.',
-        color:  'success',
-        action: 'Genera',
+        id:         'generic-eval',
+        icon:       <PendingActionsIcon />,
+        label:      'Suggerisci rubrica di valutazione',
+        detail:     'Per qualsiasi disciplina o competenza',
+        outcome:    'Rubrica pronta in 4 livelli',
+        time:       '1 min',
+        difficulty: 'facile',
+        prompt:     'Crea una rubrica di valutazione con 4 livelli di competenza per la produzione scritta in italiano, adatta a una classe seconda media.',
+        color:      'success',
+        action:     'Genera',
       });
     }
 
@@ -312,9 +382,12 @@ export function SmartLandingView({
                     overflow:     'hidden',
                     textOverflow: 'ellipsis',
                     whiteSpace:   'nowrap',
+                    fontWeight: card.action === 'Genera' || card.action === 'Pianifica'
+                      ? 'var(--md-sys-typescale-weight-semibold)'
+                      : undefined,
                   }}
                 >
-                  {card.label}
+                  {(card.action === 'Genera' || card.action === 'Pianifica') ? '⚡ ' : ''}{card.label}
                 </Typography>
                 {card.action && (
                   <Chip
@@ -327,18 +400,51 @@ export function SmartLandingView({
                   />
                 )}
               </Stack>
-              <Typography
-                variant="caption"
-                color="text.secondary"
-                sx={{
-                  overflow:     'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace:   'nowrap',
-                  display:      'block',
-                }}
-              >
-                {card.detail}
-              </Typography>
+
+              {/* Outcome — what the user gets */}
+              {card.outcome ? (
+                <Typography
+                  variant="caption"
+                  sx={{ display: 'block', fontWeight: 500, color: 'text.primary' }}
+                >
+                  📄 {card.outcome}
+                </Typography>
+              ) : (
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', display: 'block' }}
+                >
+                  {card.detail}
+                </Typography>
+              )}
+
+              {/* Time + difficulty meta */}
+              {(card.time ?? card.difficulty) && (
+                <Stack direction="row" spacing={0.5} alignItems="center" sx={{ mt: 0.4 }} useFlexGap>
+                  {card.time && (
+                    <Typography variant="caption" color="text.secondary">
+                      ⏱ {card.time}
+                    </Typography>
+                  )}
+                  {card.time && card.difficulty && (
+                    <Typography variant="caption" color="text.disabled">•</Typography>
+                  )}
+                  {card.difficulty && (
+                    <Typography
+                      variant="caption"
+                      color={
+                        card.difficulty === 'facile' ? 'success.main'
+                        : card.difficulty === 'medio' ? 'warning.main'
+                        : 'primary.main'
+                      }
+                    >
+                      {card.difficulty}
+                    </Typography>
+                  )}
+                </Stack>
+              )}
+
               {card.reason && (
                 <Typography
                   variant="caption"
@@ -391,6 +497,9 @@ export function SmartLandingView({
           }}
         />
       </Box>
+      {/* ── Adaptation signal (P43) ──────────────────────────────────────── */}
+      <AdaptationSignal />
+
       {/* ── Trust Layer (P40) ──────────────────────────────────────────────── */}
       <TrustBadge suggestionContext={`Suggerimenti dal tuo registro e dalle conversazioni recenti`} />
       {/* ── Open full chat ──────────────────────────────────────────────── */}
