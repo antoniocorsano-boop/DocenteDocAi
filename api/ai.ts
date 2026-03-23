@@ -305,7 +305,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse): 
   type GeminiContent = { role: string; parts: { text: string }[] };
   const geminiContents: GeminiContent[] = Array.isArray(contents)
     ? (contents as GeminiContent[])
-    : [{ role: 'user', parts: [{ text: String(contents) }] }];
+    : typeof contents === 'object' && contents !== null
+      ? [contents as GeminiContent]  // single Content object — wrap in array
+      : [{ role: 'user', parts: [{ text: String(contents) }] }];
 
   const bodySize = JSON.stringify(geminiContents).length;
   if (bodySize > MAX_BODY_BYTES) {

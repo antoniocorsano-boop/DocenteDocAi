@@ -506,10 +506,7 @@ export const chatWithAi = async (aiSettings: AiSettings, messages: ChatMessage[]
 
         const response = await ai.models.generateContent({
             model: aiSettings?.model || 'gemini-3-flash-preview',
-            contents: {
-                role: 'user',
-                parts: [{ text: lastMessage.text }]
-            },
+            contents: [{ role: 'user', parts: [{ text: lastMessage.text ?? '' }] }],
             config: {
                 systemInstruction: buildSystemInstruction(context),
                 // history: history // Gemini SDK handles history differently depending on version, but we can pass it in contents if needed
