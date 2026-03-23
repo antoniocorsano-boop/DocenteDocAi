@@ -16,6 +16,10 @@ export const useKeyboardNavigation = (
     const modalRef = useRef<HTMLDivElement>(null);
     const previouslyFocusedElement = useRef<Element | null>(null);
     const lastInteractionTarget = useRef<HTMLElement | null>(null);
+    // Guard against re-entrant focus calls: calling element.focus() fires
+    // focusin synchronously, which would re-trigger handleFocusIn and create
+    // an infinite loop with MUI's own document-level focus listeners.
+    const isFocusingRef = useRef(false);
 
     useEffect(() => {
       const recordInteraction = (event: Event) => {
@@ -107,6 +111,11 @@ export const useKeyboardNavigation = (
         // Aggiungi event listener
         document.addEventListener('keydown', handleKeyDown);
         const handleFocusIn = (event: FocusEvent) => {
+          // Re-entrance guard: element.focus() fires focusin synchronously.
+          // Without this guard, our focus() call triggers MUI's document listener
+          // which moves focus elsewhere, which triggers ours again → infinite loop
+          // (Maximum call stack size exceeded).
+          if (isFocusingRef.current) return;
           if (!isOpen || !modalRef.current) return;
           const targetNode = event.target as Node;
           const closestDialog = (targetNode as Element | null)?.closest('[data-testid="m3-dialog"]');
@@ -125,7 +134,9 @@ export const useKeyboardNavigation = (
 
             const fallback = preferredElements[0] || focusableElements[0];
             if (fallback && document.activeElement !== fallback) {
+              isFocusingRef.current = true;
               fallback.focus();
+              isFocusingRef.current = false;
             }
           }
         };
