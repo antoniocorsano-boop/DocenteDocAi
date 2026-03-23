@@ -111,7 +111,7 @@ Ogni fase ha:
 - [x] **Annotare `mergeStrategy`** — aggiunto campo opzionale `_debug?: { ruleApplied: string; priority: 1|2|3 }` su `EmotionalStrategy`; popolato da `mergeStrategy` in dev mode (tree-shaken in prod via `import.meta.env.DEV`) — commit `2d9111f2`
 - [x] **Telemetria estesa** — `observe('merge.rule.applied', { rule, priority, emotional, structure, exploration })` in dev mode; 9 regole tracciate con accumulo (`P2:structure-high + P2:exploration-high`) — commit `2d9111f2`
 - [x] **Devtools panel** (dev-only) — `CognitiveDebugPanel` nascosto dietro `?debug=cognitive` — mostra EmotionalProfile, CognitiveStyle, Signals, Last Merge Rule in real-time — commit `2d9111f2`
-- [x] **Documentazione decisionale** — `COGNITIVE_ARCHITECTURE_P39.6.md` aggiornato con sezione Fase 4, tabella regole merge, eventi telemetria — commit `2d9111f2`
+- [x] **Documentazione decisionale** — `COGNITIVE_ARCHITECTURE_P44.6.md` aggiornato con sezione Fase 4, tabella regole merge, eventi telemetria — commit `2d9111f2`
 
 ### Gate di uscita
 
@@ -192,7 +192,7 @@ Fase 5 è hard dependency: si esegue solo dopo Fase 1 + Fase 2 completate.
 
 ## 10. Riferimenti
 
-- [COGNITIVE_ARCHITECTURE_P39.6.md](./COGNITIVE_ARCHITECTURE_P39.6.md) — architettura layer e regole
+- [COGNITIVE_ARCHITECTURE_P44.6.md](./COGNITIVE_ARCHITECTURE_P44.6.md) — architettura layer e regole
 - [ROADMAP_ADAPTIVE_INTELLIGENCE.md](./ROADMAP_ADAPTIVE_INTELLIGENCE.md) — roadmap Sprint 10+
 - [CLAUDE.md](../CLAUDE.md) — setup, comandi, gotchas
 - Commit baseline: `dfc8f705` — P39.6 merge engine

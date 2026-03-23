@@ -55,6 +55,10 @@ import { M3ThemeProvider } from './theme/theme';
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { buildMuiTheme } from './theme/muiTheme';
+import { injectOrbitCssVars } from './theme/orbitTheme';
+
+// Inject Orbit CSS custom properties into :root before first render
+injectOrbitCssVars();
 import { NKAProvider } from './nka/NKAProvider';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
@@ -356,6 +360,7 @@ async function bootstrapApp() {
     const { ModalProvider } = await import('./contexts/ModalContext');
     const { hasPilotOnboarding } = await import('./components/onboarding/PilotaOnboardingModal');
     const { default: UnifiedOnboardingFlow } = await import('./components/onboarding/UnifiedOnboardingFlow');
+    const { default: OrbitTeaser, hasSeenTeaser } = await import('./components/ui/OrbitTeaser');
 
     /** Consent gate — percorso unico di 4 step (Benvenuto → Come funziono → Modalità AI → Privacy GDPR).
      *  Sostituisce la cascata PrivacyConsentModal → SovereigntyOnboarding → PilotaOnboardingModal
@@ -372,8 +377,14 @@ async function bootstrapApp() {
       const [allDone, setAllDone] = useState(
         () => isTestMode || (hasPrivacyConsent() && hasSovereigntyConfig() && hasPilotOnboarding()),
       );
+      const [teaserDone, setTeaserDone] = useState(
+        () => isTestMode || hasSeenTeaser(),
+      );
       if (!allDone) {
         return <UnifiedOnboardingFlow onComplete={() => setAllDone(true)} />;
+      }
+      if (!teaserDone) {
+        return <OrbitTeaser onClose={() => setTeaserDone(true)} />;
       }
       return (
         <NKAProvider>

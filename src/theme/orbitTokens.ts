@@ -100,3 +100,51 @@ export const ORBIT_PRESENCE_BREAKPOINTS = {
   MOBILE_THRESHOLD:  600,  // px — same as MD3 compact layout threshold
   DESKTOP_THRESHOLD: 1240, // px — MD3 expanded layout threshold
 } as const;
+
+// ─── Background gradient tokens (Fase 2 — Orbit DS) ──────────────────────────
+
+/**
+ * Soft gradient backgrounds for fullscreen Orbit surfaces.
+ * Uses CSS var() fallbacks to MD3 system colors — never hardcoded hex.
+ */
+export const ORBIT_BACKGROUND = {
+  /** Landing overlays (ScheduleLanding, ClassLanding, LessonLanding) */
+  landing: 'linear-gradient(160deg, var(--md-sys-color-surface-container-lowest, #F7F2FA) 0%, var(--md-sys-color-surface-container, #ECE6F0) 100%)',
+  /** PlanCard surface background */
+  plan:    'linear-gradient(135deg, var(--md-sys-color-primary-container, #EADDFF) 0%, var(--md-sys-color-surface-container-low, #F3EDF7) 100%)',
+  /** OrbitDock / bottom sheet background */
+  dock:    'linear-gradient(180deg, var(--md-sys-color-surface-container-high, #E6E0E9) 0%, var(--md-sys-color-surface, #FFFBFE) 100%)',
+} as const;
+
+// ─── Teaser tokens (Fase 2 — Orbit DS) ────────────────────────────────────────
+
+/**
+ * Color tokens for the OrbitTeaser walkthrough and nudge surfaces.
+ */
+export const ORBIT_TEASER = {
+  /** Teaser backdrop */
+  background: 'linear-gradient(160deg, var(--md-sys-color-surface-container-lowest, #F7F2FA) 0%, var(--md-sys-color-primary-container, #EADDFF) 60%, var(--md-sys-color-surface-container, #ECE6F0) 100%)',
+  /** Accent for CTA buttons in teaser */
+  accent:     'var(--md-sys-color-primary)',
+  /** Muted text for slide subtitles */
+  muted:      'var(--md-sys-color-on-surface-variant)',
+  /** Dot indicator — inactive */
+  dotInactive: 'var(--md-sys-color-outline-variant)',
+  /** Dot indicator — active */
+  dotActive:   'var(--md-sys-color-primary)',
+} as const;
+
+// ─── Step state tokens (Fase 2 — Orbit DS) ────────────────────────────────────
+
+/**
+ * Color tokens for PlanCard step indicators.
+ * Referenced via CSS custom properties injected by orbitTheme.ts.
+ */
+export const ORBIT_STEP_COLORS = {
+  /** Currently active / in-progress step */
+  current:   'var(--orbit-step-current, var(--md-sys-color-primary))',
+  /** Completed step */
+  completed: 'var(--orbit-step-completed, var(--md-sys-color-secondary))',
+  /** Not yet reached step */
+  pending:   'var(--orbit-step-pending, var(--md-sys-color-outline-variant))',
+} as const;

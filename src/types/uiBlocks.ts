@@ -182,6 +182,38 @@ export type UIBlock =
       confidence?:      { score: number; factors: string[] };
       /** Confidence-driven label override for the primary CTA */
       nextAction?:      string;
+    }
+  /**
+   * P43 — orbit_plan: AI-inferred action plan injected inline before orchestrator response.
+   * Shows a numbered step list + confidence bar + "Avvia" CTA.
+   * Non-blocking: user can ignore or dismiss without affecting the main response.
+   */
+  | {
+      type:            'orbit_plan';
+      title:           string;
+      steps:           Array<{ id: string; label: string; action?: () => void; autoExecutable?: boolean }>;
+      confidence:      number;
+      /** Domain intent label for the badge (e.g. "Verifica", "Lezione") */
+      intentLabel?:    string;
+      /** Structured execution prompt — sent to orchestrator on Avvia click */
+      executionPrompt?: string;
+    }
+  /**
+   * P43 — work_session: unified block that collapses plan + confidence + explain + actions
+   * into a single focused experience.
+   *
+   * ONE TASK RULE: shows the current task, ONE primary CTA, and progressive disclosure
+   * for secondary actions and explain items.
+   */
+  | {
+      type:               'work_session';
+      title:              string;
+      currentTask:        string;
+      /** Primary CTA label (confidence-driven via ConfidenceEngine.nextAction) */
+      nextAction:         string;
+      confidence:         number;
+      explainItems?:      string[];
+      secondaryActions?:  UIAction[];
     };
 
 // ── P38.6: AdaptedBlock — UIBlock augmented with soft density flag ─────────────

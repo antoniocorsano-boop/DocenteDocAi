@@ -59,7 +59,7 @@ function computeScore(result: OrchestratorResult, state: EmotionalState): number
 
 // ── Factor generation ─────────────────────────────────────────────────────────
 
-const MAX_FACTORS = 4;
+const MAX_FACTORS = 3;
 
 function buildFactors(
   userText: string,

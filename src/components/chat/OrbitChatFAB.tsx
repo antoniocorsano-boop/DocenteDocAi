@@ -11,7 +11,7 @@
  * MD3 Gold Compliant — no hardcoded colours or spacing values.
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Box           from '@mui/material/Box';
 import Drawer        from '@mui/material/Drawer';
 import Fab           from '@mui/material/Fab';
@@ -21,10 +21,12 @@ import { useTheme }  from '@mui/material/styles';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CloseIcon       from '@mui/icons-material/Close';
 
-import { SmartChat }          from './SmartChat';
-import { ORBIT_MACRO_STATES } from '../../theme/orbitStates';
-import { useChatPrefsStore }  from '@/stores/useChatPrefsStore';
-import type { NexusState }    from '../ui/JarvisNexus';
+import { SmartChat }              from './SmartChat';
+import { ORBIT_MACRO_STATES }     from '../../theme/orbitStates';
+import { useChatPrefsStore }      from '@/stores/useChatPrefsStore';
+import { useSmartChat }           from '@/hooks/useSmartChat';
+import { useOrbitSignalStore }    from '@/stores/useOrbitSignalStore';
+import type { NexusState }        from '../ui/JarvisNexus';
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
@@ -70,6 +72,23 @@ export function OrbitChatFAB({ nexusState, userPlan = 'free' }: OrbitChatFABProp
   const deviceMode = isMobile ? mobileDefaultMode : desktopDefaultMode;
 
   const { color, spinning } = resolveOrb(nexusState);
+
+  // ── OrbitDock signal bridge ─────────────────────────────────────────────────
+  // Shared Zustand store: OrbitDock writes a prompt → we open + fire it.
+  // `triggerPrompt` from this useSmartChat instance shares the same
+  // useConversationStore as the SmartChat inside the Drawer (keepMounted).
+  const pendingPrompt    = useOrbitSignalStore(s => s.pendingPrompt);
+  const clearPrompt      = useOrbitSignalStore(s => s.setPendingPrompt);
+  const { triggerPrompt } = useSmartChat({ initialMode: deviceMode });
+
+  useEffect(() => {
+    if (!pendingPrompt) return;
+    setOpen(true);
+    void triggerPrompt(pendingPrompt);
+    clearPrompt(null);
+  }, [pendingPrompt]); // eslint-disable-line react-hooks/exhaustive-deps
+  // ^ intentionally omit stable refs (triggerPrompt/clearPrompt) to avoid
+  //   re-registering on every mode change — pendingPrompt is the only signal.
 
   return (
     <>

@@ -83,3 +83,59 @@ Questa è un'app React con Material Design 3 (MD3). Ogni modifica UI deve rispet
 
 - "MD3 Gold Compliant" significa aderenza totale, strutturale e semantica a tutte le regole di questo documento.
 - La responsabilità della compliance è condivisa da tutto il team di sviluppo, revisione e governance.
+
+---
+
+## Orbit / SmartChat / UIBlock Layer System — P44.6
+
+### Gerarchia dei layer (NON NEGOZIABILE)
+
+```
+Chat > PlanCard > DecisionCard > Orbit
+```
+
+| Layer        | Componente principale   | Regola di attivazione                                                 |
+| ------------ | ----------------------- | --------------------------------------------------------------------- |
+| Chat         | `SmartChat.tsx`         | risposta principale; FAB mobile sempre visibile                       |
+| PlanCard     | `orbit_plan` UIBlock    | visualizzata se `confidence ≥ 0.65`; sempre a `index=1` in UIBlock[]  |
+| DecisionCard | `decision_card` UIBlock | solo se `!planPresent \|\| score<0.7 \|\| shouldShow`                 |
+| Orbit        | `OrbitDock.tsx`         | nudge soft; silenzioso se PlanCard/DecisionCard nei 3 ultimi messaggi |
+
+### Regole di generazione UIBlock[]
+
+1. **Intake expansion** — se input breve (< 20 char) contiene keyword `['carica','documento','upload','allega','file','programma','programmazione']`, espandi il testo con `"— analizza e prepara un piano di lavoro"` prima di `buildPlan()`.
+2. **PlanCard** — inserisci `orbit_plan` a `index=1` se `plan.confidence ≥ 0.65` e `!unify`. Non spostarlo.
+3. **DecisionCard** — appare solo se almeno una condizione vera: `!planPresent`, `confidence.score < 0.7`, `explain.shouldShow`. Non renderla "sempre presente".
+4. **Orbit labels** — sempre in forma di domanda soft ("Vuoi creare una verifica?" — MAI imperativo "Crea una verifica").
+5. **OrbitDock silenzioso** — se nei 3 ultimi messaggi assistant esiste un blocco `decision_card` o `work_session`, il nudge non appare.
+
+### Hard limits cognitivi (non aggirare senza sprint dedicato)
+
+- `ExplainEngine.ts` → `items.slice(0, 2)` — max 2 item spiegazione
+- `ConfidenceEngine.ts` → `MAX_FACTORS = 3` — max 3 fattori confidence
+- `OrbitSuggestionEngine.ts` → max 3 suggerimenti per turno
+- `OrbitDock.tsx` → `MOBILE_PB = '30vh'` — altezza massima drawer mobile
+
+### Ordine assembly UIBlock[]
+
+```
+index 0 → text           (risposta assistant)
+index 1 → orbit_plan     (se planPresent && !unify)
+index n → explain        (se shouldShow)
+index n → confidence     (sempre)
+index n → work_session   (se WorkSessionEngine attivo)
+index n → decision_card  (solo se condizionale vera)
+index n → actions        (CTA contestuali)
+```
+
+### File chiave — layer UIBlock
+
+| File                                             | Ruolo                                                           |
+| ------------------------------------------------ | --------------------------------------------------------------- |
+| `src/hooks/useSmartChat.ts`                      | Pipeline 10-step: assembla UIBlock[] per ogni turno             |
+| `src/modules/orchestration/ExplainEngine.ts`     | Genera blocco explain (max 2 item)                              |
+| `src/modules/orchestration/ConfidenceEngine.ts`  | Genera blocco confidence (max 3 fattori)                        |
+| `src/modules/orchestration/WorkSessionEngine.ts` | Genera blocco work_session unificato                            |
+| `src/modules/orbit/OrbitSuggestionEngine.ts`     | ≤3 suggerimenti in forma domanda soft                           |
+| `src/components/chat/MessageBlockRenderer.tsx`   | Renderizza PlanCardBlock / DecisionCardBlock / WorkSessionBlock |
+| `src/components/orbit/OrbitDock.tsx`             | Drawer suggerimenti con guard hasDecisionCard                   |

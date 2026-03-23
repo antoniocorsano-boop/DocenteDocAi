@@ -30,6 +30,8 @@ import {
 } from '@/modules/orchestration/CognitiveStyleEngine';
 import { buildExplainBlock } from '@/modules/orchestration/ExplainEngine';
 import { buildConfidenceBlock } from '@/modules/orchestration/ConfidenceEngine';
+import { buildPlan } from '@/modules/orbit/PlanEngine';
+import { buildWorkSession } from '@/modules/orchestration/WorkSessionEngine';
 import { observe }                        from '@/utils/observability';
 import type { OrchestratorResult }        from '@/modules/orchestration/CognitiveOrchestrator';
 import type { Mode }                      from '@/modules/orchestration/ModeEngine';
@@ -154,7 +156,9 @@ export interface UseSmartChatReturn {
   mode:          Mode;
   setMode:       (m: Mode) => void;
   /** P37: optional metadata forwarded from ActionBridge */
-  sendMessage:   (text: string, metadata?: MessageMetadata) => Promise<void>;
+  sendMessage:    (text: string, metadata?: MessageMetadata) => Promise<void>;
+  /** OrbitDock shortcut — sends a prompt without metadata */
+  triggerPrompt:  (prompt: string) => Promise<void>;
   triggerAction: (agentId: string, input?: string) => Promise<void>;
   submitFeedback:(messageId: string, rating: 1 | 2 | 3 | 4 | 5) => void;
   clearMessages: () => void;
@@ -305,7 +309,16 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
 
     if (!result) return;
 
-    const rawBlocks = buildUIBlocks(result, effectiveMode);
+    let rawBlocks = buildUIBlocks(result, effectiveMode);
+
+    // P43 — PlanEngine: detect domain plan (consumed by WorkSessionEngine below)
+    // P44.5 — Intake detection: force plan for upload/document style requests
+    const INTAKE_KEYWORDS = ['carica', 'documento', 'upload', 'allega', 'file', 'programma', 'programmazione'];
+    const hasIntakeKw = INTAKE_KEYWORDS.some(k => trimmed.toLowerCase().includes(k));
+    const planInput   = hasIntakeKw && trimmed.length < 20
+      ? `${trimmed} — analizza e prepara un piano di lavoro`
+      : trimmed;
+    const plan = buildPlan(planInput);
 
     // P40.1 + P40.2: ExplainEngine — compute explain metadata
     const explain = buildExplainBlock({
@@ -326,47 +339,87 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
       strategy: adaptedStrategy,
     });
 
-    // P42 — DecisionCard: when actions + (explain OR confidence) coexist, unify
-    // into a single decision_card block (ONE ACTION RULE).
-    const actionsIdx = rawBlocks.findIndex(b => b.type === 'actions');
-    const unify = actionsIdx !== -1 && (explain.shouldShow || confidence.shouldShow);
+    // P43 — WorkSessionEngine: collapse plan + confidence + explain + actions into one block
+    const actionsIdx   = rawBlocks.findIndex(b => b.type === 'actions');
+    const actionsBlock = actionsIdx !== -1
+      ? (rawBlocks[actionsIdx] as Extract<UIBlock, { type: 'actions' }>)
+      : null;
 
-    if (unify) {
-      observe('explain.shown', {
-        state,
-        depth:    adaptedStrategy.depth,
-        items:    explain.shouldShow ? explain.items.length : 0,
-        position: 'decision_card',
-      });
-      const actionsBlock = rawBlocks[actionsIdx] as Extract<typeof rawBlocks[number], { type: 'actions' }>;
-      const [primaryAction, ...secondaryActions] = actionsBlock.actions;
-      rawBlocks.splice(actionsIdx, 1, {
-        type:             'decision_card',
-        primaryAction,
-        secondaryActions,
-        explainItems:  explain.shouldShow     ? explain.items                                         : undefined,
-        confidence:    confidence.shouldShow  ? { score: confidence.score, factors: confidence.factors } : undefined,
-        nextAction:    confidence.nextAction,
-      });
+    const workSession = buildWorkSession({
+      plan,
+      confidence,
+      explain,
+      actions: actionsBlock?.actions ?? [],
+    });
+
+    if (workSession) {
+      // Replace all individual signal blocks with the unified WorkSession block
+      rawBlocks = rawBlocks.filter(
+        b =>
+          b.type !== 'actions'      &&
+          b.type !== 'explain'      &&
+          b.type !== 'confidence'   &&
+          b.type !== 'orbit_plan'   &&
+          b.type !== 'decision_card',
+      );
+      rawBlocks.splice(1, 0, workSession);
     } else {
-      // Independent paths (no actions block → inject separately)
-      if (explain.shouldShow) {
+      // P42 Fallback — DecisionCard only when a real decision is needed
+      // P44.6: NOT always — only when: plan present, low confidence (<0.7), or explain warranted
+      const planPresent = !!plan && plan.confidence >= 0.65;
+      const unify = actionsIdx !== -1 && (
+        planPresent           ||
+        confidence.score < 0.7 ||
+        explain.shouldShow
+      );
+
+      if (!unify && planPresent) {
+        // P44.6: plan exists but no decision needed — show orbit_plan block directly
+        rawBlocks.splice(1, 0, {
+          type:            'orbit_plan',
+          title:           plan!.title,
+          steps:           plan!.steps,
+          confidence:      plan!.confidence,
+          intentLabel:     plan!.intentLabel,
+          executionPrompt: plan!.executionPrompt,
+        });
+      }
+
+      if (unify) {
         observe('explain.shown', {
           state,
           depth:    adaptedStrategy.depth,
-          items:    explain.items.length,
-          position: explain.position,
+          items:    explain.shouldShow ? explain.items.length : 0,
+          position: 'decision_card',
         });
-        if (explain.position === 'first') {
-          rawBlocks.splice(1, 0, { type: 'explain', items: explain.items });
-        } else {
-          rawBlocks.push({ type: 'explain', items: explain.items });
-        }
+        const [primaryAction, ...secondaryActions] = actionsBlock!.actions;
+        rawBlocks.splice(actionsIdx, 1, {
+          type:             'decision_card',
+          primaryAction,
+          secondaryActions,
+          explainItems:  explain.shouldShow     ? explain.items                                         : undefined,
+          confidence:    confidence.shouldShow  ? { score: confidence.score, factors: confidence.factors } : undefined,
+          nextAction:    confidence.nextAction,
+        });
       } else {
-        observe('explain.hidden', { state, reason: 'not_needed' });
-      }
-      if (confidence.shouldShow) {
-        rawBlocks.push({ type: 'confidence', score: confidence.score, factors: confidence.factors });
+        if (explain.shouldShow) {
+          observe('explain.shown', {
+            state,
+            depth:    adaptedStrategy.depth,
+            items:    explain.items.length,
+            position: explain.position,
+          });
+          if (explain.position === 'first') {
+            rawBlocks.splice(1, 0, { type: 'explain', items: explain.items });
+          } else {
+            rawBlocks.push({ type: 'explain', items: explain.items });
+          }
+        } else {
+          observe('explain.hidden', { state, reason: 'not_needed' });
+        }
+        if (confidence.shouldShow) {
+          rawBlocks.push({ type: 'confidence', score: confidence.score, factors: confidence.factors });
+        }
       }
     }
 
@@ -440,6 +493,12 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     createConversation();
   }, [createConversation]);
 
+  // triggerPrompt: thin alias for sendMessage without metadata (used by OrbitDock)
+  const triggerPrompt = useCallback(
+    (prompt: string) => sendMessage(prompt),
+    [sendMessage],
+  );
+
   return {
     messages,
     loading:       orchestrator.loading,
@@ -447,6 +506,7 @@ export function useSmartChat({ initialMode }: UseSmartChatOptions = {}): UseSmar
     mode,
     setMode,
     sendMessage,
+    triggerPrompt,
     triggerAction,
     submitFeedback,
     clearMessages,

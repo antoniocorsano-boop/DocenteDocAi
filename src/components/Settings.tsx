@@ -17,6 +17,7 @@ import { SettingsCloudSection } from './settings/SettingsCloud';
 import { SettingsDebugSection } from './settings/SettingsDebug';
 import { SettingsAdvancedSection } from './settings/SettingsAdvanced';
 import SettingsIntegrationsSection from './settings/SettingsIntegrations';
+import { OrbitControlPanel } from './orbit/OrbitControlPanel';
 
 const Settings: React.FC<SettingsProps> = (props) => {
     const {
@@ -112,6 +113,10 @@ const Settings: React.FC<SettingsProps> = (props) => {
                       showToast={showToast}
                   />
                 )}
+                <OrbitControlPanel
+                    expanded={expandedId === 'orbit_control'}
+                    onToggle={() => handleGroupToggle('orbit_control')}
+                />
                 <SettingsAdvancedSection
                     expanded={expandedId === 'advanced'}
                     onToggle={() => handleGroupToggle('advanced')}

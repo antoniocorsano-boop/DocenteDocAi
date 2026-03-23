@@ -57,8 +57,9 @@ export interface ExplainOutput {
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
-/** P40.2: maximum explain items per emotional state — less is more */
-const MAX_ITEMS: Record<EmotionalState, number> = {
+/** P40.2: maximum explain items per emotional state — less is more.
+ * @deprecated superseded by P44.5 global hard cap `items.slice(0, 2)`. Kept for reference. */
+const _MAX_ITEMS: Record<EmotionalState, number> = {
   blocked:       3,
   overloaded:    2,
   exploring:     2,
@@ -123,7 +124,7 @@ function shouldExplain(
 
 /**
  * Build the ordered list of explanation strings.
- * P40.2: items are capped by MAX_ITEMS and phrased according to the user's ToneStyle.
+ * P40.2: items are capped by _MAX_ITEMS (P44.5: global hard cap `items.slice(0, 2)`) and phrased according to the user's ToneStyle.
  * Order: most relevant first (state/guidance → mode/pace → structural → confidence).
  */
 function buildExplainItems(
@@ -209,8 +210,8 @@ function buildExplainItems(
     );
   }
 
-  // P40.2: cap to MAX_ITEMS for this state
-  return items.slice(0, MAX_ITEMS[state] ?? 2);
+  // P44.5: global cap at 2 items — less is more for cognitive load
+  return items.slice(0, 2);
 }
 
 // ── Entry point ───────────────────────────────────────────────────────────────

@@ -1,4 +1,4 @@
-# Cognitive Architecture P39.6 — DocenteDoc AI
+# Cognitive Architecture P44.6 — DocenteDoc AI
 
 **Data:** 2026-03-22  
 **Commit baseline:** `dfc8f705`  
@@ -222,3 +222,98 @@ Il panel si registra come observer al mount e si deregistra all'unmount (pulizia
 | `dfc8f705` | P39.6         | mergeStrategy, lastPerceivedState, gerarchia esplicita                              |
 | `1f1f6c59` | Fase 3        | Human-in-the-Loop: sliders override, feedback chips, drift alert                    |
 | `(Fase 4)` | Fase 4        | `_debug` su EmotionalStrategy, `observe('merge.rule.applied')`, CognitiveDebugPanel |
+
+---
+
+## Appendice — P44.6: UIBlock Layer System
+
+**Data:** 2026-03-23 | **Status:** implementato, stabile, 0 errori TS/lint
+
+### Estensione della pipeline P39.6
+
+A partire da P44.6 la pipeline è stata estesa con un **UIBlock Layer** che si interpone tra l'output del MergeEngine e il rendering finale:
+
+```
+… AdaptedStrategy
+      └─▶ SystemPromptBuilder + adaptBlocks  →  risposta adattiva
+            └─▶ UIBlock Layer (P44.6)
+                  ├─▶ IntakeExpansion     keyword expand prima di buildPlan()
+                  ├─▶ PlanEngine          → orbit_plan   (conf ≥ 0.65, index=1)
+                  ├─▶ ExplainEngine       → explain      (max 2 items)
+                  ├─▶ ConfidenceEngine    → confidence   (max 3 factors)
+                  ├─▶ WorkSessionEngine   → work_session (se flusso attivo)
+                  ├─▶ DecisionCard        → condizionale (!planPresent / score<0.7 / shouldShow)
+                  └─▶ OrbitSuggestionEngine → ≤3 intent questions (domande soft)
+```
+
+### Gerarchia layer — NON NEGOZIABILE
+
+```
+Chat > PlanCard > DecisionCard > Orbit
+```
+
+| Layer        | UIBlock type    | Regola di attivazione                                         |
+| ------------ | --------------- | ------------------------------------------------------------- |
+| PlanCard     | `orbit_plan`    | `confidence ≥ 0.65` — sempre a `index=1` dell'array           |
+| DecisionCard | `decision_card` | `!planPresent \|\| score < 0.7 \|\| explain.shouldShow`       |
+| Orbit nudge  | —               | silenzioso se `decision_card`/`work_session` nei 3 ultimi msg |
+
+### Invarianti P44.6 (aggiuntivi rispetto a P39.6)
+
+5. Gerarchia layer `Chat > PlanCard > DecisionCard > Orbit` — non negoziabile
+6. `orbit_plan` sempre a `index=1` dell'array UIBlock[] — non spostare
+7. `DecisionCard` solo se `!planPresent || confidence.score < 0.7 || explain.shouldShow`
+8. `OrbitDock` silenzioso se decision_card/work_session negli ultimi 3 messaggi assistant
+
+### Hard limits cognitivi
+
+| Modulo                     | Limite                   | Costante                  |
+| -------------------------- | ------------------------ | ------------------------- |
+| `ExplainEngine.ts`         | max 2 explaining items   | `items.slice(0, 2)`       |
+| `ConfidenceEngine.ts`      | max 3 fattori            | `MAX_FACTORS = 3`         |
+| `OrbitSuggestionEngine.ts` | max 3 suggerimenti       | `suggestions.slice(0, 3)` |
+| `OrbitDock.tsx`            | max height drawer mobile | `MOBILE_PB = '30vh'`      |
+
+### Intake keyword expansion
+
+```ts
+// useSmartChat.ts
+const INTAKE_KEYWORDS = [
+  "carica",
+  "documento",
+  "upload",
+  "allega",
+  "file",
+  "programma",
+  "programmazione",
+];
+// input breve con keyword → espandi prima di buildPlan()
+const planInput =
+  hasIntakeKw && trimmed.length < 20
+    ? `${trimmed} — analizza e prepara un piano di lavoro`
+    : trimmed;
+```
+
+### File chiave P44.6
+
+| File                                             | Ruolo                                               |
+| ------------------------------------------------ | --------------------------------------------------- |
+| `src/hooks/useSmartChat.ts`                      | Pipeline 10-step: assembla UIBlock[]                |
+| `src/modules/orchestration/ExplainEngine.ts`     | explain block, items capped at 2                    |
+| `src/modules/orchestration/ConfidenceEngine.ts`  | confidence block, MAX_FACTORS=3                     |
+| `src/modules/orchestration/WorkSessionEngine.ts` | work_session block unificato                        |
+| `src/modules/orbit/OrbitSuggestionEngine.ts`     | ≤3 domande soft intent                              |
+| `src/components/chat/MessageBlockRenderer.tsx`   | PlanCardBlock, DecisionCardBlock, WorkSessionBlock  |
+| `src/components/orbit/OrbitDock.tsx`             | drawer, hasDecisionCard guard                       |
+| `src/types/uiBlocks.ts`                          | discriminated union UIBlock + orbit_plan.steps type |
+
+### Commit history P44.x
+
+| Commit range | Tag              | Contenuto                                                                    |
+| ------------ | ---------------- | ---------------------------------------------------------------------------- |
+| P44.1        | Chat FAB         | `Fab` + `ChatIcon` sempre visibile su mobile in SmartChat.tsx                |
+| P44.2        | OrbitDock        | `MOBILE_PB` `70vh` → `30vh`                                                  |
+| P44.3        | PlanStep         | step type esteso con `action?` e `autoExecutable?`                           |
+| P44.4        | OrbitSuggestion  | esteso con `predictedIntent?`                                                |
+| P44.5        | UIBlock pipeline | DecisionCard, PlanCard activeStep, intake keywords, cognitive caps           |
+| P44.6        | Layer hierarchy  | DecisionCard condizionale, orbit_plan inject diretto, Orbit intent questions |

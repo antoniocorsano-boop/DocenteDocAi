@@ -12,7 +12,7 @@
  *   - All interactive elements carry aria-label
  *   - Spacing via sx tokens only
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   Alert,
   Box,
@@ -21,6 +21,7 @@ import {
   CircularProgress,
   Divider,
   Drawer,
+  Fab,
   IconButton,
   LinearProgress,
   List,
@@ -38,6 +39,7 @@ import {
 import ThumbUpOutlinedIcon   from '@mui/icons-material/ThumbUpOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import AutoAwesomeIcon       from '@mui/icons-material/AutoAwesome';
+import ChatIcon               from '@mui/icons-material/Chat';
 import AddCommentIcon         from '@mui/icons-material/AddComment';
 import DeleteOutlineIcon      from '@mui/icons-material/DeleteOutline';
 import MenuIcon               from '@mui/icons-material/Menu';
@@ -121,31 +123,39 @@ const REVEAL_LABEL: Record<EmotionalState, string> = {
 // ── Block type labels — mini-navbar for structure=high (Fase 2, Task 3) ─────────
 
 const BLOCK_TYPE_LABELS: Record<string, string> = {
-  text:     '📝 Testo',
-  plan:     '📋 Piano',
-  insight:  '🔍 Trasparenza',
-  actions:  '⚡ Azioni',
-  status:   '⚠️ Stato',
-  table:    '📊 Tabella',
-  chart:    '📈 Grafico',
-  form:     '📝 Modulo',
-  sandbox:  '🧪 Sandbox',
-  timeline: '📅 Timeline',
+  text:       '📝 Testo',
+  plan:       '📋 Piano',
+  orbit_plan: '🎯 Piano Orbit',
+  insight:    '🔍 Trasparenza',
+  actions:    '⚡ Azioni',
+  status:     '⚠️ Stato',
+  table:      '📊 Tabella',
+  chart:      '📈 Grafico',
+  form:       '📝 Modulo',
+  sandbox:    '🧪 Sandbox',
+  timeline:   '📅 Timeline',
 };
 // ── Assistant message ─────────────────────────────────────────────────────────
 
 interface AssistantMessageProps {
-  msg:            ChatMessage;
-  onFeedback:     (id: string, rating: 1 | 5) => void;
-  triggerAction:  (agentId: string) => void;
-  emotionalState: EmotionalState;
+  msg:                 ChatMessage;
+  onFeedback:          (id: string, rating: 1 | 5) => void;
+  triggerAction:       (agentId: string) => void;
+  emotionalState:      EmotionalState;
+  onPlanExecute:       (executionPrompt: string) => void;
+  /** When true, `orbit_plan` blocks are shown in the floating sidebar — omit from inline stream */
+  floatingPlanActive?: boolean;
 }
 
-function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: AssistantMessageProps) {
+function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState, onPlanExecute, floatingPlanActive = false }: AssistantMessageProps) {
   // Compute adapted blocks and hidden count before hooks so the useState
   // lazy initializer can use them (exploration=high auto-reveal, Task 2)
-  const adapted       = (msg.blocks ?? [{ type: 'text' as const, content: msg.content }]) as AdaptedBlock[];
-  const hiddenCount   = adapted.filter(b => b.hidden).length;
+  const allAdapted  = (msg.blocks ?? [{ type: 'text' as const, content: msg.content }]) as AdaptedBlock[];
+  // When orbit_plan is shown in the floating sidebar, omit it from the inline stream
+  const adapted     = floatingPlanActive
+    ? allAdapted.filter(b => b.type !== 'orbit_plan')
+    : allAdapted;
+  const hiddenCount = adapted.filter(b => b.hidden).length;
 
   const cognitiveStyle = useChatPrefsStore(s => s.cognitiveStyle);
 
@@ -205,6 +215,7 @@ function AssistantMessage({ msg, onFeedback, triggerAction, emotionalState }: As
             key={idx}
             block={block}
             onAction={triggerAction}
+            onPlanExecute={onPlanExecute}
             insightExpanded={msg.isDeep}
             emotionalState={emotionalState}
           />
@@ -454,8 +465,9 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
     emotionalState,
   } = useSmartChat({ initialMode });
 
-  const theme    = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const theme          = useTheme();
+  const isMobile       = useMediaQuery(theme.breakpoints.down('md'));
+  const isLargeDesktop = useMediaQuery(theme.breakpoints.up('lg'));
   // Sidebar collapses to a Drawer when on mobile OR when embedded in a narrow panel
   const isCompact = isMobile || forceCompact;
   const [drawerOpen,    setDrawerOpen]    = useState(false);
@@ -502,6 +514,18 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
     }
   }, [cognitiveStyle]);
   const showLandingView = showLanding && !landingDismissed && messages.length === 0;
+
+  // ── Desktop ≥ lg: extract last visible orbit_plan block for floating sidebar
+  const floatingPlanEntry = useMemo(() => {
+    if (!isLargeDesktop) return null;
+    for (let i = messages.length - 1; i >= 0; i--) {
+      const m = messages[i];
+      if (m.role !== 'assistant') continue;
+      const block = m.blocks?.find(b => b.type === 'orbit_plan');
+      if (block) return { msgId: m.id, block };
+    }
+    return null;
+  }, [messages, isLargeDesktop]);
 
   const handleLandingStart = useCallback((text?: string) => {
     setLandingDismissed(true);
@@ -665,6 +689,8 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
                   onFeedback={(id, rating) => submitFeedback(id, rating)}
                   triggerAction={agentId => triggerAction(agentId, msg.content)}
                   emotionalState={emotionalState}
+                  onPlanExecute={ep => { sendMessage(ep); }}
+                  floatingPlanActive={floatingPlanEntry?.msgId === msg.id}
                 />
               )
           )}
@@ -681,6 +707,27 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
           <div ref={messagesEndRef} aria-hidden="true" />
         </Box>
 
+        {/* P43 — WorkSession sticky CTA (mobile-first: always within reach) */}
+        {!loading && (() => {
+          const lastMsg   = messages.filter(m => m.role === 'assistant').at(-1);
+          const lastBlock = lastMsg?.blocks?.find(b => b.type === 'work_session');
+          if (!lastBlock) return null;
+          return (
+            <Box sx={{ px: 2, pt: 1 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                disableElevation
+                onClick={() => sendMessage(lastBlock.nextAction)}
+                aria-label={`Azione rapida: ${lastBlock.nextAction}`}
+                sx={{ borderRadius: 2 }}
+              >
+                ⚡ {lastBlock.nextAction}
+              </Button>
+            </Box>
+          );
+        })()}
+
         <Divider />
 
         {/* Input area */}
@@ -695,6 +742,53 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
           compact={isCompact}
         />
       </Box>
+
+      {/* ── PlanCard floating sidebar — desktop ≥ lg only ─────────────────── */}
+      {isLargeDesktop && floatingPlanEntry && (
+        <Box
+          sx={{
+            width:         360,
+            flexShrink:    0,
+            display:       'flex',
+            flexDirection: 'column',
+            borderLeft:    '1px solid',
+            borderColor:   'var(--md-sys-color-outline-variant)',
+            bgcolor:       'var(--md-sys-color-surface-container-low)',
+            overflow:      'hidden',
+          }}
+          aria-label="Piano attivo — sidebar"
+        >
+          <Stack
+            direction="row"
+            alignItems="center"
+            spacing={1}
+            sx={{
+              px:           2,
+              py:           1.25,
+              borderBottom: '1px solid',
+              borderColor:  'var(--md-sys-color-outline-variant)',
+              flexShrink:   0,
+            }}
+          >
+            <AutoAwesomeIcon fontSize="small" color="primary" aria-hidden="true" />
+            <Typography
+              variant="titleSmall"
+              sx={{ flex: 1, fontWeight: 'var(--md-sys-typescale-weight-semibold)', color: 'var(--md-sys-color-on-surface)' }}
+            >
+              Piano attivo
+            </Typography>
+          </Stack>
+          <Box sx={{ flex: 1, overflowY: 'auto', p: 2 }}>
+            <MessageBlockRenderer
+              block={floatingPlanEntry.block}
+              onAction={(agentId) => triggerAction(agentId, '')}
+              onPlanExecute={(ep) => sendMessage(ep)}
+              insightExpanded={false}
+              emotionalState={emotionalState}
+            />
+          </Box>
+        </Box>
+      )}
 
       {/* Settings panel — opens as a right-side Drawer */}
       <ChatSettingsPanel
@@ -725,6 +819,29 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
 
       {/* ── Fase 4: Cognitive Debug Panel (dev-only, ?debug=cognitive) */}
       {showDebugPanel && <CognitiveDebugPanel />}
+
+      {/* P44.1 — Scroll-to-latest FAB (mobile only, always reachable) */}
+      {isCompact && messages.length > 0 && (
+        <Fab
+          size="small"
+          aria-label="Scorri all'ultimo messaggio"
+          onClick={() => messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          sx={{
+            position:  'fixed',
+            bottom:    'calc(var(--md-sys-spacing-6, 24px) + 56px + 8px)',
+            right:     'var(--md-sys-spacing-8, 32px)',
+            zIndex:    1200,
+            bgcolor:   'var(--md-sys-color-primary-container)',
+            color:     'var(--md-sys-color-on-primary-container)',
+            boxShadow: 'var(--md-sys-elevation-level2)',
+            '&:hover': {
+              bgcolor: 'var(--md-sys-color-primary-container)',
+            },
+          }}
+        >
+          <ChatIcon sx={{ fontSize: 'var(--md-sys-icon-size-sm, 20px)' }} aria-hidden="true" />
+        </Fab>
+      )}
     </Box>
   );
 }

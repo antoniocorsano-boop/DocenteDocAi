@@ -277,16 +277,19 @@ export function buildEmotionalSection(strategy: EmotionalStrategy): string {
 // ── L4b: Block density adaptation ────────────────────────────────────────────
 
 const PRIORITY: Record<string, number> = {
-  text:      10,
-  status:     8,
-  actions:    7,
-  plan:       6,
-  form:       5,
-  table:      4,
-  timeline:   3,
-  chart:      2,
-  insight:    1,
-  sandbox:    1,
+  text:          10,
+  work_session:  10,
+  orbit_plan:     9,
+  status:         8,
+  actions:        7,
+  plan:           6,
+  decision_card:  6,
+  form:           5,
+  table:          4,
+  timeline:       3,
+  chart:          2,
+  insight:        1,
+  sandbox:        1,
 };
 
 /**

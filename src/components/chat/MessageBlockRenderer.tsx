@@ -48,6 +48,7 @@ import ErrorIcon           from '@mui/icons-material/Error';
 import InfoIcon            from '@mui/icons-material/Info';
 import WarningIcon         from '@mui/icons-material/Warning';
 import HelpOutlineIcon     from '@mui/icons-material/HelpOutline';
+import PlayArrowIcon       from '@mui/icons-material/PlayArrow';
 import {
   BarChart, Bar, LineChart, Line, AreaChart, Area,
   PieChart, Pie, Cell,
@@ -67,6 +68,8 @@ interface Props {
   block:            UIBlock;
   /** Called when an action button is pressed */
   onAction?:        (agentId: string) => void;
+  /** Called when the user clicks Avvia on an orbit_plan block */
+  onPlanExecute?:   (title: string) => void;
   /** Whether to show the insight panel expanded by default */
   insightExpanded?: boolean;
   /** Emotional state — used for dynamic microcopy in the insight accordion */
@@ -381,6 +384,274 @@ const DecisionCardBlock = memo((
 DecisionCardBlock.displayName = 'DecisionCardBlock';
 
 // ── Actions block ─────────────────────────────────────────────────────────────
+
+// ── OrbitPlan block (P43) — AI-inferred action plan card ─────────────────────
+
+type OrbitPlanBlockType = Extract<UIBlock, { type: 'orbit_plan' }>;
+
+const PlanCardBlock = memo((
+  { title, steps, confidence, intentLabel, executionPrompt, onExecute }:
+  Omit<OrbitPlanBlockType, 'type'> & { onExecute?: (executionPrompt: string) => void }
+) => {
+  const [dismissed, setDismissed] = useState(false);
+  const [executed,  setExecuted]  = useState(false);
+  const [activeStep, setActiveStep] = useState(0); // P44.5 progressive step execution
+
+  if (dismissed) return null;
+
+  const confPct   = Math.round(confidence * 100);
+  const confColor: 'success' | 'primary' | 'warning' =
+    confidence >= 0.80 ? 'success' :
+    confidence >= 0.65 ? 'primary' :
+    'warning';
+
+  return (
+    <Paper
+      variant="outlined"
+      sx={{ p: 1.5, borderRadius: 2 }}
+      role="region"
+      aria-label="Piano suggerito da Orbit"
+    >
+      {/* Header: title + intent badge + confidence bar */}
+      <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
+        <Typography
+          variant="caption"
+          sx={{ fontWeight: 'var(--md-sys-typescale-weight-semibold)', color: 'primary.main', flexShrink: 0 }}
+        >
+          🎯 {title}
+        </Typography>
+        {intentLabel && (
+          <Chip
+            size="small"
+            label={intentLabel}
+            variant="outlined"
+            sx={{ height: 16, fontSize: 'var(--md-sys-typescale-label-small-font-size, 0.65rem)', borderRadius: 1, flexShrink: 0 }}
+          />
+        )}
+        <Stack direction="row" alignItems="center" spacing={0.5} sx={{ flex: 1 }}>
+          <LinearProgress
+            variant="determinate"
+            value={confPct}
+            color={confColor}
+            sx={{ flex: 1, height: 3, borderRadius: 2 }}
+            aria-hidden="true"
+          />
+          <Typography variant="caption" color={`${confColor}.main`} sx={{ flexShrink: 0, minWidth: 28 }}>
+            {confPct}%
+          </Typography>
+        </Stack>
+      </Stack>
+
+      {/* Numbered steps — P44.5: clickable progressive execution */}
+      <List dense disablePadding sx={{ mb: 1 }}>
+        {steps.map((step, idx) => {
+          const isDone    = idx < activeStep;
+          const isCurrent = idx === activeStep;
+          return (
+            <ListItem
+              key={step.id}
+              disablePadding
+              onClick={() => {
+                if (!isCurrent) return;
+                step.action?.();
+                setActiveStep(idx + 1);
+              }}
+              sx={{
+                py:       0.15,
+                px:       isCurrent ? 0.5 : 0,
+                cursor:   isCurrent ? 'pointer' : 'default',
+                opacity:  isDone ? 0.4 : 1,
+                borderRadius: 1,
+                bgcolor:  isCurrent ? 'var(--md-sys-color-primary-container)' : 'transparent',
+                transition: 'background-color 150ms',
+              }}
+            >
+              <ListItemText
+                disableTypography
+                primary={
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: isCurrent
+                        ? 'var(--md-sys-color-on-primary-container)'
+                        : 'text.secondary',
+                      fontWeight: isCurrent ? 'var(--md-sys-typescale-weight-medium)' : undefined,
+                    }}
+                  >
+                    {isDone ? '✓' : `${idx + 1}.`} {step.label}{isCurrent ? ' ▶' : ''}
+                  </Typography>
+                }
+              />
+            </ListItem>
+          );
+        })}
+      </List>
+
+      {/* CTA row */}
+      <Stack direction="row" spacing={1} alignItems="center">
+        {!executed ? (
+          <Button
+            size="small"
+            variant="contained"
+            disableElevation
+            startIcon={<PlayArrowIcon />}
+            onClick={() => {
+              setExecuted(true);
+              onExecute?.(executionPrompt ?? '');
+            }}
+            aria-label={`Avvia piano: ${title}`}
+            sx={{
+              bgcolor:  'var(--md-sys-color-primary-container)',
+              color:    'var(--md-sys-color-on-primary-container)',
+              '&:hover': { bgcolor: 'var(--md-sys-color-primary-container)', opacity: 0.85 },
+            }}
+          >
+            Avvia automaticamente
+          </Button>
+        ) : (
+          <Chip
+            size="small"
+            label="▶ In esecuzione…"
+            color="primary"
+            variant="outlined"
+            aria-label="Piano in esecuzione"
+          />
+        )}
+        <Button
+          size="small"
+          variant="text"
+          onClick={() => setDismissed(true)}
+          aria-label="Ignora piano suggerito"
+          sx={{ color: 'text.disabled', minWidth: 0, px: 0.5 }}
+        >
+          Ignora
+        </Button>
+      </Stack>
+    </Paper>
+  );
+});
+PlanCardBlock.displayName = 'PlanCardBlock';
+
+// ── WorkSessionBlock (P43) — unified task + CTA + progressive explain ──────────
+
+type WorkSessionBlockType = Extract<UIBlock, { type: 'work_session' }>;
+
+const WorkSessionBlock = memo((
+  { block, onPrimary, onSecondary }:
+  {
+    block:        WorkSessionBlockType;
+    onPrimary?:   (prompt: string) => void;
+    onSecondary?: (agentId: string) => void;
+  }
+) => {
+  const [openExplain, setOpenExplain] = useState(false);
+  const [openActions, setOpenActions] = useState(false);
+
+  const confColor: 'success' | 'primary' | 'warning' =
+    block.confidence >= 0.80 ? 'success' :
+    block.confidence >= 0.65 ? 'primary' : 'warning';
+
+  return (
+    <Paper
+      variant="outlined"
+      sx={{ p: 2, mt: 1, borderRadius: 3 }}
+      role="region"
+      aria-label="Sessione di lavoro Orbit"
+    >
+      <Stack spacing={1.5}>
+        {/* Title badge */}
+        <Typography
+          variant="caption"
+          sx={{ fontWeight: 'var(--md-sys-typescale-weight-semibold)', color: 'text.secondary' }}
+        >
+          🎯 {block.title}
+        </Typography>
+
+        {/* Current task description */}
+        <Typography variant="body1">
+          {block.currentTask}
+        </Typography>
+
+        {/* Confidence bar */}
+        <LinearProgress
+          variant="determinate"
+          value={Math.round(block.confidence * 100)}
+          color={confColor}
+          sx={{ height: 6, borderRadius: 3 }}
+          aria-hidden="true"
+        />
+
+        {/* Primary CTA */}
+        <Button
+          variant="contained"
+          disableElevation
+          onClick={() => onPrimary?.(block.nextAction)}
+          aria-label={`Avvia azione: ${block.nextAction}`}
+          sx={{ borderRadius: 2 }}
+        >
+          ⚡ {block.nextAction}
+        </Button>
+
+        {/* Secondary actions — progressive */}
+        {block.secondaryActions && block.secondaryActions.length > 0 && (
+          <>
+            <Button
+              size="small"
+              variant="text"
+              onClick={() => setOpenActions(v => !v)}
+              aria-expanded={openActions}
+              aria-label="Mostra azioni secondarie"
+              sx={{ alignSelf: 'flex-start', color: 'text.secondary', px: 0 }}
+            >
+              {openActions ? 'Meno opzioni ▲' : 'Altre azioni ▼'}
+            </Button>
+            {openActions && (
+              <Stack spacing={0.5}>
+                {block.secondaryActions.map(a => (
+                  <Button
+                    key={a.agentId}
+                    size="small"
+                    variant="outlined"
+                    onClick={() => onSecondary?.(a.agentId)}
+                    aria-label={a.hint ?? a.label}
+                  >
+                    {a.label}
+                  </Button>
+                ))}
+              </Stack>
+            )}
+          </>
+        )}
+
+        {/* Explain — progressive */}
+        {block.explainItems && block.explainItems.length > 0 && (
+          <>
+            <Button
+              size="small"
+              variant="text"
+              onClick={() => setOpenExplain(v => !v)}
+              aria-expanded={openExplain}
+              aria-label="Spiega perché questa scelta"
+              sx={{ alignSelf: 'flex-start', color: 'text.secondary', px: 0 }}
+            >
+              {openExplain ? 'Nascondi ▲' : 'Perché questa scelta? ▼'}
+            </Button>
+            {openExplain && (
+              <Stack spacing={0.5}>
+                {block.explainItems.map((item, i) => (
+                  <Typography key={i} variant="caption" color="text.secondary">
+                    • {item}
+                  </Typography>
+                ))}
+              </Stack>
+            )}
+          </>
+        )}
+      </Stack>
+    </Paper>
+  );
+});
+WorkSessionBlock.displayName = 'WorkSessionBlock';
 
 // ── ExplainWhy block (P40) ───────────────────────────────────────────────────
 
@@ -914,7 +1185,7 @@ TimelineBlock.displayName = 'TimelineBlock';
 
 // ── Main renderer ─────────────────────────────────────────────────────────────
 
-export const MessageBlockRenderer = memo(({ block, onAction, insightExpanded = false, emotionalState }: Props) => {
+export const MessageBlockRenderer = memo(({ block, onAction, onPlanExecute, insightExpanded = false, emotionalState }: Props) => {
   switch (block.type) {
     case 'text':
       return <TextBlock content={block.content} />;
@@ -961,6 +1232,27 @@ export const MessageBlockRenderer = memo(({ block, onAction, insightExpanded = f
           confidence={block.confidence}
           nextAction={block.nextAction}
           onAction={onAction}
+        />
+      );
+
+    case 'orbit_plan':
+      return (
+        <PlanCardBlock
+          title={block.title}
+          steps={block.steps}
+          confidence={block.confidence}
+          intentLabel={block.intentLabel}
+          executionPrompt={block.executionPrompt}
+          onExecute={onPlanExecute ? ep => onPlanExecute(ep) : undefined}
+        />
+      );
+
+    case 'work_session':
+      return (
+        <WorkSessionBlock
+          block={block}
+          onPrimary={onPlanExecute}
+          onSecondary={onAction}
         />
       );
 

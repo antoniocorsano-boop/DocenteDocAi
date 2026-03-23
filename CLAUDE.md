@@ -14,27 +14,41 @@ Stack: **React 18 + TypeScript + Vite + MUI v7 + Zustand** — SPA full-client +
 
 ---
 
-## Architettura cognitiva — P39.6 (baseline corrente)
+## Architettura cognitiva — P44.6 (baseline corrente)
 
 ```
 Input utente
-  └─▶ EmotionalEngine          rileva stato, smoothState, lastPerceivedState
-        └─▶ CognitiveStyleEngine  deriveStyle, smoothStyle (EWA 70/30)
-              └─▶ mergeStrategy    P1:safety > P2:style > P3:speed  →  AdaptedStrategy
-                    └─▶ SystemPromptBuilder + adaptBlocks  →  risposta adattiva
-                          └─▶ Learning loop (recordModeUsage, reveal click, feedback)
+  └─▶ IntakeExpansion          keyword expand (carica/documento/…) — useSmartChat.ts
+        └─▶ EmotionalEngine       rileva stato, smoothState, lastPerceivedState
+              └─▶ CognitiveStyleEngine  deriveStyle, smoothStyle (EWA 70/30)
+                    └─▶ mergeStrategy   P1:safety > P2:style > P3:speed  →  AdaptedStrategy
+                          └─▶ SystemPromptBuilder + adaptBlocks  →  risposta adattiva
+                                └─▶ UIBlock Layer (P44.6)
+                                      ├─▶ PlanEngine        → orbit_plan  (conf ≥ 0.65)
+                                      ├─▶ ExplainEngine     → explain     (max 2 items)
+                                      ├─▶ ConfidenceEngine  → confidence  (max 3 factors)
+                                      ├─▶ WorkSessionEngine → work_session
+                                      ├─▶ DecisionCard      → solo se !planPresent / score<0.7 / shouldShow
+                                      └─▶ OrbitSuggestion   → ≤3 intent questions
+                                            └─▶ Learning loop (recordModeUsage, reveal click, feedback)
 ```
 
 **File cognitivi chiave:**
 
-| File                                                | Ruolo                                                 |
-| --------------------------------------------------- | ----------------------------------------------------- |
-| `src/modules/orchestration/EmotionalEngine.ts`      | segnali → stato → strategia, `lastPerceivedState`     |
-| `src/modules/orchestration/CognitiveStyleEngine.ts` | `deriveStyle`, `smoothStyle`, `mergeStrategy`         |
-| `src/modules/orchestration/SystemPromptBuilder.ts`  | assembly prompt con sezioni emotional + style         |
-| `src/hooks/useSmartChat.ts`                         | pipeline completa per turno (10 step)                 |
-| `src/stores/useChatPrefsStore.ts`                   | persist `'chat-prefs-v3'` — profile + style + signals |
-| `src/components/chat/SmartChat.tsx`                 | reveal button, REVEAL_LABEL, recordRevealClick        |
+| File                                                | Ruolo                                                      |
+| --------------------------------------------------- | ---------------------------------------------------------- |
+| `src/modules/orchestration/EmotionalEngine.ts`      | segnali → stato → strategia, `lastPerceivedState`          |
+| `src/modules/orchestration/CognitiveStyleEngine.ts` | `deriveStyle`, `smoothStyle`, `mergeStrategy`              |
+| `src/modules/orchestration/SystemPromptBuilder.ts`  | assembly prompt con sezioni emotional + style              |
+| `src/modules/orchestration/ExplainEngine.ts`        | blocco `explain` — `items.slice(0, 2)` hard cap            |
+| `src/modules/orchestration/ConfidenceEngine.ts`     | blocco `confidence` — `MAX_FACTORS = 3` hard cap           |
+| `src/modules/orchestration/WorkSessionEngine.ts`    | blocco `work_session` unificato                            |
+| `src/modules/orbit/OrbitSuggestionEngine.ts`        | ≤3 suggerimenti in forma domanda soft                      |
+| `src/hooks/useSmartChat.ts`                         | pipeline 10-step — assembla UIBlock[] per ogni turno       |
+| `src/stores/useChatPrefsStore.ts`                   | persist `'chat-prefs-v3'` — profile + style + signals      |
+| `src/components/chat/SmartChat.tsx`                 | reveal button, REVEAL_LABEL, recordRevealClick             |
+| `src/components/chat/MessageBlockRenderer.tsx`      | PlanCardBlock / DecisionCardBlock / WorkSessionBlock       |
+| `src/components/orbit/OrbitDock.tsx`                | drawer suggerimenti, hasDecisionCard guard, MOBILE_PB=30vh |
 
 **Invarianti non violabili del merge engine:**
 
@@ -43,7 +57,14 @@ Input utente
 3. `adaptBlocks` non elimina contenuto — usa solo `hidden: true`
 4. Gerarchia fissa: Emotion > Style > Speed
 
-→ Vedi [docs/COGNITIVE_ARCHITECTURE_P39.6.md](docs/COGNITIVE_ARCHITECTURE_P39.6.md) per diagramma completo.
+**Invarianti non violabili del UIBlock layer (P44.6):**
+
+5. Gerarchia layer: `Chat > PlanCard > DecisionCard > Orbit` — non negoziabile
+6. `orbit_plan` sempre a `index=1` dell'array UIBlock[] (dopo testo assistant) — non spostare
+7. `DecisionCard` appare **solo** se `!planPresent || confidence.score < 0.7 || explain.shouldShow`
+8. `OrbitDock` silenzioso se `decision_card` o `work_session` presenti negli ultimi 3 messaggi assistant
+
+→ Vedi [docs/COGNITIVE_ARCHITECTURE_P44.6.md](docs/COGNITIVE_ARCHITECTURE_P44.6.md) per diagramma completo (appendice P44.6 in fondo al doc).
 
 ---
 
@@ -115,7 +136,8 @@ src/
 │   ├── useFlowStore.ts          # orbit flows (persist 'orbit_flows_v1')
 │   └── ...
 ├── theme/               # muiTheme.ts + M3ThemeProvider + token MD3
-│   ├── orbitTokens.ts   # CSS custom properties Orbit
+│   ├── orbitTokens.ts   # CSS custom properties Orbit + ORBIT_BACKGROUND/TEASER/STEP_COLORS
+│   ├── orbitTheme.ts    # ORBIT_CSS_VARS, injectOrbitCssVars() — chiamato da main.tsx
 │   ├── orbitStates.ts   # stato agente, mobile cap < 600px
 │   ├── agentPersonality.ts
 │   └── presenceEngine.ts
@@ -250,17 +272,36 @@ VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces  # Tracing loca
 - **`orbitTokens.ts` usa CSS custom properties** — non funziona in React Native senza shim numerico.
 - **Server `adaptive.ts`** non lancia mai eccezioni al chiamante; tutti gli errori sono `logger.warn`. Non aggiungere `throw` senza consenso.
 - **Encoding UTF-8**: alcuni file sorgente possono contenere double-encoding (es. `â€"` al posto di `—`, `Ã ` al posto di `à`). Usare `scripts/fix-encoding.mjs` per batch-fix. NON aprire/salvare file con editor in Latin-1/Windows-1252.
+- **`orbit_plan` sempre a index=1** — `PlanCardBlock` usa `activeStep` come stato locale del componente (non Zustand store); non sollevare senza sprint dedicato.
+- **`DecisionCard` è condizionale** — non renderla always-present. La P44.5 `const unify = actionsIdx !== -1` è stata corretta in P44.6; non ripristinare.
+- **`hasDecisionCard` guard in `OrbitDock.tsx`** — silenzioso quando una decisione è già in context. Non rimuovere senza aggiornare i test E2E del nudge.
+- **`ExplainEngine.items.slice(0,2)` e `ConfidenceEngine.MAX_FACTORS=3`** — hard limits cognitivi. Non aumentare senza test A/B sulla riduzione di carico cognitivo.
+- **`INTAKE_KEYWORDS` in `useSmartChat.ts`** — espandono input breve prima di `buildPlan()`. Non rimuovere senza test A/B sul tasso di plan confidence.
+- **`orbit_teaser_v1` localStorage key** — cambiare la key causa ri-presentazione del teaser a tutti gli utenti esistenti. Incrementare solo con migration esplicita.
+- **`injectOrbitCssVars()` in `main.tsx`** — inietta `--orbit-*` CSS custom properties nel `<head>` prima del primo render. Deve restare la prima chiamata dopo `injectOrbitCssVars` e prima di `<React.StrictMode>`. Idempotente — sicuro chiamarlo più volte.
 
 ---
 
 ## Componenti chiave (navigazione rapida)
 
-| File                                            | Scopo                                                  |
-| ----------------------------------------------- | ------------------------------------------------------ |
-| `src/components/copilot/AITabErrorBoundary.tsx` | Per-tab error boundary 12 sub-tab CopilotDocentePanel  |
-| `src/components/PrivacyConsentModal.tsx`        | Prima schermata GDPR art.13 (blocking dialog)          |
-| `src/utils/dataRetention.ts`                    | GDPR B4: cleanup artefatti AI dopo 365 giorni          |
-| `src/components/UnifiedOnboardingFlow.tsx`      | Onboarding 4-step unificato (Welcome→HowIWork→AI→GDPR) |
+| File                                            | Scopo                                                                          |
+| ----------------------------------------------- | ------------------------------------------------------------------------------ |
+| `src/hooks/useSmartChat.ts`                     | Pipeline 10-step: assembla UIBlock[] per ogni turno                            |
+| `src/components/chat/MessageBlockRenderer.tsx`  | PlanCardBlock / DecisionCardBlock / WorkSessionBlock                           |
+| `src/components/orbit/OrbitDock.tsx`            | Drawer suggerimenti, hasDecisionCard guard, MOBILE_PB=30vh                     |
+| `src/components/copilot/AITabErrorBoundary.tsx` | Per-tab error boundary 12 sub-tab CopilotDocentePanel                          |
+| `src/components/PrivacyConsentModal.tsx`        | Prima schermata GDPR art.13 (blocking dialog)                                  |
+| `src/utils/dataRetention.ts`                    | GDPR B4: cleanup artefatti AI dopo 365 giorni                                  |
+| `src/components/UnifiedOnboardingFlow.tsx`      | Onboarding 4-step unificato (Welcome→HowIWork→AI→GDPR)                         |
+| `src/components/ui/OrbitTeaser.tsx`             | Walkthrough iniziale 4 slide; gate `orbit_teaser_v1`; skip in `__TEST_MODE`    |
+| `src/theme/orbitTheme.ts`                       | `injectOrbitCssVars()` — injector CSS `--orbit-*` vars; chiamato da `main.tsx` |
+
+### Roadmap Orbit (documentazione)
+
+| Documento                         | Contenuto                                                        |
+| --------------------------------- | ---------------------------------------------------------------- |
+| `docs/ORBIT_ROADMAP_OPERATIVA.md` | Roadmap 10 fasi con sprint consigliati; Fasi 0-5 ✅ Fasi 6-10 ⏳ |
+| `docs/ORBIT_VISION_2026.md`       | Visione strategica, opportunità, vincoli, Design System esteso   |
 
 ### Privacy / GDPR
 

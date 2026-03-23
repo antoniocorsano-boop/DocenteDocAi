@@ -11,6 +11,7 @@ import ErrorBoundary from './ErrorBoundary';
 import { ViewLoadingPlaceholder } from './ViewLoadingPlaceholder';
 import { AppState, AppActions, View, Lezione, RegisterEntry, Studente, Competenza, Uda, Report, LessonScheduleInput, EvaluationInput, UdaCreateInput, OrientamentoActivity, EPortfolioEntry, EventoCalendario } from '../types';
 import type { Modals } from '../types';
+import { useViewInhibition, VIEW_TO_PANEL_ID } from '@/hooks/useOrbitInhibition';
 
 const RegisterImportDialog = lazy(() => import('./RegisterImportDialog'));
 interface ViewManagerProps {
@@ -72,6 +73,11 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
     // Helper to ensure PIN is valid (fallback to 0000 if empty to prevent lockout)
     const safeSecurityPin = settings.securityPin && settings.securityPin.length === 4 ? settings.securityPin : '0000';
 
+    // Orbit UI inhibition — soft-hiding of legacy panels when Orbit takes control
+    // INVARIANT: panels are never unmounted; aria-hidden + data attribute only.
+    const { isInhibited, inhibitionReason } = useViewInhibition(view);
+    const panelId = VIEW_TO_PANEL_ID[view];
+
     // Accessibility: Scroll to top and manage focus on view change
     React.useEffect(() => {
         window.scrollTo(0, 0);
@@ -83,6 +89,25 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
             mainContent.focus();
         }
     }, [view]);
+
+    // Orbit inhibition attributes — annotate #main-content for E2E + screen readers.
+    // INVARIANT: no element is removed from DOM; only data attributes change.
+    React.useEffect(() => {
+        const el = document.getElementById('main-content');
+        if (!el) return;
+        if (panelId) {
+            el.setAttribute('data-orbit-panel-id', panelId);
+        } else {
+            el.removeAttribute('data-orbit-panel-id');
+        }
+        if (isInhibited) {
+            el.setAttribute('data-orbit-inhibited', 'true');
+            el.setAttribute('data-orbit-inhibition-reason', inhibitionReason);
+        } else {
+            el.removeAttribute('data-orbit-inhibited');
+            el.removeAttribute('data-orbit-inhibition-reason');
+        }
+    }, [isInhibited, inhibitionReason, panelId]);
 
     const renderView = useMemo(() => {
         const config = VIEW_CONFIGS[view];

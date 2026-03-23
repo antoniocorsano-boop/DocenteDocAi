@@ -40,6 +40,9 @@ const CircolareAnalysisModal = React.lazy(() => import('./CircolareAnalysisModal
 const OrbitChatFAB         = React.lazy(() =>
   import('./chat/OrbitChatFAB').then(m => ({ default: m.OrbitChatFAB }))
 );
+const OrbitDock            = React.lazy(() =>
+  import('./orbit/OrbitDock').then(m => ({ default: m.OrbitDock }))
+);
 
 const handleImportEvents = () => {};
 const handleSaveToKb = () => {};
@@ -229,6 +232,10 @@ const App: React.FC = () => {
                 {/* Orbit Chat FAB — global persistent chat entry point */}
                 <React.Suspense fallback={null}>
                   <OrbitChatFAB userPlan="free" />
+                </React.Suspense>
+                {/* OrbitDock — quick-access skill layer (non-distruttivo) */}
+                <React.Suspense fallback={null}>
+                  <OrbitDock />
                 </React.Suspense>
                 {modals.isLiveAssistantModalOpen && (
                     <React.Suspense fallback={<ViewLoadingPlaceholder message="Caricamento assistente..." />}>

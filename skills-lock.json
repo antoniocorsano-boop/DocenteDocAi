@@ -1,6 +1,16 @@
 {
   "version": 1,
   "skills": {
+    "claude-md-management": {
+      "source": "giuseppe-trisciuoglio/developer-kit-claude-code",
+      "sourceType": "github",
+      "computedHash": "1fef224ecf2c19dea56c6f191ccb4794cf7932966be1fb048b3ad649a7e6dafe"
+    },
+    "debug": {
+      "source": "anthropics/knowledge-work-plugins",
+      "sourceType": "github",
+      "computedHash": "16c35005c49594d9ae4ddc744f61863b8f6c0f965097ca6662808b5f23a0de6b"
+    },
     "frontend-design": {
       "source": "anthropics/skills",
       "sourceType": "github",
