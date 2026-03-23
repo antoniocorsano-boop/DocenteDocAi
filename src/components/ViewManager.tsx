@@ -372,6 +372,14 @@ const ViewManager: React.FC<ViewManagerProps> = ({ view, viewContext, appState, 
                             case 'teacher-dashboard':
                                 componentProps = { onNavigate: handleNavigate };
                                 break;
+                            case 'copilot': {
+                                // CopilotView reads stores directly; pass only optional context
+                                const subTab = typeof viewContext === 'object' && viewContext !== null && 'tab' in viewContext
+                                    ? String((viewContext as Record<string, unknown>).tab)
+                                    : undefined;
+                                componentProps = { initialSubTab: subTab };
+                                break;
+                            }
                         }
 
                         return config.auraWrapper !== false ? (

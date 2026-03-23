@@ -43,9 +43,10 @@ interface HomeProps {
 // â”€â”€ Azioni contestuali per ora del giorno â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getTimedActions(h: number): { label: string; icon: string; view: View; color: string }[] {
   if (h < 9) return [
-    { label: 'Registro',   icon: 'menu_book',   view: 'register' as View,   color: 'var(--md-sys-color-primary)' },
-    { label: 'Presenze',   icon: 'fact_check',  view: 'presenze' as View,   color: 'var(--md-sys-color-secondary)' },
-    { label: 'Orario',     icon: 'schedule',    view: 'timetable' as View,  color: 'var(--md-sys-color-tertiary)' },
+    { label: 'Registro',   icon: 'menu_book',   view: 'register' as View,       color: 'var(--md-sys-color-primary)' },
+    // 'presenze' non ha view dedicata — il registro include la gestione presenze
+    { label: 'Presenze',   icon: 'fact_check',  view: 'register' as View,       color: 'var(--md-sys-color-secondary)' },
+    { label: 'Orario',     icon: 'schedule',    view: 'timetable' as View,      color: 'var(--md-sys-color-tertiary)' },
   ];
   if (h < 14) return [
     { label: 'Registro',        icon: 'menu_book',     view: 'register' as View,       color: 'var(--md-sys-color-primary)' },
@@ -112,7 +113,8 @@ const ALL_AREAS: { label: string; icon: string; view: string }[] = [
   { label: 'Studenti',     icon: 'group',          view: 'studenti' },
   { label: 'Calendario',   icon: 'calendar_month', view: 'calendario' },
   { label: 'Registro',     icon: 'menu_book',      view: 'register' },
-  { label: 'Presenze',     icon: 'fact_check',     view: 'presenze' },
+  // 'presenze' non ha una view dedicata — si usa il registro (che include la gestione presenze)
+  { label: 'Presenze',     icon: 'fact_check',     view: 'register' },
   { label: 'Inbox',        icon: 'inbox',          view: 'teacher-inbox' },
   { label: 'C.d.C.',       icon: 'groups',         view: 'consiglio-di-classe' },
   { label: 'Inclusiva',    icon: 'accessibility',  view: 'didattica-inclusiva' },

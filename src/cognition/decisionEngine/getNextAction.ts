@@ -124,7 +124,7 @@ const RULES: DecisionRule[] = [
           id: 'da-create-lesson',
           label: 'Crea la tua prima lezione',
           description: 'Registra una lezione per iniziare a costruire il tuo storico didattico.',
-          targetView: 'lesson',
+          targetView: 'lessons',
           cta: 'Crea lezione',
           reason: `Hai registrato ${ctx.usage.lessonsCreated} lezione${ctx.usage.lessonsCreated !== 1 ? 'i' : ''}. Registrarne almeno 3 permette al Copilot di farti suggerimenti precisi.`,
           icon: 'edit_document',
