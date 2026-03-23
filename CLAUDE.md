@@ -1,24 +1,16 @@
 # DocenteDoc AI — CLAUDE.md
 
-> **Sistema cognitivo adattivo** per docenti italiani. Non è un'app: è un'intelligenza che impara lo stile di chi la usa.  
-> Ogni layer condiviso tra tutti i prodotti dell'ecosistema — ciò che cresce qui cresce ovunque.
-
-Stack principale: **React 18 + TypeScript + Vite + MUI v7 + Zustand** — SPA full-client + Server Node.js + Edge Functions Vercel.
+Stack: **React 18 + TypeScript + Vite + MUI v7 + Zustand** — SPA full-client + Server Node.js + Edge Functions Vercel.
 
 ---
 
-## Ecosistema & Prodotti
+## Prodotti che condividono questo kernel
 
-Il codice di questo repo è il **kernel condiviso** di un ecosistema in espansione:
-
-| Prodotto             | Stato             | Layer cognitivo condiviso                                     |
-| -------------------- | ----------------- | ------------------------------------------------------------- |
-| **DocenteDoc AI**    | ✅ Pilota pronto  | EmotionalEngine, CognitiveStyleEngine, MergeStrategy          |
-| **Orbit Jarvis**     | 🔄 P2–P4 in corso | orbitEngine, patternDetector, narrativeLayer, attentionRouter |
-| **Server Adattivo**  | ✅ Operativo      | adaptive.ts, feedbackLoop, memoryConsolidation, embedding     |
-| **Mobile (RN/Expo)** | 📋 Pianificato    | 12 moduli logica pura già mobile-ready                        |
-
-**Principio fondante:** ogni innovazione cognitiva (nuovo pattern emotional, nuovo layer style, nuovo segnale) migra immediatamente in tutti i prodotti. Il sistema si autoalimenta: più impara da DocenteDoc, più diventa intelligente in Orbit e viceversa.
+| Prodotto        | Moduli condivisi                                              |
+| --------------- | ------------------------------------------------------------- |
+| DocenteDoc AI   | EmotionalEngine, CognitiveStyleEngine, MergeStrategy          |
+| Orbit Jarvis    | orbitEngine, patternDetector, narrativeLayer, attentionRouter |
+| Server Adattivo | adaptive.ts, feedbackLoop, memoryConsolidation, embedding     |
 
 ---
 
@@ -88,6 +80,9 @@ npm run md3:validate             # alias → lint + build (gate pre-deploy)
 # Storybook
 npm run storybook                # dev su http://localhost:6006
 npm run build-storybook          # build statica Storybook
+
+# TypeScript check
+npx tsc -b --noEmit              # verifica tipi senza emettere file
 ```
 
 ---
@@ -258,43 +253,7 @@ VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces  # Tracing loca
 
 ---
 
-## Stato Progetto — Marzo 2026
-
-### Ciclo Cognitivo Adattivo — COMPLETATO (P38–P39.6)
-
-| Sprint/Phase | Feature                                                        | Commit     | Stato |
-| ------------ | -------------------------------------------------------------- | ---------- | ----- |
-| P38.5–P38.6  | EmotionalEngine L1-L4b, learning layer, progressive reveal     | `a4003769` | ✅    |
-| P38.7        | smoothState, REVEAL_LABEL dinamica, stronger profile influence | `ff228673` | ✅    |
-| P39          | CognitiveStyleEngine, store v3, applyStyleBias                 | `9d976415` | ✅    |
-| P39.5        | smoothStyle, style-aware adaptBlocks, telemetria               | `3cfdbb4a` | ✅    |
-| P39.6        | mergeStrategy (gerarchia esplicita), lastPerceivedState        | `dfc8f705` | ✅    |
-
-### Pipeline AI Core — COMPLETATA (Sprint 1–9)
-
-| Sprint | Feature                                           | Stato |
-| ------ | ------------------------------------------------- | ----- |
-| 1–4    | Core UDA planner, classroom, evaluation           | ✅    |
-| 5–6    | AI Decision Support (raccomandazioni, predizione) | ✅    |
-| 7–8    | Copilot panel, spiegabilità, telemetria           | ✅    |
-| 9      | Audit Level 6, fix deficit, R1–R6 risolti         | ✅    |
-
-### Orbit Jarvis — IN CORSO (P2–P4)
-
-| Phase | Feature                                                                | Stato |
-| ----- | ---------------------------------------------------------------------- | ----- |
-| P1    | Core ThumbMenu, Skills registry, OrchestrationContext                  | ✅    |
-| P2    | Teacher skills, Landing overlays (schedule/class/lesson)               | 🔄    |
-| P3    | Connectors (email, file, external sync), mock-first                    | 🔄    |
-| P4    | userBehaviorStore → buildContext, automation levels, InlineActionStrip | 📋    |
-
-### Metriche baseline
-
-- **Test**: 1740 passed / 1752 total (12 intentional skip), 0 failing
-- **Ultimo commit stabile**: `fc59414a` — fix encoding UTF-8/Latin-1 (6 file, 97 fix)
-- **CI**: 4 GitHub Actions workflow attivi (lint, test, release-gate, e2e-smoke)
-
-### Componenti Pilot (post-audit)
+## Componenti chiave (navigazione rapida)
 
 | File                                            | Scopo                                                  |
 | ----------------------------------------------- | ------------------------------------------------------ |
