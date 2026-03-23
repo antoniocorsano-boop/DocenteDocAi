@@ -1,4 +1,4 @@
-﻿// MD3 GOLD COMPLIANT â€” Home: Centro di Comando Docente
+﻿// MD3 GOLD COMPLIANT — Home: Centro di Comando Docente
 // Chat AI inline + azioni contestuali per momento del giorno + documenti burocratici
 
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
@@ -74,7 +74,7 @@ function getTimedLabel(h: number): string {
 
 // â”€â”€ Prompt contestuali per ora del giorno â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getContextualPrompts(h: number): string[] {
-  if (h < 9)  return ['Cosa devo fare oggi?', 'Traccia di lezione rapida', 'Studenti con pendenze BES', 'AttivitÃ  di avvio classe'];
+  if (h < 9)  return ['Cosa devo fare oggi?', 'Traccia di lezione rapida', 'Studenti con pendenze BES', 'Attività di avvio classe'];
   if (h < 14) return ['Genera una domanda per l\'interrogazione', 'Suggerisci argomento prossima ora', 'Analizza andamento classe', 'Annota un comportamento'];
   if (h < 18) return ['Genera una UDA completa', 'Scrivi la programmazione annuale', 'Compila un PDP', 'Prepara verbale consiglio'];
   return ['Relazione finale di classe', 'Analisi rendimento quadrimestre', 'Certificazione competenze', 'Cosa programmo per domani?'];
@@ -82,7 +82,7 @@ function getContextualPrompts(h: number): string[] {
 
 // â”€â”€ Documenti burocratici â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const DOC_ACTIONS: { label: string; icon: string; view: View; desc: string }[] = [
-  { label: 'UDA',           icon: 'layers',            view: 'uda' as View,                        desc: 'UnitÃ  di Apprendimento' },
+  { label: 'UDA',           icon: 'layers',            view: 'uda' as View,                        desc: 'Unità di Apprendimento' },
   { label: 'Rubriche',      icon: 'checklist',          view: 'rubriche' as View,                   desc: 'Rubriche valutazione' },
   { label: 'Programmazione',icon: 'event_note',         view: 'progettazione-hub' as View,          desc: 'Piano annuale' },
   { label: 'PDP / PEI',     icon: 'accessibility',      view: 'didattica-inclusiva' as View,        desc: 'Documenti BES/DSA' },
@@ -96,11 +96,11 @@ const DOC_ACTIONS: { label: string; icon: string; view: View; desc: string }[] =
 
 // â”€â”€ Scadenzario normativo â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function getDeadlineAlerts(now: Date): { icon: string; text: string; urgency: 'error' | 'warning' | 'info' }[] {
-  const m = now.getMonth() + 1; // 1â€“12
+  const m = now.getMonth() + 1; // 1–12
   const result: { icon: string; text: string; urgency: 'error' | 'warning' | 'info' }[] = [];
-  if (m === 1)  result.push({ icon: 'assignment_late',    text: 'Scrutinio 1Â° quadrimestre in vista',            urgency: 'error' });
-  if (m === 2)  result.push({ icon: 'description',        text: 'Aggiorna i PDP/PEI per il 2Â° periodo',          urgency: 'warning' });
-  if (m === 3)  result.push({ icon: 'fact_check',         text: 'UDA 2Â° bimestre: verifica avanzamento',         urgency: 'warning' });
+  if (m === 1)  result.push({ icon: 'assignment_late',    text: 'Scrutinio 1° quadrimestre in vista',            urgency: 'error' });
+  if (m === 2)  result.push({ icon: 'description',        text: 'Aggiorna i PDP/PEI per il 2° periodo',          urgency: 'warning' });
+  if (m === 3)  result.push({ icon: 'fact_check',         text: 'UDA 2° bimestre: verifica avanzamento',         urgency: 'warning' });
   if (m === 5)  result.push({ icon: 'workspace_premium',  text: 'Certificazioni competenze: avvia compilazione', urgency: 'error' });
   if (m === 6)  result.push({ icon: 'summarize',          text: 'Relazioni finali di classe da produrre',        urgency: 'error' });
   if (m === 9)  result.push({ icon: 'event_note',         text: 'Setup classi e programmazione annuale',         urgency: 'warning' });
@@ -226,7 +226,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               {studentsCount > 0 && (
                 <ButtonBase
                   onClick={() => onNavigate('aula' as View)}
-                  aria-label={`${studentsCount} studenti â€” vai a Classi`}
+                  aria-label={`${studentsCount} studenti — vai a Classi`}
                   focusRipple
                   sx={{
                     textAlign: 'center', px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-2)',
@@ -366,7 +366,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               {isLoading && (
                 <Box sx={{ alignSelf: 'flex-start', display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)', px: 'var(--md-sys-spacing-3)' }}>
                   <CircularProgress size={14} sx={{ color: 'var(--md-sys-color-secondary)' }} />
-                  <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>elaboroâ€¦</Typography>
+                  <Typography variant="caption" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>elaboro…</Typography>
                 </Box>
               )}
               <div ref={messagesEndRef} />
@@ -404,7 +404,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
               onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                 if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(input); }
               }}
-              placeholder="Chiedi o dai un comandoâ€¦"
+              placeholder="Chiedi o dai un comando…"
               disabled={isLoading}
               aria-label="Messaggio per l'assistente AI"
               sx={{ '& .MuiOutlinedInput-root': { borderRadius: 'var(--md-sys-shape-corner-large)', bgcolor: 'var(--md-sys-color-surface)' } }}
@@ -583,7 +583,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 key={String(d.view)}
                 onClick={() => onNavigate(d.view)}
                 focusRipple
-                aria-label={`${d.label} â€” ${d.desc}`}
+                aria-label={`${d.label} — ${d.desc}`}
                 sx={{
                   display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)',
                   px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-2)',

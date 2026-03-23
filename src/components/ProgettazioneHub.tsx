@@ -161,7 +161,7 @@ const ProgettazioneHub: React.FC<ProgettazioneHubProps> = ({
                             <NavigationCard
                                 icon="assignment"
                                 title="Planner UDA"
-                                description="Gestisci le UnitÃ  di Apprendimento, le fasi di lavoro e le competenze target."
+                                description="Gestisci le Unità di Apprendimento, le fasi di lavoro e le competenze target."
                                 color="var(--md-sys-color-secondary-container)"
                                 onClick={() => {
                                     logger.audit('Navigated to UDA Planner');

@@ -257,7 +257,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                                 }}>{HW_ICON[hwStatus]}</Box>
                                             </Tooltip>
                                         ) : (
-                                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>â€”</Typography>
+                                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>—</Typography>
                                         )}
                                     </td>
 
@@ -268,7 +268,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                                 const count = badges.filter(b => b.type === type).length;
                                                 if (!count) return null;
                                                 return (
-                                                    <Tooltip key={type} title={`${type} Ã—${count}`} placement="top">
+                                                    <Tooltip key={type} title={`${type} ×${count}`} placement="top">
                                                         <Box component="span" sx={{
                                                             display: 'inline-flex', alignItems: 'center', gap: '2px',
                                                             padding: '1px 6px',
@@ -295,7 +295,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                                 </Typography>
                                             </Tooltip>
                                         ) : (
-                                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>â€”</Typography>
+                                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>—</Typography>
                                         )}
                                     </td>
 
@@ -308,7 +308,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                                 </Typography>
                                             </Tooltip>
                                         ) : (
-                                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>â€”</Typography>
+                                            <Typography variant="body2" component="span" sx={{ color: 'var(--md-sys-color-outline)' }}>—</Typography>
                                         )}
                                     </td>
 
@@ -316,7 +316,7 @@ export const ClassroomRegisterTab: React.FC<ClassroomRegisterTabProps> = ({
                                     <td style={{ ...tdStyle, textAlign: 'center' }}>
                                         <Box sx={{ display: 'inline-flex', alignItems: 'center', gap: 'var(--md-sys-spacing-1)' }}>
                                             <Typography variant="body2" component="span" sx={{ fontWeight: 'var(--md-sys-typescale-weight-bold)', color: gradeColor(stat.grade) }}>
-                                                {stat.grade || 'â€”'}
+                                                {stat.grade || '—'}
                                             </Typography>
                                             <Box component="span" className="material-symbols-outlined" aria-hidden="true" sx={{
                                                 fontSize: 16,

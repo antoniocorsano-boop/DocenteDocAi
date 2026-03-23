@@ -25,7 +25,7 @@
  * Current: Pure M3Dialog with complete MD3 design tokens + scrolling support
  *
  * Status: ? FULLY MIGRATED & ACCESSIBLE
- * // M3Expressive refactor: Gi� completamente migrato, confermato conforme M3.
+ * // M3Expressive refactor: Già completamente migrato, confermato conforme M3.
  */
 
 import Tabs from '@mui/material/Tabs';
@@ -332,7 +332,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                 </Box>
               </Box>
 
-              {/* Attivit� Recente */}
+              {/* Attività Recente */}
               <Box sx={{display: 'grid',
                 gridTemplateColumns: 'repeat(auto-fit, minmax(var(--md-sys-spacing-19), var(--md-sys-grid-fr-1)))',
                 gap: 'var(--md-sys-spacing-6)'}}>
@@ -349,7 +349,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
-                    Attivit� 7 Giorni
+                    Attività 7 Giorni
                   </Typography>
                   <Box sx={{display: 'flex',
                     flexDirection: 'column',
@@ -393,7 +393,7 @@ const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ onClose }) => {
                       marginBottom: 'var(--md-sys-spacing-8)',
                       display: 'block'}}
                   >
-                    Funzionalit� Top
+                    Funzionalità Top
                   </Typography>
                   <Box sx={{display: 'flex',
                     flexDirection: 'column',
