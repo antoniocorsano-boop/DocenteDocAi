@@ -130,6 +130,7 @@ src/
 │   ├── student.types.ts
 │   ├── ai.types.ts
 │   └── ...
+├── cognition/           # userBehaviorModel, cognitiveLoad, eventMap (copilotHints)
 ├── utils/               # Utility pure
 ├── main.tsx             # Entry point
 ├── tracing.ts           # OpenTelemetry (attivo in prod)
@@ -253,6 +254,7 @@ VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces  # Tracing loca
 - **`orbit_flows_v1` persist key** — non rinominare senza migration; in React Native bisogna migrare a AsyncStorage.
 - **`orbitTokens.ts` usa CSS custom properties** — non funziona in React Native senza shim numerico.
 - **Server `adaptive.ts`** non lancia mai eccezioni al chiamante; tutti gli errori sono `logger.warn`. Non aggiungere `throw` senza consenso.
+- **Encoding UTF-8**: alcuni file sorgente possono contenere double-encoding (es. `â€"` al posto di `—`, `Ã ` al posto di `à`). Usare `scripts/fix-encoding.mjs` per batch-fix. NON aprire/salvare file con editor in Latin-1/Windows-1252.
 
 ---
 
@@ -289,16 +291,17 @@ VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces  # Tracing loca
 ### Metriche baseline
 
 - **Test**: 1740 passed / 1752 total (12 intentional skip), 0 failing
-- **Ultimo commit stabile**: `dfc8f705` — P39.6 merge engine
+- **Ultimo commit stabile**: `fc59414a` — fix encoding UTF-8/Latin-1 (6 file, 97 fix)
 - **CI**: 4 GitHub Actions workflow attivi (lint, test, release-gate, e2e-smoke)
 
 ### Componenti Pilot (post-audit)
 
-| File                                            | Scopo                                                 |
-| ----------------------------------------------- | ----------------------------------------------------- |
-| `src/components/copilot/AITabErrorBoundary.tsx` | Per-tab error boundary 12 sub-tab CopilotDocentePanel |
-| `src/components/PrivacyConsentModal.tsx`        | Prima schermata GDPR art.13 (blocking dialog)         |
-| `src/utils/dataRetention.ts`                    | GDPR B4: cleanup artefatti AI dopo 365 giorni         |
+| File                                            | Scopo                                                  |
+| ----------------------------------------------- | ------------------------------------------------------ |
+| `src/components/copilot/AITabErrorBoundary.tsx` | Per-tab error boundary 12 sub-tab CopilotDocentePanel  |
+| `src/components/PrivacyConsentModal.tsx`        | Prima schermata GDPR art.13 (blocking dialog)          |
+| `src/utils/dataRetention.ts`                    | GDPR B4: cleanup artefatti AI dopo 365 giorni          |
+| `src/components/UnifiedOnboardingFlow.tsx`      | Onboarding 4-step unificato (Welcome→HowIWork→AI→GDPR) |
 
 ### Privacy / GDPR
 
@@ -307,84 +310,3 @@ VITE_OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318/v1/traces  # Tracing loca
 - `runRetentionCheck()` chiamato a ogni avvio da `main.tsx` — rimuove dati AI scaduti.
 - Dati **primari** (UDA, alunni, valutazioni) NON soggetti a auto-delete.
 - `cognitiveStyle` e `emotionalProfile` **non vengono mai inviati a endpoint esterni**.
-
----
-
-## Visione Ecosistema — Il Kernel Cognitivo Condiviso
-
-```
-                    ┌───────────────────────────────────┐
-                    │       KERNEL COGNITIVO             │
-                    │                                   │
-                    │  EmotionalEngine                  │
-                    │  CognitiveStyleEngine             │
-                    │  mergeStrategy                    │
-                    │  (P1:safety > P2:style > P3:speed)│
-                    │                                   │
-                    │  patternDetector · narrativeLayer │
-                    │  userBehaviorModel · skillRegistry│
-                    │  adaptive.ts · feedbackLoop       │
-                    │  memoryConsolidation · embedding  │
-                    └──────────────┬────────────────────┘
-                                   │ ogni apprendimento si propaga
-          ┌────────────────────────┼────────────────────────┐
-          │                        │                        │
-          ▼                        ▼                        ▼
-┌──────────────────┐   ┌──────────────────┐   ┌──────────────────┐
-│  DocenteDoc AI   │   │  Orbit Jarvis    │   │  Mobile App      │
-│                  │   │                  │   │                  │
-│  Chat / Copilot  │   │  Workspace AI    │   │  Light Client    │
-│  adaptBlocks     │   │  ThumbMenu       │   │  UI/UX           │
-│  SmartChat UI    │   │  Adaptive UI     │   │  RN/Expo         │
-└────────┬─────────┘   └────────┬─────────┘   └────────┬─────────┘
-         │                      │                      │
-         └──────────────────────┴──────────────────────┘
-                                │ feedback aggregato
-                                ▼
-                    ┌────────────────────────┐
-                    │   Server Adattivo      │
-                    │   agent scoring        │
-                    │   cross-session memory │
-                    └────────────────────────┘
-```
-
-**Legge del sistema:** una nuova regola emotiva, uno stile appreso, un pattern comportamentale — nascono in un prodotto e diventano patrimonio di tutti. Il sistema cresce come un unico organismo.
-
-### Roadmap Operativa Multilayer (P39.6 → Fasi successive)
-
-| Layer / Modulo             | Stato P39.6                        | Prossimi obiettivi                          | Timeline   |
-| -------------------------- | ---------------------------------- | ------------------------------------------- | ---------- |
-| Emotional Engine           | ✅ smoothState, lastPerceivedState | Predizione stati complessi (overload, flow) | Q2 2026    |
-| Cognitive Style Engine     | ✅ mergeStrategy + smoothStyle     | Bias dinamico cross-prodotti                | Q2–Q3 2026 |
-| Adaptive UX / UI Blocks    | ✅ style-aware adaptBlocks         | Test A/B UI dinamica, UX "autonoma"         | Q3 2026    |
-| Learning Layer             | ✅ track usage & exploration       | Consolidazione metriche evoluzione adattiva | Q3–Q4 2026 |
-| Server Layer               | ✅ adaptive.ts, feedbackLoop       | Feedback loop self-tuning, agent scoring v2 | Q3 2026    |
-| Multi-prodotto Integration | ✅ Kernel condiviso                | Auto-allineamento prodotti, metriche comuni | Q4 2026    |
-
-### Roadmap Prodotti
-
-| Prodotto        | Prossimi passi                                                              | Documenti                                                                 |
-| --------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------------- |
-| DocenteDoc AI   | UX adattiva avanzata, HITL corrections, explainability                      | [RELEASE_PLAN_V2_ADAPTIVE.md](docs/RELEASE_PLAN_V2_ADAPTIVE.md)           |
-| Orbit Jarvis    | P2 teacher skills, P3 connectors, P4 automation                             | [ORBIT_PHASE24_PLAN.md](docs/ORBIT_PHASE24_PLAN.md)                       |
-| Server Adattivo | embedding quality pipeline, cross-product agent scoring                     | [ARCHITECTURE_AUDIT_2026-03-16.md](docs/ARCHITECTURE_AUDIT_2026-03-16.md) |
-| Mobile RN/Expo  | 12 moduli logica pura già portabili; AsyncStorage shim; JarvisNexus rewrite | [ORBIT_MOBILE_ROADMAP.md](docs/ORBIT_MOBILE_ROADMAP.md)                   |
-
-### Principi di evoluzione — Human-in-the-Loop & Cognitive Evolution
-
-1. **Priorità alla percezione reale dell'utente** — `lastPerceivedState` guida smoothing e merge strategy; lo stato percepito non viene sovrascritto da euristiche veloci.
-2. **Bias soft e spiegabile** — `mergeStrategy` non sovrascrive mai il tono rassicurante (`guidance === 'lead'` è inviolabile); ogni override è documentato e testato.
-3. **Telemetria trasparente** — `cognitive.style.updated` visibile in devtools; ogni cambio di stile è tracciabile nella timeline di una sessione.
-4. **Esperienza visiva adattiva** — `adaptBlocks` riflette lo style corrente senza rompere l'UX; il contenuto non scompare, si rivela progressivamente.
-5. **Evoluzione cross-prodotti** — tutti i layer condivisi; il learning è cumulativo; il feedback loop è orchestrato centralmente dal Server Adattivo.
-6. **Zero divergenza cognitiva** — se `mergeStrategy` aggiunge una regola, tutti i prodotti la ricevono nello stesso sprint.
-7. **Mobile-first logic** — ogni nuovo modulo di logica pura deve restare zero-dep da DOM/browser API.
-
-### Prossimi obiettivi trasversali
-
-- **Pilota DocenteDoc**: consenso + retention ✅ → deploy Vercel → feedback reale docenti
-- **Orbit P2**: landing overlays + teacher skills → testing con docente pilota
-- **Cross-product memory**: `memoryConsolidation.ts` → profilo utente che migra da DocenteDoc a Orbit
-- **GDPR completo** (2–3 mesi): registro trattamenti, DPA, right-to-erasure UI
-- **Certificazione PA** (9–12 mesi): SPID, dichiarazione accessibilità, pentest, AGID
-- **Mobile alpha** (6–9 mesi): 12 moduli logica pura + AsyncStorage shim + JarvisNexus RN
