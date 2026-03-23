@@ -71,11 +71,16 @@ export interface InputBarProps {
   onClear?:       () => void;
   /** P38.5: current cognitive-emotional state — drives placeholder text */
   emotionalState?: EmotionalState;
+  /**
+   * When true, the mode selector renders icon-only ToggleButtons to fit
+   * in narrow containers (e.g. embedded Drawer panel).
+   */
+  compact?: boolean;
 }
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export function InputBar({ mode, setMode, onSend, loading, userPlan = 'free', onClear, emotionalState }: InputBarProps): React.ReactElement {
+export function InputBar({ mode, setMode, onSend, loading, userPlan = 'free', onClear, emotionalState, compact = false }: InputBarProps): React.ReactElement {
   const [input, setInput] = useState('');
 
   const { suggested, reason, differs } = useSuggestedMode();
@@ -171,18 +176,20 @@ export function InputBar({ mode, setMode, onSend, loading, userPlan = 'free', on
               : meta.tooltip;
 
             return (
-              <Tooltip key={m} title={tooltipText} placement="top">
+              <Tooltip key={m} title={compact ? `${meta.label}${blocked ? ' (PRO)' : ''}` : tooltipText} placement="top">
                 {/* span wrapper needed so Tooltip works on disabled buttons */}
                 <span>
                   <ToggleButton
                     value={m}
                     disabled={blocked}
                     aria-label={`Modalità ${meta.label}${blocked ? ' (PRO)' : ''}`}
-                    sx={{ gap: 0.5 }}
+                    sx={{ gap: compact ? 0 : 0.5, px: compact ? 0.75 : 1.25, minWidth: compact ? 36 : 'auto' }}
                   >
                     <span aria-hidden="true">{meta.icon}</span>
-                    <Typography variant="caption">{meta.label}</Typography>
-                    {blocked && (
+                    {!compact && (
+                      <Typography variant="caption">{meta.label}</Typography>
+                    )}
+                    {!compact && blocked && (
                       <Typography variant="caption" color="warning.main" aria-hidden="true">
                         PRO
                       </Typography>

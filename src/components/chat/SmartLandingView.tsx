@@ -219,22 +219,22 @@ export function SmartLandingView({
         display:        'flex',
         flexDirection:  'column',
         alignItems:     'center',
-        justifyContent: 'center',
-        px:             3,
-        py:             4,
-        gap:            3,
+        justifyContent: 'flex-start',
+        px:             2,
+        py:             2.5,
+        gap:            2,
         overflowY:      'auto',
       }}
       role="main"
       aria-label="Schermata iniziale assistente"
     >
       {/* ── Greeting ───────────────────────────────────────────────────────── */}
-      <Stack alignItems="center" spacing={1}>
+      <Stack alignItems="center" spacing={0.5}>
         <AutoAwesomeIcon
-          sx={{ fontSize: 'var(--md-sys-icon-size-2xl, 48px)', color: 'primary.main' }}
+          sx={{ fontSize: 'var(--md-sys-icon-size-xl, 36px)', color: 'primary.main' }}
           aria-hidden="true"
         />
-        <Typography variant="h5" align="center">
+        <Typography variant="h6" align="center">
           {greeting}, {roleLabel}!
         </Typography>
         <Typography variant="body2" color="text.secondary" align="center">
@@ -256,7 +256,7 @@ export function SmartLandingView({
 
       {/* ── Contextual action cards ───────────────────────────────────────── */}
       <Stack
-        spacing={1.5}
+        spacing={1}
         sx={{ width: '100%', maxWidth: 480 }}
         role="list"
         aria-label="Azioni suggerite"
@@ -272,7 +272,7 @@ export function SmartLandingView({
               display:         'flex',
               alignItems:      'center',
               gap:             1.5,
-              p:               2,
+              p:               1.5,
               borderRadius:    2,
               border:          '1px solid',
               borderColor:     `${card.color ?? 'primary'}.light`,

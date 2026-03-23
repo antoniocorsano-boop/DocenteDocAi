@@ -76,6 +76,11 @@ export interface SmartChatProps {
   height?:      string | number;
   /** Override the starting mode (e.g. auto-set by OrbitChatFAB based on device) */
   initialMode?: import('@/modules/orchestration/ModeEngine').Mode;
+  /**
+   * When true, the conversation sidebar is always in Drawer/hamburger mode
+   * regardless of viewport width (useful when embedded inside a narrow panel).
+   */
+  forceCompact?: boolean;
 }
 
 // ── User message bubble ───────────────────────────────────────────────────────
@@ -435,7 +440,7 @@ function ConversationSidebar({ onNewChat, onClose }: SidebarProps) {
 
 // ── SmartChat ─────────────────────────────────────────────────────────────────
 
-export function SmartChat({ onClear, userPlan = 'free', height = '100%', initialMode }: SmartChatProps): React.ReactElement {
+export function SmartChat({ onClear, userPlan = 'free', height = '100%', initialMode, forceCompact = false }: SmartChatProps): React.ReactElement {
   const {
     messages,
     loading,
@@ -451,6 +456,8 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
 
   const theme    = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  // Sidebar collapses to a Drawer when on mobile OR when embedded in a narrow panel
+  const isCompact = isMobile || forceCompact;
   const [drawerOpen,    setDrawerOpen]    = useState(false);
   const [settingsOpen,  setSettingsOpen]  = useState(false);
   const [autoSandbox,   setAutoSandbox]   = useState(true);
@@ -511,14 +518,14 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
   const handleClear = () => {
     clearMessages();
     onClear?.();
-    if (isMobile) setDrawerOpen(false);
+    if (isCompact) setDrawerOpen(false);
   };
 
-  // Sidebar content shared between desktop panel and mobile Drawer
+  // Sidebar content shared between desktop panel and compact/mobile Drawer
   const sidebarNode = (
     <ConversationSidebar
       onNewChat={handleClear}
-      onClose={isMobile ? () => setDrawerOpen(false) : undefined}
+      onClose={isCompact ? () => setDrawerOpen(false) : undefined}
     />
   );
 
@@ -533,15 +540,15 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
       role="main"
       aria-label="Interfaccia chat AI"
     >
-      {/* Desktop sidebar */}
-      {!isMobile && (
+      {/* Desktop sidebar — hidden in compact/embedded mode */}
+      {!isCompact && (
         <Box sx={{ flexShrink: 0 }}>
           {sidebarNode}
         </Box>
       )}
 
-      {/* Mobile drawer */}
-      {isMobile && (
+      {/* Compact + Mobile: sidebar in a temporary Drawer */}
+      {isCompact && (
         <Drawer
           open={drawerOpen}
           onClose={() => setDrawerOpen(false)}
@@ -564,8 +571,8 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
           spacing={1}
           sx={{ px: 2, py: 1, borderBottom: '1px solid', borderColor: 'divider', flexShrink: 0 }}
         >
-          {/* Hamburger — mobile only */}
-          {isMobile && (
+          {/* Hamburger — compact + mobile */}
+          {isCompact && (
             <IconButton
               size="small"
               aria-label="Apri menu conversazioni"
@@ -685,6 +692,7 @@ export function SmartChat({ onClear, userPlan = 'free', height = '100%', initial
           userPlan={userPlan}
           onClear={handleClear}
           emotionalState={emotionalState}
+          compact={isCompact}
         />
       </Box>
 

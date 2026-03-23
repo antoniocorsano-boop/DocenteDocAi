@@ -28,7 +28,7 @@ import type { NexusState }    from '../ui/JarvisNexus';
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
-const DRAWER_WIDTH = 420;
+const DRAWER_WIDTH = 480;
 
 /**
  * FloatingSatelliteCopilot sits at bottom:24px with a 56px FAB.
@@ -145,6 +145,7 @@ export function OrbitChatFAB({ nexusState, userPlan = 'free' }: OrbitChatFABProp
           userPlan={userPlan}
           height="100%"
           initialMode={deviceMode}
+          forceCompact
         />
       </Drawer>
     </>
