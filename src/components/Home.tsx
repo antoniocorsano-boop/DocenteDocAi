@@ -583,7 +583,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
           }}>
             Documenti & Burocrazia
           </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--md-sys-spacing-2)' }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)', md: 'repeat(5, 1fr)' }, gap: 'var(--md-sys-spacing-2)' }}>
             {visibleDocActions.map(d => (
               <ButtonBase
                 key={String(d.view)}
@@ -592,6 +592,7 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 aria-label={`${d.label} — ${d.desc}`}
                 sx={{
                   display: 'flex', alignItems: 'center', gap: 'var(--md-sys-spacing-2)',
+                  width: '100%', justifyContent: 'flex-start',
                   px: 'var(--md-sys-spacing-3)', py: 'var(--md-sys-spacing-2)',
                   borderRadius: 'var(--md-sys-shape-corner-full)',
                   border: 'var(--md-sys-border-width-thin) solid var(--md-sys-color-outline-variant)',
@@ -607,7 +608,6 @@ const Home: React.FC<HomeProps> = ({ onNavigate }) => {
                 <Typography variant="body2" sx={{
                   color: 'var(--md-sys-color-on-surface)',
                   fontWeight: 'var(--md-sys-typescale-weight-medium)',
-                  whiteSpace: 'nowrap',
                 }}>
                   {d.label}
                 </Typography>

@@ -48,6 +48,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
 }) => {
     const [activeTab, setActiveTab] = useState<ClassroomTab>('register');
     const [selectedStudentForActions, setSelectedStudentForActions] = useState<Studente | null>(null);
+    const [confirmFinalizeOpen, setConfirmFinalizeOpen] = useState(false);
     const [quickEvalStudent, setQuickEvalStudent] = useState<Studente | null>(null);
     const [observationStudent, setObservationStudent] = useState<Studente | null>(null);
     const [isCopyModalOpen, setIsCopyModalOpen] = useState(false);
@@ -192,7 +193,7 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                 </div>
 
                 <button
-                    onClick={() => onFinalizeRegister(draftKey)}
+                    onClick={() => setConfirmFinalizeOpen(true)}
                     style={{
                         backgroundColor: 'var(--md-sys-color-primary)',
                         color: 'var(--md-sys-color-on-primary)',
@@ -487,6 +488,24 @@ const ClassroomView: React.FC<ClassroomViewProps> = ({
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={() => setSelectedStudentForActions(null)} variant="text">Chiudi</Button>
+                    </DialogActions>
+                </M3Dialog>
+            )}
+
+            {confirmFinalizeOpen && (
+                <M3Dialog
+                    isOpen={confirmFinalizeOpen}
+                    title="Finalizza registro"
+                    onClose={() => setConfirmFinalizeOpen(false)}
+                >
+                    <DialogContent>
+                        <Typography variant="bodyMedium" sx={{ color: 'var(--md-sys-color-on-surface-variant)' }}>
+                            Stai per finalizzare il registro di questa lezione. Questa azione non può essere annullata. Confermi?
+                        </Typography>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button variant="text" onClick={() => setConfirmFinalizeOpen(false)}>Annulla</Button>
+                        <Button variant="contained" color="primary" onClick={() => { setConfirmFinalizeOpen(false); onFinalizeRegister(draftKey); }}>Conferma</Button>
                     </DialogActions>
                 </M3Dialog>
             )}

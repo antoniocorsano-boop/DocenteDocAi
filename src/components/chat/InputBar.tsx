@@ -68,6 +68,8 @@ export interface InputBarProps {
   loading:        boolean;
   /** 'pro' unlocks deep/manual modes */
   userPlan?:      'free' | 'pro';
+  /** Called when the user clicks the upgrade-to-PRO CTA */
+  onUpgrade?:     () => void;
   onClear?:       () => void;
   /** P38.5: current cognitive-emotional state — drives placeholder text */
   emotionalState?: EmotionalState;
@@ -80,7 +82,7 @@ export interface InputBarProps {
 
 // ── Component ─────────────────────────────────────────────────────────────────
 
-export function InputBar({ mode, setMode, onSend, loading, userPlan = 'free', onClear, emotionalState, compact = false }: InputBarProps): React.ReactElement {
+export function InputBar({ mode, setMode, onSend, loading, userPlan = 'free', onUpgrade, onClear, emotionalState, compact = false }: InputBarProps): React.ReactElement {
   const [input, setInput] = useState('');
 
   const { suggested, reason, differs } = useSuggestedMode();
@@ -200,6 +202,22 @@ export function InputBar({ mode, setMode, onSend, loading, userPlan = 'free', on
             );
           })}
         </ToggleButtonGroup>
+
+        {/* PRO upgrade CTA — shown only to free users so they know how to unlock deep/manual */}
+        {userPlan !== 'pro' && (
+          <Tooltip title="Passa a DocenteDoc PRO per sbloccare le modalità Approfondita e Manuale" placement="top">
+            <Chip
+              label="✨ PRO"
+              size="small"
+              variant="outlined"
+              color="warning"
+              onClick={onUpgrade}
+              aria-label="Aggiorna a DocenteDoc PRO per sbloccare le modalità avanzate"
+              clickable={!!onUpgrade}
+              sx={{ fontSize: 'var(--md-sys-typescale-label-small-font-size)', cursor: onUpgrade ? 'pointer' : 'default' }}
+            />
+          </Tooltip>
+        )}
 
         {/* Suggested mode hint — shown only when current mode differs from suggestion */}
         {differs(mode) && (
