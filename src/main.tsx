@@ -354,29 +354,26 @@ async function bootstrapApp() {
     // Dynamically import App after stores are ready to avoid initialization races
     const { App } = await import('./components/App');
     const { ModalProvider } = await import('./contexts/ModalContext');
-    const { default: PrivacyConsentModal }    = await import('./components/PrivacyConsentModal');
-    const { default: SovereigntyOnboarding } = await import('./components/onboarding/SovereigntyOnboarding');
-    const { default: PilotaOnboardingModal, hasPilotOnboarding } = await import('./components/onboarding/PilotaOnboardingModal');
+    const { hasPilotOnboarding } = await import('./components/onboarding/PilotaOnboardingModal');
+    const { default: UnifiedOnboardingFlow } = await import('./components/onboarding/UnifiedOnboardingFlow');
 
-    /** Consent gate — keeps app blocked until:
-     *  1. GDPR informativa is accepted (PrivacyConsentModal)
-     *  2. Sovereignty settings are configured (SovereigntyOnboarding)
-     *  3. Pilot cognitive-system intro is shown once (PilotaOnboardingModal)
+    /** Consent gate — percorso unico di 4 step (Benvenuto → Come funziono → Modalità AI → Privacy GDPR).
+     *  Sostituisce la cascata PrivacyConsentModal → SovereigntyOnboarding → PilotaOnboardingModal
+     *  con un singolo flusso che parte da un hook emotivo invece che dalle norme legali.
+     *
+     *  Gate completato quando TUTTI e 3 i flag sono presenti:
+     *   1. privacy_consent_v1      (GDPR art. 13)
+     *   2. sovereignty_config_v1   (modalità operativa AI)
+     *   3. pilot_onboarding_v1     (intro sistema cognitivo)
      */
     function AppWithConsent() {
       const isTestMode = !!(window as unknown as { __TEST_MODE?: boolean }).__TEST_MODE
         || localStorage.getItem('__e2e_test_mode') === 'true';
-      const [consented,   setConsented]   = useState(() => isTestMode || hasPrivacyConsent());
-      const [hasSov,      setHasSov]      = useState(() => isTestMode || hasSovereigntyConfig());
-      const [hasPilot,    setHasPilot]    = useState(() => isTestMode || hasPilotOnboarding());
-      if (!consented) {
-        return <PrivacyConsentModal onAccepted={() => setConsented(true)} />;
-      }
-      if (!hasSov) {
-        return <SovereigntyOnboarding onCompleted={() => setHasSov(true)} />;
-      }
-      if (!hasPilot) {
-        return <PilotaOnboardingModal open={true} onDone={() => setHasPilot(true)} />;
+      const [allDone, setAllDone] = useState(
+        () => isTestMode || (hasPrivacyConsent() && hasSovereigntyConfig() && hasPilotOnboarding()),
+      );
+      if (!allDone) {
+        return <UnifiedOnboardingFlow onComplete={() => setAllDone(true)} />;
       }
       return (
         <NKAProvider>
