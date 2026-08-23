@@ -1,0 +1,127 @@
+# Instincts generated from https://github.com/antoniocorsano-boop/DocenteDocAi
+# Generated: 2026-08-23T06:45:06.313Z
+# Version: 2.0
+# NOTE: This file supplements (does not replace) any existing curated instincts.
+# High-confidence manually curated instincts should be preserved alongside these.
+
+---
+id: DocenteDocAi-commit-conventional
+trigger: "when writing a commit message"
+confidence: 0.85
+domain: git
+source: repo-analysis
+source_repo: https://github.com/antoniocorsano-boop/DocenteDocAi
+---
+
+# DocenteDocAi Commit Conventional
+
+## Action
+
+Use conventional commit format with prefixes: feat, docs, chore
+
+## Evidence
+
+- 4 commits analyzed
+- Detected conventional commit pattern
+- Examples: feat(skills): add canonical repo_manager skill, docs(skills): define human task content compiler profile
+
+---
+id: DocenteDocAi-commit-length
+trigger: "when writing a commit message"
+confidence: 0.6
+domain: git
+source: repo-analysis
+source_repo: https://github.com/antoniocorsano-boop/DocenteDocAi
+---
+
+# DocenteDocAi Commit Length
+
+## Action
+
+Keep commit messages concise (~49 characters)
+
+## Evidence
+
+- Average commit message length: 49 chars
+- Based on 4 commits
+
+---
+id: DocenteDocAi-naming-files
+trigger: "when creating a new file"
+confidence: 0.8
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/antoniocorsano-boop/DocenteDocAi
+---
+
+# DocenteDocAi Naming Files
+
+## Action
+
+Use PascalCase naming convention
+
+## Evidence
+
+- Analyzed file naming patterns in repository
+- Dominant pattern: PascalCase
+
+---
+id: DocenteDocAi-import-relative
+trigger: "when importing modules"
+confidence: 0.75
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/antoniocorsano-boop/DocenteDocAi
+---
+
+# DocenteDocAi Import Relative
+
+## Action
+
+Use relative imports for project files
+
+## Evidence
+
+- Import analysis shows relative import pattern
+- Example: import { x } from '../lib/x'
+
+---
+id: DocenteDocAi-export-style
+trigger: "when exporting from a module"
+confidence: 0.7
+domain: code-style
+source: repo-analysis
+source_repo: https://github.com/antoniocorsano-boop/DocenteDocAi
+---
+
+# DocenteDocAi Export Style
+
+## Action
+
+Prefer named exports
+
+## Evidence
+
+- Export pattern analysis
+- Dominant style: named
+
+---
+id: DocenteDocAi-test-separate
+trigger: "when writing tests"
+confidence: 0.8
+domain: testing
+source: repo-analysis
+source_repo: https://github.com/antoniocorsano-boop/DocenteDocAi
+---
+
+# DocenteDocAi Test Separate
+
+## Action
+
+Place tests in the tests/ or __tests__/ directory, mirroring src structure
+
+## Evidence
+
+- Separate test directory pattern detected
+- Tests live in dedicated test folders
+
