@@ -1,0 +1,45 @@
+{
+  "id": "repo_manager",
+  "name": "repo_manager",
+  "description": "Repository-governance skill for architecture-aware inspection, impact analysis, safe implementation, validation, promotion, and compiler-driven automation of repeated repository workflows.",
+  "references": {
+    "files": [
+      "HUMAN_TASK_CONTENT_COMPILER.md"
+    ]
+  },
+  "profiles": {
+    "human_task_content_compiler": {
+      "description": "Compiles canonical planning/content sources into reviewable task projections and approved declarative manifests using deterministic recipe classification and fail-closed source binding.",
+      "reference": "HUMAN_TASK_CONTENT_COMPILER.md",
+      "recipeFamilies": [
+        "DIRECT",
+        "PACK_COMPOSED",
+        "UDA_ONLY",
+        "PLAN_GUIDED_UDA"
+      ],
+      "unresolvedState": "UNRESOLVED — HUMAN DESIGN REQUIRED"
+    }
+  },
+  "repositoryLaw": {
+    "readFirstWhenPresent": [
+      "AGENTS.md",
+      "agent.md",
+      "CLAUDE.md",
+      ".claude/commands/repo_manager.md"
+    ],
+    "missingPolicy": "REPORT_AND_DO_NOT_INVENT",
+    "conflictPolicy": "FAIL_CLOSED_FOR_DESTRUCTIVE_OR_ARCHITECTURAL_WRITES"
+  },
+  "coreRules": [
+    "inspect before proposing changes",
+    "preserve architecture unless migration is explicitly authorized",
+    "report inconsistencies before modifying them",
+    "produce dependency and impact maps for material changes",
+    "never blindly flatten or reorganize",
+    "never delete materially destructive artifacts without approval",
+    "preserve history for moves",
+    "automate mechanics and surface semantic decisions",
+    "prefer generic invariants and manifests over per-unit runtime cases",
+    "verify deployment against the exact merged commit"
+  ]
+}
