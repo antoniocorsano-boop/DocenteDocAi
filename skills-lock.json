@@ -31,6 +31,11 @@
       "sourceType": "github",
       "computedHash": "eed8a65a35a8c6b545da542ee92f51e786c40cc5677ee05fac36bc9913d9e27e"
     },
+    "repo_manager": {
+      "source": "local/.agents/skills/repo_manager",
+      "sourceType": "manual",
+      "note": "Canonical local repository-governance skill with human_task_content_compiler profile"
+    },
     "repository-analyzer": {
       "source": "jackspace/claudeskillz",
       "sourceType": "github",
